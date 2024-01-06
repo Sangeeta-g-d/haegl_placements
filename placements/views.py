@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse,HttpResponseRedirect,HttpResponseForbidden,HttpResponseBadRequest
 from django.template import loader
-from .models import NewUser
+from .models import CompanyDetails, NewUser
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 from datetime import date
@@ -107,7 +107,43 @@ def login1(request):
         else:
             request.session['error_message'] = 'Wait till account varifies'
             return redirect('/login')
+        
     return render(request,'login.html')
+
+def add_company_details(request):
+    i = request.user.id
+   # obj = NewUser.objects.get(id=i)
+    today_date = date.today()
+    context = {'today_date':today_date}
+    if request.method == 'POST':
+        tag_line = request.POST.get('tag_line')
+        company_type = request.POST.get('company_type')
+        service_sector = request.POST.get('service_sector')
+        founded_year = request.POST.get('founded_year')
+        head_branch = request.POST.get('head_branch')
+        linkedin = request.POST.get('linkedin')
+        instagram = request.POST.get('instagram')
+        facebook = request.POST.get('facebook')
+        website = request.POST.get('website')
+        highlights = request.POST.get('highlights')
+        why_us = request.POST.get('why_us')
+        milestone = request.POST.get('milestone')
+        img1 = request.FILES.get('img1')
+        img2 = request.FILES.get('img2')
+        cover_image = request.FILES.get('cover_image')
+
+        obj = CompanyDetails.objects.create(companyOrAgency_id_id=i,tag_line=tag_line,company_type=company_type,company_service_sector=service_sector,founded_year=founded_year,
+        head_branch=head_branch,linkedin_url=linkedin,instagram_url=instagram,
+        facebook=facebook,webiste=website,
+        Key_highlights=highlights,why_us=why_us,
+        milestone=milestone,
+        other_image1=img1,
+        other_image2=img2,cover_image=cover_image)
+
+        print(obj)
+
+    return render(request,'company_details.html',context)
+          
 
 def company_dashboard(request):
     return render(request,'company_dashboard.html')
