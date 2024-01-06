@@ -105,9 +105,10 @@ def login1(request):
             print("companyyy idddd",i)
             return redirect('company_dashboard')
         else:
-            messages.error(request,'Wrong Credentials')
-            return redirect('/admin_login')
-    return render(request,'admin_login.html')
+            request.session['error_message'] = 'Wait till account varifies'
+            return redirect('/login')
+        
+    return render(request,'login.html')
 
 def add_company_details(request):
     i = request.user.id
