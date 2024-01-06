@@ -1,0 +1,105 @@
+/* styles.css */
+
+/* Body styles */
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: #f4f4f4;
+}
+
+/* Container styles */
+.container {
+width: 90%;
+max-width: 600px;
+background-color: #fff;
+padding: 30px;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Registration form layout */
+.registration-container {
+display: flex;
+flex-direction: column-reverse; /* Reverses the layout for mobile screens */
+}
+
+.image-section {
+background-image: url('/static/assets/images/r_img.jpg'); /* Replace 'your-image-url.jpg' with your image URL */
+background-size: cover;
+height: 300px; /* Adjust the height for mobile screens */
+border-radius: 8px 8px 0 0;
+
+}
+
+.form-section {
+padding: 20px;
+}
+
+/* Form styles */
+h2 {
+margin-bottom: 20px;
+color: #333;
+}
+
+.form-group {
+margin-bottom: 20px;
+}
+
+label {
+display: block;
+margin-bottom: 8px;
+color: #555;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+width: 100%;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+transition: border-color 0.3s ease-in-out;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+outline: none;
+border-color: #007bff;
+}
+
+button {
+padding: 10px 20px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+background-color: #0056b3;
+}
+
+/* Media queries for responsiveness */
+@media screen and (min-width: 768px) {
+.registration-container {
+flex-direction: row; /* Displays side-by-side for larger screens */
+}
+
+.image-section {
+flex: 1;
+height: auto; /* Adjusted height */
+border-radius: 8px 0 0 8px;
+}
+
+.form-section {
+flex: 2;
+padding: 40px;
+}
+}

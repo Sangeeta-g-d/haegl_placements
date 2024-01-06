@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Haegl InterviewEdge</title>
+    <link rel="stylesheet" href="/static/assets/vendors/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="/static/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
+    <link rel="stylesheet" href="/static/assets/vendors/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="/static/assets/css/style.css" />
+    <link rel="shortcut icon" href="/images/favicon.png" />
+  </head>
+  <style>
+  .success-message {
+      padding: 10px;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+
+    .error-message {
+      padding: 10px;
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    </style>
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0 justify-content-center">
+          <div class="col-md-5 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-center">
+      <img width="140px" height="70px" src="/static/assets/images/is_logo.png" alt=""><br>
+    </div>
+              <br>
+                <div class="d-flex justify-content-center">
+                <h4>Admin Login</h4>
+
+              </div>
+              {% if messages %}
+                      {% for message in messages %}
+                        {% if message.tags == 'success' %}
+                          <div class="success-message">
+                            {{ message }}
+                          </div>
+                        {% elif message.tags == 'error' %}
+                          <div class="error-message">
+                            {{ message }}
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                <form class="forms-sample" method="post">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label for="exampleInputUsername1">Username</label>
+                    <input type="text" name="username" class="form-control" id="exampleInputUsername1" placeholder="Username">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  </div>
+                  <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- container-scroller -->
+  <script src="/static/assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="/static/assets/vendors/chart.js/Chart.min.js"></script>
+  <script src="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+  <script src="/static/assets/vendors/flot/jquery.flot.js"></script>
+  <script src="/static/assets/vendors/flot/jquery.flot.resize.js"></script>
+  <script src="/static/assets/vendors/flot/jquery.flot.categories.js"></script>
+  <script src="/static/assets/vendors/flot/jquery.flot.fillbetween.js"></script>
+  <script src="/static/assets/vendors/flot/jquery.flot.stack.js"></script>
+  <script src="/static/assets/vendors/flot/jquery.flot.pie.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="/static/assets/js/off-canvas.js"></script>
+  <script src="/static/assets/js/hoverable-collapse.js"></script>
+  <script src="/static/assets/js/misc.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="/static/assets/js/dashboard.js"></script>
+  <!-- End custom js for this page -->
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Haegl InterviewEdge</title>
+    <link rel="stylesheet" href="/static/assets/vendors/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="/static/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
+    <link rel="stylesheet" href="/static/assets/vendors/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="/static/assets/css/style.css" />
+    <link rel="shortcut icon" href="/images/favicon.png" />
+  </head>
+  <style>
+  .success-message {
+      padding: 10px;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+
+    .error-message {
+      padding: 10px;
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    </style>
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0 justify-content-center">
+          <div class="col-md-5 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-center">
+      <img width="140px" height="70px" src="/static/assets/images/is_logo.png" alt=""><br>
+    </div>
+              <br>
+                <div class="d-flex justify-content-center">
+                <h4>Register Here</h4>
+
+              </div>
+            
+                    <form class="forms-sample" method="post">
+                      {% csrf_token %}
+                            <div class="form-group">
+                              <label for="exampleInputName1">Company Name</label>
+                              <input type="text" name="company_name" class="form-control" id="exampleInputName1" placeholder="company name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputEmail3">Email address</label>
+                              <input type="email" name="email" class="form-control" id="exampleInputEmail3" placeholder="email">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputName1">Set Username</label>
+                              <input type="text" name="username" class="form-control" id="exampleInputName1" placeholder="username">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword4">Password</label>
+                              <input type="password" name="password" class="form-control" id="exampleInputPassword4" placeholder="password">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword4">Confirm Password</label>
+                              <input type="password" name="password1" class="form-control" id="exampleInputPassword4" placeholder="confirm password">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputName1">Contact Number</label>
+                              <input type="text" name="contact_number" class="form-control" max="10" id="exampleInputName1" placeholder="contact number">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleTextarea1">Address</label>
+                              <textarea class="form-control" name="address" id="exampleTextarea1" rows="4"></textarea>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputName1">City</label>
+                              <input type="text" name="city" class="form-control"  id="exampleInputName1" placeholder="city">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputName1">State</label>
+                              <input type="text" name="state" class="form-control" id="exampleInputName1" placeholder="state">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputName1">Country</label>
+                              <input type="text" name="country" class="form-control" id="exampleInputName1" placeholder="country">
+                            </div>
+                            <div class="form-group">
+                              <label>File upload</label>
+                              <div class="input-group col-xs-12">
+                                <input type="file" name="profile" class="form-control file-upload-info"  placeholder="Upload Image">
+
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleTextarea1">Brife About Company</label>
+                              <textarea class="form-control" name="about" id="exampleTextarea1" rows="5"></textarea>
+                            </div>
+                              <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary mr-2"> Register </button>
+                            </div>
+                            <br>
+                              <div class="d-flex justify-content-center">
+                            <h5>Have an account ? <a href="/login">Login</a> </h5>
+                            </div>
+
+                          </form>
+                         
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- container-scroller -->
+  <script src="/static/assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="/static/assets/vendors/chart.js/Chart.min.js"></script>
+  <script src="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+  <script src="/static/assets/vendors/flot/jquery.flot.js"></script>
+  <script src="/static/assets/vendors/flot/jquery.flot.resize.js"></script>
+  <script src="/static/assets/vendors/flot/jquery.flot.categories.js"></script>
+  <script src="/static/assets/vendors/flot/jquery.flot.fillbetween.js"></script>
+  <script src="/static/assets/vendors/flot/jquery.flot.stack.js"></script>
+  <script src="/static/assets/vendors/flot/jquery.flot.pie.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="/static/assets/js/off-canvas.js"></script>
+  <script src="/static/assets/js/hoverable-collapse.js"></script>
+  <script src="/static/assets/js/misc.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="/static/assets/js/dashboard.js"></script>
+  <!-- End custom js for this page -->
+</body>
+</html>
