@@ -9,10 +9,37 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
 from datetime import datetime, timedelta
 from django.contrib.auth import authenticate,login,logout
+from django.http import JsonResponse
 # Create your views here.
 
 def admin_db(request):
-    return render(request,'admin_db.html')
+    i = request.user.id
+    obj = NewUser.objects.get(id=i)
+    today_date = date.today()
+
+    data = NewUser.objects.filter(user_type='Company')
+    context = {
+        'obj':obj,
+        'today_date':today_date,
+        'data':data,
+    }
+    print(data)
+    return render(request,'admin_db.html',context)
+
+def update_status(request):
+    print("hiiiiiiiiiiii")
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        print("Hiiiiiiiiiiiiii")
+        user_id = request.POST.get('user_id')
+        user = get_object_or_404(NewUser, id=user_id)
+        print("userrrrrrr",user)
+
+        # Assuming 'status' is a BooleanField in your model
+        user.status = True
+        user.save()
+
+        return JsonResponse({'message': 'Status updated successfully!'})
+    return JsonResponse({}, status=400)
 
 def admin_login(request):
     if request.method == 'POST':
@@ -64,15 +91,19 @@ def registration(request):
 
     return render(request,'registration.html')
 
-def company_login(request):
+def login1(request):
     if request.method == 'POST':
         username = request.POST.get('username')
+        print(username)
         password = request.POST.get('password')
+        print(password)
         user = authenticate(request, username=username, password=password)
-        if user is not None and user.is_superuser:
+        print("!!!!!!!!!!!!!!!!",user)
+        if user is not None and user.user_type == 'Company' and user.status == True:
             login(request, user)
-            print(request.user)
-            return redirect('/admin_db')
+            i = request.user.id
+            print("companyyy idddd",i)
+            return redirect('company_dashboard')
         else:
             messages.error(request,'Wrong Credentials')
             return redirect('/admin_login')
@@ -80,9 +111,9 @@ def company_login(request):
 
 def add_company_details(request):
     i = request.user.id
-    obj = NewUser.objects.get(id=i)
+   # obj = NewUser.objects.get(id=i)
     today_date = date.today()
-    context = {'obj':obj,'today_date':today_date}
+    context = {'today_date':today_date}
     if request.method == 'POST':
         tag_line = request.POST.get('tag_line')
         company_type = request.POST.get('company_type')
@@ -111,3 +142,7 @@ def add_company_details(request):
         print(obj)
 
     return render(request,'company_details.html',context)
+          
+
+def company_dashboard(request):
+    return render(request,'company_dashboard.html')

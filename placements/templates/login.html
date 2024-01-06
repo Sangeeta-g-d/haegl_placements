@@ -58,15 +58,26 @@
       </div>
     </div>
   </div>
+  
   {% if request.session.success_message %}
   <script>
     window.onload = function() {
       var successMessage = "{{ request.session.success_message }}";
       alert(successMessage);
-      delete sessionStorage.success_message; // Remove the success message from session
+      delete sessionStorage.success_message;
     }
   </script>
-  {% endif %}
+{% endif %}
+
+{% if request.session.error_message %}
+  <script>
+    window.onload = function() {
+      var errorMessage = "{{ request.session.error_message }}";
+      alert(errorMessage);
+      delete sessionStorage.error_message;
+    }
+  </script>
+{% endif %}
   <!-- container-scroller -->
   <script src="/static/assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
