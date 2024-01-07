@@ -3,7 +3,7 @@ from . import views
 from django.contrib import admin
 
 urlpatterns = [
-
+    path('',views.index,name='index'),
     path('admin_db',views.admin_db,name='admin_db'),
     path('login',views.login1,name='login'),
     path('top_companies',views.top_companies,name='top_companies'),
@@ -17,7 +17,9 @@ urlpatterns = [
     path('company_details',views.add_company_details,name='company_details'),
     path('add_top_company',views.add_top_company,name='add_top_company'),
     path('company_dashboard',views.company_dashboard,name="company_dashboard"),
-    path('add_questions',views.add_questions,name="add_questions")
-
-
+    path('add_questions',views.add_questions,name="add_questions"),
+    path('company_dashboard',views.company_dashboard,name="company_dashboard"),
+    path('search_results',views.search_results,name='search_results'),
+    path('user_registration',views.user_registration,name='user_registration'),
+    path('user_login',views.user_login,name='user_login'),
     ]

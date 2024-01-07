@@ -13,6 +13,132 @@ from django.http import JsonResponse
 from django.urls import reverse
 # Create your views here.
 
+
+def index(request):
+    return render(request, 'index.html')
+
+
+def search_results(request):
+    keyword = request.GET.get('keyword')
+    job_title = request.GET.get('job_title')
+    location = request.GET.get('location')
+    job_type = request.GET.get('type')
+
+    combined_results = []
+
+    if keyword:
+        agency_job_results = AgencyJobDetails.objects.filter(
+            Q(designation__icontains=keyword) |
+            Q(job_description__icontains=keyword) |
+            Q(department__icontains=keyword) |
+            Q(location__icontains=keyword) |
+            Q(mandatory_skills__icontains=keyword) |
+            Q(optional_skills__icontains=keyword) |
+            Q(experience__icontains=keyword) |
+            Q(salary__icontains=keyword) |
+            Q(qualification__icontains=keyword)
+        )
+
+        job_results = JobDetails.objects.filter(
+            Q(designation__icontains=keyword) |
+            Q(job_description__icontains=keyword) |
+            Q(department__icontains=keyword) |
+            Q(location__icontains=keyword) |
+            Q(mandatory_skills__icontains=keyword) |
+            Q(optional_skills__icontains=keyword) |
+            Q(experience__icontains=keyword) |
+            Q(salary__icontains=keyword) |
+            Q(qualification__icontains=keyword)
+        )
+
+        # Combine both querysets into a single result set
+        combined_results = list(chain(agency_job_results, job_results))
+
+    elif job_title:
+        # Search by job title in the designation column
+        combined_results = list(chain(
+            AgencyJobDetails.objects.filter(designation__icontains=job_title),
+            JobDetails.objects.filter(designation__icontains=job_title)
+        ))
+
+    elif location:
+        # Search by location in the location column
+        combined_results = list(chain(
+            AgencyJobDetails.objects.filter(location__icontains=location),
+            JobDetails.objects.filter(location__icontains=location)
+        ))
+
+    elif job_type:
+        # Search by job type in the type column
+        agency_job_results = AgencyJobDetails.objects.filter(job_type=job_type)
+        job_results = JobDetails.objects.filter(job_type=job_type)
+        combined_results = list(chain(agency_job_results, job_results))
+
+    for job in combined_results:
+        # Assuming 'posted_on' is the field in your models storing the posting date
+        days_since_posted = (datetime.now().date() - job.created_on).days
+        job.days_since_posted = days_since_posted
+
+
+    unique_departments_agency = AgencyJobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    all_unique_departments = list(set(chain(unique_departments_agency, unique_departments_job)))
+
+    open_status_count_job = (
+        JobDetails.objects.filter(status='open')
+        .values('department')
+        .annotate(open_count=Count('department'))
+    )
+
+    open_status_count_agency = (
+        AgencyJobDetails.objects.filter(status='open')
+        .values('department')
+        .annotate(open_count=Count('department'))
+    )
+
+    open_jobs_count = defaultdict(int)
+    for item in open_status_count_job:
+        open_jobs_count[item['department']] += item['open_count']
+
+    for item in open_status_count_agency:
+        open_jobs_count[item['department']] += item['open_count']
+
+    department_open_counts = [
+        (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
+    ]
+    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+
+# Count jobs in each unique location from AgencyJobDetails
+    agency_job_details_count = AgencyJobDetails.objects.values('location').annotate(job_count=Count('location'))
+
+# Combine the counts
+    combined_counts = {}
+
+    for job_detail in job_details_count:
+        combined_counts[job_detail['location']] = combined_counts.get(job_detail['location'], 0) + job_detail['job_count']
+
+    for agency_job_detail in agency_job_details_count:
+        combined_counts[agency_job_detail['location']] = combined_counts.get(agency_job_detail['location'], 0) + agency_job_detail['job_count']
+
+# Print or use the job counts in each unique location as needed
+    print(combined_counts)
+    context = {
+        'combined_results': combined_results,
+        'keyword': keyword,
+        'job_title': job_title,
+        'location': location,
+        'job_type': job_type,
+        'department_open_counts':department_open_counts,
+        'combined_counts':combined_counts,
+    }
+
+    return render(request, 'search_results.html', context)
+
+
+
+
+
+
 def admin_db(request):
     i = request.user.id
     obj = NewUser.objects.get(id=i)
@@ -252,3 +378,57 @@ def add_job(request):
         return redirect(reverse('job_vacancy') + '?success_message=1')
 
     return render(request,'add_job.html',context)
+
+
+def user_registration(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        password1 = request.POST.get('password1')
+        email = request.POST.get('email')
+        phone_no = request.POST.get('phone_no')
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        profile = request.FILES.get('profile')
+        if password != password1:
+            context = {
+                'registration_error': 'Passwords do not match',
+                # Include other context data needed for rendering the form again
+            }
+            return render(request, 'user_registration.html', context)
+
+        passw = make_password(password)
+        user = NewUser.objects.create(first_name=first_name,last_name=last_name,username=username,password=passw,
+        email=email,phone_no=phone_no,address=address,city=city,profile=profile)
+
+        context = {'registration_successful': True}
+        return render(request, 'user_registration.html', context)
+    return render(request,'user_registration.html')
+
+
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        print(username)
+        password = request.POST.get('password')
+        print(password)
+        user = authenticate(request, username=username, password=password)
+        print("!!!!!!!!!!!!!!!!",user)
+        if user is not None and user.user_type == 'job seeker':
+            login(request, user)
+            i = request.user.id
+            print("agencyyyy idddd",i)
+            obj = UserDetails.objects.filter(user_id_id=i).first()
+            print("!!!!!!!!!",obj)
+            if obj is None:
+                return redirect('user_details')
+            else:
+
+                return redirect('user_dashboard')
+        else:
+            messages.error(request, 'Invalid username or password.')
+            return render(request, 'user_login.html')
+    return render(request, 'user_login.html', {'messages': messages.get_messages(request)})
