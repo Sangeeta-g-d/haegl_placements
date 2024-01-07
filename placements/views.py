@@ -579,26 +579,7 @@ def company(request,id):
         company_names = [obj.first_name]
         display_jobs = JobDetails.objects.filter(company_id_id=id)  # Assuming company_name exists in the NewUser model
         # Additional logic for companies if needed
-    
-        
-        for company in companies_with_jobs:
-            company_name = company['company_id__company_name']
-            job_details = {
-                'designation': company['designation'],
-
-                'no_of_vacancy': company['no_of_vacancy'],
-                # Add other job details here
-            }
-            if company_name in company_jobs_dict:
-                company_jobs_dict[company_name].append(job_details)
-            else:
-                company_jobs_dict[company_name] = [job_details]
-            print(company_jobs_dict)
-
-        company_names = list(company_jobs_dict.keys())
-        for x in company_names:
-            print(x)
-        jobs = None  # No direct jobs to display for agencies
+     
 
 
     context = {
@@ -612,6 +593,7 @@ def company(request,id):
 
     }
     return render(request,'company.html',context)
+
 
 def job_list(request, department):
     print(department)
@@ -861,4 +843,20 @@ def location_related_jobs(request, location):
     }
 
     return render(request, 'location_related_jobs.html', context)
+
+def autocomplete_job_title_suggestions(request):
+    keyword = request.GET.get('keyword')
+    suggestions = set()  # Using a set to maintain unique values
+
+    if keyword:
+       
+        job_results = JobDetails.objects.filter(
+            designation__icontains=keyword
+        ).values_list('designation', flat=True)[:10]  # Limit suggestions to 10
+
+       
+        suggestions.update(job_results)
+
+    return JsonResponse({'suggestions': list(suggestions)})
+
 

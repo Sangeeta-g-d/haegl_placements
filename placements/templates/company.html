@@ -243,25 +243,15 @@
 						<!-- Widget Header -->
 						<h5 class="widget-header">Job Vacancies</h5>
 						<ul class="category-list">
-							{% if obj.user_type == 'Company' %}
+							
 	    {% for job in jobs %}
 	        <h4>{{ obj.company_name }}</h4>
 	        <ul>
-	            <li><a href="{% url 'single_job' job_id=job.id u_id=job.company_id_id  %}">{{ job.designation }}<span class="float-right">{{ job.no_of_vacancy }}</span></a></li>
+	            <li><a href="{% url 'single_job' job_id=job.id  %}">{{ job.designation }}<span class="float-right">{{ job.no_of_vacancy }}</span></a></li>
 	            <!-- Add more job details from JobDetails model if needed -->
 	        </ul>
 	    {% endfor %}
-	{% else %}
-	    {% for company, job_list in company_jobs_dict.items %}
-	        <h4>{{ company }}</h4>
-	        {% for job in job_list %}
-	            <ul>
-	                <li>{{ job.designation }}<span class="float-right">{{ job.no_of_vacancy }}</span></li>
-	                <!-- Add more job details from AgencyJobDetails model if needed -->
-	            </ul>
-	        {% endfor %}
-	    {% endfor %}
-	{% endif %}
+	
 						</ul>
 					</div>
 					{% for x in display_jobs %}
@@ -277,7 +267,7 @@
 							</ul>
 							<li><i class="fa fa-map-marker"></i> {{ x.location }} {{x.state}} {{x.country}}</li>
 							
-							<a href="/single_job/{{x.id}}/{{obj.id}}" class="apply-now">Apply now</a>
+							<a href="/single_job/{{x.id}}" class="apply-now">Apply now</a>
 
 
 	        <ul>
