@@ -38,20 +38,17 @@
   <link href="/static/assets1/plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
 
   <link href="/static/assets1/css/style.css" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="...">
-<link href="/static/assets2/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="/static/assets2/css/specific.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
   
   </head>
   <style>
-    .section {
-    overflow-x: hidden;
+    a[href="/haegl.in"]:hover li {
+  /* Apply hover effect styles here */
+  color: #f0f0f0; /* Example hover background color */
+   /* Example hover text color */
 }
 .product-item .card .card-body {
-  height: 250px; /* Adjust the height as needed */
+  height: 248px; /* Adjust the height as needed */
   overflow: hidden;
 }
 #suggestionListJobTitle {
@@ -75,53 +72,51 @@
     background-color: #f2f2f2;
       color:black;
 }
-
-  .product-item:hover {
+.product-item:hover {
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add a box shadow when hovering */
       transform: translateY(-20px); /* Move the card slightly up when hovering */
       transition: box-shadow 0.7s ease, transform 0.7s ease; /* Add a smooth transition effect */
   }
-
-</style>
-<body>
-  <header>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <nav class="navbar navbar-expand-lg navbar-light navigation">
-            <a class="navbar-brand" href="/">
-              <img style=" margin-top: -10px;" width="160px" height="60px" src="/static/assets1/images/is_logo.png" alt="">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav ml-auto main-nav ">
-                <li class="nav-item active">
-                  <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item ">
-                  <a class="nav-link" href="/all_companies">Companies</a>
-                </li>
-                <li class="nav-item ">
-                  <a class="nav-link" href="/all_jobs">Jobs</a>
-                </li>
-              </ul>
-              <ul class="navbar-nav ml-auto mt-10">
-                <li class="nav-item">
-                  <a class="nav-link login-button" href="/user_login">Login</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white add-button" href="/login"><i class="fa fa-plus-circle"></i> Hire Candidate</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-      </div>
-    </div>
-  </header>
+  </style>
+  <body>
+    <header>
+    	<div class="container">
+    		<div class="row">
+    			<div class="col-md-12">
+    				<nav class="navbar navbar-expand-lg navbar-light navigation">
+    					<a class="navbar-brand" href="/">
+    						<img style=" margin-top: -10px;" width="160px" height="60px" src="/static/assets1/images/is_logo.png" alt="">
+    					</a>
+    					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    						<span class="navbar-toggler-icon"></span>
+    					</button>
+    					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    						<ul class="navbar-nav ml-auto main-nav ">
+    							<li class="nav-item active">
+    								<a class="nav-link" href="/">Home</a>
+    							</li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="/all_companies">Companies</a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="/all_jobs">Jobs</a>
+                  </li>
+    						</ul>
+    						<ul class="navbar-nav ml-auto mt-10">
+    							<li class="nav-item">
+    								<a class="nav-link login-button" href="/user_login">Login</a>
+    							</li>
+    							<li class="nav-item">
+    								<a class="nav-link text-white add-button" href="/login"><i class="fa fa-plus-circle"></i> Hire Candidate</a>
+    							</li>
+    						</ul>
+    					</div>
+    				</nav>
+    			</div>
+    		</div>
+    	</div>
+    </header>
 
 
 
@@ -135,9 +130,9 @@
           <form method="GET" action="{% url 'search_results' %}">
             <div class="form-row">
               <div class="form-group col-xl-4 col-lg-3 col-md-6">
- <input type="text" name="job_title" class="form-control my-2 my-lg-1" id="inputtext4" placeholder="Job Title">
- <ul id="suggestionListJobTitle"></ul> <!-- Empty <ul> for displaying suggestions -->
-</div>
+                <input type="text" name="job_title" class="form-control my-2 my-lg-1" id="inputtext4" placeholder="Job Title">
+                <ul id="suggestionListJobTitle"></ul> <!-- Empty <ul> for displaying suggestions -->
+               </div>
               <div class="form-group col-lg-3 col-md-6">
                 <select  name="type" class="w-100 form-control mt-lg-1 mt-md-2">
                   <option>Job Type</option>
@@ -159,50 +154,51 @@
 		</div>
 	</div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('#inputtext4').on('input', function() {
-        const keyword = $(this).val().trim();
-        const suggestionList = $('#suggestionListJobTitle');
-
-        if (keyword.length >= 2) {  // Adjust the minimum length for suggestions
-            $.ajax({
-                url: '/autocomplete-job-title/',  // Replace with your Django URL for job title suggestions
-                data: { keyword: keyword },
-                dataType: 'json',
-                success: function(response) {
-                    const suggestions = response.suggestions;
-                    suggestionList.empty(); // Clear previous suggestions
-                    if (suggestions.length > 0) {
-                        suggestions.forEach(function(suggestion) {
-                            suggestionList.append(`<li>${suggestion}</li>`); // Append suggestions to the <ul>
-                        });
-                        suggestionList.show(); // Show the suggestion list
-                    } else {
-                        suggestionList.hide(); // Hide the suggestion list if no suggestions
-                    }
-                }
-            });
-        } else {
-            suggestionList.hide(); // Hide the suggestion list if input length is less than 2
-        }
-    });
-
-    // Handle click on suggestion and populate the input field
-    $('body').on('click', '#suggestionListJobTitle li', function() {
-        const suggestionText = $(this).text();
-        $('#inputtext4').val(suggestionText);
-        $('#suggestionListJobTitle').hide(); // Hide the suggestion list after selecting a suggestion
-    });
-});
-</script>
+  <script>
+  $(document).ready(function() {
+      $('#inputtext4').on('input', function() {
+          const keyword = $(this).val().trim();
+          const suggestionList = $('#suggestionListJobTitle');
+  
+          if (keyword.length >= 2) {  // Adjust the minimum length for suggestions
+              $.ajax({
+                  url: '/autocomplete-job-title/',  // Replace with your Django URL for job title suggestions
+                  data: { keyword: keyword },
+                  dataType: 'json',
+                  success: function(response) {
+                      const suggestions = response.suggestions;
+                      suggestionList.empty(); // Clear previous suggestions
+                      if (suggestions.length > 0) {
+                          suggestions.forEach(function(suggestion) {
+                              suggestionList.append(`<li>${suggestion}</li>`); // Append suggestions to the <ul>
+                          });
+                          suggestionList.show(); // Show the suggestion list
+                      } else {
+                          suggestionList.hide(); // Hide the suggestion list if no suggestions
+                      }
+                  }
+              });
+          } else {
+              suggestionList.hide(); // Hide the suggestion list if input length is less than 2
+          }
+      });
+  
+      // Handle click on suggestion and populate the input field
+      $('body').on('click', '#suggestionListJobTitle li', function() {
+          const suggestionText = $(this).text();
+          $('#inputtext4').val(suggestionText);
+          $('#suggestionListJobTitle').hide(); // Hide the suggestion list after selecting a suggestion
+      });
+  });
+  </script>
 </section>
-
 <section class="section-sm">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				
+				<div class="search-result bg-gray">
+          <h2>Jobs</h2>
+				</div>
 			</div>
 		</div>
 		<div class="row">
@@ -212,7 +208,7 @@ $(document).ready(function() {
 	<h4 class="widget-header">All Departments</h4>
   <ul class="category-list">
       {% for department, count in department_open_counts %}
-		<li><a href="{% url 'job_list' department|urlencode %}">{{ department }}</a></li>
+		<li><a href="{% url 'job_list' department|urlencode %}">{{ department }} </a></li>
 	{% endfor %}
 	</ul>
 </div>
@@ -236,14 +232,13 @@ $(document).ready(function() {
 	</ul>
 </div>
 
-
 				</div>
 			</div>
 			<div class="col-lg-9 col-md-8">
 
 				<div class="product-grid-list">
 					<div class="row mt-30">
-            {% for x in all_jobs %}
+            {% for x in combined_data %}
 						<div class="col-lg-4 col-md-6">
 							<!-- product card -->
 <div class="product-item bg-light">
@@ -252,7 +247,7 @@ $(document).ready(function() {
 			<!-- <div class="price">$200</div> -->
       {% if x.company_id.first_name %}
       <div class="image-container">
-        <a href="{% url 'single_job' job_id=x.id   %}" style="display: block; text-align: center;">
+        <a href="{% url 'single_job' job_id=x.id  %}" style="display: block; text-align: center;">
       <img class="card-img-top img-fluid mt-3" src="/{{ x.company_id.profile }}" alt="Card image cap" style="width: 130px; height: 120px; margin: 0 auto;">
   </a>
 
@@ -281,24 +276,23 @@ $(document).ready(function() {
           </li><br>
           {% endif %}
 		    	<li class="list-inline-item">
-		    	<i class="fa fa-stopwatch"></i>Experience: {{x.experience}}
-		    	</li><br>
+		    	<i class="fas fa-stopwatch"></i>{{x.job_type}}
+		    	</li>
 		    	<li class="list-inline-item">
-		    		<i class="fa fa-map-marker"></i> {{x.location}}
+		    		<i class="fa fa-map-marker"></i>{{x.location}}
 		    	</li>
           <li class="list-inline-item">
             <i class="fa fa-rupee-sign"></i>{{x.salary}}
           </li>
-          
 		    </ul>
         <p class="card-text">Required Skills : {{ x.mandatory_skills }}</p>
         {% if x.company_id.first_name %}
-    <a class="nav-link text-white add-button" href="{% url 'single_job' job_id=x.id   %}" class="read-more-link">Apply now</a><br>
+    <a class="nav-link text-white add-button" href="{% url 'single_job' job_id=x.id  %}" class="read-more-link">Apply now</a><br>
     {% else %}
-    <a class="nav-link text-white add-button" href="{% url 'single_job' job_id=x.id   %}" class="read-more-link">Apply now</a><br>
+    <a class="nav-link text-white add-button" href="{% url 'single_job' job_id=x.id  %}" class="read-more-link">Apply now</a><br>
     {% endif %}
 		</div>
-      &nbsp<p class="card-text">Posted {{x.days_posted_ago}} ago</p>
+      &nbsp<p class="card-text">Posted {{x.days_since_posted}} ago</p>
 	</div>
 </div>
 </div>
@@ -328,6 +322,7 @@ document.addEventListener("DOMContentLoaded", function() {
             {% endfor %}
 					</div>
 				</div>
+
 
 			</div>
 		</div>
@@ -372,11 +367,11 @@ document.addEventListener("DOMContentLoaded", function() {
             <!-- Insert your social media icons here -->
             <!-- Example using Font Awesome for social icons -->
            
-            <ul class="list-inline">
-              <li class="list-inline-item text-center"><a target="_blank" class="fa fa-instagram" href="https://www.instagram.com/haegltechnologies/" style="font-size: 20px; color: white;"></a></li>&nbsp;
-              <li class="list-inline-item text-center"><a target="_blank" class="fa fa-facebook" href="https://www.facebook.com/haegltechnologies/" style="font-size: 20px; color: white;"></a></li>&nbsp;
-              <li class="list-inline-item text-center"><a target="_blank" class="fa fa-linkedin" href="https://www.linkedin.com/company/haegl-technologies-pvt-ltd/" style="font-size: 20px; color: white;"></a></li>
-          </ul>
+              <ul class="list-inline">
+                <li class="list-inline-item text-center"><a target="_blank" class="fa fa-instagram" href="https://www.instagram.com/haegltechnologies/" style="font-size: 20px; color: white;"></a></li>&nbsp;
+                <li class="list-inline-item text-center"><a target="_blank" class="fa fa-facebook" href="https://www.facebook.com/haegltechnologies/" style="font-size: 20px; color: white;"></a></li>&nbsp;
+                <li class="list-inline-item text-center"><a target="_blank" class="fa fa-linkedin" href="https://www.linkedin.com/company/haegl-technologies-pvt-ltd/" style="font-size: 20px; color: white;"></a></li>
+            </ul>
                  
           
             <!-- Add more social media icons as needed -->
@@ -448,5 +443,3 @@ Essential Scripts
 </body>
 
 </html>
-
-

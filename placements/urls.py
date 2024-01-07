@@ -26,5 +26,9 @@ urlpatterns = [
     path('single_job/<int:job_id>',views.single_job,name='single_job'),
     path('company/<int:id>',views.company,name='company'),
     path('job_list/<str:department>',views.job_list,name='job_list'),
+    path('all_companies',views.all_companies,name='all_companies'),
+    path('all_jobs',views.all_jobs,name='all_jobs'),
+    path('work_mode/<str:selected_work_mode>/', views.work_mode, name='work_mode'),
+    path('location_related_jobs/<str:location>',views.location_related_jobs,name='location_related_jobs'),
     
     ]
