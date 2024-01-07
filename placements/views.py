@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse,HttpResponseRedirect,HttpResponseForbidden,HttpResponseBadRequest
 from django.template import loader
-from .models import CompanyDetails, NewUser, JobDetails
+from .models import CompanyDetails, NewUser, JobDetails, TopCompanies, InterviewQuestions
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 from datetime import date
@@ -152,7 +152,34 @@ def add_company_details(request):
         print(obj)
         return redirect('/company_dashboard')
     return render(request,'company_details.html')
-          
+
+
+def top_companies(request):
+    data = TopCompanies.objects.all()
+    context = {
+        'data':data
+    }
+    return render(request,'top_companies.html',context ) 
+
+def add_top_company(request):
+    if request.method == 'POST':
+        company_name = request.POST.get('company_name')
+        company_logo = request.FILES.get('company_logo')
+        data = TopCompanies.objects.create(company_name=company_name,company_logo=company_logo)
+        print(data)
+        return redirect('/top_companies')  
+
+def add_questions(request):
+    if request.method == 'POST':
+        company_id = request.POST.get('companyId')
+        #print(company_id)
+        question = request.POST.get('question')
+        #print(question)
+        answer = request.POST.get('answer')
+        #print(answer)
+        data = InterviewQuestions.objects.create(company_id_id = company_id, question=question,
+        answer=answer)
+        return redirect('/top_companies')     
 
 def company_dashboard(request):
     first_name = request.user.first_name
