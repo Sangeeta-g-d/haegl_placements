@@ -22,4 +22,9 @@ urlpatterns = [
     path('search_results',views.search_results,name='search_results'),
     path('user_registration',views.user_registration,name='user_registration'),
     path('user_login',views.user_login,name='user_login'),
+    path('search_trend/<str:keyword>/', views.search_trend, name='search_trend'),
+    path('single_job/<int:job_id>',views.single_job,name='single_job'),
+    path('company/<int:id>',views.company,name='company'),
+    path('job_list/<str:department>',views.job_list,name='job_list'),
+    
     ]

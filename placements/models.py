@@ -58,6 +58,25 @@ class JobDetails(models.Model):
     country = models.CharField(max_length=300, default='India')
     state = models.CharField(max_length=300, default='Karnataka')
 
+class AppliedJobs(models.Model):
+    user_id = models.ForeignKey('NewUser',on_delete=models.CASCADE)
+    job_id = models.ForeignKey('JobDetails',on_delete=models.CASCADE)
+    experience = models.CharField(max_length=500,default='fresher')
+    qualification = models.CharField(max_length=400,default='BE')
+    skills = models.CharField(max_length=600,default='HTML')
+    city = models.CharField(max_length=500,default='Hubli')
+    expected_salary = models.CharField(max_length=300)
+    resume = models.FileField(upload_to='applied_resume/')
+    applied_date = models.DateField(default=timezone.now)
+    status = models.CharField(max_length=200,default='Pending')
+
+class CompanyJobSaved(models.Model):
+    user_id=models.ForeignKey('NewUser',on_delete=models.CASCADE,related_name='UserId')
+    companyIdOrAgencyId=models.ForeignKey('NewUser',on_delete=models.CASCADE,related_name='companyId')
+    applied_date = models.DateField(default=timezone.now)
+    job_id = models.ForeignKey('JobDetails',on_delete=models.CASCADE,default=1)
+
+
 class TopCompanies(models.Model):
     company_name = models.CharField(max_length=600,default="top company")
     company_logo = models.ImageField(upload_to='uploaded_images/',default="company logo")

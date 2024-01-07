@@ -10,11 +10,11 @@
 <html lang="en">
 <head>
 
-  <!-- ** Basic Page Needs ** -->
+  <!-- * Basic Page Needs * -->
   <meta charset="utf-8">
   <title>Haegl InterviewEdge</title>
 
-  <!-- ** Mobile Specific Metas ** -->
+  <!-- * Mobile Specific Metas * -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="Agency HTML Template">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -106,6 +106,39 @@
   color: #f0f0f0; /* Example hover background color */
    /* Example hover text color */
 }
+/* Styles for the card container */
+.card2 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    align-items: center; /* Align items vertically */
+    padding: 10px;
+    max-width: 320px;
+}
+
+/* Styles for the logo */
+.logo {
+    margin-right: 10px;
+}
+
+.logo img {
+    width: 50px;
+    height: 40px;
+    
+    border-radius: 5px; /* Adjust to match the card's border radius */
+}
+
+/* Styles for the company details */
+.details {
+    display: flex; /* Display the company name inline */
+    align-items: center; /* Align items vertically */
+}
+
+.details h3 {
+    margin: 0;
+    padding-left: 5px; /* Adjust spacing between logo and text */
+}
+
   </style>
   <body>
     <header>
@@ -223,7 +256,7 @@ $(document).ready(function() {
                     suggestionList.empty(); // Clear previous suggestions
                     if (suggestions.length > 0) {
                         suggestions.forEach(function(suggestion) {
-                            suggestionList.append(`<li>${suggestion}</li>`); // Append suggestions to the <ul>
+                            suggestionList.append(<li>${suggestion}</li>); // Append suggestions to the <ul>
                         });
                         suggestionList.show(); // Show the suggestion list
                     } else {
@@ -326,7 +359,7 @@ $(document).ready(function() {
 			<!-- offer 01 -->
 			<div class="col-lg-12">
 				<div class="trending-ads-slide">
-            {% for x in shuffled_jobs %}
+            {% for x in recent_jobs %}
 					<div class="col-sm-12 col-lg-4">
 						<!-- product card -->
 
@@ -336,20 +369,20 @@ $(document).ready(function() {
 			<!-- <div class="price">$200</div> -->
       {% if x.company_id.first_name%}
 
-			<a href="{% url 'single_job' job_id=x.id u_id=x.company_id_id  %}">
+			<a href="{% url 'single_job' job_id=x.id %}">
 				<img class="small-image card-img-top img-fluid" src="/{{x.company_id.profile}}" alt="Card image cap">
 			</a>
       {% else %}
-      <a href="{% url 'single_job' job_id=x.id u_id=x.agency_id_id  %}">
+      <a href="{% url 'single_job' job_id=x.id %}">
         <img class="small-image card-img-top img-fluid" src="/{{x.company_id.profile}}" alt="Card image cap">
       </a>
       {% endif %}
 		</div>
     <div class="card-body text-center">
       {% if x.company_id.first_name %} <!-- Added 'text-center' class -->
-      <h4 class="card-title"><a href="{% url 'single_job' job_id=x.id u_id=x.company_id_id  %}">{{x.designation}}</a></h4>
+      <h4 class="card-title"><a href="{% url 'single_job' job_id=x.id  %}">{{x.designation}}</a></h4>
       {% else %}
-      <h4 class="card-title"><a href="{% url 'single_job' job_id=x.id u_id=x.agency_id_id  %}">{{x.designation}}</a></h4>
+      <h4 class="card-title"><a href="{% url 'single_job' job_id=x.id  %}">{{x.designation}}</a></h4>
       {% endif %}
       {% if x.company_id.first_name %}
           <p class="card-text">{{x.company_id.first_name}}</p>
@@ -685,81 +718,103 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 <section style="margin-top: -30px;" id="faq" class="faq">
 
-    <div class="container">
+  <div class="container">
 
-      <div class="row gy-4">
+    <div class="row gy-4">
 
-        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-          <div class="content px-xl-5">
-            <h3><span>Prepare for your next interview <strong>Questions</strong></h3>
-           
-          </div>
-          <img width="300px" src="/static/assets2/img/question.png" alt="">
-        </div>
-
-        <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-
-          <div class="faq-container">
-            <div class="faq-item ">
-              
-              <h3><span class="num">1.</span> <span>Python Developer interview question</span></h3>
-              <div class="faq-content">
-                <p>Topics: Basic Python Concepts, Data Structures, Object-Oriented Programming (OOP),Python Libraries/Frameworks, Web Development, Databases.</p>
-               <br>
-                
-              </div>
-              <i class="faq-toggle bi bi-chevron-right"></i>
-            </div><!-- End Faq item-->
-
-            <div class="faq-item">
-              <h3><span class="num">2.</span> <span>Software Engineer interview questions</span></h3>
-              <div class="faq-content">
-                <p>Topics: Programming and Problem Solving, Data Structures, Algorithms, Object-Oriented Programming (OOP) System Design,Database Systems, Web Development, Networking, Operating Systems.</p>
-                <br>
-                
-              </div>
-              <i class="faq-toggle bi bi-chevron-right"></i>
-            </div><!-- End Faq item-->
-
+      <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="content px-xl-5">
+          <h3><span style="font-size: 20px;">Preparation for your next interview?</span><br><b>Refer Questions asked by Top Companies</b></h3>
          
-          
-            <div class="faq-item">
-              <h3><span class="num">3.</span> <span>Banking interview questions</span></h3>
-              <div class="faq-content">
-                <p>Topics: Financial Markets and Instruments, Risk Management, Banking Regulations and Compliance,Financial Statements and Analysis, Credit Analysis, Investment Banking.</p>
-                <br>
-                
-              </div>
-              <i class="faq-toggle bi bi-chevron-right"></i>
-            </div><!-- End Faq item-->
-
-            <div class="faq-item">
-              <h3><span class="num">4.</span> <span>Data Science interview questions</span></h3>
-              <div class="faq-content">
-                <p>Topics: Statistics and Probability, Machine Learning, Data Analysis and Exploration, Data Cleaning and Preprocessing, Programming and Coding, SQL and Databases.</p>
-                <br>
-                
-              </div>
-              <i class="faq-toggle bi bi-chevron-right"></i>
-            </div><!-- End Faq item-->
-
-            <div class="faq-item">
-              <h3><span class="num">5.</span> <span>Sales Manager interview questions</span></h3>
-              <div class="faq-content">
-                <p>Topics: Sales Experience and Achievements, Leadership and Management, Sales Strategy and Planning, Recruitment and Team Building, Performance Management, Customer Focus, Sales Forecasting and Reporting</p>
-             <br>   
-              </div>
-              <i class="faq-toggle bi bi-chevron-right"></i>
-            </div><!-- End Faq item-->
-
-          </div>
-
         </div>
+        <img width="300px" src="/static/assets2/img/question.png" alt="">
       </div>
 
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+
+        <div class="faq-container">
+          {% for c in top_companies %}
+          <div class="faq-item ">
+            <div class="card2">
+              <div class="logo">
+                  <img src="/{{c.company_logo}}" alt="Company Logo">
+              </div>
+              <div class="details">
+                  <a href="/questions/{{c.id}}"><h3>{{c.company_name}}</h3></a>
+              </div>
+          </div>
+          
+          
+            
+           
+          </div><!-- End Faq item-->
+          {% endfor %}
+
+        </div>
+
+      </div>
+      <div class="col-lg-3" data-aos="fade-up" data-aos-delay="200">
+
+        <div class="faq-container">
+         
+          <div class="faq-item">
+            <h3><span class="num">2.</span> <span>Technical Interview Questions</span></h3>
+            <div class="faq-content">
+              <p>Topics : Programming Language, Frameworks and libraries associated with the language, Data Structures, Algorithms, Databases, Networking, Operating Systems ,Software Development Lifecycle.</p>
+              <br>
+              
+            </div>
+            <i class="faq-toggle bi bi-chevron-right"></i>
+          </div><!-- End Faq item-->
+
+       
+        
+          <div class="faq-item">
+            <h3><span class="num">3.</span> <span>Banking interview questions</span></h3>
+            <div class="faq-content">
+              <p>Topics : Financial Markets and Instruments, Banking Regulations and Compliance, Risk Management, Financial Analysis, Banking Operations, Investment Banking, Financial Technology.</p>
+              <br>
+              
+            </div>
+            <i class="faq-toggle bi bi-chevron-right"></i>
+          </div><!-- End Faq item-->
+
+          <div class="faq-item">
+            <h3><span class="num">4.</span> <span>Data Science interview questions</span></h3>
+            <div class="faq-content">
+              <p>Topics: Statistics and Probability, Machine Learning, Data Analysis and Exploration, Data Cleaning and Preprocessing, Programming and Coding, SQL and Databases.</p>
+              <br>
+              
+            </div>
+            <i class="faq-toggle bi bi-chevron-right"></i>
+          </div><!-- End Faq item-->
+
+          <div class="faq-item">
+            <h3><span class="num">5.</span> <span>Sales Manager interview questions</span></h3>
+            <div class="faq-content">
+              <p>Topics: Sales Experience and Achievements, Leadership and Management, Sales Strategy and Planning, Recruitment and Team Building, Performance Management, Customer Focus, Sales Forecasting and Reporting</p>
+           <br>   
+            </div>
+            <i class="faq-toggle bi bi-chevron-right"></i>
+          </div><!-- End Faq item-->
+
+           <div class="faq-item">
+            <h3><span class="num">5.</span> <span>Sales Manager interview questions</span></h3>
+            <div class="faq-content">
+              <p>Topics: Sales Experience and Achievements, Leadership and Management, Sales Strategy and Planning, Recruitment and Team Building, Performance Management, Customer Focus, Sales Forecasting and Reporting</p>
+           <br>   
+            </div>
+            <i class="faq-toggle bi bi-chevron-right"></i>
+          </div><!-- End Faq item-->
+
+        </div>
+
+      </div>
     </div>
 
-  </section><!-- End Faq Section -->
+  </div>
+
+</section><!-- End Faq Section -->
 
 <br>
 <br>
@@ -899,4 +954,3 @@ Essential Scripts
 </body>
 
 </html>
-
