@@ -62,6 +62,11 @@ def admin_logout(request):
     # Redirect to a specific page after logout (optional)
     return redirect('/admin_login')
 
+def company_logout(request):
+    logout(request)
+    # Redirect to a specific page after logout (optional)
+    return redirect('/')
+
 def registration(request):
     if request.method == 'POST':
         company_name = request.POST.get('company_name')
@@ -150,12 +155,18 @@ def add_company_details(request):
           
 
 def company_dashboard(request):
-    return render(request,'company_dashboard.html')
+    first_name = request.user.first_name
+    print(first_name)
+    context = {
+        'first_name':first_name
+    }
+    return render(request,'company_dashboard.html',context)
 
 
 def job_vacancy(request):
     success_message = request.GET.get('success_message')
     i = request.user.id
+    first_name = request.user.first_name
     obj = NewUser.objects.get(id=i)
     today_date = date.today()
     search_query = request.GET.get('search_query', '')
@@ -180,15 +191,16 @@ def job_vacancy(request):
             Q(salary__icontains=str(search_query))
         )
 
-    context = {'obj':obj,'today_date':today_date,'data':data,'success_message':success_message}
+    context = {'obj':obj,'today_date':today_date,'data':data,'success_message':success_message,'first_name':first_name}
 
     return render(request,'job_vacancy.html',context)
 
 def add_job(request):
     i = request.user.id
     obj = NewUser.objects.get(id=i)
+    first_name = request.user.first_name
     today_date = date.today()
-    context = {'obj':obj,'today_date':today_date}
+    context = {'obj':obj,'today_date':today_date,'first_name':first_name}
     if request.method == 'POST':
         designation = request.POST.get('designation')
         department = request.POST.get('department')
