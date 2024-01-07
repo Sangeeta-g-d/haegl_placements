@@ -38,3 +38,22 @@ class CompanyDetails(models.Model):
     other_image1 = models.ImageField(upload_to='company_images/',default='img1')
     other_image2 = models.ImageField(upload_to='company_images/',default='img2')
     
+
+class JobDetails(models.Model):
+    company_id = models.ForeignKey('NewUser', on_delete=models.CASCADE)
+    designation = models.CharField(max_length=300,default='data analyst')
+    job_description = models.CharField(max_length=1000,default='abc')
+    department = models.CharField(max_length=300,default='sales')
+    location = models.CharField(max_length=300,default='hubli')
+    work_mode = models.CharField(max_length=100,default='work from office')
+    no_of_vacancy = models.CharField(max_length=100,default='2')
+    mandatory_skills = models.CharField(max_length=500,default='HTML')
+    optional_skills = models.CharField(max_length=500,default='C')
+    experience = models.CharField(max_length=200,default='fresher')
+    salary = models.CharField(max_length=400,default='3LPA')
+    qualification = models.CharField(max_length=300,default='BCA')
+    created_on = models.DateField(auto_now_add = True)
+    status = models.CharField(max_length=10, default='open')
+    job_type = models.CharField(max_length=100, default='Full time')
+    country = models.CharField(max_length=300, default='India')
+    state = models.CharField(max_length=300, default='Karnataka')

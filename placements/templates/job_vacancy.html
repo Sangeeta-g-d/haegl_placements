@@ -13,6 +13,24 @@
     <link rel="stylesheet" href="/static/assets/css/style.css" />
     <link rel="shortcut icon" href="/images/favicon.png" />
   </head>
+  <style>
+    .search-container {
+  display: flex;
+  align-items: center;
+}
+
+.card-title {
+  margin-right: 20px; /* Adjust the spacing between the title and input field */
+}
+
+input[type="text"] {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-bottom: 14px;
+}
+
+  </style>
   <body>
     <div class="container-scroller">
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -108,13 +126,118 @@
             <div class="page-header flex-wrap">
               <h3 class="mb-0"> Hi, welcome back!
               </h3>
-             
+              <div class="d-flex">
+                <a href="/add_job">
+                <button type="button" class="btn btn-sm ml-3 btn-success">+ New Job</button></a>
+              </div>
             </div>
-
+            <div class="row">
+                <div class="col-xl-12 col-sm-6 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body px-0 overflow-auto">
+                      <div class="search-container">
+                        <h4 class="card-title pl-4">Job Vacancies</h4>
+                        <form class=""id="searchForm" >
+                        <input type="text" name="search_query" class="form-control" id="jobSearch" placeholder="Search..."aria-label="search" aria-describedby="search" value="{{ request.GET.search_query }}">
+                        </form>
+                      </div>
+                      <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Function to handle search functionality
+                            function performSearch() {
+                                const searchInput = document.querySelector('input[name="search_query"]');
+                                const searchText = searchInput.value.toLowerCase();
+                                const tableRows = document.querySelectorAll('#dataTable tbody tr');
+                    
+                                tableRows.forEach(row => {
+                                    const rowData = row.textContent.toLowerCase();
+                                    if (rowData.includes(searchText)) {
+                                        row.style.display = ''; // Show the row if it contains the search text
+                                    } else {
+                                        row.style.display = 'none'; // Hide the row if it doesn't match the search text
+                                    }
+                                });
+                            }
+                    
+                            // Event listener for form submission
+                            const searchForm = document.getElementById('searchForm');
+                            searchForm.addEventListener('submit', function(event) {
+                                event.preventDefault(); // Prevent form submission
+                                performSearch(); // Call the search function
+                            });
+                    
+                            // Optional: Event listener for real-time search as the user types
+                            const searchInput = document.querySelector('input[name="search_query"]');
+                            searchInput.addEventListener('input', performSearch);
+                        });
+                    </script>
+                      
+                      <div class="table-responsive">
+                        <table class="table" id="dataTable" >
+                          <thead class="bg-light">
+                            <tr>
+                              <th>Designation</th>
+                              <th>Department</th>
+                              <th>Location</th>
+                              <th>Work mode</th>
+                              <th>No. of Vacancy</th>
+                              <th>Mandatory Skills</th>
+                              <th>Experience</th>
+                              <th>Qualification</th>
+                              <th>Job Type</th>
+                              <th>Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for x in data %} 
+                            <tr>
+                              <td>{{x.designation}}</td>
+                              <td>{{x.department}}</td>
+                              <td>{{x.location}}, {{x.state}}</td>
+                              <td>{{x.work_mode}}</td>
+                              <td>{{x.no_of_vacancy}}</td>
+                             
+                              <td  class="break-words">{{x.mandatory_skills}}</td>
+                              <td>{{x.experience}}</td>
+                              <td  class="break-words">{{x.qualification}}</td>
+                              <td>{{x.job_type}}</td>
+                              <td>
+                                <button class="badge badge-inverse-danger approve-btn" >{{x.status}}</button>
+                              </td>
+                              <td> </td>
+                            </tr>
+                            <script>
+                              document.addEventListener('DOMContentLoaded', function() {
+                                const tds = document.querySelectorAll('.break-words');
+                          
+                                tds.forEach(td => {
+                                  const words = td.textContent.split(' ');
+                                  const maxWordsPerLine = 5; // Change this number as needed
+                          
+                                  if (words.length > maxWordsPerLine) {
+                                    let formattedText = '';
+                                    for (let i = 0; i < words.length; i++) {
+                                      formattedText += words[i] + ' ';
+                                      if ((i + 1) % maxWordsPerLine === 0) {
+                                        formattedText += '<br><br>';
+                                      }
+                                    }
+                                    td.innerHTML = formattedText.trim(); // Remove trailing space
+                                  }
+                                });
+                              });
+                            </script>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                     
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
             
-
-           
-
           </div>
          
         </div>
@@ -122,6 +245,12 @@
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+    {% if success_message %}
+    <script>
+        alert("Job added successfully!");
+    </script>
+{% endif %}
+
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="/static/assets/vendors/js/vendor.bundle.base.js"></script>

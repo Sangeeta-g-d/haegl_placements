@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse,HttpResponseRedirect,HttpResponseForbidden,HttpResponseBadRequest
 from django.template import loader
-from .models import CompanyDetails, NewUser
+from .models import CompanyDetails, NewUser, JobDetails
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 from datetime import date
@@ -10,6 +10,7 @@ from django.shortcuts import redirect, get_object_or_404
 from datetime import datetime, timedelta
 from django.contrib.auth import authenticate,login,logout
 from django.http import JsonResponse
+from django.urls import reverse
 # Create your views here.
 
 def admin_db(request):
@@ -103,7 +104,11 @@ def login1(request):
             login(request, user)
             i = request.user.id
             print("companyyy idddd",i)
-            return redirect('company_dashboard')
+            record = CompanyDetails.objects.filter(company_id_id = i)
+            if record:
+                return redirect('/company_dashboard')
+            else:
+                return redirect('/company_details')
         else:
             request.session['error_message'] = 'Wait till account varifies'
             return redirect('/login')
@@ -112,9 +117,8 @@ def login1(request):
 
 def add_company_details(request):
     i = request.user.id
-   # obj = NewUser.objects.get(id=i)
-    today_date = date.today()
-    context = {'today_date':today_date}
+    obj = NewUser.objects.get(id=i)
+    
     if request.method == 'POST':
         tag_line = request.POST.get('tag_line')
         company_type = request.POST.get('company_type')
@@ -132,7 +136,7 @@ def add_company_details(request):
         img2 = request.FILES.get('img2')
         cover_image = request.FILES.get('cover_image')
 
-        obj = CompanyDetails.objects.create(companyOrAgency_id_id=i,tag_line=tag_line,company_type=company_type,company_service_sector=service_sector,founded_year=founded_year,
+        obj = CompanyDetails.objects.create(company_id_id=i,tag_line=tag_line,company_type=company_type,company_service_sector=service_sector,founded_year=founded_year,
         head_branch=head_branch,linkedin_url=linkedin,instagram_url=instagram,
         facebook=facebook,webiste=website,
         Key_highlights=highlights,why_us=why_us,
@@ -141,9 +145,71 @@ def add_company_details(request):
         other_image2=img2,cover_image=cover_image)
 
         print(obj)
-
-    return render(request,'company_details.html',context)
+        return redirect('/company_dashboard')
+    return render(request,'company_details.html')
           
 
 def company_dashboard(request):
     return render(request,'company_dashboard.html')
+
+
+def job_vacancy(request):
+    success_message = request.GET.get('success_message')
+    i = request.user.id
+    obj = NewUser.objects.get(id=i)
+    today_date = date.today()
+    search_query = request.GET.get('search_query', '')
+
+    data = JobDetails.objects.filter(company_id_id=i)
+
+    if search_query:
+        # Perform case-insensitive search for string fields
+        data = data.filter(
+            Q(designation__icontains=search_query) |
+            Q(department__icontains=search_query) |
+            Q(location__icontains=search_query) |
+            Q(mandatory_skills__icontains=search_query) |
+            Q(optional_skills__icontains=search_query) |
+            Q(qualification__icontains=search_query) |
+            Q(no_of_vacancy__icontains=search_query)
+        )
+
+        # Handle case-insensitive search for numeric fields by converting them to strings
+        data = data.filter(
+            Q(experience__icontains=str(search_query)) |
+            Q(salary__icontains=str(search_query))
+        )
+
+    context = {'obj':obj,'today_date':today_date,'data':data,'success_message':success_message}
+
+    return render(request,'job_vacancy.html',context)
+
+def add_job(request):
+    i = request.user.id
+    obj = NewUser.objects.get(id=i)
+    today_date = date.today()
+    context = {'obj':obj,'today_date':today_date}
+    if request.method == 'POST':
+        designation = request.POST.get('designation')
+        department = request.POST.get('department')
+        location = request.POST.get('location')
+        work_mode = request.POST.get('work_mode')
+        no_of_vacancy = request.POST.get('no_of_vacancy')
+        mandatory_skills = request.POST.get('mandatory_skills')
+        optional_skills = request.POST.get('optional_skills')
+        experience = request.POST.get('experience')
+        qualification = request.POST.get('qualification')
+        salary = request.POST.get('package')
+        status = request.POST.get('status')
+        description = request.POST.get('job_description')
+        state = request.POST.get('state')
+        country = request.POST.get('country')
+        obj = JobDetails.objects.create(company_id_id=i,designation=designation,department=department,location=location,work_mode=work_mode,
+        no_of_vacancy=no_of_vacancy,mandatory_skills=mandatory_skills,optional_skills=optional_skills,
+        qualification=qualification,experience=experience,
+        salary=salary,job_description=description)
+
+        print(obj)
+        return redirect(reverse('job_vacancy') + '?success_message=1')
+
+    return render(request,'add_job.html',context)
