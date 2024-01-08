@@ -41,11 +41,15 @@ urlpatterns = [
     path('user_dashboard',views.user_dashboard1,name='user_dashboard'),
     path('application/<int:job_id>',views.application,name="application"),
     path('saved_jobs',views.saved_jobs,name='saved_jobs'),
+<<<<<<< HEAD
+    path('job_applications',views.job_applications,name='job_applications'),
+=======
     path('jobs',views.jobs,name='jobs'),
     path('profile',views.profile,name='profile'),
     path('user_logout',views.user_logout,name='user_logout'),
     path('companies',views.companies,name='companies'),
     path('application_status',views.application_status,name='application_status'),
     path('company_info/<int:id>',views.company_info,name='company_info'),
+>>>>>>> 176038b7292ee57194950ce662288d25b71c5cab
     
     ]
