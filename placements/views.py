@@ -84,18 +84,7 @@ def search_results(request):
     combined_results = []
 
     if keyword:
-        agency_job_results = AgencyJobDetails.objects.filter(
-            Q(designation__icontains=keyword) |
-            Q(job_description__icontains=keyword) |
-            Q(department__icontains=keyword) |
-            Q(location__icontains=keyword) |
-            Q(mandatory_skills__icontains=keyword) |
-            Q(optional_skills__icontains=keyword) |
-            Q(experience__icontains=keyword) |
-            Q(salary__icontains=keyword) |
-            Q(qualification__icontains=keyword)
-        )
-
+        
         job_results = JobDetails.objects.filter(
             Q(designation__icontains=keyword) |
             Q(job_description__icontains=keyword) |
@@ -109,7 +98,7 @@ def search_results(request):
         )
 
         # Combine both querysets into a single result set
-        combined_results = list(chain(agency_job_results, job_results))
+        combined_results = list( job_results)
 
     elif job_title:
         # Search by job title in the designation column
@@ -126,7 +115,7 @@ def search_results(request):
     elif job_type:
         # Search by job type in the type column
         job_results = JobDetails.objects.filter(job_type=job_type)
-        combined_results = list(chain(agency_job_results, job_results))
+        combined_results = list( job_results)
 
     for job in combined_results:
         # Assuming 'posted_on' is the field in your models storing the posting date
@@ -194,18 +183,7 @@ def user_search_results(request):
     combined_results = []
 
     if keyword:
-        agency_job_results = AgencyJobDetails.objects.filter(
-            Q(designation__icontains=keyword) |
-            Q(job_description__icontains=keyword) |
-            Q(department__icontains=keyword) |
-            Q(location__icontains=keyword) |
-            Q(mandatory_skills__icontains=keyword) |
-            Q(optional_skills__icontains=keyword) |
-            Q(experience__icontains=keyword) |
-            Q(salary__icontains=keyword) |
-            Q(qualification__icontains=keyword)
-        )
-
+        
         job_results = JobDetails.objects.filter(
             Q(designation__icontains=keyword) |
             Q(job_description__icontains=keyword) |
@@ -219,7 +197,7 @@ def user_search_results(request):
         )
 
         # Combine both querysets into a single result set
-        combined_results = list(chain(agency_job_results, job_results))
+        combined_results = list( job_results)
 
     elif job_title:
         # Search by job title in the designation column
@@ -236,7 +214,7 @@ def user_search_results(request):
     elif job_type:
         # Search by job type in the type column
         job_results = JobDetails.objects.filter(job_type=job_type)
-        combined_results = list(chain(agency_job_results, job_results))
+        combined_results = list(job_results)
 
     for job in combined_results:
         # Assuming 'posted_on' is the field in your models storing the posting date

@@ -605,9 +605,9 @@ ul.pagination .active a {
 }
 
 .bg-1 {
-  background: url("/static/assets1/images/isbg2.png");
+  background: url("/static/assets1/images/hbg.jpg");
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat
 }
 
 .bg-2 {
