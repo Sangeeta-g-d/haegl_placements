@@ -502,6 +502,17 @@ def job_vacancy(request):
 
     return render(request,'job_vacancy.html',context)
 
+
+def toggle_status(request, job_id):
+    # Implement logic to toggle the status for the job with the given ID
+    job = JobDetails.objects.get(id=job_id)
+    job.status = 'closed' if job.status == 'open' else 'open'
+    job.save()
+
+    # Return the new status as JSON
+    return JsonResponse({'newStatus': job.status})
+
+
 def add_job(request):
     i = request.user.id
     obj = NewUser.objects.get(id=i)
@@ -1413,7 +1424,6 @@ def saved_jobs(request):
     ,'department_open_counts':department_open_counts,'all_saved_jobs':all_saved_jobs,'combined_counts':combined_counts}
     return render(request,'saved_jobs.html',context)
 
-<<<<<<< HEAD
 
 def job_applications(request):
     i = request.user.id
@@ -1450,7 +1460,6 @@ def job_applications(request):
     return render(request,'job_applications.html',context)
 
     
-=======
 def application_status(request):
     id = request.user.id
     obj = NewUser.objects.get(id=id)
@@ -1532,4 +1541,3 @@ def user_logout(request):
     logout(request)
     # Redirect to a specific page after logout (optional)
     return redirect('/')
->>>>>>> 176038b7292ee57194950ce662288d25b71c5cab
