@@ -492,6 +492,41 @@ def job_vacancy(request):
 
     return render(request,'job_vacancy.html',context)
 
+@login_required
+def internship_list(request):
+    if request.user.user_type != 'Company':
+        return HttpResponseForbidden()
+    success_message = request.GET.get('success_message')
+    i = request.user.id
+    first_name = request.user.first_name
+    obj = NewUser.objects.get(id=i)
+    today_date = date.today()
+    search_query = request.GET.get('search_query', '')
+
+    data = JobDetails.objects.filter(company_id_id=i,J_type='internship')
+
+    if search_query:
+        # Perform case-insensitive search for string fields
+        data = data.filter(
+            Q(designation__icontains=search_query) |
+            Q(department__icontains=search_query) |
+            Q(location__icontains=search_query) |
+            Q(mandatory_skills__icontains=search_query) |
+            Q(optional_skills__icontains=search_query) |
+            Q(qualification__icontains=search_query) |
+            Q(no_of_vacancy__icontains=search_query)
+        )
+
+        # Handle case-insensitive search for numeric fields by converting them to strings
+        data = data.filter(
+            Q(experience__icontains=str(search_query)) |
+            Q(salary__icontains=str(search_query))
+        )
+
+    context = {'obj':obj,'today_date':today_date,'data':data,'first_name':first_name}
+
+    return render(request,'internship_list.html',context)
+
 
 def toggle_status(request, job_id):
     # Implement logic to toggle the status for the job with the given ID
@@ -536,6 +571,41 @@ def add_job(request):
         return redirect(reverse('job_vacancy') + '?success_message=1')
 
     return render(request,'add_job.html',context)
+
+@login_required
+def add_internship(request):
+    if request.user.user_type != 'Company':
+        return HttpResponseForbidden()
+    i = request.user.id
+    obj = NewUser.objects.get(id=i)
+    first_name = request.user.first_name
+    today_date = date.today()
+    context = {'obj':obj,'today_date':today_date,'first_name':first_name}
+    if request.method == 'POST':
+        designation = request.POST.get('designation')
+        department = request.POST.get('department')
+        location = request.POST.get('location')
+        work_mode = request.POST.get('work_mode')
+        no_of_vacancy = request.POST.get('no_of_vacancy')
+        mandatory_skills = request.POST.get('mandatory_skills')
+        optional_skills = request.POST.get('optional_skills')
+        experience = request.POST.get('experience')
+        qualification = request.POST.get('qualification')
+        salary = request.POST.get('package')
+        status = request.POST.get('status')
+        description = request.POST.get('job_description')
+        state = request.POST.get('state')
+        j_type = request.POST.get('type')
+        country = request.POST.get('country')
+        obj = JobDetails.objects.create(company_id_id=i,designation=designation,department=department,location=location,work_mode=work_mode,
+        no_of_vacancy=no_of_vacancy,mandatory_skills=mandatory_skills,optional_skills=optional_skills,
+        qualification=qualification,experience=experience,
+        salary=salary,job_description=description,J_type=j_type)
+
+        print(obj)
+        return redirect(reverse('internship_list') + '?success_message=1')
+
+    return render(request,'add_internship.html',context)
 
 
 def user_registration(request):

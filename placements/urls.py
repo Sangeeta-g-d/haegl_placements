@@ -49,5 +49,7 @@ urlpatterns = [
     path('application_status',views.application_status,name='application_status'),
     path('company_info/<int:id>',views.company_info,name='company_info'),
     path('toggle_status/<int:job_id>/', views.toggle_status, name='toggle_status'),
+    path('internship_list',views.internship_list,name='internship_list'),
+    path('add_internship',views.add_internship,name='add_internship'),
 ]
-    
+

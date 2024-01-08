@@ -139,8 +139,8 @@ input[type="text"] {
               <h3 class="mb-0"> Hi, welcome back!
               </h3>
               <div class="d-flex">
-                <a href="/add_job">
-                <button type="button" class="btn btn-sm ml-3 btn-success">+ New Job</button></a>
+                <a href="/add_internship">
+                <button type="button" class="btn btn-sm ml-3 btn-success">+ New Internship</button></a>
               </div>
             </div>
             <div class="row">
@@ -148,7 +148,7 @@ input[type="text"] {
                   <div class="card">
                     <div class="card-body px-0 overflow-auto">
                       <div class="search-container">
-                        <h4 class="card-title pl-4">Job Applications</h4>
+                        <h4 class="card-title pl-4">Job Vacancies</h4>
                         <form class=""id="searchForm" >
                         <input type="text" name="search_query" class="form-control" id="jobSearch" placeholder="Search..."aria-label="search" aria-describedby="search" value="{{ request.GET.search_query }}">
                         </form>
@@ -188,47 +188,74 @@ input[type="text"] {
                         <table class="table" id="dataTable" >
                           <thead class="bg-light">
                             <tr>
-                                <th>Name</th>
-                                <th>Qualification</th>
-                                <th>Skills</th>
                               <th>Designation</th>
-                              <th>Resume</th>
                               <th>Department</th>
                               <th>Location</th>
-                              <th>Type</th>
                               <th>Work mode</th>
                               <th>No. of Vacancy</th>
-                             
+                              <th>Mandatory Skills</th>
                               <th>Experience</th>
-                              
+                              <th>Qualification</th>
                               <th>Job Type</th>
-                              <th>Contact info</th>
+                              <th>Status</th>
                             </tr>
                           </thead>
                           <tbody>
                             {% for x in data %} 
                             <tr>
-                              <td>{{x.user_id.username}}</td>
-                              <td>{{x.qualification}}</td>
-                              <td  class="break-words">{{x.skills}}</td>
-                              <td>{{x.job_id.designation}}</td>
-                              <td>
-                                <a href="{{ x.resume }}" target="_blank" class="badge badge-success">View Resume</a>
-                                </td>
-                              <td>{{x.job_id.department}}</td>
-                              <td>{{x.city}}</td>
-                              <td>{{x.job_id.J_type}}</td>
-                              <td>{{x.job_id.work_mode}}</td>
-                              <td>{{x.job_id.no_of_vacancy}}</td>
+                              <td>{{x.designation}}</td>
+                              <td>{{x.department}}</td>
+                              <td>{{x.location}}, {{x.state}}</td>
+                              <td>{{x.work_mode}}</td>
+                              <td>{{x.no_of_vacancy}}</td>
                              
-                              
-                              <td>{{x.job_id.experience}}</td>
-                              
-                              <td>{{x.job_id.job_type}}</td>
-                              <td>{{x.user_id.email}}<br><br>{{x.user_id.phone_no}}</td>
-                              
+                              <td  class="break-words">{{x.mandatory_skills}}</td>
+                              <td>{{x.experience}}</td>
+                              <td  class="break-words">{{x.qualification}}</td>
+                              <td>{{x.job_type}}</td>
+                              <td>
+                                <button class="badge badge-inverse-danger approve-btn" id="statusToggleBtn_{{ x.id }}">{{ x.status }}</button>
+
+                              </td>
                               <td> </td>
                             </tr>
+
+                            <script>
+                              document.addEventListener('DOMContentLoaded', function() {
+                                 const statusButtons = document.querySelectorAll('.approve-btn');
+                           
+                                 statusButtons.forEach(button => {
+                                    button.addEventListener('click', function() {
+                                       const jobId = this.id.split('_')[1]; // Extract the job ID from the button ID
+                                       toggleStatus(jobId);
+                                    });
+                                 });
+                           
+                                 function toggleStatus(jobId) {
+                                    // Implement an AJAX request to update the status in the backend
+                                    // You can use the Fetch API or jQuery.ajax for this purpose
+                                    // Example using Fetch API:
+                           
+                                    fetch(`/toggle_status/${jobId}/`, {
+                                       method: 'POST', // Use 'PUT' or 'PATCH' depending on your backend API
+                                       headers: {
+                                          'Content-Type': 'application/json',
+                                          'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token for security
+                                       },
+                                       // You can include additional data in the body if needed
+                                       body: JSON.stringify({}),
+                                    })
+                                       .then(response => response.json())
+                                       .then(data => {
+                                          // Update the button text with the new status
+                                          const button = document.getElementById(`statusToggleBtn_${jobId}`);
+                                          button.innerText = data.newStatus; // Assuming your backend sends the updated status
+                                       })
+                                       .catch(error => console.error('Error:', error));
+                                 }
+                              });
+                           </script>
+                           
                             <script>
                               document.addEventListener('DOMContentLoaded', function() {
                                 const tds = document.querySelectorAll('.break-words');
@@ -270,7 +297,7 @@ input[type="text"] {
     </div>
     {% if success_message %}
     <script>
-        alert("Job added successfully!");
+        alert("Internship added successfully!");
     </script>
 {% endif %}
 
