@@ -579,9 +579,7 @@ def company(request,id):
         company_names = [obj.first_name]
         display_jobs = JobDetails.objects.filter(company_id_id=id)  # Assuming company_name exists in the NewUser model
         # Additional logic for companies if needed
-     
-
-
+    
     context = {
         'jobs': jobs,
         'company_names': company_names,
@@ -859,4 +857,15 @@ def autocomplete_job_title_suggestions(request):
 
     return JsonResponse({'suggestions': list(suggestions)})
 
-
+def questions(request,id):
+    obj = TopCompanies.objects.all()
+    data = InterviewQuestions.objects.select_related('company_id').filter(company_id_id=id)
+    company = TopCompanies.objects.filter(id=id).first()
+    company_name = company.company_name
+    #print(company_name)
+    context = {
+        'obj':obj,
+        'company_name':company_name,
+        'data':data
+    }
+    return render(request, 'questions.html',context)

@@ -21,6 +21,8 @@
   <meta name="description" content="Agency HTML Template">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <meta name="author" content="Themefisher">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/assets1/css/media_q.css"> 
   <meta name="generator" content="Themefisher Classified Marketplace Template v1.0">
 
   <!-- theme meta -->
@@ -101,22 +103,7 @@
     background-repeat: no-repeat;
   }
 
-  /* Media query for mobile screens */
-  @media screen and (max-width: 768px) {
-    .col-lg-8 {
-      flex: 100%;
-      max-width: 100%;
-    }
-
-    .col-lg-4 {
-      flex: 100%;
-      max-width: 100%;
-      margin-top: 20px;
-
-    }
-    
-  }
-
+   /* Media query for screens up to 767px (typical mobile screens) */
   
 </style>
 
@@ -176,29 +163,24 @@
               <b>{{job.designation}}</b>
             </h1>
             <br>
-            {% if job.company_id.first_name %}
-            <a href="/company/{{job.company_id_id}}"
+           
+            <a class="company-name" href="/company/{{job.company_id_id}}"
               style="color: white; font-size: 25px; font-weight: 400; margin: 0;">
               {{job.company_id.first_name}}
             </a>
-            {% else %}
-            <a href="/company/{{job.company_id_id}}"
-              style="color: white; font-size: 20px; font-weight: 400; margin: 0;">
-              {{job.company_id.company_name}}
-            </a>
-            {% endif %}
+           
 
             <div class="product-meta" style="margin-top: 10px;">
               <ul class="list-inline" style="list-style: none; padding: 0; margin: 0;">
                 <li class="list-inline-item" style="color: rgb(212, 203, 203); margin-bottom: 5px;">
-                  Package <a href="user-profile.html" style="color: white;">{{job.salary}}</a>
+                  Package <a href="#" style="color: white;">{{job.salary}}</a>
                 </li>
                 <li class="list-inline-item" style="color: rgb(212, 203, 203); margin-bottom: 5px;">
-                  <i class="fa fa-folder-open-o"></i> Job type <a href="category.html"
+                  <i class="fa fa-folder-open-o"></i><a href="#"
                     style="color: white;">{{job.job_type}}</a>
                 </li>
                 <li class="list-inline-item" style="color: rgb(212, 203, 203);">
-                  <i class="fa fa-location-arrow"></i> Location <a href="category.html"
+                  <i class="fa fa-map-marker"></i> <a href="#"
                     style="color: white;">{{job.location}}</a>
                 </li>
               </ul>
@@ -280,11 +262,10 @@
             <!-- Search Widget -->
 
             <!-- Category Widget -->
-            <div class="widget category">
+            
               <!-- Widget Header -->
               <img width="380px" height="250px" src="/static/assets1/images/job_p.png" alt="">
 
-            </div>
             <!-- Archive Widget -->
 
           </div>

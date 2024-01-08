@@ -31,5 +31,6 @@ urlpatterns = [
     path('work_mode/<str:selected_work_mode>/', views.work_mode, name='work_mode'),
     path('location_related_jobs/<str:location>',views.location_related_jobs,name='location_related_jobs'),
     path('autocomplete-job-title/', views.autocomplete_job_title_suggestions, name='autocomplete_job_title'),
+    path('questions/<int:id>', views.questions, name='questions'),
     
     ]

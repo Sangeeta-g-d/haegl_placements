@@ -1,0 +1,64 @@
+/* Media query for screens up to 767px (typical mobile screens) */
+@media only screen and (max-width: 767px) {
+    h1.product-title {
+      font-size: 20px !important; /* Decrease font size for mobile screens */
+     
+      font-weight: 300  !important;/* Add space between heading and other elements */
+    }
+  
+    .product-details {
+      align-items: flex-start; /* Align items from the left corner */
+    }
+    .company-name {
+        font-size: 15px !important; /* Decrease font size for mobile screens */
+      }
+       /* Selector for the list items */
+   .list-inline-item {
+    display: flex !important;  /* Change to block to align from the left */
+    color: white; /* Maintain white color */
+    margin-bottom: 5px; /* Add margin between list items */
+  }
+
+  .list-inline-item a {
+    color: white; /* Maintain white color for anchor tags */
+  }
+  /* Selector for the "Apply Now" button container */
+  .sidebar {
+     /* Adjusted margin for positioning */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items from the left */
+  }
+
+  /* Selector for the "Apply Now" button */
+  .sidebar button {
+    background-color: #ec6433;
+    color: white;
+    margin-top: -45px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+     /* Adjusted margin for spacing */
+  }
+  }
+
+  @media only screen and (max-width: 767px) {
+    .category-block {
+      margin: 0 auto; /* Center-align the category blocks */
+      float: none; /* Ensure blocks don't float on smaller screens */
+    }
+  }
+
+  .job-card {
+    display: inline-block;
+    width: calc(33.3333% - 20px); /* Three cards in a row on larger screens */
+    margin: 10px;
+  }
+  
+  /* Media query for smaller screens (example: mobile) */
+  @media screen and (max-width: 767px) {
+    /* Adjustments for mobile screens */
+    .job-card {
+      width: 300px !important; /* One card in a row on mobile */
+    }
+  }
