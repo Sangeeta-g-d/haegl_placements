@@ -182,10 +182,6 @@
     	</div>
     </header>
 
-
-
-  
-  
  <script>
   // Include AOS library code directly here
   !function(){var e=document.createElement("script");e.src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js",e.setAttribute("data-aos-easing","ease-in-out"),e.setAttribute("data-aos-duration","1000"),document.head.appendChild(e)}();
@@ -307,38 +303,25 @@ $(document).ready(function() {
 			<div class="col-lg-12">
 				<div class="trending-ads-slide mobile-carousel">
             {% for x in recent_jobs %}
-					<div class="col-sm-12 col-lg-4">
+            <div class="col-lg-4 col-md-6 custom-sm-12"> 
 						<!-- product card -->
 
 <div class="product-item product-item1">
 	<div class="card card-card1">
 		<div class="thumb-content">
 			<!-- <div class="price">$200</div> -->
-      {% if x.company_id.first_name%}
-
+     
 			<a href="{% url 'single_job' job_id=x.id %}">
 				<img class="small-image card-img-top img-fluid" src="/{{x.company_id.profile}}" alt="Card image cap">
 			</a>
-      {% else %}
-      <a href="{% url 'single_job' job_id=x.id %}">
-        <img class="small-image card-img-top img-fluid" src="/{{x.company_id.profile}}" alt="Card image cap">
-      </a>
-      {% endif %}
 		</div>
     <div class="card-body text-center">
-      {% if x.company_id.first_name %} <!-- Added 'text-center' class -->
-      <h4 class="card-title"><a href="{% url 'single_job' job_id=x.id  %}">{{x.designation}}</a></h4>
-      {% else %}
-      <h4 class="card-title"><a href="{% url 'single_job' job_id=x.id  %}">{{x.designation}}</a></h4>
-      {% endif %}
-      {% if x.company_id.first_name %}
+      
+      <h4 class="card-title" style="color: #844FC1 !important;"><a href="{% url 'single_job' job_id=x.id  %}">{{x.designation}}</a></h4>
           <p class="card-text">{{x.company_id.first_name}}</p>
-      {% else %}
-          <p class="card-text">{{x.company_id.company_name}}</p>
-      {% endif %}
       <ul class="list-inline product-meta">
           <li class="list-inline-item">
-            <i class="fa fa-folder-open-o"></i> {{x.job_type}}
+            <i class="fa fa-clock-o"></i> {{x.job_type}}
           </li>
           <li class="list-inline-item">
             <i class="fa fa-map-marker"></i> {{x.location}}

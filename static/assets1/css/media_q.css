@@ -49,16 +49,21 @@
     }
   }
 
-  .job-card {
-    display: inline-block;
-    width: calc(33.3333% - 20px); /* Three cards in a row on larger screens */
-    margin: 10px;
-  }
-  
-  /* Media query for smaller screens (example: mobile) */
-  @media screen and (max-width: 767px) {
-    /* Adjustments for mobile screens */
-    .job-card {
-      width: 300px !important; /* One card in a row on mobile */
+  @media (min-width: 375px) and (max-width: 844px) {
+    .custom-sm-12 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        
     }
-  }
+    .product-item .product-meta li {
+        margin-right: 15px;
+        color: #888;
+      }
+}
+@media (max-width: 768px) {
+    .product-item {
+        /* Adjust the height or any other styles to make the card sizes uniform */
+        height: 300px; /* Example height, adjust as needed */
+        width: 100%; /* To ensure the card takes the full width */
+    }
+}

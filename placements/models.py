@@ -86,3 +86,11 @@ class InterviewQuestions(models.Model):
     question = models.CharField(max_length=3000, default='question')
     answer = models.CharField(max_length=5000, default='answer')
     designation = models.CharField(max_length=300, default='none')
+
+class UserDetails(models.Model):
+    user_id = models.ForeignKey('NewUser', on_delete=models.CASCADE)
+    qualification = models.CharField(max_length=300,default='BCA')
+    experience = models.CharField(max_length=300,default='fresher')
+    skills = models.CharField(max_length=400,default='html')
+    DOB = models.CharField(max_length=100)
+    about = models.CharField(max_length=1000,default='Passionate professional dedicated to driving innovation and fostering growth through collaboration and strategic expertise.')
