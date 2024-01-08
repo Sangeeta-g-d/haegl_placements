@@ -24,7 +24,7 @@ from django.db.models import Q
 
 
 def index(request):
-    recent_jobs = list(JobDetails.objects.all().order_by('-created_on')[:5])
+    recent_jobs = list(JobDetails.objects.filter(J_type='job').order_by('-created_on')[:5])
 
     # Shuffle the list of recent jobs
     random.shuffle(recent_jobs)
