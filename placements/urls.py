@@ -41,5 +41,11 @@ urlpatterns = [
     path('user_dashboard',views.user_dashboard1,name='user_dashboard'),
     path('application/<int:job_id>',views.application,name="application"),
     path('saved_jobs',views.saved_jobs,name='saved_jobs'),
+    path('jobs',views.jobs,name='jobs'),
+    path('profile',views.profile,name='profile'),
+    path('user_logout',views.user_logout,name='user_logout'),
+    path('companies',views.companies,name='companies'),
+    path('application_status',views.application_status,name='application_status'),
+    path('company_info/<int:id>',views.company_info,name='company_info'),
     
     ]
