@@ -3,6 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect,HttpResponseForbidden,
 from django.template import loader
 from .models import CompanyDetails, NewUser, JobDetails, TopCompanies, InterviewQuestions, UserDetails, CompanyJobSaved, AppliedJobs
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from datetime import date
 from django.contrib.auth.decorators import login_required
@@ -294,6 +295,8 @@ def user_search_results(request):
 
 
 def admin_db(request):
+    if request.user.user_type != 'admin':
+        return HttpResponseForbidden()
     i = request.user.id
     obj = NewUser.objects.get(id=i)
     today_date = date.today()
@@ -435,6 +438,8 @@ def add_company_details(request):
 
 
 def top_companies(request):
+    if request.user.user_type != 'admin':
+        return HttpResponseForbidden()
     data = TopCompanies.objects.all()
     context = {
         'data':data
@@ -462,6 +467,8 @@ def add_questions(request):
         return redirect('/top_companies')     
 
 def company_dashboard(request):
+    if request.user.user_type != 'Company':
+        return HttpResponseForbidden()
     first_name = request.user.first_name
     print(first_name)
     context = {
@@ -471,6 +478,8 @@ def company_dashboard(request):
 
 
 def job_vacancy(request):
+    if request.user.user_type != 'admin':
+        return HttpResponseForbidden()
     success_message = request.GET.get('success_message')
     i = request.user.id
     first_name = request.user.first_name
