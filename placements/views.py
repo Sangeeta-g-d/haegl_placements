@@ -171,7 +171,7 @@ def search_results(request):
 
     return render(request, 'search_results.html', context)
 
-
+@login_required
 def user_search_results(request):
     if request.user.user_type != 'job seeker':
         return HttpResponseForbidden()
@@ -273,7 +273,7 @@ def user_search_results(request):
 
 
 
-
+@login_required
 def admin_db(request):
     if request.user.user_type != 'admin':
         return HttpResponseForbidden()
@@ -416,7 +416,7 @@ def add_company_details(request):
         return redirect('/company_dashboard')
     return render(request,'company_details.html')
 
-
+@login_required
 def top_companies(request):
     if request.user.user_type != 'admin':
         return HttpResponseForbidden()
@@ -446,6 +446,7 @@ def add_questions(request):
         answer=answer)
         return redirect('/top_companies')     
 
+@login_required
 def company_dashboard(request):
     if request.user.user_type != 'Company':
         return HttpResponseForbidden()
@@ -456,7 +457,7 @@ def company_dashboard(request):
     }
     return render(request,'company_dashboard.html',context)
 
-
+@login_required
 def job_vacancy(request):
     if request.user.user_type != 'Company':
         return HttpResponseForbidden()
@@ -769,6 +770,7 @@ def job_list(request, department):
 
     return render(request, 'job_list.html', context)
 
+@login_required
 def user_job_list(request, department):
     if request.user.user_type != 'job seeker':
         return HttpResponseForbidden()
@@ -904,6 +906,7 @@ def all_jobs(request):
     'department_open_counts':department_open_counts,'combined_counts':combined_counts}
     return render(request,'all_jobs.html',context)
 
+@login_required
 def jobs(request):
     if request.user.user_type != 'job seeker':
         return HttpResponseForbidden()
@@ -1025,6 +1028,7 @@ def work_mode(request, selected_work_mode):
 
     return render(request, 'work_mode.html', context)
 
+@login_required
 def user_work_mode(request, selected_work_mode):
     if request.user.user_type != 'job seeker':
         return HttpResponseForbidden()
@@ -1143,7 +1147,7 @@ def location_related_jobs(request, location):
     }
 
     return render(request, 'location_related_jobs.html', context)
-
+@login_required
 def user_location_related(request, location):
     if request.user.user_type != 'job seeker':
         return HttpResponseForbidden()
@@ -1246,7 +1250,7 @@ def user_details(request):
         return redirect('user_dashboard')
     return render(request,'user_details.html')
 
-
+@login_required
 def user_dashboard1(request):
     if request.user.user_type != 'job seeker':
         return HttpResponseForbidden()
@@ -1356,7 +1360,7 @@ def application(request,job_id):
     messages.error(request, 'There was an error processing your application.')
     return redirect('user_single_job', job_id=job_id)
 
-
+@login_required
 def saved_jobs(request):
     if request.user.user_type != 'job seeker':
         return HttpResponseForbidden()
@@ -1425,7 +1429,7 @@ def saved_jobs(request):
     ,'department_open_counts':department_open_counts,'all_saved_jobs':all_saved_jobs,'combined_counts':combined_counts}
     return render(request,'saved_jobs.html',context)
 
-
+@login_required
 def job_applications(request):
     if request.user.user_type != 'Company':
         return HttpResponseForbidden()
@@ -1462,7 +1466,7 @@ def job_applications(request):
 
     return render(request,'job_applications.html',context)
 
-    
+@login_required    
 def application_status(request):
     if request.user.user_type != 'job seeker':
         return HttpResponseForbidden()
@@ -1476,7 +1480,7 @@ def application_status(request):
         print(x)
     context = {'obj':obj,'today_date':today_date,'combined_jobs':combined_jobs}
     return render(request,'application_status.html',context)
-
+@login_required
 def companies(request):
     if request.user.user_type != 'job seeker':
         return HttpResponseForbidden()
