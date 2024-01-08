@@ -48,6 +48,9 @@ urlpatterns = [
     path('companies',views.companies,name='companies'),
     path('application_status',views.application_status,name='application_status'),
     path('company_info/<int:id>',views.company_info,name='company_info'),
+<<<<<<< HEAD
     path('toggle_status/<int:job_id>/', views.toggle_status, name='toggle_status'),
 ]
+=======
+>>>>>>> 32de389015f9d91eba81a939b53b1b9c35939513
     

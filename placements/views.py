@@ -3,6 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect,HttpResponseForbidden,
 from django.template import loader
 from .models import CompanyDetails, NewUser, JobDetails, TopCompanies, InterviewQuestions, UserDetails, CompanyJobSaved, AppliedJobs
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from datetime import date
 from django.contrib.auth.decorators import login_required
@@ -183,6 +184,8 @@ def search_results(request):
 
 
 def user_search_results(request):
+    if request.user.user_type != 'job seeker':
+        return HttpResponseForbidden()
     keyword = request.GET.get('keyword')
     job_title = request.GET.get('job_title')
     location = request.GET.get('location')
@@ -294,6 +297,8 @@ def user_search_results(request):
 
 
 def admin_db(request):
+    if request.user.user_type != 'admin':
+        return HttpResponseForbidden()
     i = request.user.id
     obj = NewUser.objects.get(id=i)
     today_date = date.today()
@@ -435,6 +440,8 @@ def add_company_details(request):
 
 
 def top_companies(request):
+    if request.user.user_type != 'admin':
+        return HttpResponseForbidden()
     data = TopCompanies.objects.all()
     context = {
         'data':data
@@ -462,6 +469,8 @@ def add_questions(request):
         return redirect('/top_companies')     
 
 def company_dashboard(request):
+    if request.user.user_type != 'Company':
+        return HttpResponseForbidden()
     first_name = request.user.first_name
     print(first_name)
     context = {
@@ -471,6 +480,8 @@ def company_dashboard(request):
 
 
 def job_vacancy(request):
+    if request.user.user_type != 'Company':
+        return HttpResponseForbidden()
     success_message = request.GET.get('success_message')
     i = request.user.id
     first_name = request.user.first_name
@@ -781,6 +792,8 @@ def job_list(request, department):
     return render(request, 'job_list.html', context)
 
 def user_job_list(request, department):
+    if request.user.user_type != 'job seeker':
+        return HttpResponseForbidden()
     print(department)
     decoded_department = unquote(department)
     print("!!!!!!!!!!",decoded_department)
@@ -914,6 +927,8 @@ def all_jobs(request):
     return render(request,'all_jobs.html',context)
 
 def jobs(request):
+    if request.user.user_type != 'job seeker':
+        return HttpResponseForbidden()
 
     data = JobDetails.objects.all().select_related('company_id').filter(status="open")
     print(data)
@@ -1033,6 +1048,8 @@ def work_mode(request, selected_work_mode):
     return render(request, 'work_mode.html', context)
 
 def user_work_mode(request, selected_work_mode):
+    if request.user.user_type != 'job seeker':
+        return HttpResponseForbidden()
     print("!!!!!!!",selected_work_mode)
     selected_work_mode = selected_work_mode.replace('_', ' ')
     # Fetch jobs from AgencyJobDetails for the selected work_mode
@@ -1150,6 +1167,8 @@ def location_related_jobs(request, location):
     return render(request, 'location_related_jobs.html', context)
 
 def user_location_related(request, location):
+    if request.user.user_type != 'job seeker':
+        return HttpResponseForbidden()
     print(location)
     decoded_department = unquote(location)
     job_details = JobDetails.objects.filter(location=decoded_department, status='open')
@@ -1251,6 +1270,8 @@ def user_details(request):
 
 
 def user_dashboard1(request):
+    if request.user.user_type != 'job seeker':
+        return HttpResponseForbidden()
     id = request.user.id
     obj = NewUser.objects.get(id=id)
    
@@ -1359,6 +1380,8 @@ def application(request,job_id):
 
 
 def saved_jobs(request):
+    if request.user.user_type != 'job seeker':
+        return HttpResponseForbidden()
     id = request.user.id
     obj = NewUser.objects.get(id=id)
     today_date = date.today()
@@ -1426,6 +1449,8 @@ def saved_jobs(request):
 
 
 def job_applications(request):
+    if request.user.user_type != 'Company':
+        return HttpResponseForbidden()
     i = request.user.id
     first_name = request.user.first_name
     obj = NewUser.objects.get(id=i)
@@ -1461,6 +1486,8 @@ def job_applications(request):
 
     
 def application_status(request):
+    if request.user.user_type != 'job seeker':
+        return HttpResponseForbidden()
     id = request.user.id
     obj = NewUser.objects.get(id=id)
     today_date = date.today()
@@ -1473,6 +1500,8 @@ def application_status(request):
     return render(request,'application_status.html',context)
 
 def companies(request):
+    if request.user.user_type != 'job seeker':
+        return HttpResponseForbidden()
     hiring_partners = NewUser.objects.filter(user_type='Company')
     context = {
     'hiring_partners':hiring_partners
@@ -1515,7 +1544,7 @@ def profile(request):
     id = request.user.id
     obj = NewUser.objects.get(id=id)
     today_date = date.today()
-    print("%%%%%%%%%%%%%",obj.profile)
+    print("%%%%%%%%%%%%%%%%",obj.profile)
     data = UserDetails.objects.get(user_id=id)
     if request.method == 'POST':
         obj.first_name = request.POST.get('first_name')
@@ -1523,10 +1552,15 @@ def profile(request):
         obj.email = request.POST.get('email')
         obj.city = request.POST.get('city')
         obj.country = request.POST.get('country')
-        obj.profile = request.FILES.get('profile')
+        p = request.FILES.get('profile')
         data.qualification = request.POST.get('qualification')
         data.experience = request.POST.get('experience')
         data.skills = request.POST.get('skills')
+        if p is not None:
+            obj.profile = p
+        else:
+            obj.profile =obj.profile
+
         obj.save()
         data.save()
     applied_jobs = AppliedJobs.objects.select_related('job_id').filter(user_id_id=id)
