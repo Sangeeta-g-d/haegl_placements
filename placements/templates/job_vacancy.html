@@ -208,10 +208,48 @@ input[type="text"] {
                               <td  class="break-words">{{x.qualification}}</td>
                               <td>{{x.job_type}}</td>
                               <td>
-                                <button class="badge badge-inverse-danger approve-btn" >{{x.status}}</button>
+                                <button class="badge badge-inverse-danger approve-btn" id="statusToggleBtn_{{ x.id }}">{{ x.status }}</button>
+
                               </td>
                               <td> </td>
                             </tr>
+
+                            <script>
+                              document.addEventListener('DOMContentLoaded', function() {
+                                 const statusButtons = document.querySelectorAll('.approve-btn');
+                           
+                                 statusButtons.forEach(button => {
+                                    button.addEventListener('click', function() {
+                                       const jobId = this.id.split('_')[1]; // Extract the job ID from the button ID
+                                       toggleStatus(jobId);
+                                    });
+                                 });
+                           
+                                 function toggleStatus(jobId) {
+                                    // Implement an AJAX request to update the status in the backend
+                                    // You can use the Fetch API or jQuery.ajax for this purpose
+                                    // Example using Fetch API:
+                           
+                                    fetch(`/toggle_status/${jobId}/`, {
+                                       method: 'POST', // Use 'PUT' or 'PATCH' depending on your backend API
+                                       headers: {
+                                          'Content-Type': 'application/json',
+                                          'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token for security
+                                       },
+                                       // You can include additional data in the body if needed
+                                       body: JSON.stringify({}),
+                                    })
+                                       .then(response => response.json())
+                                       .then(data => {
+                                          // Update the button text with the new status
+                                          const button = document.getElementById(`statusToggleBtn_${jobId}`);
+                                          button.innerText = data.newStatus; // Assuming your backend sends the updated status
+                                       })
+                                       .catch(error => console.error('Error:', error));
+                                 }
+                              });
+                           </script>
+                           
                             <script>
                               document.addEventListener('DOMContentLoaded', function() {
                                 const tds = document.querySelectorAll('.break-words');

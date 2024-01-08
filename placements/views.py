@@ -514,6 +514,17 @@ def job_vacancy(request):
 
     return render(request,'job_vacancy.html',context)
 
+
+def toggle_status(request, job_id):
+    # Implement logic to toggle the status for the job with the given ID
+    job = JobDetails.objects.get(id=job_id)
+    job.status = 'closed' if job.status == 'open' else 'open'
+    job.save()
+
+    # Return the new status as JSON
+    return JsonResponse({'newStatus': job.status})
+
+
 def add_job(request):
     i = request.user.id
     obj = NewUser.objects.get(id=i)
