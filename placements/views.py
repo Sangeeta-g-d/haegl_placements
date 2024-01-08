@@ -502,8 +502,10 @@ def toggle_status(request, job_id):
     # Return the new status as JSON
     return JsonResponse({'newStatus': job.status})
 
-
+@login_required
 def add_job(request):
+    if request.user.user_type != 'Company':
+        return HttpResponseForbidden()
     i = request.user.id
     obj = NewUser.objects.get(id=i)
     first_name = request.user.first_name
@@ -523,11 +525,12 @@ def add_job(request):
         status = request.POST.get('status')
         description = request.POST.get('job_description')
         state = request.POST.get('state')
+        j_type = request.POST.get('type')
         country = request.POST.get('country')
         obj = JobDetails.objects.create(company_id_id=i,designation=designation,department=department,location=location,work_mode=work_mode,
         no_of_vacancy=no_of_vacancy,mandatory_skills=mandatory_skills,optional_skills=optional_skills,
         qualification=qualification,experience=experience,
-        salary=salary,job_description=description)
+        salary=salary,job_description=description,J_type=j_type)
 
         print(obj)
         return redirect(reverse('job_vacancy') + '?success_message=1')
