@@ -1351,3 +1351,40 @@ def saved_jobs(request):
     context = {'obj':obj,'today_date':today_date
     ,'department_open_counts':department_open_counts,'all_saved_jobs':all_saved_jobs,'combined_counts':combined_counts}
     return render(request,'saved_jobs.html',context)
+
+
+def job_applications(request):
+    i = request.user.id
+    first_name = request.user.first_name
+    obj = NewUser.objects.get(id=i)
+    today_date = date.today()
+    search_query = request.GET.get('search_query', '')
+
+    data = AppliedJobs.objects.select_related('job_id','user_id').filter(job_id_id__company_id_id =i)
+    for x in data:
+        print(x.user_id.username)
+    
+
+    if search_query:
+        # Perform case-insensitive search for string fields
+        data = data.filter(
+            Q(designation__icontains=search_query) |
+            Q(department__icontains=search_query) |
+            Q(location__icontains=search_query) |
+            Q(mandatory_skills__icontains=search_query) |
+            Q(optional_skills__icontains=search_query) |
+            Q(qualification__icontains=search_query) |
+            Q(no_of_vacancy__icontains=search_query)
+        )
+
+        # Handle case-insensitive search for numeric fields by converting them to strings
+        data = data.filter(
+            Q(experience__icontains=str(search_query)) |
+            Q(salary__icontains=str(search_query))
+        )
+
+    context = {'obj':obj,'today_date':today_date,'data':data,'first_name':first_name}
+
+    return render(request,'job_applications.html',context)
+
+    
