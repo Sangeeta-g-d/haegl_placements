@@ -39,11 +39,11 @@ def index(request):
         
 
     
-    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
 
     open_status_count_job = (
-        JobDetails.objects.filter(status='open')
+        JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
@@ -103,18 +103,18 @@ def search_results(request):
     elif job_title:
         # Search by job title in the designation column
         combined_results = list(chain(
-            JobDetails.objects.filter(designation__icontains=job_title)
+            JobDetails.objects.filter(designation__icontains=job_title,J_type='job')
         ))
 
     elif location:
         # Search by location in the location column
         combined_results = list(chain(
-            JobDetails.objects.filter(location__icontains=location)
+            JobDetails.objects.filter(location__icontains=location,J_type='job')
         ))
 
     elif job_type:
         # Search by job type in the type column
-        job_results = JobDetails.objects.filter(job_type=job_type)
+        job_results = JobDetails.objects.filter(job_type=job_type,J_type='job')
         combined_results = list( job_results)
 
     for job in combined_results:
@@ -124,11 +124,11 @@ def search_results(request):
 
 
     
-    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
 
     open_status_count_job = (
-        JobDetails.objects.filter(status='open')
+        JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
@@ -144,7 +144,7 @@ def search_results(request):
     department_open_counts = [
         (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
     ]
-    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
 # Count jobs in each unique location from AgencyJobDetails
    
@@ -202,18 +202,18 @@ def user_search_results(request):
     elif job_title:
         # Search by job title in the designation column
         combined_results = list(chain(
-            JobDetails.objects.filter(designation__icontains=job_title)
+            JobDetails.objects.filter(designation__icontains=job_title,J_type='job')
         ))
 
     elif location:
         # Search by location in the location column
         combined_results = list(chain(
-            JobDetails.objects.filter(location__icontains=location)
+            JobDetails.objects.filter(location__icontains=location,J_type='job')
         ))
 
     elif job_type:
         # Search by job type in the type column
-        job_results = JobDetails.objects.filter(job_type=job_type)
+        job_results = JobDetails.objects.filter(job_type=job_type,J_type='job')
         combined_results = list(job_results)
 
     for job in combined_results:
@@ -223,11 +223,11 @@ def user_search_results(request):
 
 
     
-    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
 
     open_status_count_job = (
-        JobDetails.objects.filter(status='open')
+        JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
@@ -243,7 +243,7 @@ def user_search_results(request):
     department_open_counts = [
         (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
     ]
-    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
 # Count jobs in each unique location from AgencyJobDetails
    
@@ -468,7 +468,7 @@ def job_vacancy(request):
     today_date = date.today()
     search_query = request.GET.get('search_query', '')
 
-    data = JobDetails.objects.filter(company_id_id=i)
+    data = JobDetails.objects.filter(company_id_id=i,J_type='job')
 
     if search_query:
         # Perform case-insensitive search for string fields
@@ -594,25 +594,25 @@ def search_trend(request, keyword):
     if keyword == 'freshers':
         job_details = JobDetails.objects.filter(
             Q(experience='Fresher') | Q(experience__startswith='0-'),
-            status='open'
+            status='open',J_type='job'
         )
         
     elif keyword == 'banking':
         job_details = JobDetails.objects.filter(
             Q(department='Finance and Accounting'),
-            status='open'
+            status='open',J_type='job'
         )
         
     elif keyword == 'part-time':
         job_details = JobDetails.objects.filter(
             Q(job_type='Part time'),
-            status='open'
+            status='open',J_type='job'
         )
         
     else:
         job_details = JobDetails.objects.filter(
             Q(department='Research and Development') | Q(department='Information Technology (IT)') ,
-            status='open'
+            status='open',J_type='job'
         )
     
     all_jobs = list(chain(job_details))
@@ -627,11 +627,11 @@ def search_trend(request, keyword):
     job_details = sorted(all_jobs, key=lambda x: x.created_on, reverse=True)
     #print("^^^^^^^^^^^^^",all_jobs)
     
-    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
 
     open_status_count_job = (
-        JobDetails.objects.filter(status='open')
+        JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
@@ -646,7 +646,7 @@ def search_trend(request, keyword):
         (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
     ]
 
-    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
 # Count jobs in each unique location from AgencyJobDetails
   
@@ -665,14 +665,14 @@ def search_trend(request, keyword):
     return render(request,'search_trend.html', context)
 
 def single_job(request,job_id):
-    job = JobDetails.objects.select_related('company_id').filter(id=job_id, status="open").first()
+    job = JobDetails.objects.select_related('company_id').filter(id=job_id, status="open",J_type='job').first()
     context = {
         'job': job,
     }
     return render(request, 'single_job.html',context)
 
 def user_single_job(request,job_id):
-    job = JobDetails.objects.select_related('company_id').filter(id=job_id, status="open").first()
+    job = JobDetails.objects.select_related('company_id').filter(id=job_id, status="open",J_type='job').first()
     context = {
         'job': job,
     }
@@ -690,9 +690,9 @@ def company(request,id):
 
     if obj.user_type == 'Company':
         # If the user is a company, retrieve jobs related to that company
-        jobs = JobDetails.objects.filter(company_id_id=id)
+        jobs = JobDetails.objects.filter(company_id_id=id,J_type='job')
         company_names = [obj.first_name]
-        display_jobs = JobDetails.objects.filter(company_id_id=id)  # Assuming company_name exists in the NewUser model
+        display_jobs = JobDetails.objects.filter(company_id_id=id,J_type='job')  # Assuming company_name exists in the NewUser model
         # Additional logic for companies if needed
     
     context = {
@@ -712,7 +712,7 @@ def job_list(request, department):
     print(department)
     decoded_department = unquote(department)
     print("!!!!!!!!!!",decoded_department)
-    job_details = JobDetails.objects.filter(department=decoded_department, status='open')
+    job_details = JobDetails.objects.filter(department=decoded_department, status='open',J_type='job')
     print("##########",job_details)
     
     all_jobs = list(chain(job_details))
@@ -725,11 +725,11 @@ def job_list(request, department):
     all_jobs = sorted(all_jobs, key=lambda x: x.created_on, reverse=True)
 
   
-    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
 
     open_status_count_job = (
-        JobDetails.objects.filter(status='open')
+        JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
@@ -747,7 +747,7 @@ def job_list(request, department):
     ]
 
 
-    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
 # Count jobs in each unique location from AgencyJobDetails
     
@@ -777,7 +777,7 @@ def user_job_list(request, department):
     print(department)
     decoded_department = unquote(department)
     print("!!!!!!!!!!",decoded_department)
-    job_details = JobDetails.objects.filter(department=decoded_department, status='open')
+    job_details = JobDetails.objects.filter(department=decoded_department, status='open',J_type='job')
     print("##########",job_details)
     
     all_jobs = list(chain(job_details))
@@ -790,11 +790,11 @@ def user_job_list(request, department):
     all_jobs = sorted(all_jobs, key=lambda x: x.created_on, reverse=True)
 
   
-    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
 
     open_status_count_job = (
-        JobDetails.objects.filter(status='open')
+        JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
@@ -812,7 +812,7 @@ def user_job_list(request, department):
     ]
 
 
-    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
 # Count jobs in each unique location from AgencyJobDetails
     
@@ -847,7 +847,7 @@ def all_companies(request):
 
 def all_jobs(request):
 
-    data = JobDetails.objects.all().select_related('company_id').filter(status="open")
+    data = JobDetails.objects.all().select_related('company_id').filter(status="open",J_type='job')
     print(data)
     
     combined_data = list(chain(data))
@@ -870,11 +870,11 @@ def all_jobs(request):
     
 
     
-    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
 
     open_status_count_job = (
-        JobDetails.objects.filter(status='open')
+        JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
@@ -890,7 +890,7 @@ def all_jobs(request):
         (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
     ]
 
-    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
 # Count jobs in each unique location from AgencyJobDetails
    
@@ -911,7 +911,7 @@ def jobs(request):
     if request.user.user_type != 'job seeker':
         return HttpResponseForbidden()
 
-    data = JobDetails.objects.all().select_related('company_id').filter(status="open")
+    data = JobDetails.objects.all().select_related('company_id').filter(status="open",J_type='job')
     print(data)
     
     combined_data = list(chain(data))
@@ -934,11 +934,11 @@ def jobs(request):
     
 
     
-    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
 
     open_status_count_job = (
-        JobDetails.objects.filter(status='open')
+        JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
@@ -954,7 +954,7 @@ def jobs(request):
         (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
     ]
 
-    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
 # Count jobs in each unique location from AgencyJobDetails
    
@@ -975,7 +975,7 @@ def work_mode(request, selected_work_mode):
     selected_work_mode = selected_work_mode.replace('_', ' ')
     # Fetch jobs from AgencyJobDetails for the selected work_mode
     # Fetch jobs from JobDetails for the selected work_mode
-    jobs = JobDetails.objects.filter(work_mode=selected_work_mode)
+    jobs = JobDetails.objects.filter(work_mode=selected_work_mode,J_type='job')
     print("company_job",jobs)
     # Combine both sets of jobs
     combined_jobs =  list(jobs)
@@ -983,11 +983,11 @@ def work_mode(request, selected_work_mode):
     print("**********",combined_jobs)
 
    
-    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain(unique_departments_job)))
 
     open_status_count_job = (
-        JobDetails.objects.filter(status='open')
+        JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
@@ -1007,7 +1007,7 @@ def work_mode(request, selected_work_mode):
         today = datetime.now().date()  # Define 'today' here for each iteration
         days_posted_ago = (today - job.created_on).days
         job.days_posted_ago = days_posted_ago
-    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
 # Count jobs in each unique location from AgencyJobDetails
    
@@ -1044,11 +1044,11 @@ def user_work_mode(request, selected_work_mode):
     print("**********",combined_jobs)
 
    
-    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain(unique_departments_job)))
 
     open_status_count_job = (
-        JobDetails.objects.filter(status='open')
+        JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
@@ -1068,7 +1068,7 @@ def user_work_mode(request, selected_work_mode):
         today = datetime.now().date()  # Define 'today' here for each iteration
         days_posted_ago = (today - job.created_on).days
         job.days_posted_ago = days_posted_ago
-    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
 # Count jobs in each unique location from AgencyJobDetails
    
@@ -1092,7 +1092,7 @@ def user_work_mode(request, selected_work_mode):
 def location_related_jobs(request, location):
     print(location)
     decoded_department = unquote(location)
-    job_details = JobDetails.objects.filter(location=decoded_department, status='open')
+    job_details = JobDetails.objects.filter(location=decoded_department, status='open',J_type='job')
     print("##########",job_details)
   
     all_jobs = list(chain(job_details))
@@ -1105,11 +1105,11 @@ def location_related_jobs(request, location):
     all_jobs = sorted(all_jobs, key=lambda x: x.created_on, reverse=True)
 
     
-    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
 
     open_status_count_job = (
-        JobDetails.objects.filter(status='open')
+        JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
@@ -1126,7 +1126,7 @@ def location_related_jobs(request, location):
     ]
 
 
-    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
 # Count jobs in each unique location from AgencyJobDetails
   
@@ -1153,7 +1153,7 @@ def user_location_related(request, location):
         return HttpResponseForbidden()
     print(location)
     decoded_department = unquote(location)
-    job_details = JobDetails.objects.filter(location=decoded_department, status='open')
+    job_details = JobDetails.objects.filter(location=decoded_department, status='open',J_type='job')
     print("##########",job_details)
   
     all_jobs = list(chain(job_details))
@@ -1166,11 +1166,11 @@ def user_location_related(request, location):
     all_jobs = sorted(all_jobs, key=lambda x: x.created_on, reverse=True)
 
     
-    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
 
     open_status_count_job = (
-        JobDetails.objects.filter(status='open')
+        JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
@@ -1187,7 +1187,7 @@ def user_location_related(request, location):
     ]
 
 
-    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
 # Count jobs in each unique location from AgencyJobDetails
   
@@ -1216,7 +1216,7 @@ def autocomplete_job_title_suggestions(request):
     if keyword:
        
         job_results = JobDetails.objects.filter(
-            designation__icontains=keyword
+            designation__icontains=keyword,J_type='job'
         ).values_list('designation', flat=True)[:10]  # Limit suggestions to 10
 
        
@@ -1265,7 +1265,7 @@ def user_dashboard1(request):
     user_skills = set(user_details.skills.lower().split(','))  # Assuming skills are comma-separated
 
     # Get all job details from JobDetails model
-    all_jobs = JobDetails.objects.all().select_related('company_id').filter(status="open")
+    all_jobs = JobDetails.objects.all().select_related('company_id').filter(status="open",J_type='job')
 
     recommended_jobs_job_details = []
 
@@ -1294,11 +1294,11 @@ def user_dashboard1(request):
         x.is_saved = x.id in saved_job_ids
 
   
-    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
 
     open_status_count_job = (
-        JobDetails.objects.filter(status='open')
+        JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
@@ -1314,7 +1314,7 @@ def user_dashboard1(request):
         (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
     ]
 
-    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
 # Count jobs in each unique location from AgencyJobDetails
    
@@ -1392,11 +1392,11 @@ def saved_jobs(request):
     saved_job_ids = list(saved_company_jobs_ids)
 
    
-    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
 
     open_status_count_job = (
-        JobDetails.objects.filter(status='open')
+        JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
@@ -1412,7 +1412,7 @@ def saved_jobs(request):
         (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
     ]
 
-    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
 # Count jobs in each unique location from AgencyJobDetails
   
@@ -1503,9 +1503,9 @@ def company_info(request,id):
 
     if obj.user_type == 'Company':
         # If the user is a company, retrieve jobs related to that company
-        jobs = JobDetails.objects.filter(company_id_id=id)
+        jobs = JobDetails.objects.filter(company_id_id=id,J_type='job')
         company_names = [obj.first_name]
-        display_jobs = JobDetails.objects.filter(company_id_id=id)  # Assuming company_name exists in the NewUser model
+        display_jobs = JobDetails.objects.filter(company_id_id=id,J_type='job')  # Assuming company_name exists in the NewUser model
         # Additional logic for companies if needed
     
     context = {
