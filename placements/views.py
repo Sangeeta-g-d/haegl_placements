@@ -902,6 +902,67 @@ def all_jobs(request):
     'department_open_counts':department_open_counts,'combined_counts':combined_counts}
     return render(request,'all_jobs.html',context)
 
+def jobs(request):
+
+    data = JobDetails.objects.all().select_related('company_id').filter(status="open")
+    print(data)
+    
+    combined_data = list(chain(data))
+    print("^^^^^^^^^^^^^^^^^^^^^^^^^^",combined_data)
+# Shuffle the combined list
+    random.shuffle(combined_data)
+
+    # Sort the combined list based on 'created_on' attribute to display recent jobs first
+    combined_data.sort(key=lambda x: x.created_on, reverse=True)
+
+
+# Display the jumbled results
+    for item in combined_data:
+        print(item)
+
+
+    for x in combined_data:
+        days_since_posted = (timezone.now().date() - x.created_on).days
+        x.days_since_posted = days_since_posted
+    
+
+    
+    unique_departments_job = JobDetails.objects.values_list('department', flat=True).distinct()
+    all_unique_departments = list(set(chain( unique_departments_job)))
+
+    open_status_count_job = (
+        JobDetails.objects.filter(status='open')
+        .values('department')
+        .annotate(open_count=Count('department'))
+    )
+
+   
+    open_jobs_count = defaultdict(int)
+    for item in open_status_count_job:
+        open_jobs_count[item['department']] += item['open_count']
+
+    
+
+    department_open_counts = [
+        (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
+    ]
+
+    job_details_count = JobDetails.objects.values('location').annotate(job_count=Count('location'))
+
+# Count jobs in each unique location from AgencyJobDetails
+   
+
+# Combine the counts
+    combined_counts = {}
+
+    for job_detail in job_details_count:
+        combined_counts[job_detail['location']] = combined_counts.get(job_detail['location'], 0) + job_detail['job_count']
+
+    
+    context = {'data':data,'combined_data':combined_data,
+    'department_open_counts':department_open_counts,'combined_counts':combined_counts}
+    return render(request,'jobs.html',context)
+
 def work_mode(request, selected_work_mode):
     print("!!!!!!!",selected_work_mode)
     selected_work_mode = selected_work_mode.replace('_', ' ')
@@ -1352,6 +1413,7 @@ def saved_jobs(request):
     ,'department_open_counts':department_open_counts,'all_saved_jobs':all_saved_jobs,'combined_counts':combined_counts}
     return render(request,'saved_jobs.html',context)
 
+<<<<<<< HEAD
 
 def job_applications(request):
     i = request.user.id
@@ -1388,3 +1450,86 @@ def job_applications(request):
     return render(request,'job_applications.html',context)
 
     
+=======
+def application_status(request):
+    id = request.user.id
+    obj = NewUser.objects.get(id=id)
+    today_date = date.today()
+    applied_jobs = AppliedJobs.objects.select_related('job_id').filter(user_id_id=id)
+    combined_jobs = list(applied_jobs) 
+    combined_jobs.sort(key=lambda x: x.applied_date, reverse=True)
+    for x in combined_jobs:
+        print(x)
+    context = {'obj':obj,'today_date':today_date,'combined_jobs':combined_jobs}
+    return render(request,'application_status.html',context)
+
+def companies(request):
+    hiring_partners = NewUser.objects.filter(user_type='Company')
+    context = {
+    'hiring_partners':hiring_partners
+    }
+    return render(request,'companies.html',context)
+
+
+def company_info(request,id):
+    print("iddddddddd",id)
+    obj = NewUser.objects.get(id=id)
+    info = CompanyDetails.objects.filter(company_id_id=id).first()
+    c_img = info.cover_image
+    print(info.other_image1)
+    print("LinkedIn URL:", info.linkedin_url)
+    company_names = []
+    company_jobs_dict = {}
+
+    if obj.user_type == 'Company':
+        # If the user is a company, retrieve jobs related to that company
+        jobs = JobDetails.objects.filter(company_id_id=id)
+        company_names = [obj.first_name]
+        display_jobs = JobDetails.objects.filter(company_id_id=id)  # Assuming company_name exists in the NewUser model
+        # Additional logic for companies if needed
+    
+    context = {
+        'jobs': jobs,
+        'company_names': company_names,
+        'company_jobs_dict': company_jobs_dict,
+        'obj': obj,
+        'info':info,
+        'c_img':c_img,
+        'display_jobs':display_jobs
+
+    }
+    return render(request,'company_info.html',context)
+
+from django.urls import reverse
+def profile(request):
+    success_message = request.GET.get('success_message')
+    id = request.user.id
+    obj = NewUser.objects.get(id=id)
+    today_date = date.today()
+    print("%%%%%%%%%%%%%",obj.profile)
+    data = UserDetails.objects.get(user_id=id)
+    if request.method == 'POST':
+        obj.first_name = request.POST.get('first_name')
+        obj.last_name = request.POST.get('last_name')
+        obj.email = request.POST.get('email')
+        obj.city = request.POST.get('city')
+        obj.country = request.POST.get('country')
+        obj.profile = request.FILES.get('profile')
+        data.qualification = request.POST.get('qualification')
+        data.experience = request.POST.get('experience')
+        data.skills = request.POST.get('skills')
+        obj.save()
+        data.save()
+    applied_jobs = AppliedJobs.objects.select_related('job_id').filter(user_id_id=id)
+   
+    combined_jobs = list(applied_jobs) 
+    combined_jobs.sort(key=lambda x: x.applied_date, reverse=True)
+    no = len(combined_jobs)
+    context = {'obj':obj,'today_date':today_date,'data':data,'success_message':success_message,'no':no}
+    return render(request,'profile.html',context)
+
+def user_logout(request):
+    logout(request)
+    # Redirect to a specific page after logout (optional)
+    return redirect('/')
+>>>>>>> 176038b7292ee57194950ce662288d25b71c5cab

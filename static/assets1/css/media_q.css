@@ -63,7 +63,7 @@
 @media (max-width: 768px) {
     .product-item {
         /* Adjust the height or any other styles to make the card sizes uniform */
-        height: 300px; /* Example height, adjust as needed */
+        height: 350px; /* Example height, adjust as needed */
         width: 100%; /* To ensure the card takes the full width */
     }
 }
