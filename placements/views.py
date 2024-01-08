@@ -569,7 +569,7 @@ def company(request,id):
     info = CompanyDetails.objects.filter(company_id_id=id).first()
     c_img = info.cover_image
     print(info.other_image1)
-
+    print("LinkedIn URL:", info.linkedin_url)
     company_names = []
     company_jobs_dict = {}
 
