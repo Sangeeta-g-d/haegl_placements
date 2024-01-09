@@ -44,7 +44,7 @@
 <link href="/static/assets2/css/specific.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
-  
+
   </head>
   <style>
     .section {
@@ -106,6 +106,9 @@
                 </li>
                 <li class="nav-item ">
                   <a class="nav-link" href="/all_jobs">Jobs</a>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link" href="/internships">Internships</a>
                 </li>
               </ul>
               <ul class="navbar-nav ml-auto mt-10">
@@ -202,11 +205,11 @@ $(document).ready(function() {
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				
+
 			</div>
 		</div>
 		<div class="row">
-		
+
 			<div class="col-lg-9 col-md-8">
 
 				<div class="product-grid-list">
@@ -257,7 +260,7 @@ $(document).ready(function() {
           <li class="list-inline-item">
             <i class="fa fa-rupee-sign"></i>{{x.salary}}
           </li>
-          
+
 		    </ul>
         <p class="card-text">Required Skills : {{ x.mandatory_skills }}</p>
         {% if x.company_id.first_name %}
@@ -314,7 +317,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	<ul class="category-list">
 
     <li><a href="{% url 'work_mode' 'Work Form Office' %}">Work from Office</a></li>
-    <li><a href="{% url 'work_mode' 'hybride' %}">Hybride</a></li>
+    <li><a href="{% url 'work_mode' 'hybrid' %}">Hybrid</a></li>
     <li><a href="{% url 'work_mode' 'remote' %}">Remote</a></li>
 	</ul>
 </div>
@@ -355,7 +358,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <div style="padding-top: 10px;">
         <img width="120px" height="60px" src="/static/assets1/images/hhh2.png" alt=""></div>
       </div>
-      
+
       <div class="col-lg-2 col-md-3 offset-md-1 offset-lg-0 col-6 mb-4 mb-md-0">
         <div class="block">
           <h4>Pages</h4>
@@ -369,19 +372,19 @@ document.addEventListener("DOMContentLoaded", function() {
           </ul>
         </div>
         <div style="padding-top: 30px;">
-         
+
             <!-- Insert your social media icons here -->
             <!-- Example using Font Awesome for social icons -->
-           
+
             <ul class="list-inline">
               <li class="list-inline-item text-center"><a target="_blank" class="fa fa-instagram" href="https://www.instagram.com/haegltechnologies/" style="font-size: 20px; color: white;"></a></li>&nbsp;
               <li class="list-inline-item text-center"><a target="_blank" class="fa fa-facebook" href="https://www.facebook.com/haegltechnologies/" style="font-size: 20px; color: white;"></a></li>&nbsp;
               <li class="list-inline-item text-center"><a target="_blank" class="fa fa-linkedin" href="https://www.linkedin.com/company/haegl-technologies-pvt-ltd/" style="font-size: 20px; color: white;"></a></li>
           </ul>
-                 
-          
+
+
             <!-- Add more social media icons as needed -->
-        </div>       
+        </div>
       </div>
       <div class="col-lg-3 col-md-3 offset-md-1 offset-lg-0 col-6 mb-4 mb-md-0">
         <div class="block">
@@ -402,8 +405,8 @@ document.addEventListener("DOMContentLoaded", function() {
             </a>
           </ul>
         </div>
-     
-        
+
+
       </div>
       <!-- Promotion -->
       <div class="col-lg-3 col-md-7">
@@ -449,5 +452,3 @@ Essential Scripts
 </body>
 
 </html>
-
-

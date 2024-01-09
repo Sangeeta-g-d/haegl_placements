@@ -60,6 +60,12 @@ input[type="text"] {
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/internship_list">
+              <i class="mdi mdi-contacts menu-icon"></i>
+              <span class="menu-title">Internship</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/job_applications">
               <i class="mdi mdi-contacts menu-icon"></i>
               <span class="menu-title">Applications</span>
@@ -154,7 +160,7 @@ input[type="text"] {
                                 const searchInput = document.querySelector('input[name="search_query"]');
                                 const searchText = searchInput.value.toLowerCase();
                                 const tableRows = document.querySelectorAll('#dataTable tbody tr');
-                    
+
                                 tableRows.forEach(row => {
                                     const rowData = row.textContent.toLowerCase();
                                     if (rowData.includes(searchText)) {
@@ -164,20 +170,20 @@ input[type="text"] {
                                     }
                                 });
                             }
-                    
+
                             // Event listener for form submission
                             const searchForm = document.getElementById('searchForm');
                             searchForm.addEventListener('submit', function(event) {
                                 event.preventDefault(); // Prevent form submission
                                 performSearch(); // Call the search function
                             });
-                    
+
                             // Optional: Event listener for real-time search as the user types
                             const searchInput = document.querySelector('input[name="search_query"]');
                             searchInput.addEventListener('input', performSearch);
                         });
                     </script>
-                      
+
                       <div class="table-responsive">
                         <table class="table" id="dataTable" >
                           <thead class="bg-light">
@@ -195,14 +201,14 @@ input[type="text"] {
                             </tr>
                           </thead>
                           <tbody>
-                            {% for x in data %} 
+                            {% for x in data %}
                             <tr>
                               <td>{{x.designation}}</td>
                               <td>{{x.department}}</td>
                               <td>{{x.location}}, {{x.state}}</td>
                               <td>{{x.work_mode}}</td>
                               <td>{{x.no_of_vacancy}}</td>
-                             
+
                               <td  class="break-words">{{x.mandatory_skills}}</td>
                               <td>{{x.experience}}</td>
                               <td  class="break-words">{{x.qualification}}</td>
@@ -217,19 +223,19 @@ input[type="text"] {
                             <script>
                               document.addEventListener('DOMContentLoaded', function() {
                                  const statusButtons = document.querySelectorAll('.approve-btn');
-                           
+
                                  statusButtons.forEach(button => {
                                     button.addEventListener('click', function() {
                                        const jobId = this.id.split('_')[1]; // Extract the job ID from the button ID
                                        toggleStatus(jobId);
                                     });
                                  });
-                           
+
                                  function toggleStatus(jobId) {
                                     // Implement an AJAX request to update the status in the backend
                                     // You can use the Fetch API or jQuery.ajax for this purpose
                                     // Example using Fetch API:
-                           
+
                                     fetch(`/toggle_status/${jobId}/`, {
                                        method: 'POST', // Use 'PUT' or 'PATCH' depending on your backend API
                                        headers: {
@@ -249,15 +255,15 @@ input[type="text"] {
                                  }
                               });
                            </script>
-                           
+
                             <script>
                               document.addEventListener('DOMContentLoaded', function() {
                                 const tds = document.querySelectorAll('.break-words');
-                          
+
                                 tds.forEach(td => {
                                   const words = td.textContent.split(' ');
                                   const maxWordsPerLine = 5; // Change this number as needed
-                          
+
                                   if (words.length > maxWordsPerLine) {
                                     let formattedText = '';
                                     for (let i = 0; i < words.length; i++) {
@@ -275,15 +281,15 @@ input[type="text"] {
                           </tbody>
                         </table>
                       </div>
-                     
+
                     </div>
                   </div>
                 </div>
-  
+
               </div>
-            
+
           </div>
-         
+
         </div>
         <!-- main-panel ends -->
       </div>

@@ -36,7 +36,7 @@
   <link href="/static/assets1/plugins/slick/slick.css" rel="stylesheet">
   <link href="/static/assets1/plugins/slick/slick-theme.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/static/assets1/css/media_q.css"> 
+  <link rel="stylesheet" href="/static/assets1/css/media_q.css">
   <link href="/static/assets1/plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
 
   <link href="/static/assets1/css/style.css" rel="stylesheet">
@@ -46,7 +46,7 @@
 <link href="/static/assets2/css/specific.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
-  
+
   </head>
   <style>
     .section {
@@ -102,7 +102,7 @@
 }
 
 
- 
+
     a[href="/haegl.in"]:hover li {
   /* Apply hover effect styles here */
   color: #f0f0f0; /* Example hover background color */
@@ -126,7 +126,7 @@
 .logo img {
     width: 50px;
     height: 40px;
-    
+
     border-radius: 5px; /* Adjust to match the card's border radius */
 }
 
@@ -166,6 +166,9 @@
                   <li class="nav-item ">
                     <a class="nav-link" href="/all_jobs">Jobs</a>
                   </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="/internships">Internships</a>
+                  </li>
     						</ul>
     						<ul class="navbar-nav ml-auto mt-10">
     							<li class="nav-item">
@@ -200,7 +203,7 @@
 					<h1>From Applications to Offers</h1>
 					<p>your one-stop platform for efficient and streamlined job application and hiring processes.<br>
            Simplifying the recruitment journey for all stakeholders involved.</p>
-					
+
 				</div>
 				<!-- Advance Search -->
 				<div class="advance-search">
@@ -303,20 +306,20 @@ $(document).ready(function() {
 			<div class="col-lg-12">
 				<div class="trending-ads-slide mobile-carousel">
             {% for x in recent_jobs %}
-            <div class="col-lg-4 col-md-6 custom-sm-12"> 
+            <div class="col-lg-4 col-md-6 custom-sm-12">
 						<!-- product card -->
 
 <div class="product-item product-item1">
 	<div class="card card-card1">
 		<div class="thumb-content">
 			<!-- <div class="price">$200</div> -->
-     
+
 			<a href="{% url 'single_job' job_id=x.id %}">
 				<img class="small-image card-img-top img-fluid" src="/{{x.company_id.profile}}" alt="Card image cap">
 			</a>
 		</div>
     <div class="card-body text-center">
-      
+
       <h4 class="card-title" style="color: #844FC1 !important;"><a href="{% url 'single_job' job_id=x.id  %}">{{x.designation}}</a></h4>
           <p class="card-text">{{x.company_id.first_name}}</p>
       <ul class="list-inline product-meta">
@@ -343,7 +346,7 @@ $(document).ready(function() {
 	</div>
 </section>
 <script>
-  
+
   // AOS initialization
   document.addEventListener("DOMContentLoaded", function() {
     AOS.init({
@@ -383,7 +386,7 @@ $(document).ready(function(){
 });
   </script>
 <section id="about1" style="margin-bottom: 50px;" class="about1">
-    
+
   <div class="container" data-aos="fade-up" data-aos-delay="100">
     <div class="row align-items-xl-center gy-5">
 
@@ -406,7 +409,7 @@ $(document).ready(function(){
                <a href="{% url 'search_trend' 'freshers' %}"> <h5 id="viewAllBtn">View all</h5></a>
             </div>
         </div>
-        
+
         <!-- End Icon Box -->
 
           <div class="col-md-6" data-aos="fade-up" data-aos-delay="300"id="jobsCard">
@@ -415,8 +418,8 @@ $(document).ready(function(){
               <h3><b>Banking Jobs</b></h3>
               <ul>
                 <li>Career paths in the finance industry</li>
-               
-                
+
+
             </ul>
               <br>
               <a href="{% url 'search_trend' 'banking' %}"> <h5 id="viewAllBtn">View all</h5></a>          </div>
@@ -428,7 +431,7 @@ $(document).ready(function(){
               <h3><b>Technical Jobs</b></h3>
               <ul>
                 <li>IT and technology-related positions</li>
-               
+
             </ul>
               <br>
               <a href="{% url 'search_trend' 'technical' %}"> <h5 id="viewAllBtn">View all</h5></a>
@@ -441,8 +444,8 @@ $(document).ready(function(){
               <h3><b>Part time Jobs</b></h3>
               <ul>
                 <li>Flexible work schedules</li>
-               
-               
+
+
             </ul>
               <br>
               <a href="{% url 'search_trend' 'part-time' %}"> <h5 id="viewAllBtn">View all</h5></a>      </div>
@@ -682,7 +685,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
         <div class="content px-xl-5">
           <h3><span style="font-size: 20px;">Preparation for your next interview?</span><br><b>Refer Questions asked by Top Companies</b></h3>
-         
+
         </div>
         <img width="300px" src="/static/assets2/img/question.png" alt="">
       </div>
@@ -700,10 +703,10 @@ document.addEventListener("DOMContentLoaded", function() {
                   <a href="/questions/{{c.id}}"><h3>{{c.company_name}}</h3></a>
               </div>
           </div>
-          
-          
-            
-           
+
+
+
+
           </div><!-- End Faq item-->
           {% endfor %}
 
@@ -713,25 +716,25 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="col-lg-3" data-aos="fade-up" data-aos-delay="200">
 
         <div class="faq-container">
-         
+
           <div class="faq-item">
             <h3><span class="num">2.</span> <span>Technical Interview Questions</span></h3>
             <div class="faq-content">
               <p>Topics : Programming Language, Frameworks and libraries associated with the language, Data Structures, Algorithms, Databases, Networking, Operating Systems ,Software Development Lifecycle.</p>
               <br>
-              
+
             </div>
             <i class="faq-toggle bi bi-chevron-right"></i>
           </div><!-- End Faq item-->
 
-       
-        
+
+
           <div class="faq-item">
             <h3><span class="num">3.</span> <span>Banking interview questions</span></h3>
             <div class="faq-content">
               <p>Topics : Financial Markets and Instruments, Banking Regulations and Compliance, Risk Management, Financial Analysis, Banking Operations, Investment Banking, Financial Technology.</p>
               <br>
-              
+
             </div>
             <i class="faq-toggle bi bi-chevron-right"></i>
           </div><!-- End Faq item-->
@@ -741,7 +744,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="faq-content">
               <p>Topics: Statistics and Probability, Machine Learning, Data Analysis and Exploration, Data Cleaning and Preprocessing, Programming and Coding, SQL and Databases.</p>
               <br>
-              
+
             </div>
             <i class="faq-toggle bi bi-chevron-right"></i>
           </div><!-- End Faq item-->
@@ -750,7 +753,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <h3><span class="num">5.</span> <span>Sales Manager interview questions</span></h3>
             <div class="faq-content">
               <p>Topics: Sales Experience and Achievements, Leadership and Management, Sales Strategy and Planning, Recruitment and Team Building, Performance Management, Customer Focus, Sales Forecasting and Reporting</p>
-           <br>   
+           <br>
             </div>
             <i class="faq-toggle bi bi-chevron-right"></i>
           </div><!-- End Faq item-->
@@ -759,7 +762,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <h3><span class="num">5.</span> <span>Sales Manager interview questions</span></h3>
             <div class="faq-content">
               <p>Topics: Sales Experience and Achievements, Leadership and Management, Sales Strategy and Planning, Recruitment and Team Building, Performance Management, Customer Focus, Sales Forecasting and Reporting</p>
-           <br>   
+           <br>
             </div>
             <i class="faq-toggle bi bi-chevron-right"></i>
           </div><!-- End Faq item-->
@@ -817,7 +820,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <div style="padding-top: 10px;">
         <img width="120px" height="60px" src="/static/assets1/images/hhh2.png" alt=""></div>
       </div>
-      
+
       <div class="col-lg-2 col-md-3 offset-md-1 offset-lg-0 col-6 mb-4 mb-md-0">
         <div class="block">
           <h4>Pages</h4>
@@ -831,19 +834,19 @@ document.addEventListener("DOMContentLoaded", function() {
           </ul>
         </div>
         <div style="padding-top: 30px;">
-         
+
             <!-- Insert your social media icons here -->
             <!-- Example using Font Awesome for social icons -->
-           
+
             <ul class="list-inline">
               <li class="list-inline-item text-center"><a target="_blank" class="fa fa-instagram" href="https://www.instagram.com/haegltechnologies/" style="font-size: 20px; color: white;"></a></li>&nbsp;
               <li class="list-inline-item text-center"><a target="_blank" class="fa fa-facebook" href="https://www.facebook.com/haegltechnologies/" style="font-size: 20px; color: white;"></a></li>&nbsp;
               <li class="list-inline-item text-center"><a target="_blank" class="fa fa-linkedin" href="https://www.linkedin.com/company/haegl-technologies-pvt-ltd/" style="font-size: 20px; color: white;"></a></li>
           </ul>
-                 
-          
+
+
             <!-- Add more social media icons as needed -->
-        </div>       
+        </div>
       </div>
       <div class="col-lg-3 col-md-3 offset-md-1 offset-lg-0 col-6 mb-4 mb-md-0">
         <div class="block">
@@ -864,8 +867,8 @@ document.addEventListener("DOMContentLoaded", function() {
             </a>
           </ul>
         </div>
-     
-        
+
+
       </div>
       <!-- Promotion -->
       <div class="col-lg-3 col-md-7">

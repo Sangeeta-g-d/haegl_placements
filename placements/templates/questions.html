@@ -29,7 +29,7 @@
   <link href="images/favicon.png" rel="shortcut icon">
 
   <!--
-    
+
   Essential stylesheets
   =====================================-->
   <link href="/static/assets1/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -40,7 +40,7 @@
   <link href="/static/assets1/plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
 
   <link href="/static/assets1/css/style.css" rel="stylesheet">
- 
+
   <link href="/static/assets2/img/apple-touch-icon.png" rel="apple-touch-icon">
   <link href="/static/assets2/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 </head>
@@ -69,7 +69,7 @@
 
 
 
-  
+
 .blog-details .article {
   box-shadow: 0 4px 16px rgba(33, 37, 41, 0.1);
   padding: 30px;
@@ -524,9 +524,9 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          
-             
-            
+
+
+
           <nav class="navbar navbar-expand-lg navbar-light navigation">
             <a class="navbar-brand" href="/">
               <img style=" margin-top: -10px;" width="160px" height="60px" src="/static/assets1/images/is_logo.png"
@@ -546,6 +546,9 @@
                 </li>
                 <li class="nav-item ">
                   <a class="nav-link" href="/all_jobs">Jobs</a>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link" href="/internships">Internships</a>
                 </li>
               </ul>
               <ul class="navbar-nav ml-auto mt-10">
@@ -583,12 +586,12 @@
           <article class="article">
 
             <div class="post-img">
-             
+
             </div>
 
             <h3>Interview Questions Asked by {{company_name}}</h3>
 
-           
+
             <div class="content">
               {% for x in data %}
              <h6><span>Q{{forloop.counter}}) </span>{{x.question}}</h6>
@@ -605,15 +608,15 @@
                 </p>
               </blockquote> -->
 
-             
-              
+
+
             </div><hr><!-- End post content -->
 
-           
+
 
           </article><!-- End post article -->
 
-         
+
         </div>
 
         <div class="col-lg-4">
@@ -626,14 +629,14 @@
                 <img src="/{{ x.company_logo }}" alt="" style="width: 50px; height: 37px;">
                 <div style="margin: 3px;">
                   <h4><a href="/questions/{{x.id}}">{{x.company_name}}</a></h4>
-                  
+
                 </div>
               </div>
               {% endfor %}<!-- End recent post item-->
 
             </div><!-- End sidebar recent posts-->
 
-           
+
 
           </div><!-- End Sidebar -->
 
@@ -768,12 +771,3 @@ Essential Scripts
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
