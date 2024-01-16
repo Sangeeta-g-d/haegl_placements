@@ -71,6 +71,7 @@ class AppliedJobs(models.Model):
     resume = models.FileField(upload_to='applied_resume/')
     applied_date = models.DateField(default=timezone.now)
     status = models.CharField(max_length=200,default='Pending')
+    applied=models.BooleanField(default=False)
 
 class CompanyJobSaved(models.Model):
     user_id=models.ForeignKey('NewUser',on_delete=models.CASCADE,related_name='UserId')

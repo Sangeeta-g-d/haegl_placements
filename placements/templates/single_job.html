@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <meta name="author" content="Themefisher">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/static/assets1/css/media_q.css"> 
+  <link rel="stylesheet" href="/static/assets1/css/media_q.css">
   <meta name="generator" content="Themefisher Classified Marketplace Template v1.0">
 
   <!-- theme meta -->
@@ -104,7 +104,7 @@
   }
 
    /* Media query for screens up to 767px (typical mobile screens) */
-  
+
 </style>
 
 <body>
@@ -131,6 +131,9 @@
                 </li>
                 <li class="nav-item ">
                   <a class="nav-link" href="/all_jobs">Jobs</a>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link" href="/internships">Internships</a>
                 </li>
               </ul>
               <ul class="navbar-nav ml-auto mt-10">
@@ -163,12 +166,12 @@
               <b>{{job.designation}}</b>
             </h1>
             <br>
-           
+
             <a class="company-name" href="/company/{{job.company_id_id}}"
               style="color: white; font-size: 25px; font-weight: 400; margin: 0;">
               {{job.company_id.first_name}}
             </a>
-           
+
 
             <div class="product-meta" style="margin-top: 10px;">
               <ul class="list-inline" style="list-style: none; padding: 0; margin: 0;">
@@ -183,6 +186,12 @@
                   <i class="fa fa-map-marker"></i> <a href="#"
                     style="color: white;">{{job.location}}</a>
                 </li>
+                {% if job.J_type == 'internship' %}
+                <li class="list-inline-item" style="color: rgb(212, 203, 203);">
+                  <i class="fa fa-briefcase"></i> <a href="#"
+                    style="color: white;">{{job.J_type}}</a>
+                </li>
+                {% endif %}
               </ul>
               <div style="display: flex; margin-top: 10px;">
                 <div
@@ -200,15 +209,13 @@
         <div class="col-lg-4">
           <a href="/user_login">
             <div class="sidebar" style="margin-top:65px;">
-
-              <button
-                style="background-color: #ec6433; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px;">Apply
-                Now</button>
+             
+             <button id="applyButton" style="background-color: #ec6433; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px;">Apply Now</button>
 
             </div>
           </a>
         </div>
-        
+
       </div>
     </div> <br> <br> <br> <br>
 
@@ -262,7 +269,7 @@
             <!-- Search Widget -->
 
             <!-- Category Widget -->
-            
+
               <!-- Widget Header -->
               <img width="380px" height="250px" src="/static/assets1/images/job_p.png" alt="">
 

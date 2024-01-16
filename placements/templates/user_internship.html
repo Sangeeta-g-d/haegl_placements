@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
-
 <html lang="en">
 <head>
 
@@ -47,9 +38,71 @@
   color: #f0f0f0; /* Example hover background color */
    /* Example hover text color */
 }
-.small-image {
-      width: 130px; /* Adjust the width as needed */
-     height: 100px; /* Adjust the height as needed */
+  </style>
+  <body>
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <nav class="navbar navbar-expand-lg navbar-light navigation">
+              <a class="navbar-brand" href="/user_dashboard">
+                <img style=" margin-top: -10px;" width="160px" height="60px" src="/static/assets1/images/is_logo.png" alt="">
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto main-nav ">
+
+
+                  <li class="nav-item dropdown dropdown-slide @@dashboard">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#!">Jobs<span><i class="fa fa-angle-down"></i></span>
+                    </a>
+
+                    <!-- Dropdown list -->
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item @@dashboardPage" href="/user_dashboard">Recommanded</a></li>
+                      <li><a class="dropdown-item @@dashboardMyAds" href="/saved_jobs">Saved</a></li>
+                      <li><a class="dropdown-item @@dashboardMyAds" href="/jobs">All Jobs</a></li>
+
+
+                    </ul>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="/user_internship">Internships</a>
+                  </li>
+
+                  <li class="nav-item ">
+                    <a class="nav-link" href="/application_status">Status</a>
+                  </li>
+
+                  <li class="nav-item ">
+                    <a class="nav-link" href="/companies">Companies</a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="/profile">Profile</a>
+                  </li>
+
+                </ul>
+
+
+                <ul class="navbar-nav ml-auto mt-10">
+                  <li class="nav-item">
+                    <a class="nav-link login-button" href="/user_logout">Logout</a>
+                  </li>
+
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+  <style>
+    .small-image {
+      width: 160px; /* Adjust the width as needed */
+     height: 120px; /* Adjust the height as needed */
      display: block;
      margin: 10px auto; /* Adjust the height as needed */
     }
@@ -72,56 +125,10 @@
 
     #suggestionListJobTitle li:hover {
         background-color: #f2f2f2;
-          color:black;
+        color:black;
     }
 
-  </style>
-  <body>
-    <header>
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-md-12">
-    				<nav class="navbar navbar-expand-lg navbar-light navigation">
-    					<a class="navbar-brand" href="/">
-    						<img style=" margin-top: -10px;" width="160px" height="60px" src="/static/assets1/images/is_logo.png" alt="">
-    					</a>
-    					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    						<span class="navbar-toggler-icon"></span>
-    					</button>
-    					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-    						<ul class="navbar-nav ml-auto main-nav ">
-    							<li class="nav-item active">
-    								<a class="nav-link" href="/">Home</a>
-    							</li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="/all_companies">Companies</a>
-                  </li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="/all_jobs">Jobs</a>
-                  </li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="/internships">Internships</a>
-                  </li>
-    						</ul>
-    						<ul class="navbar-nav ml-auto mt-10">
-    							<li class="nav-item">
-    								<a class="nav-link login-button" href="/user_login">Login</a>
-    							</li>
-    							<li class="nav-item">
-    								<a class="nav-link text-white add-button" href="/login"><i class="fa fa-plus-circle"></i> Hire Candidate</a>
-    							</li>
-    						</ul>
-    					</div>
-    				</nav>
-    			</div>
-    		</div>
-    	</div>
-    </header>
-
-
-
-
+    </style>
 
 <section class="page-search">
 	<div class="container">
@@ -129,22 +136,22 @@
 			<div class="col-md-12">
 				<!-- Advance Search -->
 				<div class="advance-search nice-select-white">
-          <form method="GET" action="{% url 'search_results' %}">
+          <form method="GET" action="{% url 'internship_search' %}">
             <div class="form-row">
               <div class="form-group col-xl-4 col-lg-3 col-md-6">
- <input type="text" name="job_title" class="form-control my-2 my-lg-1" id="inputtext4" placeholder="Job Title">
+ <input type="text" name="job_title" class="form-control my-2 my-lg-1" id="inputtext5" placeholder="Internship Title">
  <ul id="suggestionListJobTitle"></ul> <!-- Empty <ul> for displaying suggestions -->
 </div>
               <div class="form-group col-lg-3 col-md-6">
                 <select  name="type" class="w-100 form-control mt-lg-1 mt-md-2">
-                  <option>Job Type</option>
+                  <option>Internship Type</option>
                   <option value="Full time">Full Time</option>
                   <option value="Part time">Part Time</option>
 
                 </select>
               </div>
               <div class="form-group col-lg-3 col-md-6">
-                <input  name="keyword" type="text" class="form-control my-2 my-lg-1" id="inputLocation4" placeholder="Location">
+                <input  name="location" type="text" class="form-control my-2 my-lg-1" id="inputLocation4" placeholder="Location">
               </div>
               <div class="form-group col-xl-2 col-lg-3 col-md-6 align-self-center">
                 <button style="background:white;" type="submit" class="btn active w-100">Search Now</button>
@@ -158,13 +165,13 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
-    $('#inputtext4').on('input', function() {
+    $('#inputtext5').on('input', function() {
         const keyword = $(this).val().trim();
         const suggestionList = $('#suggestionListJobTitle');
 
         if (keyword.length >= 2) {  // Adjust the minimum length for suggestions
             $.ajax({
-                url: '/autocomplete-job-title/',  // Replace with your Django URL for job title suggestions
+                url: '/autocomplete-internship-title/',  // Replace with your Django URL for job title suggestions
                 data: { keyword: keyword },
                 dataType: 'json',
                 success: function(response) {
@@ -188,7 +195,7 @@ $(document).ready(function() {
     // Handle click on suggestion and populate the input field
     $('body').on('click', '#suggestionListJobTitle li', function() {
         const suggestionText = $(this).text();
-        $('#inputtext4').val(suggestionText);
+        $('#inputtext5').val(suggestionText);
         $('#suggestionListJobTitle').hide(); // Hide the suggestion list after selecting a suggestion
     });
 });
@@ -199,24 +206,24 @@ $(document).ready(function() {
 		<div class="row">
 			<div class="col-md-12">
 				<div class="search-result bg-gray">
-					<h2>Results For {{ selected_department }}</h2>
+				<h2 style="text-align: center;">Internships</h2>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-      <div class="col-lg-9 col-md-8">
+     <div class="col-lg-9 col-md-8 mx-auto">
 
 				<!-- ad listing list  -->
-        {% for x in all_jobs %}
+        {% for x in combined_data %}
 				<div class="ad-listing-list mt-20">
     <div class="row p-lg-3 p-sm-5 p-4">
         <div class="col-lg-4 align-self-center">
           {% if x.company_id.first_name %}
-            <a href="{% url 'single_job' job_id=x.id  %}">
+            <a href="{% url 'user_single_job' job_id=x.id %}">
                 <img class="small-image card-img-top img-fluid" src="/{{x.company_id.profile}}" alt="">
             </a>
             {% else %}
-            <a href="{% url 'single_job' job_id=x.id %}">
+            <a href="{% url 'user_single_job' job_id=x.id %}">
                 <img class="small-image card-img-top img-fluid" src="/{{x.company_id.profile}}" alt="">
             </a>
             {% endif %}
@@ -225,23 +232,27 @@ $(document).ready(function() {
             <div class="row">
                 <div class="col-lg-7 col-md-10">
                     <div class="ad-listing-content">
+                      {% if x.company_id.first_name %}
                         <div>
-                            <a href="/single_job/{{x.id}}" class="font-weight-bold">{{x.designation}}</a>
+                            <a href="{% url 'user_single_job' job_id=x.id  %}" class="font-weight-bold">{{x.designation}}</a>
                         </div>
-                        {% if x.company_id.first_name %}
                         <p>{{x.company_id.first_name}}</p>
                         {% else %}
-                        <p>{{x.company_id.company_name}}</p>
+                        <div>
+                            <a href="{% url 'user_single_job' job_id=x.id  %}" class="font-weight-bold">{{x.designation}}</a>
+                            <span>{{x.company_id.company_name}}</span>
+                        </div>
                         {% endif %}
                         <ul class="list-inline mt-2 mb-3">
-                            <li class="list-inline-item"> <i class="fa fa-folder-open-o"></i> {{x.job_type}}</li>
+                            <li class="list-inline-item"><i class="fa fa-folder-open-o"></i> {{x.job_type}}</li>
                             <li class="list-inline-item"><i class="fa fa-map-marker"></i> {{x.location}}</li>
+                            <li class="list-inline-item"><i class="fa fa-briefcase"></i> {{x.work_mode}}</li>
                         </ul>
                         <p class="card-text">Required Skills : {{ x.mandatory_skills }}</p>
-                        {% if x.company_id.first_name %}
-                    <a href="{% url 'single_job' job_id=x.id   %}" class="read-more-link">Know More</a>
+                          {% if x.company_id.first_name %}
+                    <a href="{% url 'user_single_job' job_id=x.id  %}" class="read-more-link">Know More</a>
                     {% else %}
-                    <a href="{% url 'single_job' job_id=x.id %}" class="read-more-link">Know More</a>
+                    <a href="{% url 'user_single_job' job_id=x.id   %}" class="read-more-link">Know More</a>
                     {% endif %}
                     <script type="text/javascript">
                     // Function to truncate text and show "Know More" link if necessary
@@ -278,7 +289,11 @@ $(document).ready(function() {
         </div>
     </div>
 </div>
+</div>
 {% endfor %}
+
+
+
 
 				<!-- ad listing list  -->
 
@@ -306,46 +321,12 @@ $(document).ready(function() {
 				</div>-->
 				<!-- pagination -->
 			</div>
-			<div class="col-lg-3 col-md-4">
-				<div class="category-sidebar">
-					<div class="widget category-list">
-	<h4 class="widget-header">All Departments</h4>
-	<ul class="category-list">
-      {% for department, count in department_open_counts %}
-		<li><a href="{% url 'job_list' department|urlencode %}">{{ department }}</a></li>
-	{% endfor %}
-	</ul>
-</div>
 
-<div class="widget category-list">
-	<h4 class="widget-header">Work Mode</h4>
-	<ul class="category-list">
-
-		<li><a href="{% url 'work_mode' 'Work from office' %}">Work from Office</a></li>
-    <li><a href="{% url 'work_mode' 'Hybrid' %}">Hybrid</a></li>
-    <li><a href="{% url 'work_mode' 'Remote' %}">Remote</a></li>
-
-	</ul>
-</div><div class="widget category-list">
-	<h4 class="widget-header">Location</h4>
-	<ul class="category-list">
-
-    {% for location, job_count in combined_counts.items %}
-		<li><a href="{% url 'location_related_jobs' location|urlencode %}">{{ location }}<span>({{job_count }})</span></a></li>
-	{% endfor %}
-	</ul>
-</div>
-
-				</div>
-			</div>
 
 		</div>
 	</div>
 </section>
 
-<!--============================
-=            Footer            =
-=============================-->
 <footer style="padding-bottom: 0%;" class="footer section section-sm">
     <!-- Container Start -->
     <div class="container">
