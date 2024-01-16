@@ -1127,6 +1127,11 @@ def jobs(request):
     random.shuffle(combined_data)
     # Sort the combined list based on 'created_on' attribute to display recent jobs first
     combined_data.sort(key=lambda x: x.created_on, reverse=True)
+
+   
+    saved_company_jobs_ids = CompanyJobSaved.objects.filter(user_id=request.user.id).values_list('job_id_id', flat=True)
+    saved_job_ids =  list(saved_company_jobs_ids)
+
 # Display the jumbled results
     for item in combined_data:
         print(item)
@@ -1134,6 +1139,7 @@ def jobs(request):
         print("%%%%%%%%%%",x.company_id.id)
         days_since_posted = (timezone.now().date() - x.created_on).days
         x.days_since_posted = days_since_posted
+        x.is_saved = x.id in saved_job_ids
     unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
     open_status_count_job = (
@@ -1158,40 +1164,57 @@ def jobs(request):
     'department_open_counts':department_open_counts,'combined_counts':combined_counts}
     return render(request,'jobs.html',context)
 
-
-@login_required
-def save_job(request):
-    user = request.user.id
-
+from django.views.decorators.csrf import csrf_exempt
+import json
+@csrf_exempt
+def save_job(request, job_id, u_id):
     if request.method == 'POST':
-        job_id = request.POST.get('job_id')
+        data = json.loads(request.body)
+        job_id = data.get('job_id')
+        u_id = data.get('u_id')
 
-        try:
-            job_id = int(job_id)
-        except ValueError:
-            return JsonResponse({'success': False, 'error': 'Invalid job_id'})
+        # Fetch user and company/agency based on IDs (Replace this logic as per your actual implementation)
+        user_id = request.user.id
 
-        saved_entry = CompanyJobSaved.objects.filter(user_id=user, job_id=job_id)
+        # Replace '1' with your logic to fetch the user
+        # Replace this with your logic
+        details = NewUser.objects.filter(user_type='Agency', id=u_id)
 
-        if saved_entry.exists():
-            # If the job is already saved, delete the entry to unsave the job
-            saved_entry.delete()
-            return JsonResponse({'success': True, 'unsaved': True})
-        else:
-            # If the job is not saved, save it
-            job_instance = JobDetails.objects.filter(pk=job_id).values('company_id')
-
-            CompanyJobSaved.objects.create(
-                user_id_id=user,
-                companyIdOrAgencyId_id=job_instance,
+        if details.exists():
+            saved_job = AgencyJobSaved.objects.create(
+                user_id_id=user_id,
+                companyIdOrAgencyId_id=u_id,
                 job_id_id=job_id
             )
-            return JsonResponse({'success': True, 'unsaved': False})
+            return JsonResponse({'message': 'Job saved successfully'})
+        else:
+            saved_job = CompanyJobSaved.objects.create(
+                user_id_id=user_id,
+                companyIdOrAgencyId_id=u_id,
+                job_id_id=job_id
+            )
+            return JsonResponse({'message': 'Job saved successfully'})
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
 
-    return JsonResponse({'success': False})
+@csrf_exempt
+def remove_job(request, job_id, u_id):
+    if request.method == 'POST':
+        # Fetch user ID (You may have a different way of retrieving the user ID)
+        user_id = request.user.id
 
-def isJobSaved(user, job_id):
-    return CompanyJobSaved.objects.filter(user_id=user, job_id=job_id).exists()
+        # Check if the job exists in the saved jobs of the user
+        try:
+            CompanyJobSaved.objects.filter(user_id_id=user_id, companyIdOrAgencyId_id=u_id, job_id_id=job_id).exists()
+            saved_job = CompanyJobSaved.objects.get(user_id_id=user_id, companyIdOrAgencyId_id=u_id, job_id_id=job_id)
+            saved_job.delete()
+            return JsonResponse({'message': 'Job removed successfully'})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+
 
 def work_mode(request, selected_work_mode):
     print("!!!!!!!",selected_work_mode)

@@ -46,6 +46,8 @@ urlpatterns = [
     path('saved_jobs',views.saved_jobs,name='saved_jobs'),
     path('job_applications',views.job_applications,name='job_applications'),
     path('jobs',views.jobs,name='jobs'),
+    path('save_job/<int:job_id>/<int:u_id>/',views.save_job,name="save_job"),
+    path('remove_job/<int:job_id>/<int:u_id>/',views.remove_job,name="remove_job"),
     path('delete_application/<int:pk>',views.delete_application,name="delete_application"),
     path('profile',views.profile,name='profile'),
     path('internships',views.internships,name='internships'),
@@ -57,6 +59,5 @@ urlpatterns = [
     path('application_status',views.application_status,name='application_status'),
     path('company_info/<int:id>',views.company_info,name='company_info'),
     path('toggle_status/<int:job_id>/', views.toggle_status, name='toggle_status'),
-     path('save-job/',views.save_job, name='save_job'),
-    path('is-job-saved/', views.isJobSaved, name='is_job_saved'),
+    
 ]
