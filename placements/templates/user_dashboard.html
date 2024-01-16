@@ -56,6 +56,7 @@
         stroke: red; /* Define the stroke color for the filled bookmark */
         stroke-width: 3; /* Define the stroke width for the filled bookmark */
     }
+
     #suggestionListJobTitle {
         list-style: none;
         padding: 0;
@@ -424,7 +425,7 @@ $(document).ready(function() {
                     // Handle error scenario
                 }
             });
-        } else {
+        } else {  
             // If the icon is filled, remove it from the database
             $.ajax({
                 type: 'POST',
