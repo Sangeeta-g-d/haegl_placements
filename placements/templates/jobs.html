@@ -213,56 +213,57 @@
 <!-- Add this script at the end of your HTML file, before the closing </body> tag -->
 <!-- Add this script at the end of your HTML file, before the closing </body> tag -->
 <script>
-$(document).ready(function() {
-    // Function to get the CSRF token from cookies
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    $('.save-icon').on('click', function() {
-    var icon = $(this).find('path'); // Get the SVG path element
-    var jobId = $(this).data('job-id');
-    var csrfToken = getCookie('csrftoken'); // Get CSRF token from cookies
+  $(document).ready(function() {
+      // Function to get the CSRF token from cookies
+      function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = cookies[i].trim();
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+  
+      $('.bookmark-icon').on('click', function() {
+          var icon = $(this).find('path'); // Get the SVG path element
+          var jobId = $(this).data('job-id');
+          var csrfToken = getCookie('csrftoken'); // Get CSRF token from cookies
+  
+          // Send an AJAX request to save or unsave the job with CSRF token
+          $.ajax({
+              type: 'POST',
+              url: '/save-job/',  // Replace with your Django URL for saving jobs
+              data: { job_id: jobId },
+              dataType: 'json',
+              headers: { 'X-CSRFToken': csrfToken },
+              success: function(response) {
+                  if (response.success) {
+                      // Toggle the fill color based on whether the job was saved or unsaved
+                      if (response.unsaved) {
+                          icon.css('fill', '');  // Reset fill color to default
+                          alert('Job unsaved successfully!');
+                      } else {
+                          icon.css('fill', 'black');
+                          alert('Job saved successfully!');
+                      }
+                      // You can also update the UI to reflect the save/unsave state
+                  } else {
+                      alert('Failed to save/unsave job. Please try again later.');
+                  }
+              }
+          });
+      });
+  });
+  </script>
+  
 
-    // Send an AJAX request to save or unsave the job with CSRF token
-    $.ajax({
-        type: 'POST',
-        url: '/save-job/',  // Replace with your Django URL for saving jobs
-        data: { job_id: jobId },
-        dataType: 'json',
-        headers: { 'X-CSRFToken': csrfToken },
-        success: function(response) {
-            if (response.success) {
-                // Toggle the fill color based on whether the job was saved or unsaved
-                if (response.unsaved) {
-                    icon.css('fill', '');  // Reset fill color to default
-                    alert('Job unsaved successfully!');
-                } else {
-                    icon.css('fill', 'black');
-                    alert('Job saved successfully!');
-                }
-                // You can also update the UI to reflect the save/unsave state
-            } else {
-                alert('Failed to save/unsave job. Please try again later.');
-            }
-        }
-    });
-});
 
-});
-
-
-</script>
 
 
 
