@@ -57,4 +57,6 @@ urlpatterns = [
     path('application_status',views.application_status,name='application_status'),
     path('company_info/<int:id>',views.company_info,name='company_info'),
     path('toggle_status/<int:job_id>/', views.toggle_status, name='toggle_status'),
+     path('save-job/',views.save_job, name='save_job'),
+    path('is-job-saved/', views.isJobSaved, name='is_job_saved'),
 ]

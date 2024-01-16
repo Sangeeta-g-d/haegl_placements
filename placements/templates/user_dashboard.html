@@ -12,7 +12,7 @@
 
   <!-- ** Basic Page Needs ** -->
   <meta charset="utf-8">
-  <title>Interview Scheduler</title>
+  <title>Haegl InterviewEdge</title>
 
   <!-- ** Mobile Specific Metas ** -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -125,18 +125,21 @@
                   <li class="nav-item ">
                     <a class="nav-link" href="/companies">Companies</a>
                   </li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="/profile">Profile</a>
-                  </li>
 
     						</ul>
 
 
     						<ul class="navbar-nav ml-auto mt-10">
-    							<li class="nav-item">
-    								<a class="nav-link login-button" href="/user_logout">Logout</a>
-    							</li>
-
+                  <li class="nav-item dropdown dropdown-slide @@dashboard">
+                    <a class="nav-link " data-toggle="dropdown" href="#!">
+  <i class="fa fa-user fa-2x"></i> <span><i class="fa fa-angle-down"></i></span>
+</a>
+                    <!-- Dropdown list -->
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item @@dashboardPage" href="/profile">Profile</a></li>
+                      <li><a class="dropdown-item @@dashboardMyAds" href="/user_logout">Logout</a></li>
+                    </ul>
+                  </li>
     						</ul>
     					</div>
     				</nav>

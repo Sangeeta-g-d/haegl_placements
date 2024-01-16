@@ -8,6 +8,7 @@
 -->
 
 <html lang="en">
+ 
 <head>
 
   <!-- ** Basic Page Needs ** -->
@@ -38,6 +39,7 @@
   <link href="/static/assets1/plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="/static/assets1/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   </head>
   <style media="screen">
     .product-item .card .card-body {
@@ -70,6 +72,11 @@
           transform: translateY(-20px); /* Move the card slightly up when hovering */
           transition: box-shadow 0.7s ease, transform 0.7s ease; /* Add a smooth transition effect */
       }
+
+      .saved-icon {
+    fill: black !important;
+}
+
     </style>
 
   <body>
@@ -202,6 +209,63 @@
   });
   </script>
 </section>
+<!-- Add this script at the end of your HTML file, before the closing </body> tag -->
+<!-- Add this script at the end of your HTML file, before the closing </body> tag -->
+<!-- Add this script at the end of your HTML file, before the closing </body> tag -->
+<script>
+$(document).ready(function() {
+    // Function to get the CSRF token from cookies
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    $('.save-icon').on('click', function() {
+    var icon = $(this).find('path'); // Get the SVG path element
+    var jobId = $(this).data('job-id');
+    var csrfToken = getCookie('csrftoken'); // Get CSRF token from cookies
+
+    // Send an AJAX request to save or unsave the job with CSRF token
+    $.ajax({
+        type: 'POST',
+        url: '/save-job/',  // Replace with your Django URL for saving jobs
+        data: { job_id: jobId },
+        dataType: 'json',
+        headers: { 'X-CSRFToken': csrfToken },
+        success: function(response) {
+            if (response.success) {
+                // Toggle the fill color based on whether the job was saved or unsaved
+                if (response.unsaved) {
+                    icon.css('fill', '');  // Reset fill color to default
+                    alert('Job unsaved successfully!');
+                } else {
+                    icon.css('fill', 'black');
+                    alert('Job saved successfully!');
+                }
+                // You can also update the UI to reflect the save/unsave state
+            } else {
+                alert('Failed to save/unsave job. Please try again later.');
+            }
+        }
+    });
+});
+
+});
+
+
+</script>
+
+
+
 <section class="section-sm">
 	<div class="container">
 		<div class="row">
@@ -218,9 +282,15 @@
 					<div class="row mt-30">
             {% for x in combined_data %}
 						<div class="col-lg-4 col-md-6">
+             
 							<!-- product card -->
 <div class="product-item bg-light">
+ 
+  
 	<div class="card ml-2">
+    <span class="bookmark-icon" style="margin-left: 6cm;">
+      <svg  class="save-icon" data-job-id="{{ x.id }}" xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"/></svg>
+    </span>
 		<div class="thumb-content">
 			<!-- <div class="price">$200</div> -->
       {% if x.company_id.first_name %}

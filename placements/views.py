@@ -1119,65 +1119,79 @@ def all_jobs(request):
 def jobs(request):
     if request.user.user_type != 'job seeker':
         return HttpResponseForbidden()
-
     data = JobDetails.objects.all().select_related('company_id').filter(status="open",J_type='job')
     print(data)
-
     combined_data = list(chain(data))
     print("^^^^^^^^^^^^^^^^^^^^^^^^^^",combined_data)
 # Shuffle the combined list
     random.shuffle(combined_data)
-
     # Sort the combined list based on 'created_on' attribute to display recent jobs first
     combined_data.sort(key=lambda x: x.created_on, reverse=True)
-
-
 # Display the jumbled results
     for item in combined_data:
         print(item)
-
-
     for x in combined_data:
+        print("%%%%%%%%%%",x.company_id.id)
         days_since_posted = (timezone.now().date() - x.created_on).days
         x.days_since_posted = days_since_posted
-
-
-
     unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
-
     open_status_count_job = (
         JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
-
-
     open_jobs_count = defaultdict(int)
     for item in open_status_count_job:
         open_jobs_count[item['department']] += item['open_count']
-
-
-
     department_open_counts = [
         (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
     ]
-
     job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
-
 # Count jobs in each unique location from AgencyJobDetails
-
-
 # Combine the counts
     combined_counts = {}
-
     for job_detail in job_details_count:
         combined_counts[job_detail['location']] = combined_counts.get(job_detail['location'], 0) + job_detail['job_count']
-
 
     context = {'data':data,'combined_data':combined_data,
     'department_open_counts':department_open_counts,'combined_counts':combined_counts}
     return render(request,'jobs.html',context)
+
+
+@login_required
+def save_job(request):
+    user = request.user.id
+
+    if request.method == 'POST':
+        job_id = request.POST.get('job_id')
+
+        try:
+            job_id = int(job_id)
+        except ValueError:
+            return JsonResponse({'success': False, 'error': 'Invalid job_id'})
+
+        saved_entry = CompanyJobSaved.objects.filter(user_id=user, job_id=job_id)
+
+        if saved_entry.exists():
+            # If the job is already saved, delete the entry to unsave the job
+            saved_entry.delete()
+            return JsonResponse({'success': True, 'unsaved': True})
+        else:
+            # If the job is not saved, save it
+            job_instance = JobDetails.objects.filter(pk=job_id).values('company_id')
+
+            CompanyJobSaved.objects.create(
+                user_id_id=user,
+                companyIdOrAgencyId_id=job_instance,
+                job_id_id=job_id
+            )
+            return JsonResponse({'success': True, 'unsaved': False})
+
+    return JsonResponse({'success': False})
+
+def isJobSaved(user, job_id):
+    return CompanyJobSaved.objects.filter(user_id=user, job_id=job_id).exists()
 
 def work_mode(request, selected_work_mode):
     print("!!!!!!!",selected_work_mode)
@@ -1597,50 +1611,34 @@ def saved_jobs(request):
     obj = NewUser.objects.get(id=id)
     today_date = date.today()
     print("profileeee",obj.profile)
-
-
     # Fetch saved jobs from CompanyJobSaved model for the given user_id
     company_jobs = CompanyJobSaved.objects.select_related('companyIdOrAgencyId','job_id').filter(user_id=id)
     print("$$$$$$$$$$$",company_jobs)
-
     # Combine the job details from both models into a single variable
     all_saved_jobs = list(chain( company_jobs))
-
-
     saved_company_jobs_ids = CompanyJobSaved.objects.filter(user_id=request.user.id).values_list('job_id_id', flat=True)
     saved_job_ids =  list(saved_company_jobs_ids)
-
     for x in all_saved_jobs:
         print(x)
         days_since_posted = (timezone.now().date() - x.job_id.created_on).days
         x.days_since_posted = days_since_posted
         #print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",x.days_since_posted)
         x.is_saved = x.id in saved_job_ids
-
     # Merge the saved job IDs from both models
     saved_job_ids = list(saved_company_jobs_ids)
-
-
     unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
-
     open_status_count_job = (
         JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
-
-
-
     open_jobs_count = defaultdict(int)
     for item in open_status_count_job:
         open_jobs_count[item['department']] += item['open_count']
-
-
     department_open_counts = [
         (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
     ]
-
     job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
 # Count jobs in each unique location from AgencyJobDetails
@@ -1847,3 +1845,4 @@ def user_internship(request):
     context = {'data':data,'combined_data':combined_data,
     }
     return render(request,'user_internship.html',context)
+
