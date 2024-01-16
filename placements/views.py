@@ -1178,22 +1178,13 @@ def save_job(request, job_id, u_id):
 
         # Replace '1' with your logic to fetch the user
         # Replace this with your logic
-        details = NewUser.objects.filter(user_type='Agency', id=u_id)
-
-        if details.exists():
-            saved_job = AgencyJobSaved.objects.create(
-                user_id_id=user_id,
+        
+        saved_job = CompanyJobSaved.objects.create(
+        user_id_id=user_id,
                 companyIdOrAgencyId_id=u_id,
                 job_id_id=job_id
-            )
-            return JsonResponse({'message': 'Job saved successfully'})
-        else:
-            saved_job = CompanyJobSaved.objects.create(
-                user_id_id=user_id,
-                companyIdOrAgencyId_id=u_id,
-                job_id_id=job_id
-            )
-            return JsonResponse({'message': 'Job saved successfully'})
+        )
+        return JsonResponse({'message': 'Job saved successfully'})
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=400)
 

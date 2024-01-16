@@ -233,14 +233,14 @@ $(document).ready(function() {
 			<!-- <div class="price">$200</div> -->
       {% if x.job_id.company_id.first_name %}
       <div class="image-container">
-        <a href="{% url 'user_single_job' job_id=x.job_id_id u_id=x.companyIdOrAgencyId_id  %}" style="display: block; text-align: center;">
+        <a href="{% url 'user_single_job' job_id=x.job_id_id   %}" style="display: block; text-align: center;">
       <img class="card-img-top img-fluid mt-3" src="/{{ x.job_id.company_id.profile }}" alt="Card image cap" style="width: 100px; height: auto; margin: 0 auto;">
   </a>
 
   </div>
       {% else %}
       <div class="image-container">
-        <a href="{% url 'user_single_job' job_id=x.job_id_id u_id=x.companyIdOrAgencyId_id  %}" style="display: block; text-align: center;">
+        <a href="{% url 'user_single_job' job_id=x.job_id_id  %}" style="display: block; text-align: center;">
       <img class="card-img-top img-fluid mt-3" src="/{{ x.job_id.company_id.profile }}" alt="Card image cap" style="width: 100px; height: auto; margin: 0 auto;">
   </a>
   </div>
@@ -292,9 +292,9 @@ $(document).ready(function() {
 		    </ul>
         <p class="card-text">Required Skills : {{ x.job_id.mandatory_skills }}</p>
         {% if x.job_id.company_id.first_name %}
-    <a class="nav-link text-white add-button" href="{% url 'user_single_job' job_id=x.job_id_id u_id=x.companyIdOrAgencyId_id  %}" class="read-more-link">Apply now</a><br>
+    <a class="nav-link text-white add-button" href="{% url 'user_single_job' job_id=x.job_id_id   %}" class="read-more-link">Apply now</a><br>
     {% else %}
-    <a class="nav-link text-white add-button" href="{% url 'user_single_job' job_id=x.job_id_id u_id=x.companyIdOrAgencyId_id  %}" class="read-more-link">Apply now</a><br>
+    <a class="nav-link text-white add-button" href="{% url 'user_single_job' job_id=x.job_id_id   %}" class="read-more-link">Apply now</a><br>
     {% endif %}
 		</div>
       &nbsp<p class="card-text">Posted {{x.days_since_posted}} ago</p>
