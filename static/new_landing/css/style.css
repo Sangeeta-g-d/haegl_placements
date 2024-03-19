@@ -334,8 +334,14 @@
 .vesitable .vesitable-item .vesitable-img {
     overflow: hidden;
     transition: 0.5s;
-    border-radius: 10px 10px 0 0;
+    border-radius: 50%; /* Ensure the container is circular */
+   margin-top: 15px;
+   margin-left: 5px;
+    width: 100px; /* Set the width to match the height to create a circular container */
+    object-fit: cover; /* Ensure the image fits within the circular container */
 }
+
+
 
 .vesitable .vesitable-item .vesitable-img img {
     transition: 0.5s;
