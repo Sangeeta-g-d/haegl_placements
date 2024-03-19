@@ -15,4 +15,19 @@ font-family: league spartan;
 .center {
   display: block;
   text-align: center;
+  font-family: league spartan;
+  font-size: 25px;
 }
+.image-container {
+    text-align: center;
+  }
+  
+  .image-container img {
+    display: inline-block;
+    margin: 0 10px; /* Adjust margin as needed */
+    transition: transform 0.3s ease; /* Smooth transition */
+  }
+  
+  .image-container img:hover {
+    transform: scale(1.1); /* Zoom effect on hover */
+  }
