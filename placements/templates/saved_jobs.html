@@ -45,17 +45,18 @@
       overflow: hidden;
     }
     .empty-bookmark path {
-      fill: none; /* Define the fill color for the empty bookmark */
+      fill: black; /* Define the fill color for the empty bookmark */
       stroke: #660000; /* Define the stroke color for the empty bookmark */
        stroke-width: 2;
        color: black;
     }
     /* Styles for the filled bookmark icon */
     .filled-bookmark path {
-        fill: yellow; /* Define the fill color for the filled bookmark */
+        fill: red; /* Define the fill color for the filled bookmark */
         stroke: red; /* Define the stroke color for the filled bookmark */
-        stroke-width: 3; /* Define the stroke width for the filled bookmark */
+        stroke-width: 100; /* Define the stroke width for the filled bookmark */
     }
+
     #suggestionListJobTitle {
         list-style: none;
         padding: 0;
@@ -216,6 +217,86 @@ $(document).ready(function() {
 			<div class="col-md-12">
 				<div class="search-result bg-gray">
           <h2>Saved Jobs</h2>
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+          <script>
+            // Get the CSRF token from the cookie
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
+        $(document).ready(function() {
+            $('.bookmark-icon').on('click', function() {
+                var jobID = $(this).data('job-id');
+                var companyID = $(this).data('company-id');
+                var icon = $(this).find('svg');
+        
+                // Get the CSRF token
+                var csrftoken = getCookie('csrftoken');
+        
+                if (icon.hasClass('empty-bookmark')) {
+                    // If the icon is empty, save it in the database
+                    $.ajax({
+                        type: 'POST',
+                        url: '/save_job/' + jobID + '/' + companyID + '/',
+                        headers: { 'X-CSRFToken': csrftoken },
+                        data: JSON.stringify({
+                            'job_id': jobID,
+                            'u_id': companyID
+                        }),
+                        contentType: 'application/json',
+                        success: function(response) {
+                            // Update the icon on success
+                            icon.removeClass('empty-bookmark').addClass('filled-bookmark');
+                            alert('Job Saved')
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                            
+                            // Handle error scenario
+                        }
+                    });
+                } else {
+                    // If the icon is filled, remove it from the database
+                    $.ajax({
+                        type: 'POST',
+                        url: '/remove_job/' + jobID + '/' + companyID + '/', // Adjust the URL for removing the job
+                        headers: { 'X-CSRFToken': csrftoken },
+                        data: JSON.stringify({
+                            'job_id': jobID,
+                            'u_id': companyID
+                        }),
+                        contentType: 'application/json',
+                        success: function(response) {
+                            // Update the icon on success
+                            icon.removeClass('filled-bookmark').addClass('empty-bookmark');
+                            alert('Job Unsaved')
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                            // Handle error scenario
+                        }
+                    });
+                }
+            });
+        });
+        
+        
+        </script>
+        
+      
+
 				</div>
 			</div>
 		</div>
@@ -229,6 +310,12 @@ $(document).ready(function() {
 							<!-- product card -->
 <div class="product-item bg-light">
 	<div class="card ml-2">
+    <span class="bookmark-icon" data-job-id="{{ x.job_id_id }}" data-company-id="{{ x.companyIdOrAgencyId_id }}">
+      <svg class="{% if x.is_saved %}filled-bookmark{% else %}empty-bookmark{% endif %}" xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512" style="margin-left: 10px;">
+      <!-- SVG path for an empty bookmark -->
+      <path d="M336 0H48C21.5 0 0 21.5 0 48v464l192-112 192 112V48c0-26.5-21.5-48-48-48zm0 428.4l-144-84-144 84V54a6 6 0 0 1 6-6h276c3.3 0 6 2.7 6 6V428.4z"/>
+    </svg>
+  </span>
 		<div class="thumb-content">
 			<!-- <div class="price">$200</div> -->
       {% if x.job_id.company_id.first_name %}
@@ -250,23 +337,12 @@ $(document).ready(function() {
       {% if x.job_id.company_id.first_name %}
     <h4 class="card-title">
       {{ x.job_id.designation }}
-      <span class="bookmark-icon" data-job-id="{{ x.job_id_id }}" data-company-id="{{ x.companyIdOrAgencyId }}">
-         <svg class="{% if x.is_saved %}filled-bookmark{% else %}empty-bookmark{% endif %}" xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512" style="margin-left: 10px;">
-          <!-- SVG path for an empty bookmark -->
-          <path d="M336 0H48C21.5 0 0 21.5 0 48v464l192-112 192 112V48c0-26.5-21.5-48-48-48zm0 428.4l-144-84-144 84V54a6 6 0 0 1 6-6h276c3.3 0 6 2.7 6 6V428.4z"/>
-        </svg>
-      </span>
+     
     </h4>
   {% else %}
     <h4 class="card-title">
       {{ x.job_id.designation }}
-      <span class="bookmark-icon" data-job-id="{{ x.job_id_id }}" data-company-id="{{ x.companyIdOrAgencyId }}">
-
-      <svg class="{% if x.is_saved %}filled-bookmark{% else %}empty-bookmark{% endif %}" xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512" style="margin-left: 10px;">
-          <!-- SVG path for an empty bookmark -->
-          <path d="M336 0H48C21.5 0 0 21.5 0 48v464l192-112 192 112V48c0-26.5-21.5-48-48-48zm0 428.4l-144-84-144 84V54a6 6 0 0 1 6-6h276c3.3 0 6 2.7 6 6V428.4z"/>
-        </svg>
-      </span>
+     
     </h4>
   {% endif %}
 
@@ -365,80 +441,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		</div>
 	</div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <script>
-    // Get the CSRF token from the cookie
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-$(document).ready(function() {
-    $('.bookmark-icon').on('click', function() {
-        var jobID = $(this).data('job-id');
-        var companyID = $(this).data('company-id');
-        var icon = $(this).find('svg');
-
-        // Get the CSRF token
-        var csrftoken = getCookie('csrftoken');
-
-        if (icon.hasClass('empty-bookmark')) {
-            // If the icon is empty, save it in the database
-            $.ajax({
-                type: 'POST',
-                url: '/save_job/' + jobID + '/' + companyID + '/',
-                headers: { 'X-CSRFToken': csrftoken },
-                data: JSON.stringify({
-                    'job_id': jobID,
-                    'u_id': companyID
-                }),
-                contentType: 'application/json',
-                success: function(response) {
-                    // Update the icon on success
-                    icon.removeClass('empty-bookmark').addClass('filled-bookmark');
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                    // Handle error scenario
-                }
-            });
-        } else {
-            // If the icon is filled, remove it from the database
-            $.ajax({
-                type: 'POST',
-                url: '/remove_job/' + jobID + '/' + companyID + '/', // Adjust the URL for removing the job
-                headers: { 'X-CSRFToken': csrftoken },
-                data: JSON.stringify({
-                    'job_id': jobID,
-                    'u_id': companyID
-                }),
-                contentType: 'application/json',
-                success: function(response) {
-                    // Update the icon on success
-                    icon.removeClass('filled-bookmark').addClass('empty-bookmark');
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                    // Handle error scenario
-                }
-            });
-        }
-    });
-});
-
-
-</script>
+  
 </section>
 <!--============================
 =            Footer            =

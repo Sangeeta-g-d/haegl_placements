@@ -1,0 +1,31 @@
+<!-- display_files.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploaded Files</title>
+</head>
+<body>
+    <h2>Uploaded Files</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>File</th>
+                <th>download</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in uploaded_files %}
+                <tr>
+                    <td>{{ file.id }}</td>
+                    <td><a href="{{ file.excel.url }}" target="_blank">{{ file.excel.name }}</a></td>
+           <td><a href="{% url 'download_file' file.id %}" download><button type="button" name="button">Download</button></a></td>
+                </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

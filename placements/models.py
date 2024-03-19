@@ -6,6 +6,10 @@ from django.core.validators import MaxValueValidator
 from datetime import datetime
 
 # Create your models here.
+
+class UploadFile(models.Model):
+    excel = models.FileField(upload_to='uploads/', max_length=255)
+
 class NewUser(AbstractUser):
     user_type = models.CharField(max_length=100, default='job seeker')
     phone_no = models.CharField(max_length=100, default='9999999999')
@@ -37,7 +41,7 @@ class CompanyDetails(models.Model):
     cover_image = models.ImageField(upload_to='company_images/',default="cover_image")
     other_image1 = models.ImageField(upload_to='company_images/',default='img1')
     other_image2 = models.ImageField(upload_to='company_images/',default='img2')
-    
+
 
 class JobDetails(models.Model):
     company_id = models.ForeignKey('NewUser', on_delete=models.CASCADE)

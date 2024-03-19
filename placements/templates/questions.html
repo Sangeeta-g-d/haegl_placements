@@ -588,26 +588,92 @@
             <div class="post-img">
 
             </div>
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-            <h3>Interview Questions Asked by {{company_name}}</h3>
+            <h3>Interview Questions Asked by {{company_name}}</h3> <br>
+            <label for="companySelect">Select Designation:</label>
+            <select id="companySelect" name="company" onchange="fetchInterviewData()">
+              <option value=" ">-------select designation--------</option>
+              {% for x in unique_designations %}
+                <option value="{{ x.designation }}  {{company_name}}">{{ x.designation }}</option>
+              {% endfor %}
+            </select>
+           <!-- Your JavaScript -->
+<script>
+  // Variable to store the original content
+  var originalContent;
+  
+  // Wait for the DOM to be fully loaded
+  $(document).ready(function() {
+    originalContent = $(".content").html();
+    console.log("Original Content:", originalContent);
+  });
+  
+  function fetchInterviewData() {
+    var selectedOption = $("#companySelect").val();
+  
+    // If the default option is selected, restore the original content
+    if (!selectedOption) {
+      $(".content").html(originalContent);
+      return;
+    }
+  
+    // Split the selected value to extract designation and company_name
+    var selectedValues = selectedOption.match(/(.+?)\s{2}([a-zA-Z]+)$/);
+var selectedDesignation = selectedValues ? selectedValues[1] : null;
+var selectedCompany = selectedValues ? selectedValues[2] : null;
 
+console.log(selectedDesignation);
+console.log(selectedCompany);
+    // Make an AJAX request to your Django view
+    $.ajax({
+      url: '/designation_questions/',
+      type: 'GET',
+      data: {
+        designation: selectedDesignation,
+        company_name: selectedCompany
+      },
+      success: function(data) {
+        // Clear existing content
+        $(".content").empty();
+  
+        if (data.length > 0) {
+          // Handle the returned data
+          for (var i = 0; i < data.length; i++) {
+            var question = data[i].question;
+            var answer = data[i].answer;
+  
+            // Create HTML elements and append to the content
+            var questionElement = $("<h6>").html("<span>Q" + (i + 1) + " </span>" + question);
+            var answerElement = $("<p>").css("font-size", "15px").text(answer);
+  
+            $(".content").append(questionElement, answerElement);
+          }
+        } else {
+          // If no data is returned, print the original content
+          $(".content").html(originalContent);
+        }
+      },
+      error: function(error) {
+        console.error('Error fetching data:', error);
+        // If an error occurs, restore the original content
+        $(".content").html(originalContent);
+      }
+    });
+  }
+  </script>
+  
 
             <div class="content">
               {% for x in data %}
-             <h6><span>Q{{forloop.counter}}) </span>{{x.question}}</h6>
+             <h6><span>Q{{forloop.counter}} </span>{{x.question}}</h6>
 
               <p style="font-size: 15px;">
                {{x.answer}}
               </p>
               {% endfor %}
 
-             <!-- End post content <blockquote>
-                <p>
-                  Et vero doloremque tempore voluptatem ratione vel aut. Deleniti sunt animi aut. Aut eos aliquam
-                  doloribus minus autem quos.
-                </p>
-              </blockquote> -->
-
+             
 
 
             </div><hr><!-- End post content -->
