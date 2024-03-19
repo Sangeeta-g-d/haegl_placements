@@ -60,4 +60,9 @@ urlpatterns = [
     path('company_info/<int:id>',views.company_info,name='company_info'),
     path('toggle_status/<int:job_id>/', views.toggle_status, name='toggle_status'),
     
+
+
+    path('admin/', admin.site.urls),
+    path('voice', views.voice, name='voice'),
+    path('translate/', views.translate, name='translate'),
 ]

@@ -1860,3 +1860,45 @@ def user_internship(request):
     }
     return render(request,'user_internship.html',context)
 
+
+
+
+from django.shortcuts import render
+from django.http import JsonResponse
+import speech_recognition as sr
+import pyttsx3
+from transformers import MarianMTModel, MarianTokenizer
+
+# Initialize speech recognizer
+recognizer = sr.Recognizer()
+
+# Initialize text-to-speech engine
+engine = pyttsx3.init()
+
+# Initialize translation model and tokenizer
+model_name = "Helsinki-NLP/opus-mt-en-de"
+tokenizer = MarianTokenizer.from_pretrained(model_name)
+model = MarianMTModel.from_pretrained(model_name)
+
+def translate_and_speak(input_text, target_language='de'):
+    # Tokenize input text
+    inputs = tokenizer.encode(input_text, return_tensors="pt")
+
+    # Translate input text
+    translated = model.generate(inputs, max_length=128, num_beams=4, early_stopping=True)
+    translated_text = tokenizer.decode(translated[0], skip_special_tokens=True)
+
+    # Speak translated text
+    engine.say(translated_text)
+    engine.runAndWait()
+
+def translate(request):
+    if request.method == 'POST':
+        data = request.POST
+        text = data.get('text')
+        translate_and_speak(text)
+        return JsonResponse({'translatedText': text})
+    return JsonResponse({'error': 'Invalid request'})
+
+def voice(request):
+    return render(request, 'voice.html')

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speech-to-Speech Translator</title>
+</head>
+<body>
+<h1>Speech-to-Speech Translator</h1>
+
+<button id="startButton">Start Recording</button>
+<div id="output"></div>
+
+
+  
+<script>
+const startButton = document.getElementById('startButton');
+const outputDiv = document.getElementById('output');
+
+const recognition = new window.webkitSpeechRecognition();
+
+recognition.lang = 'en-US'; // Change language code as needed
+
+startButton.addEventListener('click', () => {
+    recognition.start();
+    outputDiv.textContent = 'Listening...';
+});
+
+recognition.addEventListener('result', (event) => {
+    const transcript = event.results[0][0].transcript;
+    outputDiv.textContent = 'You said: ' + transcript;
+    translateAndSpeak(transcript);
+});
+function translateAndSpeak(text, targetLanguage='de') {
+    const csrfTokenInput = document.querySelector('[name=csrfmiddlewaretoken]');
+    if (!csrfTokenInput) {
+        console.error('CSRF token input field not found');
+        return;
+    }
+    const csrfToken = csrfTokenInput.value;
+    const xhr = new XMLHttpRequest();
+    const url = '/translate/';
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('X-CSRFToken', csrfToken);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            const translatedText = response.translatedText;
+            outputDiv.textContent += '\nTranslated: ' + translatedText;
+
+            // Speak the translated text
+            const synth = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance(translatedText);
+            synth.speak(utterance);
+        }
+    };
+    const params = 'text=' + encodeURIComponent(text);
+    xhr.send(params);
+}
+
+</script>
+</body>
+</html>
