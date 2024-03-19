@@ -1,0 +1,18 @@
+.text-primary {
+    color: #1E88E5 !important; /* Adding !important to ensure the color change takes precedence */
+}
+.btn-primary{
+    background-color: #1E88E5 !important;;
+}
+.para{
+    color: rgb(28, 28, 28);
+    font-weight: 300;
+}
+.hero-heading{
+font-size: 50px;
+font-family: league spartan;
+}
+.center {
+  display: block;
+  text-align: center;
+}
