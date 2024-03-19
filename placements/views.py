@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse,HttpResponseRedirect,HttpResponseForbidden,HttpResponseBadRequest
 from django.template import loader
-from .models import CompanyDetails, NewUser, JobDetails, TopCompanies, InterviewQuestions, UserDetails, CompanyJobSaved, AppliedJobs
+from .models import CompanyDetails, NewUser, JobDetails, TopCompanies, InterviewQuestions, UserDetails, CompanyJobSaved, AppliedJobs, UploadFile
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -22,8 +22,45 @@ from collections import defaultdict
 from django.db.models import Q
 # Create your views here.
 
+def upload_file(request):
+    if request.method == 'POST':
+        excel = request.FILES.get('excel')
+
+        # Check if there is an existing file
+        existing_file = UploadFile.objects.first()
+
+        # If there is an existing file, delete it before creating a new one
+        if existing_file:
+            existing_file.excel.delete()  # This deletes the old file from the storage
+            existing_file.excel = excel  # Replace the old file with the new one
+            existing_file.save()
+        else:
+            # If no existing file, create a new UploadFile object with the new file
+            obj = UploadFile.objects.create(excel=excel)
+
+        return render(request, 'upload_file.html', {'message': 'Process Completed Successfully'})
+
+    return render(request, 'upload_file.html')
+
+def display_uploaded_file(request):
+    uploaded_files = UploadFile.objects.all()
+    return render(request, 'display_uploaded_file.html', {'uploaded_files': uploaded_files})
+
+def download_file(request, file_id):
+    uploaded_file = get_object_or_404(UploadFile, id=file_id)
+    file_content = uploaded_file.excel.read()
+    response = HttpResponse(file_content, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = f'attachment; filename="{uploaded_file.excel.name}"'
+    return response
+
+def new_index(request):
+    return render(request,'new_index.html')
+
 
 def index(request):
+    if request.user.is_authenticated:
+            print("Hiiiiiiiiiiiiiii")
+            return redirect('/user_dashboard')
     recent_jobs = list(JobDetails.objects.filter(J_type='job').order_by('-created_on')[:5])
 
     # Shuffle the list of recent jobs
@@ -36,8 +73,6 @@ def index(request):
 
         days_since_posted = (timezone.now().date() - x.created_on).days
         x.days_since_posted = days_since_posted
-
-
 
     unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
@@ -80,21 +115,21 @@ def search_results(request):
     job_title = request.GET.get('job_title')
     location = request.GET.get('location')
     job_type = request.GET.get('type')
-
+    print("jobbbbbbbbbbbbbb",job_title)
     combined_results = []
 
-    if keyword:
+    if job_title:
 
         job_results = JobDetails.objects.filter(
-            Q(designation__icontains=keyword) |
-            Q(job_description__icontains=keyword) |
-            Q(department__icontains=keyword) |
-            Q(location__icontains=keyword) |
-            Q(mandatory_skills__icontains=keyword) |
-            Q(optional_skills__icontains=keyword) |
-            Q(experience__icontains=keyword) |
-            Q(salary__icontains=keyword) |
-            Q(qualification__icontains=keyword)
+            Q(designation__icontains=job_title) |
+            Q(job_description__icontains=job_title) |
+            Q(department__icontains=job_title) |
+            Q(location__icontains=job_title) |
+            Q(mandatory_skills__icontains=job_title) |
+            Q(optional_skills__icontains=job_title) |
+            Q(experience__icontains=job_title) |
+            Q(salary__icontains=job_title) |
+            Q(qualification__icontains=job_title)
         )
 
         # Combine both querysets into a single result set
@@ -509,8 +544,11 @@ def login1(request):
                 return redirect('/company_dashboard')
             else:
                 return redirect('/company_details')
-        else:
+        elif user is not None and user.user_type == 'Company' and user.status == False:
             request.session['error_message'] = 'Wait till account varifies'
+            return redirect('/login')
+        else:
+            request.session['error_message'] = 'Account not Found'
             return redirect('/login')
 
     return render(request,'login.html')
@@ -573,9 +611,10 @@ def add_questions(request):
         question = request.POST.get('question')
         #print(question)
         answer = request.POST.get('answer')
+        designation = request.POST.get('designation')
         #print(answer)
         data = InterviewQuestions.objects.create(company_id_id = company_id, question=question,
-        answer=answer)
+        answer=answer,designation=designation)
         return redirect('/top_companies')
 
 @login_required
@@ -766,27 +805,36 @@ def user_registration(request):
 
 
 def user_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        print(username)
-        password = request.POST.get('password')
-        print(password)
-        user = authenticate(request, username=username, password=password)
-        print("!!!!!!!!!!!!!!!!",user)
-        if user is not None and user.user_type == 'job seeker':
-            login(request, user)
-            i = request.user.id
-            print("agencyyyy idddd",i)
-            obj = UserDetails.objects.filter(user_id_id=i).first()
-            print("!!!!!!!!!",obj)
-            if obj is None:
-                return redirect('user_details')
-            else:
+    try:
+         # Check if the user is already authenticated (logged in).
+        if request.user.is_authenticated:
+            print("Hiiiiiiiiiiiiiii")
+            return redirect('/user_dashboard')
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            print(username)
+            password = request.POST.get('password')
+            print(password)
+            user = authenticate(request, username=username, password=password)
+            print("!!!!!!!!!!!!!!!!",user)
+            if user is not None and user.user_type == 'job seeker':
+                login(request, user)
+                i = request.user.id
+                print("agencyyyy idddd",i)
+                obj = UserDetails.objects.filter(user_id_id=i).first()
+                print("!!!!!!!!!",obj)
+                if obj is None:
+                    return redirect('user_details')
+                else:
 
-                return redirect('user_dashboard')
-        else:
-            messages.error(request, 'Invalid username or password.')
-            return render(request, 'user_login.html')
+                    return redirect('user_dashboard')
+            else:
+                messages.error(request, 'Invalid username or password.')
+                return render(request, 'user_login.html')
+
+    except Exception as e:
+          # Handle any exceptions that may occur and print them for debugging purposes.
+            print(e)
     return render(request, 'user_login.html', {'messages': messages.get_messages(request)})
 
 
@@ -798,15 +846,15 @@ def search_trend(request, keyword):
             status='open',J_type='job'
         )
 
-    elif keyword == 'banking':
+    elif keyword == 'internship':
         job_details = JobDetails.objects.filter(
-            Q(department='Finance and Accounting'),
-            status='open',J_type='job'
+            Q(J_type='internship'),
+            status='open'
         )
 
-    elif keyword == 'part-time':
+    elif keyword == 'sales':
         job_details = JobDetails.objects.filter(
-            Q(job_type='Part time'),
+            Q(department='Sales and Marketing'),
             status='open',J_type='job'
         )
 
@@ -868,10 +916,10 @@ def search_trend(request, keyword):
 def single_job(request,job_id):
     id=request.user.id
     job = JobDetails.objects.select_related('company_id').filter(id=job_id, status="open").first()
-   
+
     context = {
         'job': job,
-       
+
     }
         #here if true i want that button to disable and print applied on the button using jsonresponse
     return render(request, 'single_job.html',context)
@@ -1022,6 +1070,8 @@ def user_job_list(request, department):
 
 
     job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
+    saved_company_jobs_ids = CompanyJobSaved.objects.filter(user_id=request.user.id).values_list('job_id_id', flat=True)
+    saved_job_ids =  list(saved_company_jobs_ids)
 
 # Count jobs in each unique location from AgencyJobDetails
 
@@ -1128,7 +1178,7 @@ def jobs(request):
     # Sort the combined list based on 'created_on' attribute to display recent jobs first
     combined_data.sort(key=lambda x: x.created_on, reverse=True)
 
-   
+
     saved_company_jobs_ids = CompanyJobSaved.objects.filter(user_id=request.user.id).values_list('job_id_id', flat=True)
     saved_job_ids =  list(saved_company_jobs_ids)
 
@@ -1178,9 +1228,15 @@ def save_job(request, job_id, u_id):
 
         # Replace '1' with your logic to fetch the user
         # Replace this with your logic
-        
-        saved_job = CompanyJobSaved.objects.create(
-        user_id_id=user_id,
+        duplicate = CompanyJobSaved.objects.filter(job_id_id = job_id, companyIdOrAgencyId_id=u_id)
+        if duplicate:
+            duplicate.user_id_id=user_id
+            duplicate.companyIdOrAgencyId_id=u_id
+            duplicate.job_id_id=job_id
+            duplicate.save()
+        else:
+            saved_job = CompanyJobSaved.objects.create(
+                user_id_id=user_id,
                 companyIdOrAgencyId_id=u_id,
                 job_id_id=job_id
         )
@@ -1190,6 +1246,7 @@ def save_job(request, job_id, u_id):
 
 @csrf_exempt
 def remove_job(request, job_id, u_id):
+    print("$$$$$$",job_id,u_id)
     if request.method == 'POST':
         # Fetch user ID (You may have a different way of retrieving the user ID)
         user_id = request.user.id
@@ -1482,18 +1539,34 @@ def questions(request,id):
     data = InterviewQuestions.objects.select_related('company_id').filter(company_id_id=id)
     company = TopCompanies.objects.filter(id=id).first()
     company_name = company.company_name
-    #print(company_name)
+    unique_designations = InterviewQuestions.objects.filter(company_id_id=id).exclude(designation='none').values('designation').annotate(count=Count('designation')).order_by('designation')
+    print(unique_designations)
     context = {
         'obj':obj,
+        'unique_designations':unique_designations,
         'company_name':company_name,
         'data':data
     }
     return render(request, 'questions.html',context)
 
+from django.views.decorators.http import require_GET
+@require_GET
+def designation_questions(request):
+    designation = request.GET.get('designation', '')
+    company_name = request.GET.get('company_name', '')
+    print("&&&&&&&",designation)
+
+    # Query the database for InterviewQuestions based on the selected designation
+    interview_data = InterviewQuestions.objects.filter(designation=designation, company_id__company_name=company_name).values()
+
+    # Convert queryset to a list for JSON serialization
+    interview_data_list = list(interview_data)
+
+    return JsonResponse(interview_data_list, safe=False)
+
 def user_details(request):
     id = request.user.id
     if request.method == 'POST':
-
         qualification = request.POST.get('qualification')
         experience = request.POST.get('experience')
         dob = request.POST.get('dob')
@@ -1537,7 +1610,7 @@ def user_dashboard1(request):
     # Fetch saved job IDs for the current user from both models
 
     saved_company_jobs_ids = CompanyJobSaved.objects.filter(user_id=request.user.id).values_list('job_id_id', flat=True)
-    saved_job_ids = list(saved_company_jobs_ids)
+    saved_job_ids =  list(saved_company_jobs_ids)
 
     for x in combined_recommended_jobs:
         print(x)
@@ -1593,7 +1666,7 @@ def application(request,job_id):
     user_id=AppliedJobs.objects.filter(user_id_id=id)
     degree = UserDetails.objects.filter(user_id_id=id).values('qualification')
     print(degree)
-    
+
     #print("1111111111111111111111111111")
     if request.method == 'POST':
         #print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
@@ -1603,7 +1676,7 @@ def application(request,job_id):
         expected_salary = request.POST.get('expected_salary')
         resume = request.FILES.get('resume')
         city = request.POST.get('city')
-        
+
 
         application = AppliedJobs.objects.create(user_id_id=id,job_id_id=job_id,skills=skills,
             qualification=degree,experience=experience,expected_salary=expected_salary,
@@ -1630,14 +1703,18 @@ def saved_jobs(request):
     print("$$$$$$$$$$$",company_jobs)
     # Combine the job details from both models into a single variable
     all_saved_jobs = list(chain( company_jobs))
+    print("////////////",all_saved_jobs)
     saved_company_jobs_ids = CompanyJobSaved.objects.filter(user_id=request.user.id).values_list('job_id_id', flat=True)
+    print(saved_company_jobs_ids)
     saved_job_ids =  list(saved_company_jobs_ids)
+    print("&&&&&&",saved_job_ids)
     for x in all_saved_jobs:
         print(x)
         days_since_posted = (timezone.now().date() - x.job_id.created_on).days
         x.days_since_posted = days_since_posted
         #print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",x.days_since_posted)
-        x.is_saved = x.id in saved_job_ids
+        x.is_saved = x.job_id_id in saved_job_ids
+        print("^^^^^^^^^^^^^",x.is_saved)
     # Merge the saved job IDs from both models
     saved_job_ids = list(saved_company_jobs_ids)
     unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
@@ -1859,4 +1936,3 @@ def user_internship(request):
     context = {'data':data,'combined_data':combined_data,
     }
     return render(request,'user_internship.html',context)
-

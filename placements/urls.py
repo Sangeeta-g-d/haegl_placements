@@ -3,6 +3,10 @@ from . import views
 from django.contrib import admin
 
 urlpatterns = [
+    path('upload_file',views.upload_file,name='upload_file'),
+    path('new_index',views.new_index,name='new_index'),
+    path('display_uploaded_file', views.display_uploaded_file, name='display_uploaded_file'),
+    path('download_file/<int:file_id>/', views.download_file, name='download_file'),
     path('',views.index,name='index'),
     path('admin_db',views.admin_db,name='admin_db'),
     path('login',views.login1,name='login'),
@@ -59,5 +63,6 @@ urlpatterns = [
     path('application_status',views.application_status,name='application_status'),
     path('company_info/<int:id>',views.company_info,name='company_info'),
     path('toggle_status/<int:job_id>/', views.toggle_status, name='toggle_status'),
-    
+    path('designation_questions/', views.designation_questions, name='designation_questions'),
+
 ]
