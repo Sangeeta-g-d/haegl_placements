@@ -569,7 +569,7 @@ ul.pagination .active a {
 }
 
 .page-search {
-  background: #844FC1;
+  background: #1E88E5;
   padding: 30px 0;
 }
 .page-search .advance-search .form-group {
@@ -668,7 +668,7 @@ ul.pagination .active a {
 }
 
 .add-button {
-  background: #844FC1;
+  background: #1E88E5;
   color: #fff;
   padding: 8px 20px !important;
   display: inline-block;
@@ -1341,7 +1341,7 @@ ul.pagination .active a {
   font-size: 18px;
   margin-bottom: 5px;
   font-weight: 600;
-  color: #844FC1 !important;
+  color: #1E88E5 !important;
 }
 .product-item .card .card-body .card-text {
   color: #777;
