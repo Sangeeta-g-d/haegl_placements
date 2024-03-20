@@ -2024,4 +2024,3 @@ def new_all_jobs(request):
     context = {'data':data,'combined_data':combined_data,
     'department_open_counts':department_open_counts,'combined_counts':combined_counts}
     return render(request,'new_all_jobs.html',context)
-    
