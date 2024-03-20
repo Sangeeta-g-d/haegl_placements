@@ -75,5 +75,8 @@ font-family: league spartan;
     background-color: #cde5ee; /* Change background color on hover */
     transform: scale(1.1); /* Zoom in effect on hover */
 }
-
+.why-heading{
+  font-size: 35px;
+  font-family: league spartan;
+}
 
