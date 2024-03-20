@@ -65,3 +65,15 @@ font-family: league spartan;
   .border-white{
     color: rgb(95, 95, 95) !important;
   }
+  
+  .hr-btn {
+    background-color: transparent; /* Set initial background color */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition effects */
+}
+
+.hr-btn:hover {
+    background-color: #cde5ee; /* Change background color on hover */
+    transform: scale(1.1); /* Zoom in effect on hover */
+}
+
+
