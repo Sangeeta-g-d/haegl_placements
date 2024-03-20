@@ -79,4 +79,10 @@ font-family: league spartan;
   font-size: 35px;
   font-family: league spartan;
 }
-
+.inline-p {
+  display: inline-block; /* Display p elements side by side */
+  margin-right: 10px; /* Add margin between the p elements */
+}
+.bg-primary{
+  background-color: #1E88E5 !important;
+}
