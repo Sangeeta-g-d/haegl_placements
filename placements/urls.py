@@ -64,5 +64,6 @@ urlpatterns = [
     path('company_info/<int:id>',views.company_info,name='company_info'),
     path('toggle_status/<int:job_id>/', views.toggle_status, name='toggle_status'),
     path('designation_questions/', views.designation_questions, name='designation_questions'),
+    path('new_all_jobs',views.new_all_jobs,name='new_all_jobs'),
 
 ]
