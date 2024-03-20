@@ -2023,4 +2023,9 @@ def new_all_jobs(request):
 
     context = {'data':data,'combined_data':combined_data,
     'department_open_counts':department_open_counts,'combined_counts':combined_counts}
+<<<<<<< HEAD
     return render(request,'new_all_jobs.html',context)
+=======
+    return render(request,'new_all_jobs.html',context)
+    
+>>>>>>> 869b9deba91cd53cdaa1c3b94a6172be94fa9314
