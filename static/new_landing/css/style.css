@@ -334,18 +334,16 @@
 .vesitable .vesitable-item .vesitable-img {
     overflow: hidden;
     transition: 0.5s;
-    border-radius: 50%; /* Ensure the container is circular */
-   margin-top: 15px;
-   margin-left: 5px;
-    width: 100px; /* Set the width to match the height to create a circular container */
-    object-fit: cover; /* Ensure the image fits within the circular container */
+    border-radius: 10px 10px 0 0;
+    height: 130px; /* Adjust this height as needed */
 }
-
-
 
 .vesitable .vesitable-item .vesitable-img img {
-    transition: 0.5s;
+    object-fit: cover;
+    height: 100%; /* Ensure the image covers the entire container */
+    width: 100%;
 }
+
 
 .vesitable .vesitable-item .vesitable-img img:hover {
     transform: scale(1.2);

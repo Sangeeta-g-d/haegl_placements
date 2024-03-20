@@ -1936,3 +1936,7 @@ def user_internship(request):
     context = {'data':data,'combined_data':combined_data,
     }
     return render(request,'user_internship.html',context)
+
+
+def new_all_jobs(request):
+    return render(request,'new_all_jobs.html')
