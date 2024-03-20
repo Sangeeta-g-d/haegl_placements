@@ -74,6 +74,16 @@ def new_index(request):
     return render(request,'new_index.html',context)
 
 
+def new_job_des(request,id):
+    
+    job = JobDetails.objects.select_related('company_id').filter(id=id, status="open").first()
+
+    context = {
+        'job': job,
+
+    }
+    return render(request,'new_job_des.html',context)
+
 def index(request):
     if request.user.is_authenticated:
             print("Hiiiiiiiiiiiiiii")

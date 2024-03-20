@@ -166,20 +166,26 @@
         <h3 class="mb-0 display-3 why-heading">Latest Job Opportunities</h3>
         <div class="owl-carousel vegetable-carousel justify-content-center">
             {% for x in recent_jobs %}
-            <div class="border border-primary rounded position-relative vesitable-item">
+            <div class="border border-secondary rounded position-relative vesitable-item">
                 <div class="vesitable-img">
                     <img src="/{{x.company_id.profile}}" width="10px" class="img-fluid w-100 rounded-top" alt="">
                 </div>
                 
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Apply</div>
+               <a href="/new_job_des/{{x.id}}">  <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Apply</div></a>
                 <div class="p-4 rounded-bottom">
-                    <h5>{{x.designation}}</h5>
-                    <p>{{x.location}}</p> 
-                    <p>{{x.job_type}}</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                        <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                    <h6>{{x.designation}}</h6>
+                    <div>
+                        <p class="inline-p"><i class="fas fa-map-marker-alt"></i> {{x.location}}</p>
+                        <p class="inline-p"><i class="fas fa-briefcase"></i> {{x.job_type}}</p>
                     </div>
+                    <p>
+                        {% if x.days_since_posted == 0 %}
+                            Posted today
+                        {% else %}
+                            Posted {{x.days_since_posted}} ago
+                        {% endif %}
+                    </p>
+                    
                 </div>
             </div>
 

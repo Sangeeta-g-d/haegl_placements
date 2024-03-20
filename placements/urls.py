@@ -5,6 +5,7 @@ from django.contrib import admin
 urlpatterns = [
     path('upload_file',views.upload_file,name='upload_file'),
     path('new_index',views.new_index,name='new_index'),
+    path('new_job_des/<int:id>',views.new_job_des,name='new_job_des'),
     path('display_uploaded_file', views.display_uploaded_file, name='display_uploaded_file'),
     path('download_file/<int:file_id>/', views.download_file, name='download_file'),
     path('',views.index,name='index'),
