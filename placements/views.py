@@ -1939,4 +1939,62 @@ def user_internship(request):
 
 
 def new_all_jobs(request):
-    return render(request,'new_all_jobs.html')
+    data = JobDetails.objects.all().select_related('company_id').filter(status="open",J_type='job')
+    print(data)
+
+    combined_data = list(chain(data))
+    print("^^^^^^^^^^^^^^^^^^^^^^^^^^",combined_data)
+# Shuffle the combined list
+    random.shuffle(combined_data)
+
+    # Sort the combined list based on 'created_on' attribute to display recent jobs first
+    combined_data.sort(key=lambda x: x.created_on, reverse=True)
+
+
+# Display the jumbled results
+    for item in combined_data:
+        print(item)
+
+
+    for x in combined_data:
+        days_since_posted = (timezone.now().date() - x.created_on).days
+        x.days_since_posted = days_since_posted
+
+
+
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
+    all_unique_departments = list(set(chain( unique_departments_job)))
+
+    open_status_count_job = (
+        JobDetails.objects.filter(status='open',J_type='job')
+        .values('department')
+        .annotate(open_count=Count('department'))
+    )
+
+
+    open_jobs_count = defaultdict(int)
+    for item in open_status_count_job:
+        open_jobs_count[item['department']] += item['open_count']
+
+
+
+    department_open_counts = [
+        (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
+    ]
+
+    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
+
+# Count jobs in each unique location from AgencyJobDetails
+
+
+# Combine the counts
+    combined_counts = {}
+
+    for job_detail in job_details_count:
+        combined_counts[job_detail['location']] = combined_counts.get(job_detail['location'], 0) + job_detail['job_count']
+
+
+    context = {'data':data,'combined_data':combined_data,
+    'department_open_counts':department_open_counts,'combined_counts':combined_counts}
+    return render(request,'new_all_jobs.html',context)
+    
