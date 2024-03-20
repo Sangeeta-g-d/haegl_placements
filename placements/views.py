@@ -54,7 +54,24 @@ def download_file(request, file_id):
     return response
 
 def new_index(request):
-    return render(request,'new_index.html')
+    recent_jobs = list(JobDetails.objects.filter(J_type='job').order_by('-created_on')[:5])
+
+    # Shuffle the list of recent jobs
+    random.shuffle(recent_jobs)
+
+    # Sort combined_jobs by the latest job posted (created_on) in descending order
+    recent_jobs = sorted(recent_jobs, key=attrgetter('created_on'), reverse=True)
+
+    for x in recent_jobs:
+
+        days_since_posted = (timezone.now().date() - x.created_on).days
+        x.days_since_posted = days_since_posted
+
+    context = {
+        'recent_jobs': recent_jobs
+    }
+
+    return render(request,'new_index.html',context)
 
 
 def index(request):
