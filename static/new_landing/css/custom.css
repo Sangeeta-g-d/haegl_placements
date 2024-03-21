@@ -9,8 +9,11 @@
     font-weight: 300;
 }
 .hero-heading{
-font-size: 50px;
-font-family: league spartan;
+font-size: 25px;
+font-family: "Stoke", serif;
+font-weight: 600;
+font-style: normal;
+
 }
 .hr-heading{
     font-size: 35px;
