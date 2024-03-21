@@ -92,6 +92,7 @@
     letter-spacing: 1px;
     display: flex;
     align-items: center;
+    justify-content: center !important;
 }
 
 .topbar .top-link {
@@ -176,6 +177,7 @@
 }
 /*** Navbar End ***/
 
+
 /*** Hero Header ***/
 .hero-header {
     background: linear-gradient(to right, #efeff61a, #0225611a);
@@ -228,7 +230,7 @@
 @media (min-width: 992px) {
     .hero-header,
     .page-header {
-        margin-top: 0px !important;
+        margin-top: 152px !important;
     }
 }
 
@@ -497,3 +499,12 @@
     transform: scale(1.1);
     transition: transform 0.3s ease;
 }
+.info {
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+}
+
+.info.active {
+    opacity: 1;
+}
+

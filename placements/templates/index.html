@@ -39,31 +39,62 @@
 
 
         <!-- Navbar start -->
-        <div class="container-fluid" style="margin-top: -5px;" >
-            <div class="container topbar bg-white d-none d-lg-block">
-            
+        <div class="container-fluid fixed-top">
+            <div class="container topbar bg-primary d-none d-lg-block">
+                <div class="d-flex justify-content-between">
+                    <div class="top-link ps-2">
+                        
+                    </div>
+                    <div id="top-link" style="margin-right:380px;" class="top-link pe-5">
+                        <small id="info1" class="info me-3 "><i class="fas fa-phone me-2 text-secondary"></i> <a href="#" class="text-white">+91 7676348382</a></small>
+                        <small id="info2" class="info me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">info@haegl.in</a></small>
+                    </div>    
+                </div>
             </div>
+            <script>
+document.addEventListener("DOMContentLoaded", function() {
+    var infos = document.querySelectorAll(".info");
+    var currentIndex = 0;
+
+    function displayNextInfo() {
+        var currentInfo = infos[currentIndex];
+        currentInfo.classList.remove("active");
+        setTimeout(function() {
+            currentInfo.style.display = "none";
+            currentIndex = (currentIndex + 1) % infos.length;
+            var nextInfo = infos[currentIndex];
+            nextInfo.style.display = "inline";
+            setTimeout(function() {
+                nextInfo.classList.add("active");
+            }, 100); // Delay before fading in the next element
+        }, 1000); // Duration of fade out effect (1 second)
+        setTimeout(displayNextInfo, 3000); // Total delay before switching to next element (1s fade out + 3s delay)
+    }
+
+    displayNextInfo();
+});
+
+            </script>
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a class="navbar-brand" href="#">
-                        <img src="/static/new_landing/img/HAEGL_colour.png" width="240px" height="100px" alt="Logo"  style="margin-left: 0px;">
+                    <a href="index.html" class="navbar-brand">
+                        <img src="/static/new_landing/img/HAEGL_colour.png" width="200px" height="110px">
                     </a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
-                            <a href="/" class="nav-item nav-link active">Home</a>
-                            <a href="/all_jobs" class="nav-item nav-link">Jobs</a>
+                           
                           
-                            <a href="/internships" class="nav-item nav-link">Internships Program</a>
-                        
-                            
                         </div>
                         <div class="d-flex m-3 me-0">
-                           
-                            <a href="/user_login" class="my-auto">   <div class="text-white bg-primary px-3 py-1 rounded" style="top: 10px; right: 10px;">Login</div></a>
-                           
+                            <div class="navbar-nav mx-auto">
+                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a href="shop.html" class="nav-item nav-link">Internship Program</a>
+                            <a href="shop-detail.html" class="nav-item nav-link">Contact us</a>
+                            <a href="user_registration">  <div class="text-white bg-primary px-3 py-1 rounded" style="top: 10px; right: 10px;">Register</div></a>
+                           </div>
                         </div>
                     </div>
                 </nav>
@@ -93,7 +124,7 @@
 
 
         <!-- Hero Start -->
-        <div class="container-fluid  mb-5 hero-header">
+        <div class="container-fluid py-5 mb-5 hero-header">
             <div class="container py-5">
                 <div class="row g-5 align-items-center">
                     <div class="col-md-12 col-lg-7">
