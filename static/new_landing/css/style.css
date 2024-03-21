@@ -321,7 +321,7 @@
 
 /*** vesitable Start ***/
 .vesitable .vesitable-item {
-    height: 310px;
+    height: 340px;
     transition: 0.5s;
 }
 
@@ -333,7 +333,7 @@
     overflow: hidden;
     transition: 0.5s;
     border-radius: 10px 10px 0 0;
-    height: 130px; /* Adjust this height as needed */
+    height: 100px; /* Adjust this height as needed */
 }
 
 .vesitable .vesitable-item .vesitable-img img {

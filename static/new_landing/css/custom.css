@@ -15,15 +15,28 @@ font-weight: 600;
 font-style: normal;
 
 }
+.clients-heading{
+  font-size: 20px;
+  font-family: "Stoke", serif;
+font-weight: 600;
+font-style: normal;
+}
+.why-heading{
+  font-size: 25px;
+  font-family: "Stoke", serif;
+  font-weight: 600;
+  font-style: normal;
+}
 .hr-heading{
     font-size: 35px;
-    font-family: league spartan;
+    font-family: "Stoke", serif;
+font-weight: 600;
+font-style: normal;
 }
 .center {
   display: block;
   text-align: center;
-  font-family: league spartan;
-  font-size: 25px;
+ 
 }
 .image-container {
     text-align: center;
@@ -78,10 +91,7 @@ font-style: normal;
     background-color: #cde5ee; /* Change background color on hover */
     transform: scale(1.1); /* Zoom in effect on hover */
 }
-.why-heading{
-  font-size: 35px;
-  font-family: league spartan;
-}
+
 .inline-p {
   display: inline-block; /* Display p elements side by side */
   margin-right: 10px; /* Add margin between the p elements */
