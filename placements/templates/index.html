@@ -197,15 +197,15 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="container-fluid testimonial py-5">
     <div class="container py-5">
         <div class="testimonial-header text-start">
-            <h2 class="mb-0 display-3 why-heading">What We Offer</h2>
-        </div> <br>
+            <h2 class="mb-5 display-3 why-heading">What We Offer</h2>
+        </div> 
         <div class="row">
             <div class="col-md-12">
                 <div class="testimonial-item img-border-radius bg-light rounded p-4">
                     <div class="position-relative">
 
                         <div class="mb-4 pb-4 border-bottom border-secondary">
-                            <p class="mb-0 text-center" style="font-size:21px; font-weight: 500px; color: black;"><strong>Opportunities</strong></p>
+                            <p class="mb-0 text-center" style="font-size:21px; font-weight: 500px; color: black;"><strong>Internship Opportunities</strong></p>
                         </div>
                         <div class="d-flex align-items-center flex-nowrap">
 
@@ -268,9 +268,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         
         <!-- Vesitable Shop Start-->
-<div class="container-fluid vesitable py-5">
+<div class="container-fluid vesitable py-1">
     <div class="container py-5">
-        <h3 class="mb-0 display-3 why-heading">Latest Job Opportunities</h3>
+        <h3 class="mb-0 display-3 why-heading">Latest Job Opportunities</h3><br>
         <div class="owl-carousel vegetable-carousel justify-content-center">
             {% for x in recent_jobs %}
             <div class="border border-secondary rounded position-relative vesitable-item">
@@ -292,7 +292,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             Posted {{x.days_since_posted}} ago
                         {% endif %}
                     </p>
-                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">Apply</a>
                 </div>
                 
             </div>
@@ -309,9 +309,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <!-- Bestsaler Product Start -->
 <div class="container-fluid mb-3">
     <div class="container ">
-        <div class="text-start mb-5" style="max-width: 700px;">
-            <h3 class="mb-3 display-3 why-heading">Browse by category</h3>
-            <p class="mb-3"><b>Looking for work? Browse jobs</b></p>
+        <div class="text-start mb-5" >
+            <h3 class="mb-0 display-3 why-heading">Browse by category</h3><br>
+            <p class="mb-3 subtag"><b>Looking for work? Browse jobs</b></p>
         </div>
         
         <div class="row g-4">
@@ -451,149 +451,72 @@ document.addEventListener("DOMContentLoaded", function() {
 <!-- Bestsaler Product End -->
 
          <!-- Banner Section Start-->
-         <div class="container-fluid banner bgc-secondary my-5">
-            <div class="container py-5">
-                <div class="row g-4 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="py-4">
-                            <p class="fw-normal text-dark" style="font-size: larger;">For clients</p>
-                            
-                            <h3 class="mb-3 display-3 hr-heading">Find the best Talent for your work</h3><hr>
-                           
-                           
-                            <div class="mb-3">
-                                <a href="/login">
-                                <div class="hr-btn btn border-1 border-white rounded-pill text-dark">
-                                    <img src="/static/new_landing/img/lockk.png" width="70px" height="60px" alt="">
-                                    <span>Create a client account</span>
-                                </div>
-                            </a>
-                            </div>
-                        <div class="mb-3">
-                            <div class="hr-btn btn border-1 border-white rounded-pill text-dark">
-                                <img src="/static/new_landing/img/jobbb.png" width="70px" height="60px" alt="">
-                                <span>Post a job</span>
-                                
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="hr-btn btn border-1 border-white rounded-pill text-dark">
-                                <img src="/static/new_landing/img/hiree.png" width="70px" height="60px" alt="">
-                                <span>Hire a talent for work</span>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="position-relative">
-                            <img src="/static/new_landing/img/hr.png" class="hr"  height="450px" alt="">
-                          
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
         <!-- Banner Section End -->
-          <!-- Tastimonial Start -->
-          <div class="container-fluid testimonial py-0">
-            <div class="container py-0">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                            <div class="position-relative">
-                               
-                                <div class="mb-4 pb-4 border-bottom border-secondary">
-                                    <p class="mb-0"><strong>We are  Here for You..</strong></p>
-                                </div>
-                                <div class="d-flex align-items-center flex-nowrap">
-                                    <div class=" rounded">
-                                        <img src="/static/new_landing/img/call.png" class="img-fluid rounded" style="width: 300px; height: 100px;" alt="">
-                                    </div>
-                                    <div class="ms-4 d-block">
-                                        <p><strong>7676348382</strong></p>
-                                        <p class="m-0 pb-3  text-dark"><i class="fa fa-map-marker"></i> HAEGL TECHNOLOGIES PVT LTD, 1st Floor, AKALWADI MANSION, Vidyanagar, Hubballi, Karnataka 580021</li></p>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                            <div class="position-relative">
-                              
-                                <div class="mb-4 pb-4 border-bottom border-secondary">
-                                    <p class="mb-0"><strong>Let's Contact On..</strong></p>
-                                </div>
-                                <div class="d-flex align-items-center flex-nowrap">
-                                    <div class="rounded">
-                                        <img src="/static/new_landing/img/whatsapp.png" class="img-fluid rounded" style="width: 140px; height: 110px;" alt="">
-                                    </div>
-                                    <div class="ms-4 d-block">
-                                        <p style="font-size: larger;font-weight: 500;"><strong>+7676348382</strong></p> 
-                                        <p class="m-0 pb-3 text-dark">Monday to Friday </p>
-                                        <p class="m-0 pb-3 text-dark">10:00 AM to 6:00 PM </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
         
-        
-        <!-- Tastimonial End -->
 
         <!-- Featurs Section Start -->
         
         <div class="container-fluid featurs py-5">
-           
-            <div class="container py-5">
-                <div class="text-start mb-5" style="max-width: 700px;">
-                    <h4 class="mb-3 display-3 why-heading">Why Interview Edge</h4>
-                    <p class="mb-3"><b>We understand the importance of finding the perfect job that aligns with your skills</b></p>
+            <div class="text-start mb-5">
+                <h4 class="mb-0 display-3 why-heading">Why Interview Edge</h4> <br>
+                <p class="mb-3 subtag"><b>We understand the importance of finding the perfect job that aligns with your skills</b></p>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- Content for the left column -->
+                    <h1>hello</h1>
                 </div>
-                <div class="row g-4">
-                    <div class="col-md-6 col-lg-3">
-                        <div class="featurs-item text-center rounded bg-light p-4">
-                            <div class="featurs-content text-center">
-                                 <i style="font-size: 30px;"  class="fas fa-briefcase"></i><h5>Job Opportunities</h5><hr>
-                                <p class="mb-0" style="text-align: justify;">Explore a vast array of job opportunities across various industries.</p>
+                <div class="col-md-8">
+                    <div class="row g-6 mb-4">
+                        <div class="col-md-6">
+                            <div class="featurs-item text-center rounded bg-light p-4">
+                                <div class="featurs-content text-center">
+                                    <i style="font-size: 30px;" class="fas fa-briefcase"></i>
+                                    <h5>Job Opportunities</h5>
+                                    <hr>
+                                    <p class="mb-0" style="text-align: justify;">Explore a vast array of job opportunities across various industries.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="featurs-item text-center rounded bg-light p-4">
+                                <div class="featurs-content text-center">
+                                    <i style="font-size: 30px;" class="fas fa-chart-line"></i>
+                                    <h5>Career Resources</h5>
+                                    <hr>
+                                    <p class="mb-0" style="text-align: justify;">Furnish individuals with essential resources to thrive in their careers.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="featurs-item text-center rounded bg-light p-4">
-                            
-                            <div class="featurs-content text-center">
-                               <i style="font-size: 30px;" class="fas fa-chart-line"></i> <h5>Career Resources</h5><hr>
-                                <p class="mb-0" style="text-align: justify;">Furnish individuals with essential resources to thrive in their careers.</p>
+                    <div class="row g-6 mb-4">
+                        <div class="col-md-6">
+                            <div class="featurs-item text-center rounded bg-light p-4">
+                                <div class="featurs-content text-center">
+                                    <i style="font-size: 30px;" class="fas fa-building"></i>
+                                    <h5>Company Profiles</h5>
+                                    <hr>
+                                    <p class="mb-0" style="text-align: justify;">Make informed decisions by exploring detailed company profiles.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="featurs-item text-center rounded bg-light p-4">
-                            
-                            <div class="featurs-content text-center">
-                                <i style="font-size: 30px;"  class="fas fa-building"></i><h5>Company Profiles</h5><hr>
-                                <p class="mb-0" style="text-align: justify;">Make informed decisions by exploring detailed company profiles.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="featurs-item text-center rounded bg-light p-4">
-                            
-                            <div class="featurs-content text-center">
-                               <i style="font-size: 30px;"  class="fas fa-rocket"></i> <h5>Effortless Application</h5><hr>
-                                <p class="mb-0"style="text-align: justify;">Streamline your application process with our one-click apply feature. </p>
+                        <div class="col-md-6">
+                            <div class="featurs-item text-center rounded bg-light p-4">
+                                <div class="featurs-content text-center">
+                                    <i style="font-size: 30px;" class="fas fa-building"></i>
+                                    <h5>Company Profiles</h5>
+                                    <hr>
+                                    <p class="mb-0" style="text-align: justify;">Make informed decisions by exploring detailed company profiles.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
+        
         <!-- Featurs Section End -->
 
         <!-- Footer Start -->

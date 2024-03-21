@@ -26,6 +26,17 @@ font-style: normal;
   font-family: "Stoke", serif;
   font-weight: 600;
   font-style: normal;
+  display: flex;
+  justify-content: center;
+  
+}
+.subtag{
+  font-size: 14px;
+  font-family: "Stoke", serif;
+  font-weight: 300;
+  font-style: normal;
+  display: flex;
+  justify-content: center;
 }
 .hr-heading{
     font-size: 35px;
