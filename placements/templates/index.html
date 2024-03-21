@@ -170,14 +170,16 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Hero End -->
         <div class="container-fluid">
             <div class="container">
-                <span class="center">Our Happy and Growing Clients</span><br>
+                <span class="center clients-heading">Our Happy and Growing Clients</span><br>
                 <div class="image-container">
                     <img src="/static/new_landing/img/gurukul.png" alt="Image 1">
                     <img src="/static/new_landing/img/krish.png" alt="Image 2">
                     <img src="/static/new_landing/img/kvblogo.png" alt="Image 3">
                     <img src="/static/new_landing/img/sennt.png" alt="Image 2">
+                    <img src="/static/new_landing/img/recruitintell.png" width="130px" height="50px" alt="Image 3">
                     <img src="/static/new_landing/img/meritude.png" alt="Image 3">
                     <img src="/static/new_landing/img/sorp.png" alt="Image 3">
+                    
                     <img src="/static/new_landing/img/cloud.png" width="200px" alt="Image 3">
                     <!-- Add more images as needed -->
                 </div>
@@ -195,9 +197,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     <img src="/{{x.company_id.profile}}" width="10px" class="img-fluid w-100 rounded-top" alt="">
                 </div>
                 
-               <a href="/single_job/{{x.id}}">  <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Apply</div></a>
+               
                 <div class="p-4 rounded-bottom">
-                    <h6>{{x.designation}}</h6>
+                    <h6 id="designation">{{x.designation}}</h6>
                     <div>
                         <p class="inline-p"><i class="fas fa-map-marker-alt"></i> {{x.location}}</p>
                         <p class="inline-p"><i class="fas fa-briefcase"></i> {{x.job_type}}</p>
@@ -209,8 +211,9 @@ document.addEventListener("DOMContentLoaded", function() {
                             Posted {{x.days_since_posted}} ago
                         {% endif %}
                     </p>
-                    
+                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                 </div>
+                
             </div>
 
             {% endfor %}
@@ -219,6 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
     </div>
 </div>
+
 <!-- Vesitable Shop End -->
 
 <!-- Bestsaler Product Start -->
