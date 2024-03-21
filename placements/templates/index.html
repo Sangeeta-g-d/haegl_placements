@@ -1,912 +1,568 @@
 <!DOCTYPE html>
-
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
-
 <html lang="en">
-<head>
 
-  <!-- * Basic Page Needs * -->
-  <meta charset="utf-8">
-  <title>Haegl InterviewEdge</title>
+    <head>
+        <meta charset="utf-8">
+        <title>Haegl InterviewEdge</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
 
-  <!-- * Mobile Specific Metas * -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Agency HTML Template">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="author" content="Themefisher">
-  <meta name="generator" content="Themefisher Classified Marketplace Template v1.0">
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet"> 
 
-  <!-- theme meta -->
-  <meta name="theme-name" content="classimax" />
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-  <!-- favicon -->
-  <link href="images/favicon.png" rel="shortcut icon">
-
-  <!--
-  Essential stylesheets
-  =====================================-->
-  <link href="/static/assets1/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
-  <link href="/static/assets1/plugins/bootstrap/bootstrap-slider.css" rel="stylesheet">
-  <link href="/static/assets1/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="/static/assets1/plugins/slick/slick.css" rel="stylesheet">
-  <link href="/static/assets1/plugins/slick/slick-theme.css" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/static/assets1/css/media_q.css">
-  <link href="/static/assets1/plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-
-  <link href="/static/assets1/css/style.css" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="...">
-<link href="/static/assets2/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="/static/assets2/css/specific.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+        <!-- Libraries Stylesheet -->
+        <link href="/static/new_landing/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+        <link href="/static/new_landing/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
 
-  </head>
-  <style>
-    .section {
-    overflow-x: hidden;
-}
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="/static/new_landing/css/bootstrap.min.css" rel="stylesheet">
 
-  .small-image {
-    width: 70px; /* Adjust the width as needed */
-   height: 80px; /* Adjust the height as needed */
-   display: block;
-   margin: 10px auto; /* Adjust the height as needed */
-  }
-  .card-body.text-center {
-    text-align: center;
-}
-#suggestionListJobTitle {
-    list-style: none;
-    padding: 0;
-    margin: 5px 0 0 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    max-height: 200px;
-    overflow-y: auto;
-    display: none; /* Hide the list initially */
-}
+        <!-- Template Stylesheet -->
+        <link href="/static/new_landing/css/style.css" rel="stylesheet">
+        <link href="/static/new_landing/css/custom.css" rel="stylesheet">
+        <style>
+     
+        </style>
+    </head>
 
-#suggestionListJobTitle li {
-    padding: 8px 12px;
-    cursor: pointer;
-}
+    <body>
 
-#suggestionListJobTitle li:hover {
-    background-color: #f2f2f2;
-}
-.fade-in-image {
-  opacity: 0; /* Initially, the image is invisible */
-  transition: opacity 1s ease-in-out; /* Smooth transition for opacity change over 1 second */
-}
-
-/* Fade-in animation triggered when the element is in view */
-.fade-in-image.is-visible {
-  opacity: 1; /* Make the image visible */
-}
-.card-card1{
-  background-color: #fff;
-  border-radius: 25px;
-  border-color: #fff;
-}
-.card-card1:hover {
-    /* Apply gradient background on hover */
-    background-image: linear-gradient(to bottom right, #faf9f6, #e6c3f3);
-    /* Adjust the gradient colors and direction as needed */
-}
+       
 
 
-
-    a[href="/haegl.in"]:hover li {
-  /* Apply hover effect styles here */
-  color: #f0f0f0; /* Example hover background color */
-   /* Example hover text color */
-}
-/* Styles for the card container */
-.card2 {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: flex;
-    align-items: center; /* Align items vertically */
-    padding: 10px;
-    max-width: 320px;
-}
-
-/* Styles for the logo */
-.logo {
-    margin-right: 10px;
-}
-
-.logo img {
-    width: 50px;
-    height: 40px;
-
-    border-radius: 5px; /* Adjust to match the card's border radius */
-}
-
-/* Styles for the company details */
-.details {
-    display: flex; /* Display the company name inline */
-    align-items: center; /* Align items vertically */
-}
-
-.details h3 {
-    margin: 0;
-    padding-left: 5px; /* Adjust spacing between logo and text */
-}
-
-  </style>
-  <body>
-    <header>
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-md-12">
-    				<nav class="navbar navbar-expand-lg navbar-light navigation">
-    					<a class="navbar-brand" href="/">
-    						<img style=" margin-top: -10px;" width="160px" height="60px" src="/static/assets1/images/is_logo.png" alt="">
-    					</a>
-    					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    						<span class="navbar-toggler-icon"></span>
-    					</button>
-    					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-    						<ul class="navbar-nav ml-auto main-nav ">
-    							<li class="nav-item active">
-    								<a class="nav-link" href="/">Home</a>
-    							</li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="/all_companies">Companies</a>
-                  </li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="/all_jobs">Jobs</a>
-                  </li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="/internships">Internships</a>
-                  </li>
-    						</ul>
-    						<ul class="navbar-nav ml-auto mt-10">
-    							<li class="nav-item">
-    								<a class="nav-link login-button" href="/user_login">Login</a>
-    							</li>
-    							<li class="nav-item">
-    								<a class="nav-link text-white add-button" href="/login"><i class="fa fa-plus-circle"></i> Hire Candidate</a>
-    							</li>
-    						</ul>
-    					</div>
-    				</nav>
-    			</div>
-    		</div>
-    	</div>
-    </header>
-
- <script>
-  // Include AOS library code directly here
-  !function(){var e=document.createElement("script");e.src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js",e.setAttribute("data-aos-easing","ease-in-out"),e.setAttribute("data-aos-duration","1000"),document.head.appendChild(e)}();
-</script>
-<!--===============================
-=            Hero Area            =
-================================-->
-
-<section class="hero-area bg-1 text-center overly">
-	<!-- Container Start -->
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<!-- Header Contetnt -->
-				<div data-aos="fade-up" data-aos-delay="100" class="content-block">
-					<h1>From Applications to Offers</h1>
-					<p>your one-stop platform for efficient and streamlined job application and hiring processes.<br>
-           Simplifying the recruitment journey for all stakeholders involved.</p>
-
-				</div>
-				<!-- Advance Search -->
-				<div class="advance-search">
-					<div class="container">
-						<div class="row justify-content-center">
-							<div class="col-lg-12 col-md-12 align-content-center">
-								<form method="GET" action="{% url 'search_results' %}">
-									<div class="form-row">
-                    <div class="form-group col-xl-4 col-lg-3 col-md-6">
-                      <input type="text" name="job_title" class="form-control my-2 my-lg-1" id="inputtext4" placeholder="Job Title">
-                      <ul id="suggestionListJobTitle"></ul> <!-- Empty <ul> for displaying suggestions -->
-                     </div>
-
-										<div class="form-group col-lg-3 col-md-6">
-											<select  name="type" class="w-100 form-control mt-lg-1 mt-md-2">
-												<option>Job Type</option>
-												<option value="Full time">Full Time</option>
-												<option value="Part time">Part Time</option>
-
-											</select>
-										</div>
-										<div class="form-group col-lg-3 col-md-6">
-											<input name="keyword" type="text" class="form-control my-2 my-lg-1" id="inputLocation4" placeholder="Location">
-										</div>
-										<div class="form-group col-xl-2 col-lg-3 col-md-6 align-self-center">
-											<button style="background:#844FC1;" type="submit" class="btn btn-primary active w-100">Search Now</button>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('#inputtext4').on('input', function() {
-        const keyword = $(this).val().trim();
-        const suggestionList = $('#suggestionListJobTitle');
-
-        if (keyword.length >= 2) {  // Adjust the minimum length for suggestions
-            $.ajax({
-                url: '/autocomplete-job-title/',  // Replace with your Django URL for job title suggestions
-                data: { keyword: keyword },
-                dataType: 'json',
-                success: function(response) {
-                    const suggestions = response.suggestions;
-                    suggestionList.empty(); // Clear previous suggestions
-                    if (suggestions.length > 0) {
-                        suggestions.forEach(function(suggestion) {
-                            suggestionList.append(`<li>${suggestion}</li>`); // Append suggestions to the <ul>
-                        });
-                        suggestionList.show(); // Show the suggestion list
-                    } else {
-                        suggestionList.hide(); // Hide the suggestion list if no suggestions
-                    }
-                }
-            });
-        } else {
-            suggestionList.hide(); // Hide the suggestion list if input length is less than 2
-        }
-    });
-
-    // Handle click on suggestion and populate the input field
-    $('body').on('click', '#suggestionListJobTitle li', function() {
-        const suggestionText = $(this).text();
-        $('#inputtext4').val(suggestionText);
-        $('#suggestionListJobTitle').hide(); // Hide the suggestion list after selecting a suggestion
-    });
-});
-</script>
-
-	<!-- Container End -->
-</section>
+        <!-- Navbar start -->
+        <div class="container-fluid" style="margin-top: -5px;" >
+            <div class="container topbar bg-white d-none d-lg-block">
+            
+            </div>
+            <div class="container px-0">
+                <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                    <a class="navbar-brand" href="#">
+                        <img src="/static/new_landing/img/HAEGL_colour.png" width="240px" height="100px" alt="Logo"  style="margin-left: 0px;">
+                    </a>
+                    <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars text-primary"></span>
+                    </button>
+                    <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                        <div class="navbar-nav mx-auto">
+                            <a href="/" class="nav-item nav-link active">Home</a>
+                            <a href="/all_jobs" class="nav-item nav-link">Jobs</a>
+                          
+                            <a href="/internships" class="nav-item nav-link">Internships Program</a>
+                        
+                            
+                        </div>
+                        <div class="d-flex m-3 me-0">
+                           
+                            <a href="/user_login" class="my-auto">   <div class="text-white bg-primary px-3 py-1 rounded" style="top: 10px; right: 10px;">Login</div></a>
+                           
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Navbar End -->
 
 
-<br>
-<br>
-<br>
-
-<!--===========================================
-=            Popular deals section            =
-============================================-->
-
-<section class="popular-deals section bg-gray">
-  <div class="container">
-      <div class="row">
-          <div class="col-md-12">
-              <div class="section-title">
-                  <h2><b>Featured Jobs</b></h2>
-                  <p>Efficiency Redefined, Opportunities Unlimited: Empowering Your Job Search</p>
-              </div>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col-lg-12">
-              <div class="trending-ads-slide mobile-carousel">
-                  {% for x in recent_jobs %}
-                  <div class="col-md-6 col-lg-4 col-xl-3 col-12">
-                      <!-- product card -->
-                      <div class="product-item product-item1">
-                          <div class="card card-card1">
-                              <div class="thumb-content">
-                                  <a href="{% url 'single_job' job_id=x.id %}">
-                                      <img class="small-image card-img-top img-fluid" src="/{{x.company_id.profile}}" alt="Card image cap">
-                                  </a>
-                              </div>
-                              <div class="card-body text-center">
-                                  <h4 class="card-title" style="color: #844FC1 !important;">
-                                      <a href="{% url 'single_job' job_id=x.id %}">{{x.designation}}</a>
-                                  </h4>
-                                  <p class="card-text">{{x.company_id.first_name}}</p>
-                                  <ul class="list-inline product-meta">
-                                      <li class="list-inline-item">
-                                          <i class="fa fa-clock-o"></i> {{x.job_type}}
-                                      </li>
-                                      <li class="list-inline-item">
-                                          <i class="fa fa-map-marker"></i> {{x.location}}
-                                      </li>
-                                      <li class="list-inline-item">
-                                          <i class="fa fa-rupee-sign"></i> {{x.salary}}
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                      <!-- End product card -->
-                  </div>
-                  {% endfor %}
-              </div>
-          </div>
-      </div>
-  </div>
-</section>
+        <!-- Modal Search Start -->
+        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content rounded-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex align-items-center">
+                        <div class="input-group w-75 mx-auto d-flex">
+                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Search End -->
 
 
-<script>
-
-  // AOS initialization
-  document.addEventListener("DOMContentLoaded", function() {
-    AOS.init({
-      offset: 120,
-      duration: 600,
-      easing: 'ease-in-out',
-      delay: 100,
-      once: true,
-      // ... other options
-    });
-  });
-</script>
-<script>
-
-$(document).ready(function(){
-  $('.mobile-carousel').slick({
-    slidesToShow: 3, // Show 3 slides initially (for larger screens)
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 992, // Breakpoint for tablets or smaller laptops
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1
-        }
-      },
-      {
-        breakpoint: 767, // Breakpoint for typical mobile screens
-        settings: {
-          slidesToShow: 1, // Show only 1 slide on mobile screens
-          slidesToScroll: 1
-        }
-      }
-      // Add more breakpoints and settings as needed
-    ]
-  });
-});
-  </script>
-<section id="about1" style="margin-bottom: 50px;" class="about1">
-
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-    <div class="row align-items-xl-center gy-5">
-
-      <div class="col-xl-5 content">
-        <h1 style="font-weight:800; font-size: 50px;">Discover the Search Trends.</h1>
-        <img  style="margin-left: -180px;" src="/static/assets2/img/girl-img.png" alt="Image Description">
-      </div>
-
-      <div class="col-xl-7">
-        <div class="row gy-4 icon-boxes">
-
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="200" id="jobsCard">
-            <div class="icon-box">
-                <i class="fas fa-search"></i>
-                <h3><b>Jobs for Freshers</b></h3>
-                <ul>
-                  <li>Exciting opportunities for fresh graduates</li>
-              </ul>
-                <br>
-               <a href="{% url 'search_trend' 'freshers' %}"> <h5 id="viewAllBtn">View all</h5></a>
+        <!-- Hero Start -->
+        <div class="container-fluid  mb-5 hero-header">
+            <div class="container py-5">
+                <div class="row g-5 align-items-center">
+                    <div class="col-md-12 col-lg-7">
+                        <h3 class="mb-5 display-3 hero-heading text-primary">From Applications to Offers</h3>
+                        <p class="mb-3 para">Your one-stop platform for efficient and streamlined job application and hiring processes.
+                            Simplifying the recruitment journey for all stakeholders involved.</p><br>
+                        <div class="position-relative mx-auto">
+                            <input class="form-control border-1 border w-75 py-2 px-4 rounded-pill" type="number" placeholder="Enter keyword">
+                            <button type="submit" class="btn btn-primary border-2 border py-2 px-4 position-absolute rounded-pill text-white h-100" style="top: 0; right: 25%;">Search</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-5">
+                        <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
+                            <div class="carousel-inner" role="listbox">
+                                <div class="carousel-item active rounded">
+                                    <img src="/static/new_landing/img/bg4.jpg" class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide">
+                                    
+                                </div>
+                                <div class="carousel-item rounded">
+                                    <img src="/static/new_landing/img/bg1.jpg" class="img-fluid w-100 h-100 rounded" alt="Second slide">
+                                   
+                                </div>
+                            </div>
+                           
+                           
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- End Icon Box -->
 
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="300"id="jobsCard">
-            <div class="icon-box">
-              <i class="fas fa-briefcase"></i>
-              <h3><b>Internships</b></h3>
-              <ul>
-                <li>Internship Program for Hands-On Learning</li>
+        
 
-
-            </ul>
-              <br>
-              <a href="{% url 'search_trend' 'internship' %}"> <h5 id="viewAllBtn">View all</h5></a>          </div>
-          </div> <!-- End Icon Box -->
-
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="400"id="jobsCard">
-            <div class="icon-box">
-              <i class="fas fa-user-tie"></i>
-              <h3><b>Technical Jobs</b></h3>
-              <ul>
-                <li>IT and technology-related positions</li>
-
-            </ul>
-              <br>
-              <a href="{% url 'search_trend' 'technical' %}"> <h5 id="viewAllBtn">View all</h5></a>
-</b>            </div>
-          </div> <!-- End Icon Box -->
-
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="500"id="jobsCard">
-            <div class="icon-box">
-              <i class="fas fa-location-arrow"></i>
-              <h3><b>Sales and Marketing</b></h3>
-              <ul>
-                <li>Explore Limitless Possibilities in Sales and Marketing</li>
-            </ul>
-              <br>
-              <a href="{% url 'search_trend' 'sales' %}"> <h5 id="viewAllBtn">View all</h5></a>      </div>
-          </div> <!-- End Icon Box -->
-
+        <!-- Hero End -->
+        <div class="container-fluid">
+            <div class="container">
+                <span class="center">Trusted by 20+ companies</span><br>
+                <div class="image-container">
+                    <img src="/static/new_landing/img/gurukul.png" alt="Image 1">
+                    <img src="/static/new_landing/img/krish.png" alt="Image 2">
+                    <img src="/static/new_landing/img/kvblogo.png" alt="Image 3">
+                    <img src="/static/new_landing/img/sennt.png" alt="Image 2">
+                    <img src="/static/new_landing/img/meritude.png" alt="Image 3">
+                    <img src="/static/new_landing/img/sorp.png" alt="Image 3">
+                    <img src="/static/new_landing/img/cloud.png" width="200px" alt="Image 3">
+                    <!-- Add more images as needed -->
+                </div>
+            </div>
         </div>
-      </div>
 
+        <!-- Vesitable Shop Start-->
+<div class="container-fluid vesitable py-5">
+    <div class="container py-5">
+        <h3 class="mb-0 display-3 why-heading">Latest Job Opportunities</h3>
+        <div class="owl-carousel vegetable-carousel justify-content-center">
+            {% for x in recent_jobs %}
+            <div class="border border-secondary rounded position-relative vesitable-item">
+                <div class="vesitable-img">
+                    <img src="/{{x.company_id.profile}}" width="10px" class="img-fluid w-100 rounded-top" alt="">
+                </div>
+                
+               <a href="/single_job/{{x.id}}">  <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Apply</div></a>
+                <div class="p-4 rounded-bottom">
+                    <h6>{{x.designation}}</h6>
+                    <div>
+                        <p class="inline-p"><i class="fas fa-map-marker-alt"></i> {{x.location}}</p>
+                        <p class="inline-p"><i class="fas fa-briefcase"></i> {{x.job_type}}</p>
+                    </div>
+                    <p>
+                        {% if x.days_since_posted == 0 %}
+                            Posted today
+                        {% else %}
+                            Posted {{x.days_since_posted}} ago
+                        {% endif %}
+                    </p>
+                    
+                </div>
+            </div>
+
+            {% endfor %}
+            
+            
+        </div>
     </div>
-  </div>
-
-</section><!-- End About Section -->
-<br>
-<!-- hiring partners -->
-<section class="popular-deals section bg-gray" >
-	<div class="container">
-		<div class="row" data-aos="fade-left" data-aos-duration="500" data-aos-anchor-placement="top-center">
-			<div class="col-md-12">
-				<div class="section-title">
-					<h2><b>Hiring Partners</b></h2>
-					<p>From Listings to Interviews: Enhancing Your Hiring Experience</p>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<!-- offer 01 -->
-			<div class="col-lg-12"data-aos="fade-left" data-aos-duration="500" data-aos-anchor-placement="top-center">
-				<div class="trending-ads-slide">
-            {% for x in hiring_partners %}
-					<div class="col-sm-12 col-lg-4">
-						<!-- product card -->
-
-<div class="product-item product-item1">
-	<div class="card card-card1">
-		<div class="thumb-content">
-			<!-- <div class="price">$200</div> -->
-
-			<a href="single.html">
-				<img class="small-image card-img-top img-fluid image-with-margin" src="{{x.profile}}" alt="Card image cap">
-			</a>
-
-
-		</div>
-    <div class="card-body text-center"> <!-- Added 'text-center' class -->
-      <h4 class="card-title"><a href="{% url 'company' id=x.id %}">{{x.first_name}}</a></h4>
-
-      <p class="card-text">{{ x.about }}</p>
-  <a href="{% url 'company' id=x.id %}" class="read-more-link">Know More</a>
-
-<script type="text/javascript">
-// Function to truncate text and show "Know More" link if necessary
-function truncateText(element, maxLength) {
-    let text = element.textContent.trim();
-    if (text.length > maxLength) {
-        let truncatedText = text.slice(0, maxLength) + '...';
-        element.textContent = truncatedText;
-
-        let readMoreLink = element.nextElementSibling; // Assuming the link is the next sibling
-        readMoreLink.style.display = 'inline'; // Show the "Know More" link
-    }
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    let cardTextElements = document.querySelectorAll('.card-text');
-    const MAX_WORDS = 80;
-
-    cardTextElements.forEach(function (element) {
-        truncateText(element, MAX_WORDS);
-    });
-});
-
-</script>
-
-
-
-  </div>
-
-	</div>
 </div>
-					</div>
-          {% endfor %}
-				</div>
+<!-- Vesitable Shop End -->
 
-			</div>
-		</div>
-	</div>
-</section>
-
-<section id="services" style="margin-top: 50px;" class="services">
-
-  <!--  Section Title -->
-  <div class="container section-title" data-aos="fade-up"  id="why">
-    <h2><b>Why InterviewEdge</b></h2>
-    <p> we understand the importance of finding the perfect job that aligns with your skills, aspirations, and career goals. </p>
-  </div><!-- End Section Title -->
-
-  <div class="container">
-
-    <div class="row gy-4">
-
-      <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="100">
-        <div class="service-item d-flex">
-          <div class="icon flex-shrink-0"><i class="fas fa-briefcase"></i></div>
-          <div>
-            <h4 class="title"><a href="#why" class="stretched-link">Extensive Job Opportunities</a></h4>
-            <p class="description">Explore a vast array of job opportunities across various industries. Our platform is your gateway to a diverse range of roles, ensuring you find the perfect match for your skills and interests.</p>
-          </div>
+<!-- Bestsaler Product Start -->
+<div class="container-fluid mb-3">
+    <div class="container ">
+        <div class="text-start mb-5" style="max-width: 700px;">
+            <h3 class="mb-3 display-3 why-heading">Browse by category</h3>
+            <p class="mb-3"><b>Looking for work? Browse jobs</b></p>
         </div>
-      </div>
-      <!-- End Service Item -->
-
-      <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="200">
-        <div class="service-item d-flex">
-          <div class="icon flex-shrink-0"><i class="fas fa-building"></i></div>
-          <div>
-            <h4 class="title"><a href="#why" class="stretched-link">Comprehensive Company Profiles</a></h4>
-            <p class="description">Make informed decisions by exploring detailed company profiles. Gain insights into company culture and values to ensure you find the right fit for your career.</p>
-          </div>
+        
+        <div class="row g-4">
+           
+            <div class="col-lg-4 col-xl-3">
+                <div class="image-container">
+                <div class="p-2 rounded shadow" style="background-color: white;">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <div >
+                                <img src="/static/new_landing/img/devlopment.png" class="img-fluid rounded-circle w-100" alt="">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <a href="{% url 'job_list' 'Development and IT' %}"  class="h6">Development and IT</a>
+                            
+                        </div>
+                    </div>
+                </div></div>
+            </div>
+                
+            
+            <div class="col-lg-4 col-xl-3">
+                <div class="image-container">
+                <div class="p-2 rounded shadow" style="background-color: white;">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <div >
+                                <img src="/static/new_landing/img/creative.png" class="img-fluid rounded-circle w-100" alt="">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <a href="{% url 'job_list' 'Design and Creative' %}" class="h6">Design and Creative</a>
+                           
+                        </div>
+                    </div>
+                </div> </div>
+            </div>
+            <div class="col-lg-4 col-xl-3">
+                <div class="image-container">
+                <div class="p-2 rounded shadow" style="background-color: white;">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <div>
+                                <img src="/static/new_landing/img/sales.png" class="img-fluid rounded-circle w-100" alt="">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <a href="{% url 'job_list' 'Sales and Marketing' %}" class="h6">Sales and Marketing</a>
+                          
+                        </div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="col-lg-4 col-xl-3">
+                <div class="image-container">
+                <div class="p-2 rounded shadow" style="background-color: white;">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <div >
+                                <img src="/static/new_landing/img/customer.png" class="img-fluid rounded-circle w-100" alt="">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <a href="{% url 'job_list' 'Customer Support' %}" class="h6">Customer Support</a>
+                          
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xl-3">
+                <div class="image-container">
+                <div class="p-2 rounded shadow" style="background-color: white;">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <div >
+                                <img src="/static/new_landing/img/finance.png" class="img-fluid rounded-circle w-100" alt="">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <a href="{% url 'job_list' 'Accounting' %}" class="h6">Accounting</a>
+                           
+                        </div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="col-lg-4 col-xl-3">
+                <div class="image-container">
+                <div class="p-2 rounded shadow" style="background-color: white;">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <div>
+                                <img src="/static/new_landing/img/engineering.png" class="img-fluid rounded-circle w-100" alt="">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <a href="{% url 'job_list' 'Engineering' %}" class="h6">Engineering</a>
+                            
+                        </div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="col-lg-4 col-xl-3">
+                <div class="image-container">
+                <div class="p-2 rounded shadow" style="background-color: white;">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <img src="/static/new_landing/img/legal.png" class="img-fluid rounded-circle w-100" alt="">
+                        </div>
+                        <div class="col-8">
+                            <a href="{% url 'job_list' 'legal' %}" class="h6">legal</a>
+                           
+                        </div>
+                    </div>
+                </div></div>
+            </div>
+          
+            <div class="col-lg-4 col-xl-3">
+                <div class="image-container">
+                <div class="p-2 rounded shadow" style="background-color: white;">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <img src="/static/new_landing/img/medical.png" class="img-fluid rounded-circle w-100" alt="">
+                        </div>
+                        <div class="col-8">
+                            <a href="{% url 'job_list' 'Medical' %}" class="h6">Medical</a>
+                           
+                        </div>
+                    </div>
+                </div></div>
+            </div>
+         
         </div>
-      </div><!-- End Service Item -->
-
-      <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="300">
-        <div class="service-item d-flex">
-          <div class="icon flex-shrink-0"><i class="fas fa-chart-line"></i></div>
-          <div>
-            <h4 class="title"><a href="#why" class="stretched-link">Career Resources</a></h4>
-            <p class="description">Access a wealth of career resources and interview questions. Our goal is not just to help you find a job but to empower you with the knowledge and tools needed to excel in your career.</p>
-          </div>
-        </div>
-      </div><!-- End Service Item -->
-
-      <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="400">
-        <div class="service-item d-flex">
-          <div class="icon flex-shrink-0"><i class="fas fa-rocket"></i></div>
-          <div>
-            <h4 class="title"><a href="#why" class="stretched-link">Seamless Application Process</a></h4>
-            <p class="description">Streamline your application process with our one-click apply feature. Save time and effort as you easily submit applications directly through our platform, making job hunting more efficient.</p>
-          </div>
-        </div>
-      </div><!-- End Service Item -->
-
-      <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="500">
-        <div class="service-item d-flex">
-          <div class="icon flex-shrink-0"><i class="fas fa-mobile-alt"></i></div>
-          <div>
-            <h4 class="title"><a href="#why" class="stretched-link">Mobile Accessibility</a></h4>
-            <p class="description">Stay connected on the go with our mobile-friendly platform. Access your job search, application history, and account settings seamlessly from your smartphone, ensuring flexibility and convenience</p>
-          </div>
-        </div>
-      </div><!-- End Service Item -->
-
-      <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="600">
-        <div class="service-item d-flex">
-          <div class="icon flex-shrink-0"><i class="fas fa-question-circle"></i>
-          </i></div>
-          <div>
-            <h4 class="title"><a href="#why"class="stretched-link">Interview Question Bank</a></h4>
-            <p class="description">Gain a competitive edge with our extensive interview question bank. We provide a curated collection of industry-specific and commonly asked interview questions, helping you prepare thoroughly for each stage of the hiring process.</p>
-          </div>
-        </div>
-      </div><!-- End Service Item -->
-
     </div>
+</div>
+<!-- Bestsaler Product End -->
 
-  </div>
-
-</section><!-- End Services Section -->
-
-<!--==========================================
-=            All Category Section            =
-===========================================-->
-
-<section class=" section">
-	<!-- Container Start -->
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<!-- Section title -->
-				<div class="section-title" >
-					<h2><b>Explore Jobs by Department</b></h2>
-					<p>Connecting Talent with Opportunity</p>
-				</div>
-        <div class="row" data-aos="fade-right" data-aos-duration="500"  data-aos-anchor-placement="top-center">
-      {% for department, count in department_open_counts %}
-      <div class="col-lg-3 offset-lg-0 col-md-5 offset-md-1 col-sm-6">
-          <div class="category-block" style="width: 250px; height: 200px;"> <!-- Adjust width and height as needed -->
-              <div class="header">
-                  <i class="fa fa-briefcase icon-bg-5"></i>
-                  <h4>{{ department }}</h4>
-              </div>
-              <ul class="category-list">
-                  <li><a href="{% url 'job_list' department %}">Active Jobs <span>{{ count }}</span></a></li>
-              </ul>
-          </div>
-      </div>
-      {% empty %}
-      <p>No departments found.</p>
-      {% endfor %}
-  </div>
-
-
-			</div>
-		</div>
-	</div>
-	<!-- Container End -->
-</section>
-
-
-
-
-
-
-<br>
-<br>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const faqItems = document.querySelectorAll('.faq-item');
-
-    faqItems.forEach(item => {
-      item.addEventListener('click', () => {
-        // Toggle the active class on the clicked item
-        item.classList.toggle('faq-active');
-
-        // Toggle the visibility of the content
-        const content = item.querySelector('.faq-content');
-        content.style.display = content.style.display === 'block' ? 'none' : 'block';
-      });
-    });
-  });
-</script>
-<section style="margin-top: -30px;" id="faq" class="faq">
-
-  <div class="container">
-
-    <div class="row gy-4">
-
-      <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
-        <div class="content px-xl-5">
-          <h3><span style="font-size: 20px;">Preparation for your next interview?</span><br><b>Refer Questions asked by Top Companies</b></h3>
-
-        </div>
-        <img width="300px" src="/static/assets2/img/question.png" alt="">
-      </div>
-
-      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-
-        <div class="faq-container">
-          {% for c in top_companies %}
-          <div class="faq-item ">
-            <div class="card2">
-              <div class="logo">
-                  <img src="/{{c.company_logo}}" alt="Company Logo">
-              </div>
-              <div class="details">
-                  <a href="/questions/{{c.id}}"><h3>{{c.company_name}}</h3></a>
-              </div>
-          </div>
-
-
-
-
-          </div><!-- End Faq item-->
-          {% endfor %}
-
-        </div>
-
-      </div>
-      <div class="col-lg-3" data-aos="fade-up" data-aos-delay="200">
-
-        <div class="faq-container">
-
-          <div class="faq-item">
-            <h3><span class="num">2.</span> <span>Technical Interview Questions</span></h3>
-            <div class="faq-content">
-              <p>Topics : Programming Language, Frameworks and libraries associated with the language, Data Structures, Algorithms, Databases, Networking, Operating Systems ,Software Development Lifecycle.</p>
-              <br>
-
+         <!-- Banner Section Start-->
+         <div class="container-fluid banner bgc-secondary my-5">
+            <div class="container py-5">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="py-4">
+                            <p class="fw-normal text-dark" style="font-size: larger;">For clients</p>
+                            
+                            <h3 class="mb-3 display-3 hr-heading">Find the best Talent for your work</h3><hr>
+                           
+                           
+                            <div class="mb-3">
+                                <a href="/login">
+                                <div class="hr-btn btn border-1 border-white rounded-pill text-dark">
+                                    <img src="/static/new_landing/img/lockk.png" width="70px" height="60px" alt="">
+                                    <span>Create a client account</span>
+                                </div>
+                            </a>
+                            </div>
+                        <div class="mb-3">
+                            <div class="hr-btn btn border-1 border-white rounded-pill text-dark">
+                                <img src="/static/new_landing/img/jobbb.png" width="70px" height="60px" alt="">
+                                <span>Post a job</span>
+                                
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="hr-btn btn border-1 border-white rounded-pill text-dark">
+                                <img src="/static/new_landing/img/hiree.png" width="70px" height="60px" alt="">
+                                <span>Hire a talent for work</span>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="position-relative">
+                            <img src="/static/new_landing/img/hr.png" class="hr"  height="450px" alt="">
+                          
+                        </div>
+                    </div>
+                </div>
             </div>
-            <i class="faq-toggle bi bi-chevron-right"></i>
-          </div><!-- End Faq item-->
-
-
-
-          <div class="faq-item">
-            <h3><span class="num">3.</span> <span>Banking interview questions</span></h3>
-            <div class="faq-content">
-              <p>Topics : Financial Markets and Instruments, Banking Regulations and Compliance, Risk Management, Financial Analysis, Banking Operations, Investment Banking, Financial Technology.</p>
-              <br>
-
+        </div>
+        <!-- Banner Section End -->
+          <!-- Tastimonial Start -->
+          <div class="container-fluid testimonial py-0">
+            <div class="container py-0">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="testimonial-item img-border-radius bg-light rounded p-4">
+                            <div class="position-relative">
+                               
+                                <div class="mb-4 pb-4 border-bottom border-secondary">
+                                    <p class="mb-0"><strong>We are  Here for You..</strong></p>
+                                </div>
+                                <div class="d-flex align-items-center flex-nowrap">
+                                    <div class=" rounded">
+                                        <img src="/static/new_landing/img/call.png" class="img-fluid rounded" style="width: 300px; height: 100px;" alt="">
+                                    </div>
+                                    <div class="ms-4 d-block">
+                                        <p><strong>9028-3456-9823</strong></p>
+                                        <p class="m-0 pb-3  text-dark"><i class="fa fa-map-marker"></i> HAEGL TECHNOLOGIES PVT LTD, 1st Floor, AKALWADI MANSION, Vidyanagar, Hubballi, Karnataka 580021</li></p>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="testimonial-item img-border-radius bg-light rounded p-4">
+                            <div class="position-relative">
+                              
+                                <div class="mb-4 pb-4 border-bottom border-secondary">
+                                    <p class="mb-0"><strong>Let's Contact On..</strong></p>
+                                </div>
+                                <div class="d-flex align-items-center flex-nowrap">
+                                    <div class="rounded">
+                                        <img src="/static/new_landing/img/whatsapp.png" class="img-fluid rounded" style="width: 140px; height: 110px;" alt="">
+                                    </div>
+                                    <div class="ms-4 d-block">
+                                        <p style="font-size: larger;font-weight: 500;"><strong>+3458766567</strong></p> 
+                                        <p class="m-0 pb-3 text-dark">Monday to Friday </p>
+                                        <p class="m-0 pb-3 text-dark">10:00 AM to 6:00 PM </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
-            <i class="faq-toggle bi bi-chevron-right"></i>
-          </div><!-- End Faq item-->
+        </div>
+        
+        
+        <!-- Tastimonial End -->
 
-          <div class="faq-item">
-            <h3><span class="num">4.</span> <span>Data Science interview questions</span></h3>
-            <div class="faq-content">
-              <p>Topics: Statistics and Probability, Machine Learning, Data Analysis and Exploration, Data Cleaning and Preprocessing, Programming and Coding, SQL and Databases.</p>
-              <br>
-
+        <!-- Featurs Section Start -->
+        
+        <div class="container-fluid featurs py-5">
+           
+            <div class="container py-5">
+                <div class="text-start mb-5" style="max-width: 700px;">
+                    <h4 class="mb-3 display-3 why-heading">Why Interview Edge</h4>
+                    <p class="mb-3"><b>We understand the importance of finding the perfect job that aligns with your skills</b></p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="featurs-item text-center rounded bg-light p-4">
+                            <div class="featurs-content text-center">
+                                 <i style="font-size: 30px;"  class="fas fa-briefcase"></i><h5>Job Opportunities</h5><hr>
+                                <p class="mb-0" style="text-align: justify;">Explore a vast array of job opportunities across various industries.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="featurs-item text-center rounded bg-light p-4">
+                            
+                            <div class="featurs-content text-center">
+                               <i style="font-size: 30px;" class="fas fa-chart-line"></i> <h5>Career Resources</h5><hr>
+                                <p class="mb-0" style="text-align: justify;">Furnish individuals with essential resources to thrive in their careers.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="featurs-item text-center rounded bg-light p-4">
+                            
+                            <div class="featurs-content text-center">
+                                <i style="font-size: 30px;"  class="fas fa-building"></i><h5>Company Profiles</h5><hr>
+                                <p class="mb-0" style="text-align: justify;">Make informed decisions by exploring detailed company profiles.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="featurs-item text-center rounded bg-light p-4">
+                            
+                            <div class="featurs-content text-center">
+                               <i style="font-size: 30px;"  class="fas fa-rocket"></i> <h5>Effortless Application</h5><hr>
+                                <p class="mb-0"style="text-align: justify;">Streamline your application process with our one-click apply feature. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <i class="faq-toggle bi bi-chevron-right"></i>
-          </div><!-- End Faq item-->
+        </div>
+        <!-- Featurs Section End -->
 
-          <div class="faq-item">
-            <h3><span class="num">5.</span> <span>Sales Manager interview questions</span></h3>
-            <div class="faq-content">
-              <p>Topics: Sales Experience and Achievements, Leadership and Management, Sales Strategy and Planning, Recruitment and Team Building, Performance Management, Customer Focus, Sales Forecasting and Reporting</p>
-           <br>
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+            <div class="container py-5">
+                <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
+                    <div class="row g-4">
+                        <div class="col-lg-3">
+                            <a href="/">
+                                <img src="/static/new_landing/img/HAEGL_colour.png" width="240px" height="100px" alt="Logo"  >
+                                
+                            </a>
+                        </div>
+                        <div class="col-lg-6">
+                         
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="d-flex justify-content-end pt-3">
+                               
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" target="_blank" href="https://www.facebook.com/haegltechnologies/"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href="https://www.instagram.com/haegltechnologies/" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-outline-secondary btn-md-square rounded-circle" href="https://www.linkedin.com/company/haegl-technologies-pvt-ltd/mycompany/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-5">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-item">
+                           
+                            <p class="mb-4" style="text-align: justify;">HAEGL Interview Egde is an innovative platform revolutionizing the recruitment landscape. Designed to streamline the hiring process for companies, and job seekers. </p>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="d-flex flex-column text-start footer-item">
+                            <h4 class="text-light mb-3">Pages</h4>
+                            <a class="btn-link" href="">Search Job</a>
+                            <a class="btn-link" href="">Contact Us</a>
+                            <a class="btn-link" href="">Privacy Policy</a>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-flex flex-column text-start footer-item">
+                            <h4 class="text-light mb-3">Contact</h4>
+                            <a class="btn-link" href="">+91 950 0499 570</a>
+                            <a class="btn-link" href="">haegl@gmail.com</a>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-item">
+                            <h4 class="text-light mb-3">Address</h4>
+                            <p>HAEGL TECHNOLOGIES PVT LTD, 1st Floor, AKALWADI MANSION, Vidyanagar, Hubballi, Karnataka 580021</p>
+                           
+                            <img src="img/payment.png" class="img-fluid" alt="">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <i class="faq-toggle bi bi-chevron-right"></i>
-          </div><!-- End Faq item-->
+        </div>
+        <!-- Footer End -->
 
-           <div class="faq-item">
-            <h3><span class="num">5.</span> <span>Sales Manager interview questions</span></h3>
-            <div class="faq-content">
-              <p>Topics: Sales Experience and Achievements, Leadership and Management, Sales Strategy and Planning, Recruitment and Team Building, Performance Management, Customer Focus, Sales Forecasting and Reporting</p>
-           <br>
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright bg-dark py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <span class="text-light"><a href="https://haegl.in/"><i class="fas fa-copyright text-light me-2"></i>Haegl</a>, All right reserved.</span>
+                    </div>
+                 
+                </div>
             </div>
-            <i class="faq-toggle bi bi-chevron-right"></i>
-          </div><!-- End Faq item-->
-
         </div>
-
-      </div>
-    </div>
-
-  </div>
-
-</section><!-- End Faq Section -->
-
-<br>
-<br>
-
-<!--====================================
-=            Call to Action            =
-=====================================-->
-
-<section class="call-to-action overly bg-3 section-sm">
-	<!-- Container Start -->
-	<div class="container">
-		<div class="row justify-content-md-center text-center">
-			<div class="col-md-10">
-				<div class="content-holder">
-					<h2>Seamless Hiring Solutions: Empowering Companies, Empowering Growth</h2>
-					<ul class="list-inline mt-30">
-						<li class="list-inline-item"><a class="btn btn-main" href="login">Post Job</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Container End -->
-</section>
-
-<!--============================
-=            Footer            =
-=============================-->
-<footer style="padding-bottom: 0%;" class="footer section section-sm">
-  <!-- Container Start -->
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-4 col-md-7 offset-md-1 offset-lg-0 mb-4 mb-lg-0">
-        <!-- About -->
-        <div class="block about">
-          <!-- footer logo -->
-          <!-- description -->
-          <p class="alt-color">HAEGL Interview Egde is an innovative platform revolutionizing
-            the recruitment landscape. Designed to streamline the hiring process for companies,
-            consultancies, and job seekers, it offers an intuitive interface where companies
-            effortlessly post job openings, review applications, and schedule interviews</p>
-        </div>
-        <div style="padding-top: 10px;">
-        <img width="120px" height="60px" src="/static/assets1/images/hhh2.png" alt=""></div>
-      </div>
-
-      <div class="col-lg-2 col-md-3 offset-md-1 offset-lg-0 col-6 mb-4 mb-md-0">
-        <div class="block">
-          <h4>Pages</h4>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/all_companies">Companies</a></li>
-              <li><a href="/all_jobs">Jobs</a></li>
-            <li><a href="user_login">Login</a></li>
-            <li><a href="/user_registration">Registration</a></li>
-          </li>
-          </ul>
-        </div>
-        <div style="padding-top: 30px;">
-
-            <!-- Insert your social media icons here -->
-            <!-- Example using Font Awesome for social icons -->
-
-            <ul class="list-inline">
-              <li class="list-inline-item text-center"><a target="_blank" class="fa fa-instagram" href="https://www.instagram.com/haegltechnologies/" style="font-size: 20px; color: white;"></a></li>&nbsp;
-              <li class="list-inline-item text-center"><a target="_blank" class="fa fa-facebook" href="https://www.facebook.com/haegltechnologies/" style="font-size: 20px; color: white;"></a></li>&nbsp;
-              <li class="list-inline-item text-center"><a target="_blank" class="fa fa-linkedin" href="https://www.linkedin.com/company/haegl-technologies-pvt-ltd/" style="font-size: 20px; color: white;"></a></li>
-          </ul>
+        <!-- Copyright End -->
 
 
-            <!-- Add more social media icons as needed -->
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 offset-md-1 offset-lg-0 col-6 mb-4 mb-md-0">
-        <div class="block">
-          <h4>Get in Touch</h4>
-          <ul style="list-style: none;">
-          <li><i class="fa fa-map-marker"></i> HAEGL TECHNOLOGIES PVT LTD, 1st Floor, AKALWADI MANSION, Vidyanagar, Hubballi, Karnataka 580021</li>
 
-           <li><i class="fa fa-phone"></i> +91 950 0499 570 </li>
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary border-1 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
 
-          </ul>
-        </div>
-        <div style="margin-top: 70px;">
-          <ul style="list-style: none;">
-            <a href="/haegl.in" style="text-decoration: none; color: inherit;">
-              <li style="list-style: none;">
-                2023 Haegl Technologies Pvt Ltd
-              </li>
-            </a>
-          </ul>
-        </div>
+        
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/new_landing/lib/easing/easing.min.js"></script>
+    <script src="/static/new_landing/lib/waypoints/waypoints.min.js"></script>
+    <script src="/static/new_landing/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="/static/new_landing/lib/owlcarousel/owl.carousel.min.js"></script>
 
-
-      </div>
-      <!-- Promotion -->
-      <div class="col-lg-3 col-md-7">
-        <!-- App promotion -->
-        <div class="block-2 app-promotion">
-          <div class="mobile d-flex  align-items-center">
-            <a href="index.html">
-              <!-- Icon -->
-              <img src="/static/assets1/images/footer/phone-icon.png" alt="mobile-icon">
-            </a>
-            <p class="mb-0">Get the Dealsy Mobile App and Save more</p>
-          </div>
-          <div class="download-btn d-flex my-3">
-            <a href="index.html"><img src="/static/assets1//static/assets1/images/apps/google-play-store.png" class="img-fluid" alt=""></a>
-            <a href="index.html" class=" ml-3"><img src="images/apps/apple-app-store.png" class="img-fluid" alt=""></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Container End -->
-</footer>
-<!-- Footer Bottom -->
-
-
-<!--
-Essential Scripts
-=====================================-->
-<script src="/static/assets1/plugins/jquery/jquery.min.js"></script>
-<script src="/static/assets1/plugins/bootstrap/popper.min.js"></script>
-<script src="/static/assets1/plugins/bootstrap/bootstrap.min.js"></script>
-<script src="/static/assets1/plugins/bootstrap/bootstrap-slider.js"></script>
-<script src="/static/assets1/plugins/tether/js/tether.min.js"></script>
-<script src="/static/assets1/plugins/raty/jquery.raty-fa.js"></script>
-<script src="/static/assets1/plugins/slick/slick.min.js"></script>
-<script src="/static/assets1/plugins/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-<!-- google map -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" defer></script>
-<script src="/static/assets1/plugins/google-map/map.js" defer></script>
-
-<script src="/static/assets1/js/script.js"></script>
-
-</body>
+    <!-- Template Javascript -->
+    <script src="/static/new_landing/js/main.js"></script>
+    </body>
 
 </html>
