@@ -20,6 +20,7 @@ class NewUser(AbstractUser):
     about = models.CharField(max_length=1000, default='about')
     profile = models.ImageField(upload_to='uploaded_images/',default="profile")
     status = models.BooleanField(default=0)
+    linkedin = models.CharField(max_length=400,default="xyz")
 
 
 class CompanyDetails(models.Model):

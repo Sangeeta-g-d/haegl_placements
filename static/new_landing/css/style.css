@@ -228,7 +228,7 @@
 @media (min-width: 992px) {
     .hero-header,
     .page-header {
-        margin-top: 152px !important;
+        margin-top: 0px !important;
     }
 }
 
@@ -464,7 +464,7 @@
 }
   
 .pagination a.active {
-    background-color: var(--bs-primary);
+    background-color: #1E88E5 !important;
     color: var(--bs-light);
     border: 1px solid var(--bs-secondary);
 }

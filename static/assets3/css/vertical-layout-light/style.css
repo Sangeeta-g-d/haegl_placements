@@ -11040,14 +11040,14 @@ fieldset:disabled .ajax-upload-dragdrop a.ajax-file-upload,
 
 .btn-primary {
   color: #fff;
-  background-color: #844fc1;
-  border-color: #844fc1;
+  background-color: #1E88E5;
+  border-color: #1E88E5;
 }
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #713dad;
-  border-color: #6b3aa3;
+  background-color: #07569c;
+  border-color: #07569c;
 }
 
 .btn-primary:focus, .btn-primary.focus {

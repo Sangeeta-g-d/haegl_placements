@@ -93,7 +93,7 @@
     			<div class="col-md-12">
     				<nav class="navbar navbar-expand-lg navbar-light navigation">
     					<a class="navbar-brand" href="/user_dashboard">
-                            <img style=" margin-top: -10px;" width="160px" height="60px" src="/static/assets1/images/is_logo.png" alt="">
+                <img src="/static/new_landing/img/HAEGL_colour.png" width="240px" height="100px" alt="Logo"  >
     					</a>
     					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -314,7 +314,7 @@ $(document).ready(function() {
 				<div class="product-grid-list">
 					<div class="row mt-30">
             {% for x in combined_data %}
-						<div class="col-lg-4 col-md-6">
+						<div class="col-lg-6 col-md-6">
              
 							<!-- product card -->
 <div class="product-item bg-light">
@@ -332,7 +332,7 @@ $(document).ready(function() {
       {% if x.company_id.first_name %}
       <div class="image-container">
         <a href="{% url 'user_single_job' job_id=x.id %}" style="display: block; text-align: center;">
-      <img class="card-img-top img-fluid mt-3" src="/{{ x.company_id.profile }}" alt="Card image cap" style="width: 130px; height: 120px; margin: 0 auto;">
+      <img class="card-img-top img-fluid mt-3" src="/{{ x.company_id.profile }}" alt="Card image cap" style="width: 190px; height: 120px; margin: 0 auto;">
   </a>
 
   </div>
@@ -345,10 +345,10 @@ $(document).ready(function() {
       {% endif %}
 		</div>
 		<div class="card-body">
-      <h4 class="card-title">
+      <h6 class="card-title">
  {{x.designation}}
 
-</h4>
+</h6>
 		    <ul class="list-inline product-meta">
           {% if x.company_id.first_name %}
           <li class="list-inline-item">

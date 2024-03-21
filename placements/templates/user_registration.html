@@ -15,7 +15,12 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="/static/assets3/css/vertical-layout-light/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="/static/assets3/images/favicon.png" />
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <style>
+    *{
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    }
+  </style>
 </head>
 
 <body>
@@ -26,10 +31,12 @@
           <div class="col-lg-8 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
-                <img style="margin-left: -15px;" width="180" height="70" src="/static/assets1/images/is_logo.png" alt=""> 
+                <div style="display: flex; justify-content: center;">
+                  <img src="/static/new_landing/img/HAEGL_colour.png" width="240px" height="100px" alt="Logo">
+              </div>
 
                          </div>
-                         <h5 style="color: #844FC1; font-family: 'Arial', sans-serif; font-weight: bold;text-align:left;" >Registration</h5>
+                         <h5 style="color: #1E88E5; font-family: 'Arial', sans-serif; font-weight: bold;text-align:left; display: flex; justify-content: center;" >Registration</h5>
 
               <form class="form-sample" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -40,7 +47,7 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">First Name</label>
                       <div class="col-sm-9">
-                        <input type="text" required name='first_name' class="form-control" />
+                        <input type="text" required name='first_name' class="form-control"required />
                       </div>
                     </div>
                   </div>
@@ -48,7 +55,7 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Last Name</label>
                       <div class="col-sm-9">
-                        <input type="text" required name="last_name" class="form-control" />
+                        <input type="text" required name="last_name" class="form-control"required />
                       </div>
                     </div>
                   </div>
@@ -58,7 +65,7 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Username</label>
                       <div class="col-sm-9">
-                        <input type="text" required name='username' class="form-control" />
+                        <input type="text" required name='username' class="form-control"required />
                       </div>
                     </div>
                   </div>
@@ -66,7 +73,7 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Email</label>
                       <div class="col-sm-9">
-                        <input type="email" required name='email' class="form-control" />
+                        <input type="email" required name='email' class="form-control"required />
                       </div>
                     </div>
                   </div>
@@ -76,7 +83,7 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Password</label>
                       <div class="col-sm-9">
-                        <input type="password"  required name='password' class="form-control" />
+                        <input type="password"  required name='password' class="form-control" required />
                       </div>
                     </div>
                   </div>
@@ -84,7 +91,7 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Confirm Password</label>
                       <div class="col-sm-9">
-                        <input type="password" required name='password1' class="form-control" / >
+                        <input type="password" required name='password1' class="form-control"required />
                       </div>
                     </div>
                   </div>
@@ -94,7 +101,7 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Phone Number</label>
                       <div class="col-sm-9">
-                        <input type="text" maxlength="10" required name='phone_no' class="form-control" />
+                        <input type="text" maxlength="10" required name='phone_no' class="form-control" required/>
                       </div>
                     </div>
                   </div>
@@ -102,7 +109,7 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Address</label>
                       <div class="col-sm-9">
-                        <input type="text" required name='address' class="form-control" / >
+                        <input type="text" required name='address' class="form-control" required/>
                       </div>
                     </div>
                   </div>
@@ -114,7 +121,7 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">City</label>
                       <div class="col-sm-9">
-                        <input type="text" name="city" class="form-control">
+                        <input type="text" name="city" class="form-control" required>
                       </div>
                     </div>
                   </div>
@@ -122,11 +129,22 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Profile Image</label>
                       <div class="col-sm-9">
-                        <input type="file" name='profile' accept="image/*" class="form-control" / >
+                        <input type="file" name='profile' accept="image/*" class="form-control" />
                       </div>
                     </div>
                   </div>
                   </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Linkedin Url</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="linkedin" class="form-control" required>
+                        </div>
+                      </div>
+                    </div>
+                   
+                    </div>
                   <div class="col-md-6">
 
                 </div>

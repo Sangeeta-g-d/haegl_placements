@@ -66,6 +66,23 @@ def new_index(request):
 
         days_since_posted = (timezone.now().date() - x.created_on).days
         x.days_since_posted = days_since_posted
+    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
+    all_unique_departments = list(set(chain( unique_departments_job)))
+
+    open_status_count_job = (
+        JobDetails.objects.filter(status='open',J_type='job')
+        .values('department')
+        .annotate(open_count=Count('department'))
+    )
+
+
+    open_jobs_count = defaultdict(int)
+    for item in open_status_count_job:
+        open_jobs_count[item['department']] += item['open_count']
+
+    department_open_counts = [
+        (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
+    ]
 
     context = {
         'recent_jobs': recent_jobs
@@ -814,6 +831,7 @@ def user_registration(request):
         address = request.POST.get('address')
         city = request.POST.get('city')
         profile = request.FILES.get('profile')
+        linkedin = request.POST.get('linkedin')
         if password != password1:
             context = {
                 'registration_error': 'Passwords do not match',
@@ -823,7 +841,7 @@ def user_registration(request):
 
         passw = make_password(password)
         user = NewUser.objects.create(first_name=first_name,last_name=last_name,username=username,password=passw,
-        email=email,phone_no=phone_no,address=address,city=city,profile=profile)
+        email=email,phone_no=phone_no,address=address,city=city,profile=profile,linkedin=linkedin)
 
         context = {'registration_successful': True}
         return render(request, 'user_registration.html', context)
@@ -1612,7 +1630,7 @@ def user_dashboard1(request):
 
     print("profileeee",obj.profile)
     # Get user details
-    user_details = UserDetails.objects.get(user_id_id=id)
+    user_details = UserDetails.objects.filter(user_id_id=id).first()
 
     # Extract user skills
     user_skills = set(user_details.skills.lower().split(','))  # Assuming skills are comma-separated
@@ -1873,6 +1891,7 @@ def profile(request):
     today_date = date.today()
     print("%%%%%%%%%%%%%%%%",obj.profile)
     data = UserDetails.objects.get(user_id=id)
+   
     if request.method == 'POST':
         obj.first_name = request.POST.get('first_name')
         obj.last_name = request.POST.get('last_name')
@@ -1885,6 +1904,7 @@ def profile(request):
         data.skills = request.POST.get('skills')
         if p is not None:
             obj.profile = p
+
         else:
             obj.profile =obj.profile
 
@@ -2024,3 +2044,7 @@ def new_all_jobs(request):
     context = {'data':data,'combined_data':combined_data,
     'department_open_counts':department_open_counts,'combined_counts':combined_counts}
     return render(request,'new_all_jobs.html',context)
+
+
+def new_user_register(request):
+    return render(request,'new_user_register.html')
