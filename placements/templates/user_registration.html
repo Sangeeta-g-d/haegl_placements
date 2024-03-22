@@ -17,6 +17,12 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <style>
+    *{
+      font-family: "League Spartan", sans-serif;
+    }
+    h1{
+      font-family: "League Spartan", sans-serif !important;
+    }
     .logo{
       width: 280px !important;
       height: 120px !important;
@@ -841,25 +847,25 @@ h1 {
           <input type="url" id="style-yEkw9" class="style-yEkw9">
           <div class="form-group-parent mb-3">
             <div class="form-group  d-flex">
-              <input maxlength="200" type="text" id="id_name" class="cls_animation" fdprocessedid="h4h5y" placeholder="Name" name="username">
+              <input maxlength="200" type="text" required id="id_name" class="cls_animation" fdprocessedid="h4h5y" placeholder="Name" name="username">
              
             </div>
           </div>
           <div class="form-group-parent mb-3">
             <div class="form-group d-flex  flex-column">
-              <input maxlength="200" type="text" id="id_email" class="cls_animation"  placeholder="Email" name="email" >
+              <input maxlength="200" type="text" required id="id_email" class="cls_animation"  placeholder="Email" name="email" >
              
             </div>
           </div>
           <div class="form-group-parent mb-3 ">
             <div class="form-group d-flex flex-column">
-              <input  maxlength="10"type="text" id="id_cell_phone" class="cls_animation" fdprocessedid="8a6msa" placeholder="Mobile Number" pattern="[0-9]{10}" inputmode="numeric" title="Please enter a 10-digit mobile number" required name="phone_no">
+              <input maxlength="10"type="text" id="id_cell_phone" required class="cls_animation" fdprocessedid="8a6msa" placeholder="Mobile Number" pattern="[0-9]{10}" inputmode="numeric" title="Please enter a 10-digit mobile number" required name="phone_no">
           </div>
           
           </div>
           <div class="form-group-parent mb-3">
             <div class="form-group d-flex">
-              <input maxlength="15" type="Password" id="id_password" autocomplete="new-password" class="cls_animation" fdprocessedid="mga1o9" placeholder="Password" name="password">
+              <input maxlength="15" required type="Password" id="id_password" autocomplete="new-password" class="cls_animation" fdprocessedid="mga1o9" placeholder="Password" name="password">
              
             </div>
           </div>
@@ -869,7 +875,7 @@ h1 {
           
           <div class="form-group-parent mb-3">
             <div class="form-group d-flex">
-              <input maxlength="200" type="text" id="id_linkedin_url" class="cls_animation" fdprocessedid="mga1o9" pattern="^(https?:\/\/)?(www\.)?linkedin\.com\/.*$" title="Please enter a valid LinkedIn URL" placeholder="LinkedIn URL" name="linkedin">    
+              <input maxlength="200" required type="text" id="id_linkedin_url" class="cls_animation" fdprocessedid="mga1o9" pattern="^(https?:\/\/)?(www\.)?linkedin\.com\/.*$" title="Please enter a valid LinkedIn URL" placeholder="LinkedIn URL" name="linkedin">    
             </div>
           </div>
           
@@ -882,40 +888,50 @@ h1 {
         </form>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                document.getElementById("registerButton").addEventListener("click", function(event) {
-                    event.preventDefault();
-                    var form = document.querySelector('form');
-                    var formData = new FormData(form);
-                    
-                    fetch(form.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-CSRFToken': '{{ csrf_token }}'
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            swal({
-                                title: "Success!",
-                                text: "Registration successful!",
-                                icon: "success",
-                                button: "OK"
-                            }).then(function() {
-                                window.location.href = "/"; // Redirect to the next page
-                            });
-                        } else {
-                            swal("Error!", "Registration failed.", "error");
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        swal("Error!", "Something went wrong.", "error");
-                    });
+          document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("registerButton").addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent default form submission
+        
+        // Validate the form
+        var form = document.querySelector('form');
+        if (!form.checkValidity()) {
+            // If the form is not valid, show an error message
+            swal("Error!", "Please fill in all required fields.", "error");
+            return;
+        }
+        
+        // If the form is valid, proceed with form submission
+        var formData = new FormData(form);
+        
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                swal({
+                    title: "Success!",
+                    text: "Registration successful!",
+                    icon: "success",
+                    button: "OK"
+                }).then(function() {
+                    window.location.href = "/"; // Redirect to the next page
                 });
-            });
+            } else {
+                swal("Error!", "Registration failed.", "error");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            swal("Error!", "Something went wrong.", "error");
+        });
+    });
+});
+
         </script>
         
 
