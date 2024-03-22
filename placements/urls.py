@@ -6,6 +6,7 @@ urlpatterns = [
     path('upload_file',views.upload_file,name='upload_file'),
     path('new_index',views.new_index,name='new_index'),
     path('contact_us',views.contact_us,name='contact_us'),
+    path('select_theme',views.select_theme,name='select_theme'),
     path('internship_program',views.internship_program,name='internship_program'),
     path('new_user_register',views.new_user_register,name='new_user_register'),
     path('new_job_des/<int:id>',views.new_job_des,name='new_job_des'),

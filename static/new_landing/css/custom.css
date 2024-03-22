@@ -121,6 +121,13 @@ font-style: normal;
     align-items: center; /* Align items vertically center */
 }
 
+
+/* This CSS is for the zoom effect */
+.zoom-effect:hover img {
+  transform: scale(1.1); /* Increase the scale on hover */
+  transition: transform 0.3s ease; /* Add a smooth transition */
+}
+
 .hr-btn img {
     margin-right: 20px; /* Adjust margin as needed for spacing between the image and text */
 }
@@ -207,3 +214,52 @@ font-style: normal;
 .internship-container:hover {
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.1); /* Shadow effect on hover */
 }
+
+/* media query responsive */
+
+@media (max-width: 767px) {
+  /* Styles for screens with a maximum width of 767px (typically mobile screens) */
+  .card-body.fade-left img {
+      width: 100%; /* Set width to 100% for responsiveness */
+      height: auto; /* Allow the height to adjust proportionally based on the width */
+      max-width: 300px; /* Set a maximum width to avoid stretching on smaller screens */
+      margin: 0 auto; /* Center the image horizontally */
+      display: block; /* Ensure the image is displayed as a block element */
+  }
+}
+
+@media (max-width: 767px) {
+  /* Styles for screens with a maximum width of 767px (typically mobile screens) */
+  .col-lg-5 iframe {
+      width: 100%; /* Set width to 100% for responsiveness */
+      height: 300px; /* Set a specific height for mobile screens */
+  }
+}
+
+@media (max-width: 767px) {
+  /* Styles for screens with a maximum width of 767px (typically mobile screens) */
+  .col-lg-6 iframe {
+      width: 100%; /* Set width to 100% for responsiveness */
+      height: 300px; /* Set a specific height for mobile screens */
+  }
+}
+
+
+@media (max-width: 991.98px) {
+        .navbar-collapse {
+            background-color: #fff; /* Change background color for collapsed navbar */
+            padding: 10px; /* Add padding to collapsed navbar */
+            border-radius: 5px; /* Add border-radius for collapsed navbar */
+        }
+        .navbar-nav {
+            margin-top: 10px; /* Adjust margin for collapsed navbar items */
+            text-align: center; /* Center align collapsed navbar items */
+        }
+        .navbar-toggler {
+            border: none; /* Remove border from toggler */
+        }
+        .navbar-brand img {
+            width: 150px; /* Adjust brand logo size for smaller screens */
+            height: auto; /* Ensure aspect ratio is maintained */
+        }
+    }

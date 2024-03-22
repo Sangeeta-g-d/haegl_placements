@@ -806,6 +806,16 @@ h1 {
    width: 70%;  
 }  
 
+
+
+/* responsive */
+@media (max-width: 767px) {
+        /* Styles for screens with a maximum width of 767px (typically mobile screens) */
+        .base.relative.snipcss-eGNLy .d-flex.flex-row.justify-content-between.justify-content-center.h-100.mt-2 > .d-flex.flex-column.m-auto {
+            display: none; /* Hide the left content */
+        }
+    }
+
   </style>
 </head>
 
@@ -881,58 +891,26 @@ h1 {
           
         
         
-          <button class="btn mb-3 align-self-end w-80 right-90" id="registerButton" fdprocessedid="tjvjk">
+          <button type="submit" class="btn mb-3 align-self-end w-80 right-90" id="registerButton" fdprocessedid="tjvjk">
           Register
           </button>
          
         </form>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        {% if registered %}
+        <!-- Include SweetAlert library -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script>
-          document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("registerButton").addEventListener("click", function(event) {
-        event.preventDefault(); // Prevent default form submission
-        
-        // Validate the form
-        var form = document.querySelector('form');
-        if (!form.checkValidity()) {
-            // If the form is not valid, show an error message
-            swal("Error!", "Please fill in all required fields.", "error");
-            return;
-        }
-        
-        // If the form is valid, proceed with form submission
-        var formData = new FormData(form);
-        
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                swal({
-                    title: "Success!",
-                    text: "Registration successful!",
-                    icon: "success",
-                    button: "OK"
-                }).then(function() {
-                    window.location.href = "/"; // Redirect to the next page
-                });
-            } else {
-                swal("Error!", "Registration failed.", "error");
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            swal("Error!", "Something went wrong.", "error");
-        });
-    });
-});
-
+            // Trigger SweetAlert after successful registration
+            Swal.fire({
+                icon: 'success',
+                title: 'Registration Successful!',
+                text: 'Thank you for registering.',
+                showConfirmButton: false,
+                timer: 2000
+            });
         </script>
+    {% endif %}
         
 
       </div>
