@@ -35,6 +35,11 @@
         <!-- Template Stylesheet -->
         <link href="/static/new_landing/css/style.css" rel="stylesheet">
         <link href="/static/new_landing/css/custom.css" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
         <style>
       .testimonial-item {
             transition: box-shadow 0.3s ease-in-out;
@@ -148,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </p><br>
                             <div class="d-flex m-3 me-0">
                            
-                                <a href="/user_login" class="my-auto">   <div class="text-white bg-primary px-3 py-1 rounded" style="top: 10px; right: 10px;">Get started</div></a>
+                                <a href="user_registration" class="my-auto">   <div class="text-white bg-primary px-3 py-1 rounded" style="top: 10px; right: 10px;">Get started</div></a>
                                
                             </div>
                     </div>
@@ -185,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <img src="/static/new_landing/img/krish.png" alt="Image 2">
                     <img src="/static/new_landing/img/kvblogo.png" alt="Image 3">
                     <img src="/static/new_landing/img/sennt.png" alt="Image 2">
-                    <img src="/static/new_landing/img/recruitintell.png" width="130px" height="50px" alt="Image 3">
+                    <img src="/static/new_landing/img/recruitintell.png" width="160px" height="50px" alt="Image 3">
                     <img src="/static/new_landing/img/meritude.png" alt="Image 3">
                     <img src="/static/new_landing/img/sorp.png" alt="Image 3">
                     
@@ -424,18 +429,21 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
             <div class="col-lg-4 col-xl-3">
                 <div class="image-container">
-                <div class="p-2 rounded shadow hover-effect" style="background-color: white;">
-                    <div class="row align-items-center">
-                        <div class="col-4">
-                            <img src="/static/new_landing/img/legal.png" class="img-fluid rounded-circle w-100" alt="">
-                        </div>
-                        <div class="col-8">
-                            <a href="{% url 'job_list' 'legal' %}" class="h6">legal</a>
-                           
+                    <div class="p-2 rounded shadow hover-effect" style="background-color: white;">
+                        <div class="row align-items-center">
+                            <div class="col-4">
+                                <img src="/static/new_landing/img/legal.png" class="img-fluid rounded-circle w-100" alt="">
+                            </div>
+                            <div class="col-8 pl-0">
+                                <a href="{% url 'job_list' 'legal' %}" class="h6" style="margin-left: -10px;">legal</a>
+                                <!-- Adjust the margin as needed -->
+                            </div>
                         </div>
                     </div>
-                </div></div>
+                </div>
             </div>
+            
+            
           
             <div class="col-lg-4 col-xl-3">
                 <div class="image-container">

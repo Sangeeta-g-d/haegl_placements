@@ -359,7 +359,7 @@ h1 {
 } 
 
 .btn { 
-    background-image: linear-gradient(-136deg, #a194dd 0%, #80aad7 100%); 
+    background-color: #1E88E5; 
     box-shadow: 0 0 12px 0 rgba(132,132,132,0.3); 
     border-radius: 4px; 
     font-size: 1.1rem; 
@@ -809,25 +809,24 @@ h1 {
                        
 
   <div class="base relative snipcss-eGNLy">
-    <div class="d-flex flex-row justify-content-between justify-content-center  h-100 mt-4">
+    <div class="d-flex flex-row justify-content-between justify-content-center  h-100 mt-2">
       <div class="d-flex flex-column m-auto">
-        <div class="winterBanner">
+        <div class="text-center">
+            <img src="/static/new_landing/img/HAEGL_colour.png" width="200px" height="110px" ">
         </div>
         <div class="d-flex flex-column reg_text w-100">
-          <h1>
-            Your Next Career Move Starts Here:<br> Register Now!
-          </h1>
-          <div class="small_text text-start" style="max-width: 400px; line-height: 1.5;">
-            Whether you're a talented individual looking to kickstart your career or a business in search of top-notch talent, HAEGL is here to help. Join us in shaping the future of talent acquisition and career advancement. Reach out to us today and let's embark on this journey together!
+            <h1 >
+                Your Next Career Move Starts Here.
+            </h1>
+            <div class="small_text text-start" style="max-width: 400px; line-height: 1.5;">
+                Whether you're a talented individual looking to kickstart your career or a business in search of top-notch talent, HAEGL is here to help. Join us in shaping the future of talent acquisition and career advancement. Reach out to us today and let's embark on this journey together!
+            </div>
         </div>
-        
-        
-         
-        </div>
-      </div>
+    </div>
+    
       <div class="flex flex-column reg_right">
         <span class="reg_text--or">
-          Or
+        
         </span>
         <h2>
           Let’s get started.
@@ -835,31 +834,32 @@ h1 {
         <p class="sub-heading">
           Begin Your Career Journey in Minutes: Register Now!
         </p>
-        <form>
+        <form method="post">
+          {% csrf_token %}
           <input type="text" id="style-yEkw9" class="style-yEkw9">
           <input type="password" id="style-sMXoh" class="style-sMXoh">
           <input type="url" id="style-yEkw9" class="style-yEkw9">
           <div class="form-group-parent mb-3">
             <div class="form-group  d-flex">
-              <input maxlength="200" type="text" id="id_name" class="cls_animation" fdprocessedid="h4h5y" placeholder="Name">
+              <input maxlength="200" type="text" id="id_name" class="cls_animation" fdprocessedid="h4h5y" placeholder="Name" name="username">
              
             </div>
           </div>
           <div class="form-group-parent mb-3">
             <div class="form-group d-flex  flex-column">
-              <input maxlength="200" type="text" id="id_email" class="cls_animation"  placeholder="Email" name="Email">
+              <input maxlength="200" type="text" id="id_email" class="cls_animation"  placeholder="Email" name="email" >
              
             </div>
           </div>
           <div class="form-group-parent mb-3 ">
             <div class="form-group d-flex flex-column">
-              <input  maxlength="10"type="text" id="id_cell_phone" class="cls_animation" fdprocessedid="8a6msa" placeholder="Mobile Number" pattern="[0-9]{10}" inputmode="numeric" title="Please enter a 10-digit mobile number" required>
+              <input  maxlength="10"type="text" id="id_cell_phone" class="cls_animation" fdprocessedid="8a6msa" placeholder="Mobile Number" pattern="[0-9]{10}" inputmode="numeric" title="Please enter a 10-digit mobile number" required name="phone_no">
           </div>
           
           </div>
           <div class="form-group-parent mb-3">
             <div class="form-group d-flex">
-              <input maxlength="15" type="Password" id="id_password" autocomplete="new-password" class="cls_animation" fdprocessedid="mga1o9" placeholder="Password">
+              <input maxlength="15" type="Password" id="id_password" autocomplete="new-password" class="cls_animation" fdprocessedid="mga1o9" placeholder="Password" name="password">
              
             </div>
           </div>
@@ -869,17 +869,56 @@ h1 {
           
           <div class="form-group-parent mb-3">
             <div class="form-group d-flex">
-              <input maxlength="200" type="text" id="id_linkedin_url" class="cls_animation" fdprocessedid="mga1o9" pattern="^(https?:\/\/)?(www\.)?linkedin\.com\/.*$" title="Please enter a valid LinkedIn URL" placeholder="LinkedIn URL">    
+              <input maxlength="200" type="text" id="id_linkedin_url" class="cls_animation" fdprocessedid="mga1o9" pattern="^(https?:\/\/)?(www\.)?linkedin\.com\/.*$" title="Please enter a valid LinkedIn URL" placeholder="LinkedIn URL" name="linkedin">    
             </div>
           </div>
           
         
         
           <button class="btn mb-3 align-self-end w-80 right-90" id="registerButton" fdprocessedid="tjvjk">
-            Continue
+          Register
           </button>
          
         </form>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("registerButton").addEventListener("click", function(event) {
+                    event.preventDefault();
+                    var form = document.querySelector('form');
+                    var formData = new FormData(form);
+                    
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            swal({
+                                title: "Success!",
+                                text: "Registration successful!",
+                                icon: "success",
+                                button: "OK"
+                            }).then(function() {
+                                window.location.href = "/"; // Redirect to the next page
+                            });
+                        } else {
+                            swal("Error!", "Registration failed.", "error");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        swal("Error!", "Something went wrong.", "error");
+                    });
+                });
+            });
+        </script>
+        
+
       </div>
     </div>
     <div data-v-2bf71b47="" class="overlay_loader">
