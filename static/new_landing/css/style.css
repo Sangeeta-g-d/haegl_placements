@@ -418,7 +418,7 @@
 
 /*** testimonial Start ***/
 .testimonial .owl-nav .owl-prev {
-    position: absolute;
+   
     top: -58px;
     right: 0;
     color: var(--bs-primary);

@@ -30,6 +30,13 @@ font-style: normal;
   justify-content: center;
   
 }
+.why-subheading{
+  font-size: 20px;
+  font-family: "Stoke", serif;
+  font-weight: 600;
+  font-style: normal;
+  
+}
 .subtag{
   font-size: 14px;
   font-family: "Stoke", serif;
@@ -110,3 +117,46 @@ font-style: normal;
 .bg-primary{
   background-color: #1E88E5 !important;
 }
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 3;
+  }
+}
+
+.featurs-item {
+  animation: fadeIn 1s ease-in-out;
+}
+.featurs-card {
+  transition: all 0.3s ease-in-out;
+}
+
+.featurs-card:hover {
+  border: 2px solid #4b6cb7; /* Change the border color as needed */
+  box-shadow: 0px 0px 20px 20px rgba(0,0,0,0.2); /* Change the shadow as needed */
+}
+.featurs-item:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.fade-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-left.fade-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hover-effect:hover {
+  border: 1px solid #4b6cb7; /* Border color */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  transition: border 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
