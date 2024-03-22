@@ -834,31 +834,20 @@ def add_internship(request):
 
 def user_registration(request):
     if request.method == 'POST':
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
         username = request.POST.get('username')
         password = request.POST.get('password')
-        password1 = request.POST.get('password1')
         email = request.POST.get('email')
         phone_no = request.POST.get('phone_no')
-        address = request.POST.get('address')
-        city = request.POST.get('city')
-        profile = request.FILES.get('profile')
         linkedin = request.POST.get('linkedin')
-        if password != password1:
-            context = {
-                'registration_error': 'Passwords do not match',
-                # Include other context data needed for rendering the form again
-            }
-            return render(request, 'user_registration.html', context)
-
+        
         passw = make_password(password)
-        user = NewUser.objects.create(first_name=first_name,last_name=last_name,username=username,password=passw,
-        email=email,phone_no=phone_no,address=address,city=city,profile=profile,linkedin=linkedin)
-
-        context = {'registration_successful': True}
-        return render(request, 'user_registration.html', context)
-    return render(request,'user_registration.html')
+        
+        user = NewUser.objects.create(username=username, password=passw,
+                                       email=email, phone_no=phone_no, linkedin=linkedin)
+        
+        return JsonResponse({'success': True})  # Sending JSON response on successful registration
+    
+    return render(request, 'user_registration.html')
 
 
 
