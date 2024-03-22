@@ -221,7 +221,7 @@
 
 .page-header {
     position: relative;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/static/new_landing/img/job_back.jpg);
+    background: linear-gradient(to right, #efeff61a, #0225611a);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

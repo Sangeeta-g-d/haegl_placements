@@ -15,6 +15,18 @@ font-weight: 600;
 font-style: normal;
 
 }
+.service-text{
+  font-size: 22px;
+font-family: "Stoke", serif;
+font-weight: 600;
+font-style: normal;
+}
+.internship-heading{
+  font-size: 18px;
+  font-family: "Stoke", serif;
+  font-weight: 600;
+  font-style: normal;
+}
 .clients-heading{
   font-size: 20px;
   font-family: "Stoke", serif;
@@ -160,3 +172,16 @@ font-style: normal;
   transition: border 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
 }
 
+.bg-secondary{
+  background: linear-gradient(to right, #8888c61a, #012b741a) !important;
+}
+
+.internship-container {
+  border: 1px solid #ced4da;
+  border-radius: 10px; /* Border color */
+  transition: box-shadow 0.3s ease; /* Smooth transition for shadow */
+}
+
+.internship-container:hover {
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1); /* Shadow effect on hover */
+}

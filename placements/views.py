@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse,HttpResponseRedirect,HttpResponseForbidden,HttpResponseBadRequest
 from django.template import loader
-from .models import CompanyDetails, NewUser, JobDetails, TopCompanies, InterviewQuestions, UserDetails, CompanyJobSaved, AppliedJobs, UploadFile
+from .models import CompanyDetails, NewUser, JobDetails, TopCompanies, InterviewQuestions, UserDetails, CompanyJobSaved, AppliedJobs, UploadFile, ContactUs
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -142,6 +142,13 @@ def index(request):
 
     top_companies = TopCompanies.objects.all()
 
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        obj = ContactUs.objects.create(name=name,email=email,message=message)
+        return redirect('/')
+
     context = {
         'recent_jobs': recent_jobs,
         'all_unique_departments': all_unique_departments,
@@ -153,6 +160,8 @@ def index(request):
     return render(request, 'index.html', context)
 
 
+def internship_program(request):
+    return render(request,'internship_program.html')
 
 def search_results(request):
     keyword = request.GET.get('keyword')
@@ -540,6 +549,10 @@ def company_logout(request):
     logout(request)
     # Redirect to a specific page after logout (optional)
     return redirect('/')
+
+def contact_us(request):
+    
+    return render(request,'contact_us.html')
 
 def registration(request):
     if request.method == 'POST':

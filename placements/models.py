@@ -102,3 +102,10 @@ class UserDetails(models.Model):
     skills = models.CharField(max_length=400,default='html')
     DOB = models.CharField(max_length=100)
     about = models.CharField(max_length=1000,default='Passionate professional dedicated to driving innovation and fostering growth through collaboration and strategic expertise.')
+
+class ContactUs(models.Model):
+    
+    name = models.CharField(max_length=700, default='name')
+    email = models.CharField(max_length=700, default='email')
+    message = models.CharField(max_length=700, default='message')
+   
