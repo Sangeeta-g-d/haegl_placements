@@ -815,24 +815,14 @@ h1 {
         </div>
         <div class="d-flex flex-column reg_text w-100">
           <h1>
-            Register with Resume
+            Your Next Career Move Starts Here:<br> Register Now!
           </h1>
-          <div class="small_text">
-            We will autofill your details
-          </div>
-          <div class="browse">
-            <span id="id_resume_file" class="browse1">
-              Upload Resume 
-            </span>
-            Supported formats- pdf, doc, docx, csv, rtf, txt files File size should not exceed 5 MB
-            <div class="mobileli">
-              <input type="file" name="resume_file" id="id_file">
-              <input type="button" name="resume_file" id="id_file">
-              <input type="hidden" name="resume_trigger" value="1">
-              <input type="hidden" name="resume_source" value="3">
-              <input type="hidden" name="resume_medium" id="resume_medium" value="2">
-            </div>
-          </div>
+          <div class="small_text text-start" style="max-width: 400px; line-height: 1.5;">
+            Whether you're a talented individual looking to kickstart your career or a business in search of top-notch talent, HAEGL is here to help. Join us in shaping the future of talent acquisition and career advancement. Reach out to us today and let's embark on this journey together!
+        </div>
+        
+        
+         
         </div>
       </div>
       <div class="flex flex-column reg_right">
@@ -840,108 +830,52 @@ h1 {
           Or
         </span>
         <h2>
-          Let’s get started, tell us about yourself.
+          Let’s get started.
         </h2>
         <p class="sub-heading">
-          It only takes a couple of minutes to get started
+          Begin Your Career Journey in Minutes: Register Now!
         </p>
         <form>
           <input type="text" id="style-yEkw9" class="style-yEkw9">
           <input type="password" id="style-sMXoh" class="style-sMXoh">
           <div class="form-group-parent mb-3">
             <div class="form-group  d-flex">
-              <input maxlength="200" type="text" id="id_name" class="cls_animation" fdprocessedid="h4h5y">
-              <label>
-                Name
-              </label>
+              <input maxlength="200" type="text" id="id_name" class="cls_animation" fdprocessedid="h4h5y" placeholder="Name">
+             
             </div>
           </div>
           <div class="form-group-parent mb-3">
             <div class="form-group d-flex  flex-column">
-              <input maxlength="200" type="text" id="id_email" class="cls_animation" fdprocessedid="csb0zt">
-              <label>
-                Email
-              </label>
+              <input maxlength="200" type="text" id="id_email" class="cls_animation"  placeholder="Email" name="Email">
+             
             </div>
           </div>
           <div class="form-group-parent mb-3 ">
-            <div class="form-group mb-3 flex-column">
-              <input maxlength="3" type="number" id="id_countrycode" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="countrycode style-gkvZ3" fdprocessedid="ziqtar">
-              <input maxlength="10" type="number" id="id_cell_phone" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="mobileNo style-DhmaC" fdprocessedid="8a6msa">
-              <div class="line">
-              </div>
-              <label class="forMobile">
-                Mobile Number
-              </label>
-              <small class="flex-column text-muted">
-                Your details will be visible only to genuine recruiters
-              </small>
+            <div class="form-group d-flex flex-column">
+              <input  maxlength="10"type="text" id="id_cell_phone" class="cls_animation" fdprocessedid="8a6msa" placeholder="Mobile Number" pattern="[0-9]{10}" inputmode="numeric" title="Please enter a 10-digit mobile number" required>
+          </div>
+          
+          </div>
+          <div class="form-group-parent mb-3">
+            <div class="form-group d-flex">
+              <input maxlength="15" type="Password" id="id_password" autocomplete="new-password" class="cls_animation" fdprocessedid="mga1o9" placeholder="Password">
+             
             </div>
           </div>
           <div class="form-group-parent mb-3">
             <div class="form-group d-flex">
-              <input maxlength="15" type="Password" id="id_password" autocomplete="new-password" class="cls_animation" fdprocessedid="mga1o9">
-              <label>
-                Password
-              </label>
+              <input maxlength="200" type="url" id="id_linkedin_url" class="cls_animation" fdprocessedid="mga1o9" pattern="^(https?:\/\/)?(www\.)?linkedin\.com\/.*$" title="Please enter a valid LinkedIn URL" placeholder="LinkedIn URL">
+             
+             
             </div>
           </div>
-          <div class="form-group-parent mb-3">
-            <input type="checkbox" id="id_privacy" required="required" class="privacy">
-            <label for="checkbox">
-              By registering, you agree to our 
-              <a href="/termsandconditions/">
-                terms &amp; conditions
-              </a>
-              &amp;
-              <a href="/privacypolicy/">
-                privacy policy
-              </a>
-            </label>
-          </div>
+          
+        
+          
           <button class="btn mb-3 align-self-end w-80 right-90" id="registerButton" fdprocessedid="tjvjk">
             Continue
           </button>
-          <div class="d-flex w-80 registration relative">
-            <span class="register">
-              or Register with
-            </span>
-          </div>
-          <ul class="social-login w-80 mt-3 mb-1">
-            <li>
-              <div class="social-login--btn google_button">
-                <div class="social-login--icon">
-                  <i class="google">
-                  </i>
-                </div>
-                <div class="social-login--text google msite_displaynone">
-                  Google
-                </div>
-              </div>
-            </li>
-            <li>
-              <a id="id_linkedIn" href="https://www.linkedin.com/oauth/v2/authorization?response_type=code&amp;amp;client_id=757gbstpwa6dqp&amp;amp;state=4c6f2cbf-675f-468e-bac0-9adc3048e5f3&amp;amp;scope=r_emailaddress+r_basicprofile&amp;amp;redirect_uri=https%3A%2F%2Fwww.shine.com%2Flinkedin%2Flogin" onclick="MyGA.SendEvent('register_personal_social','register_personal_social','click_resgister_social','linkedin')" class="social-login--btn linkedin_button">
-                <div class="social-login--icon">
-                  <i class="linkedin">
-                  </i>
-                </div>
-                <div class="social-login--text google msite_displaynone">
-                  Linkedin
-                </div>
-              </a>
-            </li>
-            <li>
-              <div class="social-login--btn facebook_button">
-                <div class="social-login--icon">
-                  <i class="facebook">
-                  </i>
-                </div>
-                <div class="social-login--text google msite_displaynone">
-                  Facebook
-                </div>
-              </div>
-            </li>
-          </ul>
+         
         </form>
       </div>
     </div>
