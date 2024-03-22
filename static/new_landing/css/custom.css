@@ -9,8 +9,9 @@
     font-weight: 300;
 }
 .hero-heading{
-font-size: 25px;
-font-family: "Stoke", serif;
+font-size: 32px;
+font-family: "League Spartan", sans-serif;
+font-optical-sizing: auto;
 font-weight: 600;
 font-style: normal;
 
