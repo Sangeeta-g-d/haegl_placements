@@ -87,8 +87,8 @@ document.addEventListener("DOMContentLoaded", function() {
             </script>
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a href="index.html" class="navbar-brand">
-                        <img src="/static/new_landing/img/HAEGL_colour.png" width="200px" height="110px">
+                    <a href="/" class="navbar-brand">
+                        <img src="/static/new_landing/img/HAEGL_colour.png" width="200px" height="90px">
                     </a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </p><br>
                             <div class="d-flex m-3 me-0">
                            
-                                <a href="/user_login" class="my-auto">   <div class="text-white bg-primary px-3 py-1 square" style="top: 10px; right: 10px;">Get started</div></a>
+                                <a href="/user_login" class="my-auto">   <div class="text-white bg-primary px-3 py-1 rounded" style="top: 10px; right: 10px;">Get started</div></a>
                                
                             </div>
                     </div>
@@ -296,7 +296,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             Posted {{x.days_since_posted}} ago
                         {% endif %}
                     </p>
-                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">Apply</a>
+                   
                 </div>
                 
             </div>
@@ -557,10 +557,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="col-lg-5 justify-content-center">
                     <form method="post" class="border rounded p-4">
                         {% csrf_token %}
-                        <input type="text" class="w-100 form-control border-0 py-3 mb-4" placeholder="Your Name" name="name">
-                        <input type="email" class="w-100 form-control border-0 py-3 mb-4" placeholder="Enter Your Email" name="email">
-                        <textarea class="w-100 form-control border-0 mb-4" rows="5" cols="10" placeholder="Your Message" name="message"></textarea>
-                        <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit">Submit</button>
+                        <input type="text" required class="w-100 form-control border-0 py-3 mb-4" placeholder="Your Name" name="name">
+                        <input type="email"required class="w-100 form-control border-0 py-3 mb-4" placeholder="Enter Your Email" name="email">
+                        <textarea required class="w-100 form-control border-0 mb-4" rows="5" cols="10" placeholder="Your Message" name="message"></textarea>
+                        <button class="text-white bg-primary px-3 py-1 rounded" type="submit">Submit</button>
                     </form>
                 </div>
               
@@ -570,31 +570,14 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Featurs Section End -->
 
         <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+        <div class="container-fluid bg-dark text-white-50 footer pt-1 mt-1">
             <div class="container py-5">
-                <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
-                    <div class="row g-4">
-                        <div class="col-lg-3">
-                            
-                        </div>
-                        <div class="col-lg-6">
-                         
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="d-flex justify-content-end pt-3">
-                               
-                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" target="_blank" href="https://www.facebook.com/haegltechnologies/"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href="https://www.instagram.com/haegltechnologies/" target="_blank"><i class="fab fa-instagram"></i></a>
-                                <a class="btn btn-outline-secondary btn-md-square rounded-circle" href="https://www.linkedin.com/company/haegl-technologies-pvt-ltd/mycompany/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              
                 <div class="row g-5">
                     <div class="col-lg-4 col-md-6">
                         <div class="footer-item">
-                           
-                            <p class="mb-4" style="text-align: justify;">HAEGL Interview Egde is an innovative platform revolutionizing the recruitment landscape. Designed to streamline the hiring process for companies, and job seekers. </p>
+                            <h4 class="text-light mb-3">HAEGL</h4>
+                            <p class="mb-4" >HAEGL Interview Egde is an innovative platform revolutionizing the recruitment landscape. Designed to streamline the hiring process for companies, and job seekers. </p>
                             
                         </div>
                     </div>
@@ -620,9 +603,28 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-item">
                             <h4 class="text-light mb-3">Address</h4>
-                            <p>HAEGL TECHNOLOGIES PVT LTD, 1st Floor, AKALWADI MANSION, Vidyanagar, Hubballi, Karnataka 580021</p>
+                            <p class="mb-4">HAEGL TECHNOLOGIES PVT LTD, 1st Floor, AKALWADI MANSION, Vidyanagar, Hubballi, Karnataka 580021</p>
                            
                             <img src="img/payment.png" class="img-fluid" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
+                    <div class="row g-4">
+                        <div class="col-lg-3">
+                            
+                        </div>
+                        <div class="col-lg-6">
+                         
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="d-flex justify-content-end pt-3">
+                               
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" target="_blank" href="https://www.facebook.com/haegltechnologies/"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href="https://www.instagram.com/haegltechnologies/" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-outline-secondary btn-md-square rounded-circle" href="https://www.linkedin.com/company/haegl-technologies-pvt-ltd/mycompany/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
