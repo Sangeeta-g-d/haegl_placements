@@ -37,6 +37,7 @@
         <link href="/static/new_landing/css/style.css" rel="stylesheet">
         <link href="/static/new_landing/css/custom.css" rel="stylesheet">
 
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -132,12 +133,511 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             </div>
         </div>
+
         <div class="container-fluid fruite py-5">
-            <div class="container py-5">
-                <div class="tab-class text-center">
+            <div class="row">
+          <div class="col-md-5">
+              <!-- Content for the first half of the page -->
+             <div class="new_section" style="width:450px">
+              <div class="left-side">
+                <h2  style="font-size: 20px;">User Details Form</h2><br>
+                <button type="button" class="custom-button" onclick="toggleContainer()">
+                  <i class="fas fa-chevron-down"></i>
+                  <h3 style="font-size: 20px;">Personal Information</h3>
+                </button>
+          
+                <div id="profile" class="custom-container custom-container1 hidden">
+                  <div class="columns-wrapper">
+                    <div class="column">
+                      <!-- Column 1: Profile Image -->
+                      <img src="/static/dashboard_assets/img/team-2.jpg" alt="Profile Image" class="profile-image"><br>
+                      <button class="edit-button" onclick="openPopup()">
+                        <i class="fas fa-pencil-alt"></i>&nbsp;
+                        Edit
+                      </button><br>
+          
+          
+                      <div id="imagePopup" class="popup">
+                        <!-- Popup content -->
+                        <label for="imageInput">Image:</label>
+                        <input type="file" id="imageInput" accept="image/*">
+                        <button onclick="closePopup()">Close</button>
+                      </div>
+          
+                    </div>
+          
+                    <div class="column">
+                      <!-- Column 2: User Information -->
+                      <div class="form-group">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" class="form-control" id="firstName" onkeyup="updateFName_Lname()">
+                      </div>
+                      <div class="form-group">
+                        <label for="phoneNumber">Phone Number:</label>
+                        <input type="text" class="form-control" id="phoneNumber" onkeyup="updatePhoneno()">
+                      </div>
+                      <div class="form-group">
+                        <label for="phoneNumber">Linked URL:</label>
+                        <input type="text" class="form-control" id="linkedin" onkeyup="updateLinkedin()">
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="form-group">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" class="form-control" id="lastName" onkeyup="updateFName_Lname()">
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" onkeyup="updateEmail()">
+                      </div>
+          
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <button type="button" class="custom-button" onclick="toggleSummary()">
+                  <i class="fas fa-chevron-down"></i>
+                  <h3  style="font-size: 20px;">Profile Summary</h3>
+                </button>
+                <div id="summary" class="custom-container hidden">
+                  <div class="experience-content">
+                    <form>
+                      <div class="form-group">
+                        <label for="summaryTextArea">Add Profile Summary:</label>
+                        <textarea class="form-control" id="summary1" name="summary" cols="45" rows="5"
+                          onkeyup="updateSummary()"></textarea>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <br>
+                <button type="button" class="custom-button" onclick="toggleSkills()">
+                  <i class="fas fa-chevron-down"></i>
+                  <h3  style="font-size: 20px;">Skills</h3>
+                </button>
+          
+                <div id="skills" class="custom-container custom-container1 hidden">
+                  <div class="columns-wrapper">
+                      <div class="column2" id="column1">
+                          <!-- Column 1: Profile Image -->
+              
+                          
+          
+                          <div class="form-group" id="skillContainer1">
+                            <label for="skill1">Add Skills(Separated by comma):</label>
+                            <textarea class="form-control" id="skill1"  cols="45" rows="5"
+                            onkeyup="updateSkills()"></textarea>
+                          </div>
+                          
+            
+                    </div>
+            
+                   
+          
+                  </div>
+                </div>
+                <br>
+                <button type="button" class="custom-button" onclick="workexperience()">
+                  <i class="fas fa-chevron-down"></i>
+                  <h3  style="font-size: 20px;">Work Experience</h3>
+                </button>
+                <div id="container1" class="custom-container hidden">
+                  <div class="experience-section">
+                    <div class="experience-header" onclick="toggleExperience(this)">
+                      <i class="fas fa-chevron-down"></i>
+                      <p><b>Experience 1</b></p>
+                    </div>
+                    <div class="experience-content">
+                      <form id="experience1">
+                        <div class="form-group">
+                          <input type="text" id="jobtitle1" class="form-control" placeholder="Designation" name="jobtitle1"
+                            style="height: 30px;" onkeyup="updateExperience()">
+                        </div>
+          
+                        <div class="form-group">
+                          <input type="text" id="company1" class="form-control" placeholder="Company Name" name="company1"
+                            style="height: 30px;" onkeyup="updateExperience()">
+                        </div>
+                       
+                       
+                        <div class="form-group">
+                          <label for="from1" style="margin-right: 10px;">From:</label>
+                          <input type="month" id="from1" name="from1" class="form-control" style="height: 35px;"
+                            onchange="updateExperience()">
+                        </div>
+                        <div class="form-group">
+                          <label for="to1" style="margin-right: 10px;">To:</label>
+                          <span id="to1Container">
+                              <input type="month" id="to1" class="form-control" name="to1" style="height: 35px;"
+                                  onchange="updateExperience()">
+                          </span>
+                          <label for="present1" style="margin-left: 10px;">
+                              <input type="checkbox" id="present1" onchange="handlePresentCheckbox()"> Present
+                          </label>
+                      </div>
+          
+          
+                        <div class="form-group">
+                          <label for="description1">Description:</label>
+                          <textarea id="description1" class="form-control" name="description1" rows="5"
+                            onkeyup="updateExperienceDescription()"></textarea>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+          
+                  <div class="form-group">
+                    <input type="submit" value="+ Add New Experience" onclick="addNewExperience()">
+                  </div>
+                </div>
+                <br>
+                <button type="button" class="custom-button" onclick="education()">
+                  <i class="fas fa-chevron-down"></i>
+                  <h3  style="font-size: 20px;">Education</h3>
+                </button>
+          
+                <div id="container2" class="custom-container hidden">
+                  <div class="education-section">
+                    <div class="education-header" onclick="toggleEducation(this)">
+                      <i class="fas fa-chevron-down"></i>
+                      <p><b>Education 1</b></p>
+                    </div>
+                    <div class="education-content">
+                      <form>
+                        <div class="form-group">
+                          <input type="text" id="degreeInput" class="form-control" placeholder="Degree" name="degreeInput" style="height: 30px;" onkeyup="updateDegree()">
+                        </div>
+                        <div class="form-group">
+                          <input type="text" id="institution1" class="form-control" placeholder="Institution Name" name="institution1"
+                            style="height: 30px;"oninput="updateInstitution()">
+                        </div>
+                        <div class="form-group">
+                          <input type="text" id="city" class="form-control" placeholder="City" name="country1"
+                            style="height: 30px;" onkeyup="updateCityCountry()">
+                        </div>
+                        <div class="form-group">
+                          <label for="from1" style="margin-right: 10px;">From:</label>
+                          <input type="month" id="degreeFromInput" name="degreeFromInput" class="form-control" style="height: 35px;"onchange="updateDegreeYear()" >
+                        </div>
+                        <div class="form-group">
+                          <label for="to1" style="margin-right: 10px;">To:</label>
+                          <input type="month" id="degreeToInput" class="form-control" name="degreeToInput" style="height: 35px;" onchange="updateDegreeYear()">
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input type="submit" value="+ Add New Education" onclick="addNewEducation()">
+                  </div>
+                </div>
+          
+          
+                <br>
+                <button type="button" class="custom-button" onclick="projects()">
+                  <i class="fas fa-chevron-down"></i>
+                  <h3  style="font-size: 20px;">Projects</h3>
+                </button>
+          
+                <div id="container3" class="custom-container hidden">
+                  <div class="project-section1">
+                    <div class="experience-header" onclick="toggleProjects(this)">
+                      <i class="fas fa-chevron-down"></i>
+                      <p><b>Project 1</b></p><br>
+                    </div>
+                    <div class="project-content">
+                      <form id="experience1">
+                        <div class="form-group">
+                          <input type="text" id="projectName" class="form-control" placeholder="Project Name" oninput="updateProjectname()" name="company1"
+                            style="height: 30px;">
+                        </div>
+          
+                        <div class="form-group">
+                          <label for="description1">Tools used:</label>
+                          <textarea id="projectTools" class="form-control" name="description1" rows="3" oninput="updateProjectTools()"></textarea>
+                        </div>
+                        <div class="form-group">
+                          <label for="description1">Link:</label>
+                          <input type="text" id="projectLink" class="form-control" placeholder="Link" name="jobtitle1" oninput="updateProjectLink()"
+                            style="height: 30px;">
+          
+                        </div>
+                        <div class="form-group">
+                          <label for="description1">Description:</label>
+                          <textarea oninput="updateProjectDes()" id="projectDes" class="form-control" name="description1" rows="5"></textarea>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+          
+                  <div class="form-group">
+                    <input type="submit" value="+ Add New Project" onclick="addNewProject()">
+                  </div>
+                </div><br>
+                <button type="button" class="custom-button" onclick="toggleAchievements()">
+                  <i class="fas fa-chevron-down"></i>
+                  <h3  style="font-size: 20px;">Achievements</h3>
+                </button>
+                <script>
+                  function updateAchievements() {
+                      const textarea = document.getElementById('achievementstext');
+                      const achievementsSection = document.querySelector('.achievements');
+                      const achievementList = document.getElementById('achievementList');
+                      const achievements = textarea.value.split(',').map(item => item.trim());
+              
+                      // Clear existing list
+                      achievementList.innerHTML = '';
+              
+                      // Populate the list with achievements
+                      achievements.forEach(achievement => {
+                          if (achievement) {
+                              const li = document.createElement('li');
+                              li.textContent = achievement;
+                              li.style.fontSize = '11px';
+                              li.style.fontFamily = 'Prata';
+                              li.style.fontWeight = '400';
+                              li.style.lineHeight = '16px';
+                              li.style.wordWrap = 'break-word';
+                              achievementList.appendChild(li);
+                          }
+                      });
+              
+                      // Show the achievements section if there are achievements
+                      if (achievements.filter(Boolean).length > 0) {
+                          achievementsSection.classList.remove('hidden');
+                      } else {
+                          achievementsSection.classList.add('hidden');
+                      }
+                  }
+              </script>
+              
+                
+                <div id="achievements" class="custom-container hidden">
+                  <div class="experience-content">
+                    <form>
+                      <div class="form-group">
+                        <label for="achievementstext">Add Achievements:</label>
+                        <textarea id="achievementstext" class="form-control" name="description1" cols="45" rows="5" oninput="updateAchievements()"></textarea>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                
+                <br>
+                <button type="button" class="custom-button" onclick="toggleLanguages()">
+                  <i class="fas fa-chevron-down"></i>
+                  <h3  style="font-size: 20px;">Languages Known</h3>
+                </button>
+                <script>
+                  function updateLanguages() {
+                    const textarea = document.getElementById('languagetext');
+                    console.log(textarea)
+                    const languagesSection = document.getElementById('languagesKnow');
+                    const langList = document.getElementById('languageList');
+                    const languages = textarea.value.split(',').map(item => item.trim());
+                
+                    // Clear existing list
+                    langList.innerHTML = '';
+                
+                    // Populate the list with languages
+                    languages.forEach(language => {
+                      if (language) {
+                        const li = document.createElement('li');
+                        li.textContent = language;
+                        langList.appendChild(li);
+                      }
+                    });
+                
+                    // Show the languages section if there are languages
+                    if (languages.filter(Boolean).length > 0) {
+                      languagesSection.classList.remove('hidden');
+                    } else {
+                      languagesSection.classList.add('hidden');
+                    }
+                  }
+                </script>
+                <div id="languages" class="custom-container custom-container1 hidden">
+                  <div class="columns-wrapper">
+                    <div class="column2">
                     
-                </div>      
+                    
+                    <div class="form-group">
+                      <label for="languagetext">Add Languages Know:</label>
+                      <textarea id="languagetext" class="form-control" name="description1" cols="45" rows="5" oninput="updateLanguages()"></textarea>
+                    </div>
+                    </div>
+                 </div>
+                </div>
+                <br>
+              </div>
             </div>
+          </div>
+        
+          <div class="col-md-7">
+              <!-- Content for the second half of the page -->
+              <div class="new_section1">
+              <div class="content_wrapper">
+                <div id="dynamicContent">
+                    <div id="temp1" style="width: 595px; height: 842px; position: relative; background: white; overflow: hidden;">
+            
+                        <!--top part naming & photo part-->
+              
+                        <div style="width: 595px; height: 176px; left: 0px; top: 0px; position: absolute">
+                          <div
+                            style="width: 595px; height: 176px; left: 0px; top: 0px; position: absolute; background: rgba(251, 241.80, 228, 0.50)">
+                          </div>
+                        <div style="width:500px; left: 30px; top: 33px; position: absolute; color: #222222; font-size: 26px; font-family: Poppins; font-weight: 600; line-height: 34px; word-wrap: break-word; max-width: 270px;">
+                <span id="Display_Fname">Kate</span>&nbsp;<span id="Display_Lname">Bishop</span>
+              </div>
+                          <div id="Display_Summary"
+                            style="width: 313px; left: 32px; top: 104px; position: absolute; color: #222222; font-size: 10px; font-family: Poppins; font-weight: 400; line-height: 14px; word-wrap: break-word">
+                            Over 5 years of professional experience conducting UX research and designing interactive end-to-end user
+                            flows. <br />I enjoy working in close collaboration with teams across technology, business and design.
+                          </div>
+                          <div style="width: 154px; height: 108px; left: 385px; top: 40px; position: absolute">
+                            <div id="Display_lnkedin"
+                              style=" width:185px;left: 0px; top: 54px; position: absolute; color: black; font-size: 10px; font-family: Poppins; font-weight: 600; text-decoration: underline; line-height: 14px; word-wrap: break-word">
+                              linkedin.com/in/kate-bishop</div>
+                            <div
+                              style="left: 0px; top: 0px; position: absolute; color: #CA6D18; font-size: 10px; font-family: Poppins; font-weight: 400; line-height: 14px; word-wrap: break-word">
+                              Email</div>
+                            <div
+                              style="left: 0px; top: 80px; position: absolute; color: #CA6D18; font-size: 10px; font-family: Poppins; font-weight: 400; line-height: 14px; word-wrap: break-word">
+                              Phone</div>
+                            <div
+                              style="left: 0px; top: 40px; position: absolute; color: #CA6D18; font-size: 10px; font-family: Poppins; font-weight: 400; line-height: 14px; word-wrap: break-word">
+                              LinkedIn</div>
+                            <div id="Display_Email"
+                              style="left: 0px; top: 14px; position: absolute; color: #222222; font-size: 10px; font-family: Poppins; font-weight: 600; text-decoration: underline; line-height: 14px; word-wrap: break-word">
+                              kate.bishop@katedesign.com</div>
+                            <div id="Display_Phoneno"
+                              style="left: 0px; top: 94px; position: absolute; color: #222222; font-size: 10px; font-family: Poppins; font-weight: 600; text-decoration: underline; line-height: 14px; word-wrap: break-word">
+                              +46 98-765 43 21</div>
+                          </div id="display_Img">
+                         
+                        </div>
+                      
+              <div style="clear: both;"></div>
+              
+                        <!--second section-->
+                        <div style="position: relative;top: 175px;">
+                        <div style="width: 258px; height: auto; /*left: 310px; top: 10px; position: absolute;*/ float: right; margin: 10px;">
+                          <div style="left: 0px; top: 0px; color: #CA6D18; font-size: 14px; font-family: Poppins; font-weight: 400; line-height: 20px; word-wrap: break-word;"> 
+                              Projects
+                          </div>
+                          <div class="projects" style="width: 254px; position: relative;">
+                              <div class="project-section" style="width: 254px;">   
+                                  <div id="displayProjectName" style="color: #222222; font-size: 14px; font-family: Poppins; font-weight: 700; line-height: 20px; word-wrap: break-word;">
+                                      Fees Management System
+                                  </div>
+                                  <div style="color: #797979; font-size: 11px; font-family: Prata; font-weight: 400; line-height: 16px; word-wrap: break-word;">
+                                      <span id="displayProjectTools"> Tools used : </span><span id="displayTools"> Python, Django, MySQL, Excel </span>
+                                  </div>
+                                  <div style="color: #797979; font-size: 11px; font-family: Prata; font-weight: 400; line-height: 16px; word-wrap: break-word;">
+                                      <span id="displayProjectLink"> https://www.kickresume.com/dashboard/resumes/ </span>
+                                  </div>
+                                  <div class="content">
+                                      <div id="displayProjectDes" style=" color: #222222; font-size: 10px; font-family: Poppins; font-weight: 400; line-height: 14px; word-wrap: break-word; overflow: hidden;">
+                                          Developed a streamlined and efficient fees processing website. <br> User-friendly web-based Fees management System that automated entire fee processing
+                                          workflow by integrating secure payment gateway. <br>Reduced administrative workload and processing time. <br> Students can crack their fees and pay accordingly through Razor pay gateway.                      
+                                          Developed a streamlined and efficient fees processing website. <br> Students can crack their fees and pay accordingly through Razor pay gateway.  
+                                      </div>
+                                  </div>
+                              </div>  
+                              <div style="margin-top: 5px;" id="projectsContainer"></div>
+                          </div>
+                          <div style="/*left: 310px; top: 590px; position: absolute;*/width: 250px; padding-top: 10px;">
+                            <div style="/*left: 0px; top: 0px; position: absolute;*/padding: 10px 0 0 0px; color: #CA6D18; font-size: 14px; font-family: Poppins; font-weight: 400; line-height: 20px; word-wrap: break-word;">Skills</div>
+                            <div id="skillsList" style="width: 245px;  /*left: 0px; top: 28px;*/ position: relative; color: #222222; font-size: 10px; font-family: Poppins; font-weight: 400; line-height: 14px; word-wrap: break-word;">
+                                <ul>
+                                    <li>Business Analysis</li>
+                                    <li>UX Research</li>
+                                    <li>User Testing and Validation</li>
+                                    <li>Customer Journey Mapping</li>
+                                    <li>Information Architecture</li>
+                                    <li>Low- and High- Fidelity Wireframing</li>
+                                </ul>
+                            </div>
+                        </div>
+              
+                        <div id="languagesKnow" class="hidden" style="width: 250px; padding-top: 15px;">
+                          <div style="padding: 10px 0 0 0px; color: #CA6D18; font-size: 14px; font-family: Poppins; font-weight: 400; line-height: 20px; word-wrap: break-word;">Languages Known</div>
+                          <div id="langKnown" style="width: 245px; position: relative; color: #222222; font-size: 10px; font-family: Poppins; font-weight: 400; line-height: 14px; word-wrap: break-word;">
+                            <ul id="languageList"></ul>
+                          </div>
+                        </div>
+                      </div>
+              
+              
+                      
+                          <div style="width: 254px; height: auto; /*left: 32px; top: 200px; position: absolute;*/  padding: 10px 0 0 20px;">
+                            <div class="experience-education-container">
+                              <div class="work-experience">
+                                <div style="color: #CA6D18; font-size: 14px; font-family: Poppins; font-weight: 400; line-height: 20px; word-wrap: break-word;">
+                                  Work experience
+                                </div>
+                                <div style="width: 254px;">     
+                                  <div id="Display_Designation" style="color: #222222; font-size: 14px; font-family: Poppins; font-weight: 700; line-height: 20px; word-wrap: break-word;">
+                                    Product Designer
+                                  </div>
+                                  <div style="color: #797979; font-size: 11px; font-family: Prata; font-weight: 400; line-height: 16px; word-wrap: break-word;">
+                                   <span id="Display_Cname"> Fintef</span>, <span id="Display_From"> 2019 </span >-<span id="Display_To"> Present</span>
+                                  </div>
+                                  <div class="content">
+                                    <div id="Display_Description" style="color: #222222; font-size: 10px; font-family: Poppins; font-weight: 400; line-height: 14px; word-wrap: break-word; overflow: hidden;">
+                                        Designing end-to-end experience for financial products on mobile & web platforms. Working closely with managers, marketing specialists, and developers..cfvgbhnjsfgvbhjnksafghbjnedfghdbwcfgvhbjnkdfgdhbjnkansxgahjsnxbvcasxnrdtfy.crvtybunertgyhu567yghjrftgyhujrtgyhgyhujsccvgbhnjcvybnjrtyuhijrtyuhij.
+                                    </div>
+                                </div>
+                                
+                                </div>  
+                                <div  id="experienceContainer"></div>
+                              </div>
+                            
+                              <div class="education">
+                                <div style="color: #CA6D18; margin-top: 18px; font-size: 14px; font-family: Poppins; font-weight: 400; line-height: 20px; word-wrap: break-word;">
+                                  Education & Learning
+                                </div>
+                            
+                                <div style="width: 258px; ">
+                                  <div style="color: #222222; font-size: 12px; font-family: Poppins; font-weight: 700; line-height: 20px; word-wrap: break-word;">
+                                    <span id="displayDegree">Bachelor of Engineering</span><br> <span id="displayDegreeFrom"> 2015  </span> | <span id="displayDegreeTo"> 2017 </span>
+                                  </div>
+                                  <div id="displayCollege" style="color: #797979; font-size: 11px; font-family: Prata; font-weight: 400; line-height: 16px; word-wrap: break-word;">
+                                    Copenhagen School of Design and Technology,
+                                  </div>
+                                  <div id="displayCity" style="color: #797979; font-size: 11px; font-family: Prata; font-weight: 400; line-height: 16px; word-wrap: break-word;">
+                                    City 
+                                  </div>
+                                </div>
+                                <div style="margin-top: -25px;" id="educationContainer"></div>
+                              </div>
+              
+                              <div class="achievements hidden">
+                                <div style="color: #CA6D18; margin-top: 38px; font-size: 14px; font-family: Poppins; font-weight: 400; line-height: 20px; word-wrap: break-word;">
+                                  Achievements
+                                </div>
+                                <div style="width: 258px;">
+                                  <ul id="achievementList"></ul>
+                                </div>       
+                              </div>
+                              
+              
+              
+                            </div>
+                          </div>
+              
+                          
+              
+                        </div>
+                      </div>
+                        <!-- Content will be replaced here based on the id -->
+                      
+                      </div>
+              </div>
+            </div>
+        </div>
+          </div>
+        
+      </div>
         </div>
        
 
