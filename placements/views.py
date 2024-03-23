@@ -844,11 +844,14 @@ def user_registration(request):
         user = NewUser.objects.create(username=username, password=passw,
                                        email=email, phone_no=phone_no, linkedin=linkedin)
         
-        return redirect('/') # Sending JSON response on successful registration
+        # Instead of redirecting, render the template and pass a flag indicating successful registration
+        return render(request, 'user_registration.html', {'registered': True})
     
     return render(request, 'user_registration.html')
 
 
+def select_theme(request):
+    return render(request,'select_theme.html')
 
 def user_login(request):
     try:

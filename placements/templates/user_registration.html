@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="/static/assets3/css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
+  <link rel="stylesheet" type="text/css" href="styles.css">
+
   <style>
     *{
       font-family: "League Spartan", sans-serif;
@@ -88,7 +90,7 @@ body {
 
 .base { 
     box-shadow: 0 0 12px 0 rgba(132,132,132,0.3); 
-    width: 980px; 
+    width: auto; 
     min-height: 610px; 
     margin: 50px auto; 
     display: flex; 
@@ -376,7 +378,7 @@ h1 {
     justify-content: center; 
     cursor: pointer; 
     padding: 10px; 
-    margin: 0 97px 0 0; 
+   
     float: right;
 } 
 
@@ -824,22 +826,62 @@ h1 {
 
 
 .reg_right {
-    flex-basis: auto; /* Adjust the width of the registration form section */
-    /* Add padding to separate form from image */
+    flex-basis: 45%; /* Adjust the width of the registration form section */
+    padding-left: 20px; /* Add padding to separate form from image */
 }
 
 /* Media queries for mobile responsiveness */
 /* Media queries for mobile responsiveness */
 /* Media query for mobile responsiveness */
 @media screen and (max-width: 768px) {
-    #hidediv {
-        display: none !important;
+            #hidediv {
+              
+                display: none !important;
+            }
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .reg_right {
+                width: 100%;
+                margin-left: 30px;
+                margin-top: 20px; /* Adjust as needed */
+            }
+            .flex-column.reg_right {
+        border-left: none; /* Remove border on mobile */
+        flex-basis: 100%; /* Take up full width on mobile */
+        padding-left: 0; /* Remove left padding on mobile */
+        padding-right: 20px; /* Add right padding on mobile */
     }
-}
+
+    .reg_right h2 {
+        font-size: 20px; /* Decrease font size for heading */
+        margin-bottom: 8px; /* Adjust margin for heading */
+        font-weight: bold;
+    }
+
+    /* Adjustments for form inputs */
+    .form-group-parent {
+        margin-bottom: 15px; /* Increase margin between form groups */
+    }
+
+    .form-group-parent .form-group {
+        width: 100%; /* Make form inputs full width */
+    }
+    #registerButton {
+    
+        margin-left: 60px !important; /* Adjust as needed */
+    }
+        }
+
 /* Center the text inside the button */
 #registerButton {
     text-align: center;
     border-radius: 30px;
+  
   
 }
 
