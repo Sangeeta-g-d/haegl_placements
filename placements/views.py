@@ -550,8 +550,7 @@ def company_logout(request):
     # Redirect to a specific page after logout (optional)
     return redirect('/')
 
-def contact_us(request):
-    
+def contact_us(request): 
     return render(request,'contact_us.html')
 
 def registration(request):
@@ -845,7 +844,7 @@ def user_registration(request):
         user = NewUser.objects.create(username=username, password=passw,
                                        email=email, phone_no=phone_no, linkedin=linkedin)
         
-        return JsonResponse({'success': True})  # Sending JSON response on successful registration
+        return redirect('/') # Sending JSON response on successful registration
     
     return render(request, 'user_registration.html')
 

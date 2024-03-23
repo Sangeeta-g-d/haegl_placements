@@ -12,34 +12,39 @@
 font-size: 32px;
 font-family: "League Spartan", sans-serif;
 font-optical-sizing: auto;
-font-weight: 600;
+font-weight: 700;
 font-style: normal;
 
 }
 .service-text{
-  font-size: 22px;
-font-family: "Stoke", serif;
-font-weight: 600;
+  font-size: 27px;
+  font-family: "League Spartan", sans-serif;
+  font-optical-sizing: auto;
+font-weight: 350;
 font-style: normal;
 }
 .internship-heading{
-  font-size: 18px;
-  font-family: "Stoke", serif;
+  font-size: 25px;
+  font-family: "League Spartan", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
 }
 .clients-heading{
-  font-size: 20px;
-  font-family: "Stoke", serif;
+  font-size: 30px;
+  font-family: "League Spartan", sans-serif;
+  font-optical-sizing: auto;
 font-weight: 600;
 font-style: normal;
 }
 .why-heading{
-  font-size: 25px;
-  font-family: "Stoke", serif;
+  font-size: 30px;
+  font-family: "League Spartan", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
   display: flex;
+  color: #747d88;;
   justify-content: center;
   
 }
@@ -51,8 +56,9 @@ font-style: normal;
   
 }
 .subtag{
-  font-size: 14px;
-  font-family: "Stoke", serif;
+  font-size: 21px;
+  font-family: "League Spartan", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 300;
   font-style: normal;
   display: flex;
@@ -60,8 +66,9 @@ font-style: normal;
 }
 
 .contact-subtag{
-  font-size: 18px;
-  font-family: "Stoke", serif;
+  font-size: 25px;
+  font-family: "League Spartan", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 300;
   font-style: normal;
   display: flex;
