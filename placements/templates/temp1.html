@@ -135,7 +135,417 @@ document.addEventListener("DOMContentLoaded", function() {
         <div class="container-fluid fruite py-5">
             <div class="container py-5">
                 <div class="tab-class text-center">
-                    
+                    <div class="row">
+                        <div class="col-md-5">
+                            
+                            <div class="left-side">
+                              <h2>User Details Form</h2>
+                              <button type="button" class="custom-button" onclick="toggleContainer()">
+                                <i class="fas fa-chevron-down"></i>
+                                <h3>Personal Information</h3>
+                              </button>
+                        
+                              <div id="profile" class="custom-container custom-container1 hidden">
+                                <div class="columns-wrapper">
+                                  <div class="column">
+                                    <!-- Column 1: Profile Image -->
+                                    <img src="/static/dashboard_assets/img/team-2.jpg" alt="Profile Image" class="profile-image"><br>
+                                    <button class="edit-button" onclick="openPopup()">
+                                      <i class="fas fa-pencil-alt"></i>&nbsp;
+                                      Edit
+                                    </button><br>
+                        
+                        
+                                    <div id="imagePopup" class="popup">
+                                      <!-- Popup content -->
+                                      <label for="imageInput">Image:</label>
+                                      <input type="file" id="imageInput" accept="image/*">
+                                      <button onclick="closePopup()">Close</button>
+                                    </div>
+                        
+                                  </div>
+                        
+                                  <div class="column">
+                                    <!-- Column 2: User Information -->
+                                    <div class="form-group">
+                                      <label for="firstName">First Name:</label>
+                                      <input type="text" class="form-control" id="firstName" onkeyup="updateFName_Lname()">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="phoneNumber">Phone Number:</label>
+                                      <input type="text" class="form-control" id="phoneNumber" onkeyup="updatePhoneno()">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="phoneNumber">Linked URL:</label>
+                                      <input type="text" class="form-control" id="linkedin" onkeyup="updateLinkedin()">
+                                    </div>
+                                  </div>
+                                  <div class="column">
+                                    <div class="form-group">
+                                      <label for="lastName">Last Name:</label>
+                                      <input type="text" class="form-control" id="lastName" onkeyup="updateFName_Lname()">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="email">Email:</label>
+                                      <input type="email" class="form-control" id="email" onkeyup="updateEmail()">
+                                    </div>
+                        
+                                  </div>
+                                </div>
+                              </div>
+                              <br>
+                              <button type="button" class="custom-button" onclick="toggleSummary()">
+                                <i class="fas fa-chevron-down"></i>
+                                <h3>Profile Summary</h3>
+                              </button>
+                              <div id="summary" class="custom-container hidden">
+                                <div class="experience-content">
+                                  <form>
+                                    <div class="form-group">
+                                      <label for="summaryTextArea">Add Profile Summary:</label>
+                                      <textarea class="form-control" id="summary1" name="summary" cols="45" rows="5"
+                                        onkeyup="updateSummary()"></textarea>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                              <br>
+                              <button type="button" class="custom-button" onclick="toggleSkills()">
+                                <i class="fas fa-chevron-down"></i>
+                                <h3>Skills</h3>
+                              </button>
+                        
+                              <div id="skills" class="custom-container custom-container1 hidden">
+                                <div class="columns-wrapper">
+                                    <div class="column2" id="column1">
+                                        <!-- Column 1: Profile Image -->
+                            
+                                        
+                        
+                                        <div class="form-group" id="skillContainer1">
+                                          <label for="skill1">Add Skills(Separated by comma):</label>
+                                          <textarea class="form-control" id="skill1"  cols="45" rows="5"
+                                          onkeyup="updateSkills()"></textarea>
+                                        </div>
+                                        
+                          
+                                  </div>
+                          
+                                 
+                        
+                                </div>
+                              </div>
+                              <br>
+                              <button type="button" class="custom-button" onclick="workexperience()">
+                                <i class="fas fa-chevron-down"></i>
+                                <h3>Work Experience</h3>
+                              </button>
+                              <div id="container1" class="custom-container hidden">
+                                <div class="experience-section">
+                                  <div class="experience-header" onclick="toggleExperience(this)">
+                                    <i class="fas fa-chevron-down"></i>
+                                    <p><b>Experience 1</b></p>
+                                  </div>
+                                  <div class="experience-content">
+                                    <form id="experience1">
+                                      <div class="form-group">
+                                        <input type="text" id="jobtitle1" class="form-control" placeholder="Designation" name="jobtitle1"
+                                          style="height: 30px;" onkeyup="updateExperience()">
+                                      </div>
+                        
+                                      <div class="form-group">
+                                        <input type="text" id="company1" class="form-control" placeholder="Company Name" name="company1"
+                                          style="height: 30px;" onkeyup="updateExperience()">
+                                      </div>
+                                     
+                                     
+                                      <div class="form-group">
+                                        <label for="from1" style="margin-right: 10px;">From:</label>
+                                        <input type="month" id="from1" name="from1" class="form-control" style="height: 35px;"
+                                          onchange="updateExperience()">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="to1" style="margin-right: 10px;">To:</label>
+                                        <span id="to1Container">
+                                            <input type="month" id="to1" class="form-control" name="to1" style="height: 35px;"
+                                                onchange="updateExperience()">
+                                        </span>
+                                        <label for="present1" style="margin-left: 10px;">
+                                            <input type="checkbox" id="present1" onchange="handlePresentCheckbox()"> Present
+                                        </label>
+                                    </div>
+                        
+                        
+                                      <div class="form-group">
+                                        <label for="description1">Description:</label>
+                                        <textarea id="description1" class="form-control" name="description1" rows="5"
+                                          onkeyup="updateExperienceDescription()"></textarea>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                        
+                                <div class="form-group">
+                                  <input type="submit" value="+ Add New Experience" onclick="addNewExperience()">
+                                </div>
+                              </div>
+                              <br>
+                              <button type="button" class="custom-button" onclick="education()">
+                                <i class="fas fa-chevron-down"></i>
+                                <h3>Education</h3>
+                              </button>
+                        
+                              <div id="container2" class="custom-container hidden">
+                                <div class="education-section">
+                                  <div class="education-header" onclick="toggleEducation(this)">
+                                    <i class="fas fa-chevron-down"></i>
+                                    <p><b>Education 1</b></p>
+                                  </div>
+                                  <div class="education-content">
+                                    <form>
+                                      <div class="form-group">
+                                        <input type="text" id="degreeInput" class="form-control" placeholder="Degree" name="degreeInput" style="height: 30px;" onkeyup="updateDegree()">
+                                      </div>
+                                      <div class="form-group">
+                                        <input type="text" id="institution1" class="form-control" placeholder="Institution Name" name="institution1"
+                                          style="height: 30px;"oninput="updateInstitution()">
+                                      </div>
+                                      <div class="form-group">
+                                        <input type="text" id="city" class="form-control" placeholder="City" name="country1"
+                                          style="height: 30px;" onkeyup="updateCityCountry()">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="from1" style="margin-right: 10px;">From:</label>
+                                        <input type="month" id="degreeFromInput" name="degreeFromInput" class="form-control" style="height: 35px;"onchange="updateDegreeYear()" >
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="to1" style="margin-right: 10px;">To:</label>
+                                        <input type="month" id="degreeToInput" class="form-control" name="degreeToInput" style="height: 35px;" onchange="updateDegreeYear()">
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <input type="submit" value="+ Add New Education" onclick="addNewEducation()">
+                                </div>
+                              </div>
+                        
+                        
+                              <br>
+                              <button type="button" class="custom-button" onclick="projects()">
+                                <i class="fas fa-chevron-down"></i>
+                                <h3>Projects</h3>
+                              </button>
+                        
+                              <div id="container3" class="custom-container hidden">
+                                <div class="project-section1">
+                                  <div class="experience-header" onclick="toggleProjects(this)">
+                                    <i class="fas fa-chevron-down"></i>
+                                    <p><b>Project 1</b></p><br>
+                                  </div>
+                                  <div class="project-content">
+                                    <form id="experience1">
+                                      <div class="form-group">
+                                        <input type="text" id="projectName" class="form-control" placeholder="Project Name" oninput="updateProjectname()" name="company1"
+                                          style="height: 30px;">
+                                      </div>
+                        
+                                      <div class="form-group">
+                                        <label for="description1">Tools used:</label>
+                                        <textarea id="projectTools" class="form-control" name="description1" rows="3" oninput="updateProjectTools()"></textarea>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="description1">Link:</label>
+                                        <input type="text" id="projectLink" class="form-control" placeholder="Link" name="jobtitle1" oninput="updateProjectLink()"
+                                          style="height: 30px;">
+                        
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="description1">Description:</label>
+                                        <textarea oninput="updateProjectDes()" id="projectDes" class="form-control" name="description1" rows="5"></textarea>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                        
+                                <div class="form-group">
+                                  <input type="submit" value="+ Add New Project" onclick="addNewProject()">
+                                </div>
+                              </div><br>
+                              <button type="button" class="custom-button" onclick="toggleAchievements()">
+                                <i class="fas fa-chevron-down"></i>
+                                <h3>Achievements</h3>
+                              </button>
+                              <script>
+                                function updateAchievements() {
+                                    const textarea = document.getElementById('achievementstext');
+                                    const achievementsSection = document.querySelector('.achievements');
+                                    const achievementList = document.getElementById('achievementList');
+                                    const achievements = textarea.value.split(',').map(item => item.trim());
+                            
+                                    // Clear existing list
+                                    achievementList.innerHTML = '';
+                            
+                                    // Populate the list with achievements
+                                    achievements.forEach(achievement => {
+                                        if (achievement) {
+                                            const li = document.createElement('li');
+                                            li.textContent = achievement;
+                                            li.style.fontSize = '11px';
+                                            li.style.fontFamily = 'Prata';
+                                            li.style.fontWeight = '400';
+                                            li.style.lineHeight = '16px';
+                                            li.style.wordWrap = 'break-word';
+                                            achievementList.appendChild(li);
+                                        }
+                                    });
+                            
+                                    // Show the achievements section if there are achievements
+                                    if (achievements.filter(Boolean).length > 0) {
+                                        achievementsSection.classList.remove('hidden');
+                                    } else {
+                                        achievementsSection.classList.add('hidden');
+                                    }
+                                }
+                            </script>
+                            
+                              
+                              <div id="achievements" class="custom-container hidden">
+                                <div class="experience-content">
+                                  <form>
+                                    <div class="form-group">
+                                      <label for="achievementstext">Add Achievements:</label>
+                                      <textarea id="achievementstext" class="form-control" name="description1" cols="45" rows="5" oninput="updateAchievements()"></textarea>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                              
+                              <br>
+                              <button type="button" class="custom-button" onclick="toggleLanguages()">
+                                <i class="fas fa-chevron-down"></i>
+                                <h3>Languages Known</h3>
+                              </button>
+                              <script>
+                                function updateLanguages() {
+                                  const textarea = document.getElementById('languagetext');
+                                  console.log(textarea)
+                                  const languagesSection = document.getElementById('languagesKnow');
+                                  const langList = document.getElementById('languageList');
+                                  const languages = textarea.value.split(',').map(item => item.trim());
+                              
+                                  // Clear existing list
+                                  langList.innerHTML = '';
+                              
+                                  // Populate the list with languages
+                                  languages.forEach(language => {
+                                    if (language) {
+                                      const li = document.createElement('li');
+                                      li.textContent = language;
+                                      langList.appendChild(li);
+                                    }
+                                  });
+                              
+                                  // Show the languages section if there are languages
+                                  if (languages.filter(Boolean).length > 0) {
+                                    languagesSection.classList.remove('hidden');
+                                  } else {
+                                    languagesSection.classList.add('hidden');
+                                  }
+                                }
+                              </script>
+                              <div id="languages" class="custom-container custom-container1 hidden">
+                                <div class="columns-wrapper">
+                                  <div class="column2">
+                                  
+                                  
+                                  <div class="form-group">
+                                    <label for="languagetext">Add Languages Know:</label>
+                                    <textarea id="languagetext" class="form-control" name="description1" cols="45" rows="5" oninput="updateLanguages()"></textarea>
+                                  </div>
+                                  </div>
+                               </div>
+                              </div>
+                              <br>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <!-- Content for the second half of the page -->
+                           
+                            <div class="content_wrapper">
+                              <div id="dynamicContent">
+                                  <div id="temp6">
+                                      <div class="resume">
+                                        <header>
+                                          <h1 class="headingg" id="Display_Fname">John Doe</h1>
+                                         
+                                        </header>
+                                        
+                                        <section class="section profile">
+                                          <p>Email: johndoe@example.com</p>
+                                          <p>Phone: 123-456-7890</p>
+                                          <p>LinkedIn: linkedin.com/in/johndoe</p>
+                                        </section>
+                                        
+                                        <section class="section">
+                                          <h2 class="headingg">Summary</h2>
+                                          <p>Experienced web developer with over 5 years of experience in building responsive and user-friendly websites. Proficient in HTML, CSS, JavaScript, and various web development frameworks. Strong problem-solving skills and ability to work effectively in a team environment.</p>
+                                        </section>
+                                        
+                                        <section class="section">
+                                          <h2 class="headingg">Experience</h2>
+                                          <div class="experience">
+                                            <h3 class="sub-heading">Senior Frontend Developer - XYZ Tech Solutions</h3>
+                                            <p>January 2019 - Present</p>
+                                            <ul>
+                                              <li>Lead frontend development team in creating and maintaining company's flagship product</li>
+                                              <li>Designed and implemented user interface components using React.js</li>
+                                              <li>Collaborated with backend developers to integrate frontend with RESTful APIs</li>
+                                              <li>Optimized website performance and improved user experience</li>
+                                            </ul>
+                                          </div>
+                                          <div class="experience">
+                                            <h3 class="sub-heading">Web Developer - ABC Company</h3>
+                                            <p>June 2016 - December 2018</p>
+                                            <ul>
+                                              <li>Developed and maintained company website using HTML, CSS, and JavaScript</li>
+                                              <li>Optimized website for performance and accessibility</li>
+                                              <li>Collaborated with designers and stakeholders to implement new features</li>
+                                            </ul>
+                                          </div>
+                                        </section>
+                                        
+                                        <section class="section">
+                                          <h2>Education</h2>
+                                          <div class="education">
+                                            <h3>Bachelor of Science in Computer Science</h3>
+                                            <p>XYZ University</p>
+                                            <p>Graduated: May 2016</p>
+                                          </div>
+                                        </section>
+                                        
+                                        <section class="section">
+                                          <h2>Skills</h2>
+                                          <div class="skills">
+                                            <ul>
+                                              <li>HTML</li>
+                                              <li>CSS</li>
+                                              <li>JavaScript</li>
+                                              <li>React.js</li>
+                                              <li>Angular</li>
+                                              <li>Responsive Web Design</li>
+                                              <li>Git</li>
+                                              <li>RESTful APIs</li>
+                                              <li>Problem Solving</li>
+                                            </ul>
+                                          </div>
+                                        </section>
+                                      </div>
+                                    </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
                 </div>      
             </div>
         </div>
@@ -230,6 +640,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     <!-- Template Javascript -->
     <script src="/static/new_landing/js/main.js"></script>
+    <script src="/static/new_landing/js/custome.js"></script>
     </body>
 
 </html>
