@@ -51,6 +51,48 @@
         .testimonial-item:hover {
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
         }
+        .resume {
+          width: 560px; /* Decreased width */
+          max-width: 100%;
+          margin: 0 auto;
+          padding: 20px;
+          background-color: #fff;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+       .headingg{
+        font-size: 20px;
+       }
+        .section {
+          margin-bottom: 20px;
+        }
+        p{
+            font-size: 12px;
+        }
+        .section h2 {
+          border-bottom: 2px solid #333;
+          padding-bottom: 5px;
+        }
+        .experience, .education {
+          margin-top: 10px;
+        }
+        .experience p, .education p {
+          margin: 5px 0;
+        }
+        .skills ul {
+          list-style-type: none;
+          padding: 0;
+        }
+        .skills li {
+          display: inline-block;
+          margin-right: 10px;
+          background-color: #f2f2f2;
+          padding: 5px 10px;
+          border-radius: 5px;
+        }
+        .sub-heading{
+          font-size: 15px;
+        }
         </style>
     </head>
 
@@ -141,10 +183,10 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="col-md-5">
                             
                             <div class="left-side">
-                              <h2>User Details Form</h2>
+                            
                               <button type="button" class="custom-button" onclick="toggleContainer()">
                                 <i class="fas fa-chevron-down"></i>
-                                <h3>Personal Information</h3>
+                                <h3 class="mb-0 display-3 resume-form">Personal Information</h3>
                               </button>
                         
                               <div id="profile" class="custom-container custom-container1 hidden">
@@ -198,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function() {
                               <br>
                               <button type="button" class="custom-button" onclick="toggleSummary()">
                                 <i class="fas fa-chevron-down"></i>
-                                <h3>Profile Summary</h3>
+                                <h3 class="mb-0 display-3 resume-form">Profile Summary</h3>
                               </button>
                               <div id="summary" class="custom-container hidden">
                                 <div class="experience-content">
@@ -214,7 +256,7 @@ document.addEventListener("DOMContentLoaded", function() {
                               <br>
                               <button type="button" class="custom-button" onclick="toggleSkills()">
                                 <i class="fas fa-chevron-down"></i>
-                                <h3>Skills</h3>
+                                <h3 class="mb-0 display-3 resume-form">Skills</h3>
                               </button>
                         
                               <div id="skills" class="custom-container custom-container1 hidden">
@@ -240,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function() {
                               <br>
                               <button type="button" class="custom-button" onclick="workexperience()">
                                 <i class="fas fa-chevron-down"></i>
-                                <h3>Work Experience</h3>
+                                <h3 class="mb-0 display-3 resume-form">Work Experience</h3>
                               </button>
                               <div id="container1" class="custom-container hidden">
                                 <div class="experience-section">
@@ -294,7 +336,7 @@ document.addEventListener("DOMContentLoaded", function() {
                               <br>
                               <button type="button" class="custom-button" onclick="education()">
                                 <i class="fas fa-chevron-down"></i>
-                                <h3>Education</h3>
+                                <h3 class="mb-0 display-3 resume-form">Education</h3>
                               </button>
                         
                               <div id="container2" class="custom-container hidden">
@@ -336,7 +378,7 @@ document.addEventListener("DOMContentLoaded", function() {
                               <br>
                               <button type="button" class="custom-button" onclick="projects()">
                                 <i class="fas fa-chevron-down"></i>
-                                <h3>Projects</h3>
+                                <h3 class="mb-0 display-3 resume-form">Projects</h3>
                               </button>
                         
                               <div id="container3" class="custom-container hidden">
@@ -376,7 +418,7 @@ document.addEventListener("DOMContentLoaded", function() {
                               </div><br>
                               <button type="button" class="custom-button" onclick="toggleAchievements()">
                                 <i class="fas fa-chevron-down"></i>
-                                <h3>Achievements</h3>
+                                <h3 class="mb-0 display-3 resume-form">Achievements</h3>
                               </button>
                               <script>
                                 function updateAchievements() {
@@ -426,7 +468,7 @@ document.addEventListener("DOMContentLoaded", function() {
                               <br>
                               <button type="button" class="custom-button" onclick="toggleLanguages()">
                                 <i class="fas fa-chevron-down"></i>
-                                <h3>Languages Known</h3>
+                                <h3 class="mb-0 display-3 resume-form">Languages Known</h3>
                               </button>
                               <script>
                                 function updateLanguages() {

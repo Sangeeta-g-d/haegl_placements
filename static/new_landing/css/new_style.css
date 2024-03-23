@@ -11,20 +11,24 @@
     border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    }
+}
 
-    .custom-container {
-        width: 360px; /* Adjust the width as needed */
-        /* Adjust the height as needed */
-        background: linear-gradient(#ffffff, #9dd6f3);
-        color: #171616;
-        padding: 20px;
-        border-radius: 20px;
-        margin-top: 10px; /* Adjust the margin as needed */
-        transition: height 0.3s ease;
-         /* Add transition for smooth height change */
-    }
+.custom-button h3 {
+    margin: 0; /* Remove default margin */
+    text-align: left; /* Align text to the left */
+    flex: 1; /* Allow the text to take up remaining space */
+}
 
+
+.custom-container {
+    width: 400px; /* Adjust the width as needed */
+    background: linear-gradient(#ffffff, #9dd6f3);
+    color: #171616;
+    padding: 20px;
+    border-radius: 20px;
+    margin-top: 10px; /* Adjust the margin as needed */
+    transition: height 0.3s ease;
+}
     .custom-container2 {
         width: 320px; /* Adjust the width as needed */
         /* Adjust the height as needed */
@@ -63,6 +67,7 @@ background-color: #9b9d9e;
 
 .custom-button i {
     margin-right: 10px;
+    font-size: 10px;
 }
 
 
@@ -93,6 +98,18 @@ label {
     opacity: 0.5; /* Adjust the transparency as needed */
     color: #070606; /* Text color when not focused */
 }
+
+.resume-form{
+    font-size: 20px;
+    font-family: "League Spartan", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    display: flex;
+    color: #747d88;;
+    justify-content: center;
+    
+  }
 
 .placeholder-label {
 position: absolute;
@@ -233,5 +250,25 @@ label {
         }
         to {
             top: 0;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        .custom-container {
+            width: 100%; /* Set width to full width on smaller screens */
+            margin-bottom: 10px; /* Adjust spacing between sections */
+        }
+        .columns-wrapper {
+            flex-direction: column; /* Stack columns vertically */
+        }
+        .column {
+            width: 100%; /* Make columns full-width */
+            margin-right: 0; /* Remove margin */
+        }
+        .custom-button {
+            width: 100%; /* Make buttons full-width */
+        }
+        .form-control {
+            width: 100%; /* Make form inputs full-width */
         }
     }
