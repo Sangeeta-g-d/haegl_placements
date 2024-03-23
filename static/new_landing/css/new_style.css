@@ -186,7 +186,7 @@ label {
     .custom-container1 .columns-wrapper {
         width: 100%; /* Ensure columns take full width */
     }
-    .custom-container1 p {
+        .custom-container1 p {
         margin: 0;
         text-align: center;
     }
@@ -257,6 +257,7 @@ label {
             top: 0;
         }
     }
+
     .container-shadow {
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add shadow effect */
         padding: 20px; /* Add padding for spacing */
@@ -309,6 +310,23 @@ label {
         background-color: #888; /* Thumb color */
         border-radius: 4px; /* Rounded corners */
       }
-      
-      /* Add any other styles you need */
-      
+
+    @media only screen and (max-width: 600px) {
+        .custom-container {
+            width: 100%; /* Set width to full width on smaller screens */
+            margin-bottom: 10px; /* Adjust spacing between sections */
+        }
+        .columns-wrapper {
+            flex-direction: column; /* Stack columns vertically */
+        }
+        .column {
+            width: 100%; /* Make columns full-width */
+            margin-right: 0; /* Remove margin */
+        }
+        .custom-button {
+            width: 100%; /* Make buttons full-width */
+        }
+        .form-control {
+            width: 100%; /* Make form inputs full-width */
+        }
+    }
