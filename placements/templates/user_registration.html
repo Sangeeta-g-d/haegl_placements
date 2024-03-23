@@ -22,6 +22,7 @@
     }
     h1{
       font-family: "League Spartan", sans-serif !important;
+      font-size: 28px !important;
     }
     .logo{
       width: 280px !important;
@@ -87,7 +88,7 @@ body {
 
 .base { 
     box-shadow: 0 0 12px 0 rgba(132,132,132,0.3); 
-    width: 980px; 
+    width: auto; 
     min-height: 610px; 
     margin: 50px auto; 
     display: flex; 
@@ -375,7 +376,7 @@ h1 {
     justify-content: center; 
     cursor: pointer; 
     padding: 10px; 
-    margin: 0 97px 0 0; 
+   
     float: right;
 } 
 
@@ -808,13 +809,79 @@ h1 {
 
 
 
-/* responsive */
-@media (max-width: 767px) {
-        /* Styles for screens with a maximum width of 767px (typically mobile screens) */
-        .base.relative.snipcss-eGNLy .d-flex.flex-row.justify-content-between.justify-content-center.h-100.mt-2 > .d-flex.flex-column.m-auto {
-            display: none; /* Hide the left content */
-        }
+/* Common styles for all screen sizes */
+* {
+    box-sizing: border-box;
+}
+
+
+
+.container-scroller {
+    width: auto;
+    padding: 20px;
+}
+
+
+
+.reg_right {
+    flex-basis: 45%; /* Adjust the width of the registration form section */
+    padding-left: 20px; /* Add padding to separate form from image */
+}
+
+/* Media queries for mobile responsiveness */
+/* Media queries for mobile responsiveness */
+/* Media query for mobile responsiveness */
+@media screen and (max-width: 768px) {
+            #hidediv {
+                display: none !important;
+            }
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .reg_right {
+                width: 100%;
+                margin-left: 30px;
+                margin-top: 20px; /* Adjust as needed */
+            }
+            .flex-column.reg_right {
+        border-left: none; /* Remove border on mobile */
+        flex-basis: 100%; /* Take up full width on mobile */
+        padding-left: 0; /* Remove left padding on mobile */
+        padding-right: 20px; /* Add right padding on mobile */
     }
+
+    .reg_right h2 {
+        font-size: 20px; /* Decrease font size for heading */
+        margin-bottom: 8px; /* Adjust margin for heading */
+        font-weight: bold;
+    }
+
+    /* Adjustments for form inputs */
+    .form-group-parent {
+        margin-bottom: 15px; /* Increase margin between form groups */
+    }
+
+    .form-group-parent .form-group {
+        width: 100%; /* Make form inputs full width */
+    }
+    #registerButton {
+        margin-left: 10px; /* Adjust as needed */
+    }
+        }
+
+/* Center the text inside the button */
+#registerButton {
+    text-align: center;
+    border-radius: 30px;
+  
+  
+}
+
+
 
   </style>
 </head>
@@ -825,17 +892,17 @@ h1 {
                        
 
   <div class="base relative snipcss-eGNLy">
-    <div class="d-flex flex-row justify-content-between justify-content-center  h-100 mt-2">
-      <div class="d-flex flex-column m-auto">
+   <div class="d-flex flex-row justify-content-between justify-content-center  h-100 mt-0">
+      <div  id="hidediv" class="d-flex flex-column m-auto">
         <div class="text-center">
-            <img src="/static/new_landing/img/HAEGL_colour.png" width="200px" height="110px" ">
+            <img src="/static/new_landing/img/HAEGL_colour.png" width="200px" height="90px" >
         </div>
         <div class="d-flex flex-column reg_text w-100">
-            <h1 >
+            <h1  >
                 Your Next Career Move Starts Here.
             </h1>
-            <div class="small_text text-start" style="max-width: 400px; line-height: 1.5;">
-                Whether you're a talented individual looking to kickstart your career or a business in search of top-notch talent, HAEGL is here to help. Join us in shaping the future of talent acquisition and career advancement. Reach out to us today and let's embark on this journey together!
+            <div class="small_text text-start" style="max-width: 400px; line-height: 1.5; font-size: 22px!important;">
+                Join us in shaping the future of talent acquisition and career advancement. Reach out to us today and let's embark on this journey together!
             </div>
         </div>
     </div>
@@ -844,10 +911,10 @@ h1 {
         <span class="reg_text--or">
         
         </span>
-        <h2>
+        <h2 style="font-size: 24px;">
           Let’s get started.
         </h2>
-        <p class="sub-heading">
+        <p class="sub-heading" >
           Begin Your Career Journey in Minutes: Register Now!
         </p>
         <form method="post">
@@ -891,26 +958,12 @@ h1 {
           
         
         
-          <button type="submit" class="btn mb-3 align-self-end w-80 right-90" id="registerButton" fdprocessedid="tjvjk">
-          Register
-          </button>
+          <button type="submit" class="btn mb-3 align-self-end w-80 right-90" id="registerButton" fdprocessedid="tjvjk" >
+            Register
+        </button>
          
         </form>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        {% if registered %}
-        <!-- Include SweetAlert library -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-        <script>
-            // Trigger SweetAlert after successful registration
-            Swal.fire({
-                icon: 'success',
-                title: 'Registration Successful!',
-                text: 'Thank you for registering.',
-                showConfirmButton: false,
-                timer: 2000
-            });
-        </script>
-    {% endif %}
+      
         
 
       </div>
