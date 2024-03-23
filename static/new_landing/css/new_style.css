@@ -180,6 +180,11 @@ label {
         justify-content: space-between;
         transition: height 0.3s ease;
         overflow: hidden;
+        align-items: center; /* Center content horizontally */
+    }
+
+    .custom-container1 .columns-wrapper {
+        width: 100%; /* Ensure columns take full width */
     }
     .custom-container1 p {
         margin: 0;
