@@ -853,6 +853,9 @@ def user_registration(request):
 def select_theme(request):
     return render(request,'select_theme.html')
 
+def temp1(request):
+    return render(request,'temp1.html')
+
 def user_login(request):
     try:
          # Check if the user is already authenticated (logged in).
