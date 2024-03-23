@@ -115,7 +115,7 @@ align-items: center;
 justify-content: space-between;
 width: 400px;
 height: 50px;
-background: linear-gradient(#e1ecf2, #d5ebf7);
+background: linear-gradient(#61bef0, #f65326) !important;
 color: #171616;
 padding: 10px 20px;
 border: none;
