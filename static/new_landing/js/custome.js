@@ -398,16 +398,16 @@ function generateExperienceDisplayDiv(experienceCount) {
   displayDiv.innerHTML = 
     
     '<div id="exp' + experienceCount + '" style="width: 254px;">' +     
-    '<div id="Display_Designation' + experienceCount + '" style="color: #222222; font-size: 14px; font-family: Poppins; font-weight: 700; line-height: 20px; word-wrap: break-word;">' +
+    '<p class="job-title" id="Display_Designation' + experienceCount + '" style="font-size: 14px;">' +
     'Product Designer' +
-    '</div>' +
-    '<div style="color: #797979; font-size: 11px; font-family: Prata; font-weight: 400; line-height: 16px; word-wrap: break-word;">' +
-    '<span id="Display_Cname' + experienceCount + '"> Fintef</span>, <span id="Display_From' + experienceCount + '"> 2019 </span >-<span id="Display_To' + experienceCount + '"> Present</span>' +
-    '</div>' +
-    '<div class="content">' +
-    '<div id="Display_Description' + experienceCount + '" style="color: #222222; font-size: 10px; font-family: Poppins; font-weight: 400; line-height: 14px; word-wrap: break-word; overflow: hidden;">' +
+    '</p>' +
+    '<p style="font-size: 14px;">' +
+    '<span id="Display_Cname' + experienceCount + '"> Fintef</span>'+ '</p> '+ '<p style="font-size: 14px; line-height: 1px;">'+'<span id="Display_From' + experienceCount + '"> 2019 </span >-<span id="Display_To' + experienceCount + '"> Present</span>' +
+    '</p' +
+    '<div >' +
+    '<p id="Display_Description' + experienceCount + '"  style="font-size: 14px;">' +
     'Designing end-to-end experience for financial products on mobile & web platforms. Working closely with managers, marketing specialists, and developers..' +
-    '</div>' +
+    '</p>' +
     '</div>' +
     '</div>';
 
