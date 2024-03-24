@@ -4,7 +4,7 @@
     justify-content: space-between;
     width: 400px;
     height: 50px;
-    background: linear-gradient(#e1ecf2, #d5ebf7);
+    background: linear-gradient(#eaecec, #f3fbff);
     color: #171616;
     padding: 10px 20px;
     border: none;
@@ -19,10 +19,29 @@
     flex: 1; /* Allow the text to take up remaining space */
 }
 
-
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #363434;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    }
+    input[type="submit"] {
+    background-color: #343438;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+    
+    input[type="submit"]:hover {
+    background-color: #010e02;
+    }
 .custom-container {
     width: 400px; /* Adjust the width as needed */
-    background: linear-gradient(#ffffff, #9dd6f3);
+    background: linear-gradient(#ffffff, #1E88E5);
     color: #171616;
     padding: 20px;
     border-radius: 20px;
