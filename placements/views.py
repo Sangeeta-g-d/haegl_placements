@@ -2055,3 +2055,6 @@ def new_all_jobs(request):
 
 def new_user_register(request):
     return render(request,'new_user_register.html')
+
+def temp4(request):
+    return render(request,'temp4.html')

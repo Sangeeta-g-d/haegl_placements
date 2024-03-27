@@ -33,7 +33,7 @@ function addNewEducation() {
     '<div class="form-group">' +
     '<input type="text" id="' + degreeInputId + '" class="form-control" placeholder="Degree" name="' + degreeInputId + '" style="height: 30px;" oninput="updateDisplay(' + educationCount + ')">' +
     '</div>' +
-    '<div class="form-group">' +
+    '<div class="form-group">' + 
     '<input type="text" id="' + cityInputId + '" class="form-control" placeholder="City" name="' + cityInputId + '" style="height: 30px;" oninput="updateDisplay(' + educationCount + ')">' +
     '</div>' +
     '<div class="form-group">' +
@@ -56,28 +56,32 @@ function addNewEducation() {
 
   saveEducation();
 }
-
 function generateDisplayDiv(educationCount) {
   var displayDiv = document.createElement('div');
   displayDiv.classList.add('education');
   displayDiv.style.marginTop = "30px";
 
+  var institution = 'Copenhagen School of Design and Technology';
+  var city = 'City'; // Default city value
+  // Here you can add logic to get the actual city value if needed
+
   displayDiv.innerHTML = 
-    '<div style="width: 258px; ">' +
-    '<div style="color: #222222; font-size: 12px; font-family: Poppins; font-weight: 700; line-height: 20px; word-wrap: break-word;">' +
-    '<span id="displayDegree' + educationCount + '">Bachelor of Engineering</span><br>' +
-    '<span id="displayDegreeFrom' + educationCount + '"> 2015  </span> | <span id="displayDegreeTo' + educationCount + '"> 2017 </span>' +
-    '</div>' +
-    '<div id="displayCollege' + educationCount + '" style="color: #797979; font-size: 11px; font-family: Prata; font-weight: 400; line-height: 16px; word-wrap: break-word;">' +
-    'Copenhagen School of Design and Technology,' +
-    '</div>' +
-    '<div id="displayCity' + educationCount + '" style="color: #797979; font-size: 11px; font-family: Prata; font-weight: 400; line-height: 16px; word-wrap: break-word;">' +
-    'City' +
-    '</div>' +
+    '<div>' +
+    '<p style="font-size: 14px;line-height: 8px;">' +
+    '<span id="displayDegree' + educationCount + '"><b>Bachelor of Engineering </b></span><br>' +
+    '</p>' +
+    '<p style="font-size: 14px;line-height: 4px;">' +
+    '<span id="displayDegreeFrom' + educationCount + '"> <b>2015 </b> </span> | <span id="displayDegreeTo' + educationCount + '"> <b>2017</b> </span>' +
+    '</p>' +
+    '<p id="displayCollege' + educationCount + '">' +
+    institution + ' - <span id="displayCity' + educationCount + '">' + city + '</span>' +
+    '</p>' +
     '</div>';
 
   return displayDiv;
 }
+
+
 function deleteEducation(educationCount) {
   var container = document.getElementById('container2');
   var educationSection = container.querySelector('.education-section:nth-child(' + educationCount + ')');
@@ -130,31 +134,46 @@ function loadEducation() {
 }
 
 function updateDisplay(educationCount) {
-  console.log(educationCount)
-  var institutionInputValue = document.getElementById('institution' + educationCount).value;
-  document.getElementById('displayCollege' + educationCount).innerText = institutionInputValue;
-  
-    var degreeInputValue = document.getElementById('degreeInput' + educationCount).value;
-    document.getElementById('displayDegree' + educationCount).innerText = degreeInputValue;
-  
-  
-    var cityInputValue = document.getElementById('city' + educationCount).value;
-    document.getElementById('displayCity' + educationCount).innerText = cityInputValue;
-  
-  
-    var fromInputValue = document.getElementById('degreeFromInput' + educationCount).value;
-    console.log(fromInputValue)
-    document.getElementById('displayDegreeFrom' + educationCount).innerText = fromInputValue;
-    
-    var toInputValue = document.getElementById('to' + educationCount).value;
-    document.getElementById('displayDegreeTo' + educationCount).innerText = toInputValue;
+  console.log(educationCount);
+  var institutionInput = document.getElementById('institution' + educationCount);
+  var displayCollege = document.getElementById('displayCollege' + educationCount);
+  if (institutionInput && displayCollege) {
+    displayCollege.innerText = institutionInput.value;
+  }
 
-    localStorage.setItem("institution1", institutionInputValue);
-    localStorage.setItem("degreeInput1", degreeInputValue);
-    localStorage.setItem("city1", cityInputValue);
-    localStorage.setItem("from1", fromInputValue);
-    localStorage.setItem("to1", toInputValue);
+  var degreeInput = document.getElementById('degreeInput' + educationCount);
+  var displayDegree = document.getElementById('displayDegree' + educationCount);
+  if (degreeInput && displayDegree) {
+    displayDegree.innerText = degreeInput.value;
+  }
+
+  var cityInput = document.getElementById('city' + educationCount);
+  
+  var displayCity = document.getElementById('displayCity' + educationCount);
+  console.log(displayCity,"jjjjjjjjjjj")
+  if (cityInput && displayCity) {
+    displayCity.innerText = cityInput.value;
+  }
+
+  var fromInput = document.getElementById('degreeFromInput' + educationCount);
+  var displayDegreeFrom = document.getElementById('displayDegreeFrom' + educationCount);
+  if (fromInput && displayDegreeFrom) {
+    displayDegreeFrom.innerText = fromInput.value;
+  }
+
+  var toInput = document.getElementById('to' + educationCount);
+  var displayDegreeTo = document.getElementById('displayDegreeTo' + educationCount);
+  if (toInput && displayDegreeTo) {
+    displayDegreeTo.innerText = toInput.value;
+  }
+
+  localStorage.setItem("institution" + educationCount, institutionInput.value);
+  localStorage.setItem("degreeInput" + educationCount, degreeInput.value);
+  localStorage.setItem("city" + educationCount, cityInput.value);
+  localStorage.setItem("from" + educationCount, fromInput.value);
+  localStorage.setItem("to" + educationCount, toInput.value);
 }
+
 
 function toggleEducation(header) {
   var content = header.nextElementSibling;
@@ -179,7 +198,7 @@ function addNewProject() {
 
   var header = document.createElement('div');
   header.classList.add('project-header');
-  header.onclick = function () { toggleProjects(this) };
+  header.onclick = function () { toggleProject(this) };
   header.innerHTML = '<i class="fas fa-chevron-down"></i><p><b>Projects ' + projectCount + '</b></p>'+  '<i class="fas fa-trash-alt" onclick="deleteProject(' + projectCount + ')"></i>'; ;
 
   var content = document.createElement('div');
@@ -193,15 +212,15 @@ function addNewProject() {
     '</div>' +
     '<div class="form-group">' +
     '<label for="description' + projectCount + '">Tools used:</label>' +
-    '<textarea id="description' + projectCount + '" class="form-control" name="description' + projectCount + '" rows="3"></textarea>' +
+    '<textarea id="toolsUsed' + projectCount + '" oninput="updateProjectName2(' + projectCount + ')" class="form-control" name="description' + projectCount + '" rows="3"></textarea>' +
     '</div>' +
     '<div class="form-group">' +
     '<label for="description' + projectCount + '">Link:</label>' +
-    '<input type="text" id="jobtitle' + projectCount + '" class="form-control" placeholder="Link" name="jobtitle' + projectCount + '" style="height: 30px;">' +
+    '<input type="text" id="link' + projectCount + '" class="form-control" placeholder="Link" name="jobtitle' + projectCount + '" oninput="updateProjectName2(' + projectCount + ')" style="height: 30px;">' +
     '</div>' +
     '<div class="form-group">' +
     '<label for="description' + projectCount + '">Description:</label>' +
-    '<textarea id="description' + projectCount + '" class="form-control" name="description' + projectCount + '" rows="5"></textarea>' +
+    '<textarea id="description' + projectCount + '" oninput="updateProjectName2(' + projectCount + ')" class="form-control" name="description' + projectCount + '" rows="5"></textarea>' +
     '</div>' +
     '</form>';
 
@@ -220,7 +239,6 @@ function addNewProject() {
   saveProject(projectCount);
 }
 
-
 // Function to generate project display div
 function generateProjectDisplayDiv(projectCount, displayDivId, projectSectionId) {
   var displayDiv = document.createElement('div');
@@ -229,52 +247,38 @@ function generateProjectDisplayDiv(projectCount, displayDivId, projectSectionId)
   displayDiv.id = displayDivId;
 
   displayDiv.innerHTML =
-    '<div class="project-section" id="' + projectSectionId + '" style="width: 258px; ">' +
+    '<div id="' + projectSectionId + '>' +
    
-    '<div id="pjt' + projectCount + '" style="color: #222222; font-size: 12px; font-family: Poppins; font-weight: 700; line-height: 20px; word-wrap: break-word;">' +
-    '<span id="displayProjectName' + projectCount + '">Fees Management System</span>' +
-    '</div>' +
-    '<div id="displayProjectTools' + projectCount + '" style="color: #797979; font-size: 11px; font-family: Prata; font-weight: 400; line-height: 16px; word-wrap: break-word;">' +
-    'Tools used: Python, Django, MySQL, Excel' +
-    '</div>' +
-    '<div id="displayProjectLink' + projectCount + '" style="color: #797979; font-size: 11px; font-family: Prata; font-weight: 400; line-height: 16px; word-wrap: break-word;">' +
+    ' <p class="job-title" id="pjt' + projectCount + '" style="font-size: 14px; line-height:15px;">' +
+    '<span id="displayProjectName' + projectCount + '">'+'<b>Fees Management System</b></span>' +
+    '</p>' +
+    '<p id="displayProjectTools' + projectCount + '" style="font-size: 14px;line-height:15px;">' +'<strong>'+ 'Tools used :'+ '</strong>'+
+   'Python, Django, MySQL, Excel' +
+    '</p>' +
+    '<p id="displayProjectLink' + projectCount + '"style="font-size: 14px; line-height: 2px;">' +
     'https://www.kickresume.com/dashboard/resumes/' +
-    '</div>' +
-    '<div id="displayProjectDes' + projectCount + '" style="color: #222222; font-size: 10px; font-family: Poppins; font-weight: 400; line-height: 14px; word-wrap: break-word; overflow: hidden;">' +
-    'Developed a streamlined and efficient fees processing website. <br> User-friendly web-based Fees management System that automated entire fee processing workflow by integrating secure payment gateway. <br>Reduced administrative workload and processing time. <br> Students can crack their fees and pay accordingly through Razor pay gateway.' +
-    '</div>' +
+    '</p>' +
+    
+
+
+    '<p id="displayProjectDes' + projectCount + '"  style="font-size: 14px; line-height:20px">' +
+    'Designing end-to-end experience for financial products on mobile & web platforms. Working closely with managers, marketing specialists, and developers.' +
+    '</p>' +
+
     '</div>';
 
   return displayDiv;
 }
-function deleteProject(projectCount) {
-  var container = document.getElementById('container3');
-  var projectSection = container.querySelector('.project-section1:nth-child(' + projectCount + ')');
-  projectSection.remove();
 
-  // Remove corresponding display div
-  var displayDiv = document.getElementById('pjt' + projectCount);
-  if (displayDiv) {
-    displayDiv.parentNode.remove(); // Remove the parent element of the display div
-  }
-
-  // Renumber the remaining education sections
-  var projectHeaders = container.getElementsByClassName('project-header');
-  for (var i = 0; i < projectHeaders.length; i++) {
-    projectHeaders[i].getElementsByTagName('b')[0].innerText = 'Project ' + (i + 1);
-    projectHeaders[i].querySelector('.fa-trash-alt').setAttribute('onclick', 'deleteProject(' + (i + 1) + ')');
-  }
-
-  saveProject();
-}
 function saveProject() {
   var containerHtml = document.getElementById('container3').innerHTML;
   var projectContainerHtml = document.getElementById('projectsContainer').innerHTML;
   localStorage.setItem('containerHtml', containerHtml);
   localStorage.setItem('projectContainerHtml', projectContainerHtml);
-  var projectNameValue = document.getElementById("projectName" + projectCount).value;
-  localStorage.setItem("dynamicProjectNameLocal" + projectCount, projectNameValue);
+  
 }
+
+
 function loadProject() {
   var containerHtml = localStorage.getItem('containerHtml');
   var projectContainerHtml = localStorage.getItem('projectContainerHtml');
@@ -284,6 +288,58 @@ function loadProject() {
   }
  // localStorage.clear()
 }
+
+
+function updateProjectName2(projectCount) {
+  var projectNameInputValue = document.getElementById('projectName' + projectCount).value;
+  document.getElementById('displayProjectName' + projectCount).innerText = projectNameInputValue;
+
+  var toolsUsedInputValue = document.getElementById('toolsUsed' + projectCount).value;
+  document.getElementById('displayProjectTools' + projectCount).innerText = 'Tools used: ' + toolsUsedInputValue;
+
+  var linkInputValue = document.getElementById('link' + projectCount).value;
+  document.getElementById('displayProjectLink' + projectCount).innerText = linkInputValue;
+
+  var descriptionInputValue = document.getElementById('description' + projectCount).value;
+  document.getElementById('displayProjectDes' + projectCount).innerText = descriptionInputValue;
+
+  // Store the updated values in localStorage
+  localStorage.setItem('projectName' + projectCount, projectNameInputValue);
+  localStorage.setItem('toolsUsed' + projectCount, toolsUsedInputValue);
+  localStorage.setItem('link' + projectCount, linkInputValue);
+  localStorage.setItem('description' + projectCount, descriptionInputValue);
+}
+
+
+
+function deleteProject(projectCount) {
+  var container = document.getElementById('container3');
+  var projectSection = container.querySelector('.project-section1:nth-child(' + projectCount + ')');
+  projectSection.remove();
+
+  // Remove corresponding display div
+  var displayDiv = document.getElementById('displayDiv' + projectCount);
+  if (displayDiv) {
+    displayDiv.remove();
+  }
+
+  // Renumber the remaining project sections
+  var projectHeaders = container.getElementsByClassName('project-header');
+  for (var i = 0; i < projectHeaders.length; i++) {
+    projectHeaders[i].getElementsByTagName('b')[0].innerText = 'Project ' + (i + 1);
+    projectHeaders[i].querySelector('.fa-trash-alt').setAttribute('onclick', 'deleteProject(' + (i + 1) + ')');
+  }
+
+  // Update the IDs of the remaining projects
+  var projectSections = container.getElementsByClassName('project-section1');
+  for (var i = 0; i < projectSections.length; i++) {
+    projectSections[i].id = 'project' + (i + 1);
+  }
+
+  saveProject();
+}
+
+
 function loadProjectData(projectCount) {
   // Load project name from localStorage
   var projectNameInput = document.getElementById("projectName" + projectCount);
@@ -373,7 +429,10 @@ function addNewExperience() {
     '</div>' +
     '<div class="form-group">' +
     '<label for="' + toInputId + '" style="margin-right: 10px;">To:</label>' +
-    '<input type="month" id="' + toInputId + '" class="form-control" name="' + toInputId + '" style="height: 35px;" oninput="updateExperience2(' + experienceCount + ')">'+
+    '<input type="month" id="' + toInputId + '" class="form-control" name="' + toInputId + '" style="height: 35px;" onchange="updateExperience2(' + experienceCount + ')">' +
+    '<label for="present' + experienceCount + '" style="margin-left: 10px;">' +
+    '<input type="checkbox" id="present' + experienceCount + '" onchange="handlePresentCheckboxExperience(' + experienceCount + ')"> Present' +
+    '</label>' +
     '</div>' +
     '<div class="form-group">' +
     '<label for="' + descriptionInputId + '">Description:</label>' +
@@ -390,33 +449,35 @@ function addNewExperience() {
   document.getElementById('experienceContainer').appendChild(displayDiv);
   saveExperience();
 }
+
 function generateExperienceDisplayDiv(experienceCount) {
   var displayDiv = document.createElement('div');
   displayDiv.classList.add('work-experience');
   displayDiv.style.marginTop = "10px";
 
   displayDiv.innerHTML = 
-    
-    '<div id="exp' + experienceCount + '" style="width: 254px;">' +     
-    '<p class="job-title" id="Display_Designation' + experienceCount + '" style="font-size: 14px;">' +
-    'Product Designer' +
-    '</p>' +
-    '<p style="font-size: 14px;">' +
-    '<span id="Display_Cname' + experienceCount + '"> Fintef</span>'+ '</p> '+ '<p style="font-size: 14px; line-height: 1px;">'+'<span id="Display_From' + experienceCount + '"> 2019 </span >-<span id="Display_To' + experienceCount + '"> Present</span>' +
-    '</p' +
-    '<div >' +
-    '<p id="Display_Description' + experienceCount + '"  style="font-size: 14px;">' +
-    'Designing end-to-end experience for financial products on mobile & web platforms. Working closely with managers, marketing specialists, and developers..' +
-    '</p>' +
-    '</div>' +
-    '</div>';
+  '<div id="exp' + experienceCount + '">' +     
+  '<p class="job-title" id="Display_Designation' + experienceCount + '" style="font-size: 14px;">' +
+  'Product Designer' +
+  '</p>' +
+  '<p style="font-size: 14px;">' +
+  '<span id="Display_Cname' + experienceCount + '"> Fintef</span>'+ '</p> '+ '<p style="font-size: 14px; line-height: 1px;">'+'<span id="Display_From' + experienceCount + '"> 2019 </span >-<span id="Display_To' + experienceCount + '"> Present</span>' +
+  '</p>' +
+  
+  '<p id="Display_Description' + experienceCount + '"  style="font-size: 14px;">' +
+  'Designing end-to-end experience for financial products on mobile & web platforms. Working closely with managers, marketing specialists, and developers.' +
+  '</p>' +
+  
+  '</div>';
 
   return displayDiv;
 }
 function deleteExperience(experienceCount) {
   var container = document.getElementById('container1');
   var experienceSection = container.querySelector('.experience-section:nth-child(' + experienceCount + ')');
-  experienceSection.remove();
+  if (experienceSection) {
+    experienceSection.remove();
+  }
 
   // Remove corresponding display div
   var displayDiv = document.getElementById('exp' + experienceCount);
@@ -428,11 +489,15 @@ function deleteExperience(experienceCount) {
   var experienceHeaders = container.getElementsByClassName('experience-header');
   for (var i = 0; i < experienceHeaders.length; i++) {
     experienceHeaders[i].getElementsByTagName('b')[0].innerText = 'Experience ' + (i + 1);
-    experienceHeaders[i].querySelector('.fa-trash-alt').setAttribute('onclick', 'deleteExperience(' + (i + 1) + ')');
+    experienceHeaders[i].querySelector('.fa-trash-alt').onclick = function() {
+      deleteExperience(i + 1);
+    };
   }
 
   saveExperience();
 }
+
+
 function saveExperience() {
   var containerHtml = document.getElementById('container1').innerHTML;
   var experienceContainerHtml = document.getElementById('experienceContainer').innerHTML;
@@ -450,45 +515,48 @@ function loadExperience() {
  // localStorage.clear();
 }
 function updateExperience2(experienceCount) {
-  console.log(experienceCount)
+  console.log(experienceCount);
   var jobtitleValue2 = document.getElementById('jobtitle' + experienceCount).value;
-  document.getElementById('Display_Designation' + experienceCount).innerText = jobtitleValue2;
-  
-    var companyValue2 = document.getElementById('company' + experienceCount).value;
-    document.getElementById('Display_Cname' + experienceCount).innerText = companyValue2;
-  
-  
-    var desValue2 = document.getElementById('description' + experienceCount).value;
-    document.getElementById('Display_Description' + experienceCount).innerText = desValue2;
-  
-  
-    var fromValue2 = document.getElementById('from' + experienceCount).value;
-    console.log(fromInputValue)
-    document.getElementById('Display_From' + experienceCount).innerText = fromValue2;
-    
-    var toValue2 = document.getElementById('to' + experienceCount).value;
-    document.getElementById('Display_To' + experienceCount).innerText = toValue2;
+  var jobTitleDisplay = document.getElementById('Display_Designation' + experienceCount);
+  if (jobTitleDisplay) {
+    jobTitleDisplay.innerText = jobtitleValue2;
+  }
 
-   
+  var companyValue2 = document.getElementById('company' + experienceCount).value;
+  var companyNameDisplay = document.getElementById('Display_Cname' + experienceCount);
+  if (companyNameDisplay) {
+    companyNameDisplay.innerText = companyValue2;
+  }
+
+  var desValue2 = document.getElementById('description' + experienceCount).value;
+  var descriptionDisplay = document.getElementById('Display_Description' + experienceCount);
+  if (descriptionDisplay) {
+    descriptionDisplay.innerText = desValue2;
+  }
+
+  var fromValue2 = document.getElementById('from' + experienceCount).value;
+  var fromDisplay = document.getElementById('Display_From' + experienceCount);
+  if (fromDisplay) {
+    fromDisplay.innerText = fromValue2;
+  }
+
+  var toValue2 = document.getElementById('to' + experienceCount).value;
+  var toDisplay = document.getElementById('Display_To' + experienceCount);
+  if (toDisplay) {
+    toDisplay.innerText = toValue2;
+  }
 }
-function handlePresentCheckbox() {
-  console.log("hhhhhhooooooooooo")
-  var toInput = document.getElementById("to1");
-  var toContainer = document.getElementById("to1Container");
-  var fieldEDDT = document.getElementById("FIELD_EDDT");
+function handlePresentCheckboxExperience(experienceCount) {
+  console.log("gggggggggggggg")
+  var toInput = document.getElementById("to" + experienceCount);
+  var toContainer = document.getElementById("Display_To" + experienceCount);
 
-  if (document.getElementById("present1").checked) {
-      toInput.disabled = true; // Disable the input field
-      toContainer.innerHTML = "Present"; // Display "Present" text
-      if (fieldEDDT) {
-          fieldEDDT.textContent = "Present"; // Update FIELD_EDDT span with "Present" text if it exists
-      }
+  if (document.getElementById("present" + experienceCount).checked) {
+    toInput.disabled = true;
+    toContainer.innerText = "Present";
   } else {
-      toInput.disabled = false; // Enable the input field when present is unchecked
-      toContainer.innerHTML = '<input type="month" id="to1" class="form-control" name="to1" style="height: 35px;" onchange="updateExperience()">'; // Restore input field
-      if (fieldEDDT) {
-          fieldEDDT.textContent = ""; // Reset FIELD_EDDT span if it exists
-      }
+    toInput.disabled = false;
+    updateExperience2(experienceCount);
   }
 }
 function toggleExperience(header) {
@@ -653,8 +721,7 @@ function updateProjectDes(){
 }
 
 
- // Experience
- function updateExperience() {
+function updateExperience() {
   var inputValue = document.getElementById("jobtitle1").value;
   var divElement = document.getElementById("Display_Designation");
   divElement.innerText = inputValue;
@@ -663,33 +730,49 @@ function updateProjectDes(){
   var companyNameElement = document.getElementById("Display_Cname");
   companyNameElement.innerText = companyValue;
 
- 
-
   var FromValue = document.getElementById("from1").value;
   var FromElement = document.getElementById("Display_From");
   FromElement.innerText = FromValue;
 
   var ToValue = document.getElementById("to1").value;
-  console.log(ToValue)
   var ToElement = document.getElementById("Display_To");
-  console.log(ToElement)
-  ToElement.innerText = ToValue;
 
-  var toDate = document.getElementById('to1').value;
-  if (!toDate) {
-      document.getElementById('Display_To').textContent = '';
+  // Check if "Present" checkbox is checked
+  var presentCheckbox = document.getElementById("present1");
+  if (presentCheckbox.checked) {
+    ToElement.innerText = "Present";
   } else {
-      document.getElementById('Display_To').textContent = toDate;
+    if (ToValue) {
+      ToElement.innerText = ToValue;
+    } else {
+      ToElement.innerText = "";
+    }
   }
+
   // Save the current value to localStorage
-  localStorage.setItem('toValue', toDate);
-  
+  localStorage.setItem("toValue", ToValue);
+
   // Store all values in local storage
   localStorage.setItem("jobTitle", inputValue);
   localStorage.setItem("companyName", companyValue);
-  
   localStorage.setItem("from1", FromValue);
 }
+
+function handlePresentCheckbox() {
+  console.log("kkkkkkkkkkkkkkk")
+  var presentCheckbox = document.getElementById("present1");
+  var toDateInput = document.getElementById("to1");
+
+  if (presentCheckbox.checked) {
+    toDateInput.disabled = true;
+  } else {
+    toDateInput.disabled = false;
+  }
+
+  // Update displayed date
+  updateExperience();
+}
+
 
 function updateExperienceDescription() {
   var descriptionValue = document.getElementById("description1").value;
@@ -740,9 +823,9 @@ function updateSkills() {
   var skillsArray = skill1.split(',').map(skill => skill.trim());
   
   // Generate the HTML for the skills list
-  var skillsHTML = '<ul>';
+  var skillsHTML = '<ul >';
   skillsArray.forEach(skill => {
-    skillsHTML += '<li>' + skill + '</li>';
+    skillsHTML += '<li style"font-size:16px; text-align : left;">' + skill + '</li>';
   });
   skillsHTML += '</ul>';
   
