@@ -28,6 +28,24 @@
         <!-- Template Stylesheet -->
         <link href="/static/new_landing/css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="/static/new_landing/css/new_style.css">
+
+
+        <style>
+            .job-details {
+    display: flex;
+    align-items: center;
+  
+}
+
+.job-details p {
+    margin-right: 10px;
+}
+
+.job-details i {
+    margin-right: 5px;
+}
+
+        </style>
     </head>
 
     <body>
@@ -168,42 +186,6 @@ document.addEventListener("DOMContentLoaded", function() {
                             </div>
                         </div>
                         <div class="row g-4">
-                          <div class="col-lg-9">
-                            <div class="row g-4 justify-content-center">
-                                <div class="col-md-6 col-lg-6 col-xl-4 ">
-                                    <div class="rounded position-relative fruite-item ">
-                                      <div class="border border-secondary rounded-top rounded-bottom">
-                                        <div class="fruite-img">
-                                            <img src="/static/new_landing/img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute " style="top: 10px; left: 10px;">Fruits</div>
-                                        <div class="p-4 ">
-                                            <h4>Grapes</h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                               
-                              
-                                <div class="col-12">
-                                    <div class="pagination d-flex justify-content-center mt-5">
-                                        <a href="#" class="rounded">&laquo;</a>
-                                        <a href="#" class="active rounded">1</a>
-                                        <a href="#" class="rounded">2</a>
-                                        <a href="#" class="rounded">3</a>
-                                        <a href="#" class="rounded">4</a>
-                                        <a href="#" class="rounded">5</a>
-                                        <a href="#" class="rounded">6</a>
-                                        <a href="#" class="rounded">&raquo;</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                             <div class="col-lg-3">
                                 <div class="row g-4">
                                     <div class="col-lg-12">
@@ -348,14 +330,86 @@ document.addEventListener("DOMContentLoaded", function() {
                                     </div>
                                 </div>
                             </div>
-                         
+                            <div class="col-lg-9">
+                                <div class="row g-4 justify-content-center">
+                                    {% for x in combined_data %}
+                                    <div class="col-md-6 col-lg-6 col-xl-4">
+                                        <div class="rounded position-relative fruite-item">
+                                            <div class="border border-secondary rounded-top rounded-bottom">
+                                                {% if x.company_id.first_name %}
+                                                <div class="fruite-img">
+                                                    <img src="/{{ x.company_id.profile }}" class="img-fluid w-100 rounded-top" alt="">
+                                                </div>
+                                                {% else %}
+                                                <div class="fruite-img">
+                                                    <img src="/{{ x.company_id.profile }}" class="img-fluid w-100 rounded-top" alt="">
+                                                </div>
+                                                {% endif %}
+                                
+                                                <div class="p-4">
+                                                    <h6 id="designationPlaceholder{{ forloop.counter }}"><b>{{x.designation}}</b></h6>
+                                                    {% if x.company_id.first_name %}
+                                                    <p id="firstNamePlaceholder{{ forloop.counter }}">{{x.company_id.first_name}}</p>
+                                                    {% else %}
+                                                    <p id="firstNamePlaceholder{{ forloop.counter }}">{{x.company_id.company_name}}</p>
+                                                    {% endif %}
+                                                    <div class="job-details" >
+                                                        <p><i class="fas fa-briefcase"></i>{{ x.job_type }}</p>
+                                                        <p><i class="fas fa-map-marker-alt"></i>{{ x.location }}</p>
+                                                    </div>
+                                                    <p><i class="fas fa-rupee-sign"></i>&nbsp;{{ x.salary }}</p>
+                                                    <div class="d-flex justify-content-between flex-lg-wrap">
+                                                        
+                                                        <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"> Apply Now</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                
+                                <script>
+                                    // Function to truncate text
+                                    function truncateText(elementId, maxLength) {
+                                        var element = document.getElementById(elementId);
+                                        if (element) {
+                                            var text = element.textContent.trim();
+                                            if (text.length > maxLength) {
+                                                var truncatedText = text.substring(0, maxLength) + "...";
+                                                element.textContent = truncatedText;
+                                            }
+                                        }
+                                    }
+                                
+                                    // Loop through each item and truncate the text
+                                    {% for x in combined_data %}
+                                        truncateText('designationPlaceholder{{ forloop.counter }}', 25);
+                                        truncateText('firstNamePlaceholder{{ forloop.counter }}', 25);
+                                    {% endfor %}
+                                </script>
+                                
+                                  
+                                    <div class="col-12">
+                                        <div class="pagination d-flex justify-content-center mt-5">
+                                            <a href="#" class="rounded">&laquo;</a>
+                                            <a href="#" class="active rounded">1</a>
+                                            <a href="#" class="rounded">2</a>
+                                            <a href="#" class="rounded">3</a>
+                                            <a href="#" class="rounded">4</a>
+                                            <a href="#" class="rounded">5</a>
+                                            <a href="#" class="rounded">6</a>
+                                            <a href="#" class="rounded">&raquo;</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Fruits Shop End-->
-
+       
 
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
