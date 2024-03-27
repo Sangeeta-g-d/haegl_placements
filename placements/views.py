@@ -1188,8 +1188,10 @@ def all_jobs(request):
 
 
 
-    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
-    all_unique_departments = list(set(chain( unique_departments_job)))
+    unique_departments = JobDetails.objects.values('department').annotate(count=Count('department')).order_by('department')
+
+    for department in unique_departments:
+        print(f"Department: {department['department']} - Count: {department['count']}")
 
     open_status_count_job = (
         JobDetails.objects.filter(status='open',J_type='job')
@@ -1204,9 +1206,7 @@ def all_jobs(request):
 
 
 
-    department_open_counts = [
-        (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
-    ]
+    
 
     job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
 
@@ -1221,7 +1221,7 @@ def all_jobs(request):
 
 
     context = {'data':data,'combined_data':combined_data,
-    'department_open_counts':department_open_counts,'combined_counts':combined_counts}
+    'combined_counts':combined_counts,'unique_departments':unique_departments}
     return render(request,'all_jobs.html',context)
 
 @login_required
