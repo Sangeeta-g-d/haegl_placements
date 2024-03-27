@@ -195,21 +195,21 @@ document.addEventListener("DOMContentLoaded", function() {
                             <div class="col-5"></div>
                             <div class="col-xl-3">
                                 <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-                                    <label for="fruits">Default Sorting:</label>
+                                    <label for="fruits">Job Type:</label>
                                     <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
-                                        <option value="volvo">Nothing</option>
-                                        <option value="saab">Popularity</option>
-                                        <option value="opel">Organic</option>
-                                        <option value="audi">Fantastic</option>
+                                        <option value="volvo">job type</option>
+                                        <option value="saab">Full Time</option>
+                                        <option value="opel">Part Time</option>
+                                        
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="row g-4">
-                            <div class="col-lg-9">
-                                <div class="row g-4 justify-content-center">
+                            <div class="col-lg-9" style="padding-right: 50px;">
+                                <div class="row g-4 justify-content-center" id="jobListings">
                                     {% for x in combined_data %}
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
+                                    <div class="col-md-6 col-lg-6 col-xl-4 job-card" data-department="{{ x.department }}" data-work-mode="{{ x.work_mode }}" data-location="{{ x.location }}">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="border border-secondary rounded-top rounded-bottom">
                                                 {% if x.company_id.first_name %}
@@ -221,50 +221,49 @@ document.addEventListener("DOMContentLoaded", function() {
                                                     <img src="/{{ x.company_id.profile }}" class="img-fluid w-100 rounded-top" alt="">
                                                 </div>
                                                 {% endif %}
-                                
+                            
                                                 <div class="p-4">
-                                                    <h6 id="designationPlaceholder{{ forloop.counter }}"><b>{{x.designation}}</b></h6>
+                                                    <h6 id="designationPlaceholder{{ forloop.counter }}">{{x.designation}}</h6>
                                                     {% if x.company_id.first_name %}
                                                     <p id="firstNamePlaceholder{{ forloop.counter }}">{{x.company_id.first_name}}</p>
                                                     {% else %}
                                                     <p id="firstNamePlaceholder{{ forloop.counter }}">{{x.company_id.company_name}}</p>
                                                     {% endif %}
-                                                    <div class="job-details" >
+                                                    <div class="job-details">
                                                         <p><i class="fas fa-briefcase"></i>{{ x.job_type }}</p>
                                                         <p><i class="fas fa-map-marker-alt"></i>{{ x.location }}</p>
                                                     </div>
                                                     <p><i class="fas fa-rupee-sign"></i>&nbsp;{{ x.salary }}</p>
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
-                                                        
+                            
                                                         <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"> Apply Now</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                {% endfor %}
-                                
-                                <script>
-                                    // Function to truncate text
-                                    function truncateText(elementId, maxLength) {
-                                        var element = document.getElementById(elementId);
-                                        if (element) {
-                                            var text = element.textContent.trim();
-                                            if (text.length > maxLength) {
-                                                var truncatedText = text.substring(0, maxLength) + "...";
-                                                element.textContent = truncatedText;
+                                    {% endfor %}
+                            
+                                    <script>
+                                        // Function to truncate text
+                                        function truncateText(elementId, maxLength) {
+                                            var element = document.getElementById(elementId);
+                                            if (element) {
+                                                var text = element.textContent.trim();
+                                                if (text.length > maxLength) {
+                                                    var truncatedText = text.substring(0, maxLength) + "...";
+                                                    element.textContent = truncatedText;
+                                                }
                                             }
                                         }
-                                    }
-                                
-                                    // Loop through each item and truncate the text
-                                    {% for x in combined_data %}
-                                        truncateText('designationPlaceholder{{ forloop.counter }}', 25);
-                                        truncateText('firstNamePlaceholder{{ forloop.counter }}', 25);
-                                    {% endfor %}
-                                </script>
-                                
-                                  
+                            
+                                        // Loop through each item and truncate the text
+                                        {% for x in combined_data %}
+                                        truncateText('designationPlaceholder{{ forloop.counter }}', 18);
+                                        truncateText('firstNamePlaceholder{{ forloop.counter }}', 18);
+                                        {% endfor %}
+                                    </script>
+                            
                                     <div class="col-12">
                                         <div class="pagination d-flex justify-content-center mt-5">
                                             <a href="#" class="rounded">&laquo;</a>
@@ -279,142 +278,237 @@ document.addEventListener("DOMContentLoaded", function() {
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-lg-3">
-                                <div class="row g-4">
-                                    <div class="col-lg-12 filter" >
-                                        <div class="mb-3">
-                                            <h4>Departements</h4>
-                                            <ul class="list-unstyled fruite-categorie">
-                                              {% for x in unique_departments %}
-                                                <li>
+                              <div class="row g-4">
+                                <div class="col-lg-12 filter">
+                                    <div class="mb-3">
+                                        <h4>Departments</h4>
+                                        <ul class="list-unstyled fruite-categorie">
+                                            {% for x in unique_departments %}
+                                            <li>
+                                                <a href="#" class="department-link" data-department="{{ x.department }}">
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-arrow-right me-2"></i>
-                                                          {{ x.department }}</a>
+                                                        {{ x.department }}
                                                         <span>({{ x.count }})</span>
                                                     </div>
-                                                </li>
-                                                {% endfor %}
-                                               
-                                            </ul>
-                                        </div>
+                                                </a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
                                     </div>
-
-                                 
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <h4 class="mb-2">Price</h4>
-                                            <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
-                                            <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
-                                        </div>
-                                    </div>
-                                  <div class="col-lg-12">
-    <div class="mb-3 filter style">
-        <h4>Additional</h4>
-        
-            <div class="me-3">
-              <div class="d-flex align-items-center">
-                <input type="radio" id="option1" name="options" value="option1" style="margin-right: 25px; margin-bottom: 25px; margin-top: 22px;">
-                <label for="option1" style="margin-bottom: 22px; margin-top: 22px;">Option 1:</label>
-            </div>      
-            </div>
-            <div class="me-3">
-              <div class="d-flex align-items-center">
-                <input type="radio" id="option1" name="options" value="option1" style="margin-right: 25px; margin-bottom: 25px;">
-                <label for="option1" style="margin-bottom: 22px;">Option 1:</label>
-            </div> 
-            </div>
-            <div class="me-3">
-              <div class="d-flex align-items-center">
-                <input type="radio" id="option1" name="options" value="option1" style="margin-right: 25px; margin-bottom: 25px;">
-                <label for="option1" style="margin-bottom: 22px;">Option 1:</label>
-            </div> 
-            </div>
-       
-    </div>
-</div>
-
-                                    <div class="col-lg-12">
-                                        <h4 class="mb-3">Featured products</h4>
-                                        <div class="d-flex align-items-center justify-content-start">
-                                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                <img src="/static/new_landing/img/featur-1.jpg" class="img-fluid rounded" alt="">
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-2">Big Banana</h6>
-                                                <div class="d-flex mb-2">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="d-flex mb-2">
-                                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                                </div>
+                                </div>
+                                  
+                                <div class="col-lg-12 filter">
+                                    <div class="mb-3">
+                                        <h4>Work Mode</h4>
+                                        <div class="me-3">
+                                            <div class="d-flex align-items-center">
+                                                <input type="radio" id="office" name="work_mode" value="Work from office">
+                                                <label for="office">Work from Office</label>
                                             </div>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-start">
-                                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                <img src="/static/new_landing/img/featur-2.jpg" class="img-fluid rounded" alt="">
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-2">Big Banana</h6>
-                                                <div class="d-flex mb-2">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="d-flex mb-2">
-                                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                                </div>
+                                        <div class="me-3">
+                                            <div class="d-flex align-items-center">
+                                                <input type="radio" id="hybrid" name="work_mode" value="Hybrid">
+                                                <label for="hybrid">Hybrid</label>
                                             </div>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-start">
-                                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                <img src="/static/new_landing/img/featur-3.jpg" class="img-fluid rounded" alt="">
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-2">Big Banana</h6>
-                                                <div class="d-flex mb-2">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="d-flex mb-2">
-                                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-center my-4">
-                                            <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="position-relative">
-                                            <img src="/static/new_landing/img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
-                                            <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
-                                                <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
+                                        <div class="me-3">
+                                            <div class="d-flex align-items-center">
+                                                <input type="radio" id="home" name="work_mode" value="Work from Home">
+                                                <label for="home">Work from Home</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
+                                
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        var workModeRadios = document.querySelectorAll('input[name="work_mode"]');
+                                        var jobCards = document.querySelectorAll('.job-card');
+                                
+                                        workModeRadios.forEach(function (radio) {
+                                            radio.addEventListener('change', function () {
+                                                var selectedWorkMode = this.value;
+                                                filterJobCardsByWorkMode(selectedWorkMode);
+                                            });
+                                        });
+                                
+                                        function filterJobCardsByWorkMode(workMode) {
+                                            jobCards.forEach(function (card) {
+                                                if (card.dataset.workMode === workMode) {
+                                                    card.style.display = 'block';
+                                                } else {
+                                                    card.style.display = 'none';
+                                                }
+                                            });
+                                        }
+                                    });
+                                </script>
+                                
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var departmentLinks = document.querySelectorAll('.department-link');
+        var jobCards = document.querySelectorAll('.job-card');
+
+        departmentLinks.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                var department = link.dataset.department;
+                hideAllJobCards();
+                showJobCardsByDepartment(department);
+            });
+        });
+
+        function hideAllJobCards() {
+            jobCards.forEach(function (card) {
+                card.style.display = 'none';
+            });
+        }
+
+        function showJobCardsByDepartment(department) {
+            jobCards.forEach(function (card) {
+                if (card.dataset.department === department) {
+                    card.style.display = 'block';
+                }
+            });
+        }
+    });
+</script>
+<div class="col-lg-12 filter">
+    <div class="mb-3">
+        <h4>Locations</h4>
+        <ul class="list-unstyled fruite-categorie">
+            {% for x in unique_locations %}
+            <li>
+                <a href="#" class="location-link" data-location="{{ x.location }}">
+                    <div class="d-flex justify-content-between fruite-name">
+                        {{ x.location }}
+                        <span>({{ x.count }})</span>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var locationLinks = document.querySelectorAll('.location-link');
+        var jobCards = document.querySelectorAll('.job-card');
+
+        locationLinks.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                var location = link.dataset.location;
+                hideAllJobCards();
+                showJobCardsByLocation(location);
+            });
+        });
+
+        function hideAllJobCards() {
+            jobCards.forEach(function (card) {
+                card.style.display = 'none';
+            });
+        }
+
+        function showJobCardsByLocation(location) {
+            jobCards.forEach(function (card) {
+                if (card.dataset.location === location) {
+                    card.style.display = 'block';
+                }
+            });
+        }
+    });
+</script>
+
+                
+                                <div class="col-lg-12">
+                                  <h4 class="mb-3">Featured products</h4>
+                                  <div class="d-flex align-items-center justify-content-start">
+                                    <div class="rounded me-4" style="width: 100px; height: 100px;">
+                                      <img src="/static/new_landing/img/featur-1.jpg" class="img-fluid rounded" alt="">
+                                    </div>
+                                    <div>
+                                      <h6 class="mb-2">Big Banana</h6>
+                                      <div class="d-flex mb-2">
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star"></i>
+                                      </div>
+                                      <div class="d-flex mb-2">
+                                        <h5 class="fw-bold me-2">2.99 $</h5>
+                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="d-flex align-items-center justify-content-start">
+                                    <div class="rounded me-4" style="width: 100px; height: 100px;">
+                                      <img src="/static/new_landing/img/featur-2.jpg" class="img-fluid rounded" alt="">
+                                    </div>
+                                    <div>
+                                      <h6 class="mb-2">Big Banana</h6>
+                                      <div class="d-flex mb-2">
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star"></i>
+                                      </div>
+                                      <div class="d-flex mb-2">
+                                        <h5 class="fw-bold me-2">2.99 $</h5>
+                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="d-flex align-items-center justify-content-start">
+                                    <div class="rounded me-4" style="width: 100px; height: 100px;">
+                                      <img src="/static/new_landing/img/featur-3.jpg" class="img-fluid rounded" alt="">
+                                    </div>
+                                    <div>
+                                      <h6 class="mb-2">Big Banana</h6>
+                                      <div class="d-flex mb-2">
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star"></i>
+                                      </div>
+                                      <div class="d-flex mb-2">
+                                        <h5 class="fw-bold me-2">2.99 $</h5>
+                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="d-flex justify-content-center my-4">
+                                    <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew
+                                      More</a>
+                                  </div>
+                                </div>
+                                <div class="col-lg-12">
+                                  <div class="position-relative">
+                                    <img src="/static/new_landing/img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
+                                    <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
+                                      <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
-                            
-                        </div>
+                
+                          </div>
                     </div>
                 </div>
             </div>
+          
+              
         </div>
         <!-- Fruits Shop End-->
-       
+    
+          
 
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">

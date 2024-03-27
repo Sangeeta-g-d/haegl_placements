@@ -1208,20 +1208,13 @@ def all_jobs(request):
 
     
 
-    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
+    unique_locations = JobDetails.objects.values('location').annotate(count=Count('location')).order_by('location')
 
 # Count jobs in each unique location from AgencyJobDetails
 
 
-# Combine the counts
-    combined_counts = {}
-
-    for job_detail in job_details_count:
-        combined_counts[job_detail['location']] = combined_counts.get(job_detail['location'], 0) + job_detail['job_count']
-
-
     context = {'data':data,'combined_data':combined_data,
-    'combined_counts':combined_counts,'unique_departments':unique_departments}
+    'unique_departments':unique_departments,'unique_locations':unique_locations}
     return render(request,'all_jobs.html',context)
 
 @login_required
