@@ -301,7 +301,6 @@
 }
 
 .fruite .fruite-item {
-
     transition: 0.5s;
 }
 
@@ -511,3 +510,22 @@
     opacity: 1;
 }
 
+/* Add hover effect to the entire card */
+.fruite-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Example shadow effect on hover */
+    transition: box-shadow 0.3s ease;
+    /* Smooth transition */
+}
+
+.fruite-item:hover .fruite-img img {
+    transform: scale(1.1); /* Increase the scale of the image on hover */
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.fruite-item:hover .p-4 {
+    border-color: #ffc107; /* Change border color of the card content on hover */
+}
+
+.fruite-item:hover .text-white {
+    background-color: #ffc107; /* Change background color of the card content on hover */
+}
