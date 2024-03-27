@@ -192,42 +192,41 @@ margin-right: 5px;
           </div>
           <div class="row g-4">
             <div class="col-lg-9 card-padding" style="padding-right: 50px;">
-              <div class="row g-4 justify-content-center">
-                  {% for x in combined_data %}
-                  <div class="col-md-6 col-lg-6 col-xl-4">
-                      <div class="rounded position-relative fruite-item">
-                          <div class="border border-secondary rounded-top rounded-bottom">
-                              {% if x.company_id.first_name %}
-                              <div class="fruite-img">
-                                  <img src="/{{ x.company_id.profile }}" class="img-fluid w-100 rounded-top" alt="">
-                              </div>
-                              {% else %}
-                              <div class="fruite-img">
-                                  <img src="/{{ x.company_id.profile }}" class="img-fluid w-100 rounded-top" alt="">
-                              </div>
-                              {% endif %}
-              
-                              <div class="p-4">
-                                  <h6 id="designationPlaceholder{{ forloop.counter }}">{{x.designation}}</h6>
-                                  {% if x.company_id.first_name %}
-                                  <p id="firstNamePlaceholder{{ forloop.counter }}">{{x.company_id.first_name}}</p>
-                                  {% else %}
-                                  <p id="firstNamePlaceholder{{ forloop.counter }}">{{x.company_id.company_name}}</p>
-                                  {% endif %}
-                                  <div class="job-details" >
-                                      <p><i class="fas fa-briefcase"></i>{{ x.job_type }}</p>
-                                      <p><i class="fas fa-map-marker-alt"></i>{{ x.location }}</p>
-                                  </div>
-                                  <p><i class="fas fa-rupee-sign"></i>&nbsp;{{ x.salary }}</p>
-                                  <div class="d-flex justify-content-between flex-lg-wrap">
-                                      
-                                      <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"> Apply Now</a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              {% endfor %}
+              <div class="row g-4 justify-content-center" id="jobsContainer">
+                {% for x in combined_data %}
+                <div class="col-md-6 col-lg-6 col-xl-4 job-item" data-work-mode="{{ x.work_mode }}">
+                    <div class="rounded position-relative fruite-item">
+                        <div class="border border-secondary rounded-top rounded-bottom">
+                            {% if x.company_id.first_name %}
+                                <div class="fruite-img">
+                                    <img src="/{{ x.company_id.profile }}" class="img-fluid w-100 rounded-top" alt="">
+                                </div>
+                            {% else %}
+                                <div class="fruite-img">
+                                    <img src="/{{ x.company_id.profile }}" class="img-fluid w-100 rounded-top" alt="">
+                                </div>
+                            {% endif %}
+
+                            <div class="p-4">
+                                <h6 id="designationPlaceholder{{ forloop.counter }}">{{x.designation}}</h6>
+                                {% if x.company_id.first_name %}
+                                    <p id="firstNamePlaceholder{{ forloop.counter }}">{{x.company_id.first_name}}</p>
+                                {% else %}
+                                    <p id="firstNamePlaceholder{{ forloop.counter }}">{{x.company_id.company_name}}</p>
+                                {% endif %}
+                                <div class="job-details">
+                                    <p><i class="fas fa-briefcase"></i>{{ x.job_type }}</p>
+                                    <p><i class="fas fa-map-marker-alt"></i>{{ x.location }}</p>
+                                </div>
+                                <p><i class="fas fa-rupee-sign"></i>&nbsp;{{ x.salary }}</p>
+                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">Apply Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
               
               <script>
                   // Function to truncate text
@@ -289,26 +288,22 @@ margin-right: 5px;
 
                     <div class="me-3">
                       <div class="d-flex align-items-center">
-                        <input type="radio" id="option1" name="options" value="option1"
-                          style="margin-right: 25px; margin-bottom: 25px; margin-top: 22px;">
-                        <label for="option1" style="margin-bottom: 22px; margin-top: 22px;">Work from Office</label>
+                          <input type="radio" id="workFromOffice" name="options" value="workFromOffice" class="work-mode-radio">
+                          <label for="workFromOffice">Work from Office</label>
                       </div>
+                  </div>
+                  <div class="me-3">
+                    <div class="d-flex align-items-center">
+                        <input type="radio" id="hybrid" name="options" value="hybrid" class="work-mode-radio">
+                        <label for="hybrid">Hybrid</label>
                     </div>
-                    <div class="me-3">
-                      <div class="d-flex align-items-center">
-                        <input type="radio" id="option1" name="options" value="option1"
-                          style="margin-right: 25px; margin-bottom: 25px;">
-                        <label for="option1" style="margin-bottom: 22px;">Hybrid</label>
-                      </div>
-                    </div>
-                    <div class="me-3">
-                      <div class="d-flex align-items-center">
-                        <input type="radio" id="option1" name="options" value="option1"
-                          style="margin-right: 25px; margin-bottom: 25px;">
-                        <label for="option1" style="margin-bottom: 22px;">Work from Home</label>
-                      </div>
-                    </div>
-
+                </div>
+                <div class="me-3">
+                  <div class="d-flex align-items-center">
+                      <input type="radio" id="workFromHome" name="options" value="workFromHome" class="work-mode-radio">
+                      <label for="workFromHome">Work from Home</label>
+                  </div>
+              </div>
                   </div>
                 </div>
 
@@ -330,78 +325,9 @@ margin-right: 5px;
                   </div>
               </div>
 
-                <div class="col-lg-12">
-                  <h4 class="mb-3">Featured products</h4>
-                  <div class="d-flex align-items-center justify-content-start">
-                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                      <img src="/static/new_landing/img/featur-1.jpg" class="img-fluid rounded" alt="">
-                    </div>
-                    <div>
-                      <h6 class="mb-2">Big Banana</h6>
-                      <div class="d-flex mb-2">
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star"></i>
-                      </div>
-                      <div class="d-flex mb-2">
-                        <h5 class="fw-bold me-2">2.99 $</h5>
-                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-start">
-                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                      <img src="/static/new_landing/img/featur-2.jpg" class="img-fluid rounded" alt="">
-                    </div>
-                    <div>
-                      <h6 class="mb-2">Big Banana</h6>
-                      <div class="d-flex mb-2">
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star"></i>
-                      </div>
-                      <div class="d-flex mb-2">
-                        <h5 class="fw-bold me-2">2.99 $</h5>
-                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-start">
-                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                      <img src="/static/new_landing/img/featur-3.jpg" class="img-fluid rounded" alt="">
-                    </div>
-                    <div>
-                      <h6 class="mb-2">Big Banana</h6>
-                      <div class="d-flex mb-2">
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star"></i>
-                      </div>
-                      <div class="d-flex mb-2">
-                        <h5 class="fw-bold me-2">2.99 $</h5>
-                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="d-flex justify-content-center my-4">
-                    <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew
-                      More</a>
-                  </div>
-                </div>
-                <div class="col-lg-12">
-                  <div class="position-relative">
-                    <img src="/static/new_landing/img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
-                    <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
-                      <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
-                    </div>
-                  </div>
-                </div>
+              
+               
+              
               </div>
             </div>
 
@@ -529,6 +455,7 @@ margin-right: 5px;
 
   <!-- Template Javascript -->
   <script src="/static/new_landing/js/main.js"></script>
+  <script src="/static/new_landing/js/interview.js"></script>
 </body>
 
 </html>
