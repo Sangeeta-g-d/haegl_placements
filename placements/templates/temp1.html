@@ -613,7 +613,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="col-md-7">
                             <!-- Content for the second half of the page -->
                             <div class="container-shadow1">
-                              <button id="downloadBtn">Download as PDF</button>
+                              
                             <div class="content_wrapper">
                               <div id="dynamicContent">
                                   <div id="temp6">
@@ -728,33 +728,7 @@ document.addEventListener("DOMContentLoaded", function() {
        
 
 
-        <script>
-          document.getElementById('downloadBtn').addEventListener('click', function() {
-             // Get the content of the div
-             var element = document.getElementById('temp1');
-       
-             // Use html2canvas to capture the content as an image
-             html2canvas(element, {
-               onrendered: function(canvas) {
-                 var imgData = canvas.toDataURL('image/png');
-       
-                 // Calculate dimensions for the PDF
-                 var imgWidth = 210; // A4 size
-                 var imgHeight = canvas.height * imgWidth / canvas.width;
-       
-                 // Initialize jsPDF
-                 var pdf = new jsPDF('p', 'mm', 'a4');
-       
-                 // Add the image to the PDF
-                 pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-       
-                 // Save the PDF
-                 pdf.save('download.pdf');
-               }
-             });
-           });
-         </script>
-       
+     
         
 
         <!-- Footer Start -->

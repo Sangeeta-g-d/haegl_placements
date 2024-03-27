@@ -301,7 +301,7 @@
 }
 
 .fruite .fruite-item {
-    height: 600px;
+
     transition: 0.5s;
 }
 
@@ -309,7 +309,9 @@
 .fruite .fruite-item .fruite-img {
     overflow: hidden;
     transition: 0.5s;
-    border-radius: 10px; /* You can adjust this value if needed */
+    height: 100px;
+    border-radius: 10px;
+     /* You can adjust this value if needed */
 }
 
 .fruite .fruite-item .fruite-img img {

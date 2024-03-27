@@ -7340,7 +7340,7 @@ fieldset:disabled .btn {
 }
 
 .border-top-0 {
-    border-top: 0 !important
+    border-top: 01px solid #dee2e6 !important
 }
 
 .border-end {
