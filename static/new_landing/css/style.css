@@ -309,13 +309,13 @@
 .fruite .fruite-item .fruite-img {
     overflow: hidden;
     transition: 0.5s;
-    border-radius: 10px 10px 10px 10px;
+    border-radius: 10px; /* You can adjust this value if needed */
 }
 
 .fruite .fruite-item .fruite-img img {
     transition: 0.5s;
+    border-radius: 50%; /* This will make the image round */
 }
-
 
 /*** Fruits End ***/
 
