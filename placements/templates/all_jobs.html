@@ -195,21 +195,57 @@ document.addEventListener("DOMContentLoaded", function() {
                             <div class="col-5"></div>
                             <div class="col-xl-3">
                                 <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-                                    <label for="fruits">Job Type:</label>
-                                    <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
-                                        <option value="volvo">job type</option>
-                                        <option value="saab">Full Time</option>
-                                        <option value="opel">Part Time</option>
-                                        
+                                    <label for="jobType">Job Type:</label>
+                                    <select id="jobType" name="jobType" class="border-0 form-select-sm bg-light me-3">
+                                        <option value="">All</option>
+                                        <option value="Full Time">Full Time</option>
+                                        <option value="Part Time">Part Time</option>
+                                        <!-- Add more options if needed -->
                                     </select>
                                 </div>
                             </div>
+                            
+                         
+                            
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    var jobTypeSelect = document.getElementById('jobType');
+                                    var jobCards = document.querySelectorAll('.job-card');
+                            
+                                    jobTypeSelect.addEventListener('change', function () {
+                                        var selectedJobType = jobTypeSelect.value;
+                                        if (selectedJobType === '') {
+                                            showAllJobCards();
+                                        } else {
+                                            filterJobCardsByType(selectedJobType);
+                                        }
+                                    });
+                            
+                                    function showAllJobCards() {
+                                        jobCards.forEach(function (card) {
+                                            card.style.display = 'block';
+                                        });
+                                    }
+                            
+                                    function filterJobCardsByType(jobType) {
+                                        jobCards.forEach(function (card) {
+                                            if (card.dataset.jobType === jobType) {
+                                                card.style.display = 'block';
+                                            } else {
+                                                card.style.display = 'none';
+                                            }
+                                        });
+                                    }
+                                });
+                            </script>
+                                           
                         </div>
+                        <br>
                         <div class="row g-4">
                             <div class="col-lg-9" style="padding-right: 50px;">
                                 <div class="row g-4 justify-content-center" id="jobListings">
                                     {% for x in combined_data %}
-                                    <div class="col-md-6 col-lg-6 col-xl-4 job-card" data-department="{{ x.department }}" data-work-mode="{{ x.work_mode }}" data-location="{{ x.location }}">
+                                    <div class="col-md-6 col-lg-6 col-xl-4 job-card" data-department="{{ x.department }}" data-work-mode="{{ x.work_mode }}" data-location="{{ x.location }}" data-job-type="{{ x.job_type }}">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="border border-secondary rounded-top rounded-bottom">
                                                 {% if x.company_id.first_name %}
@@ -422,8 +458,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 </script>
-
-                
+ 
                                 <div class="col-lg-12">
                                   <h4 class="mb-3">Featured products</h4>
                                   <div class="d-flex align-items-center justify-content-start">

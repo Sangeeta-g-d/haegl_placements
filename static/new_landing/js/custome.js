@@ -83,8 +83,10 @@ function generateDisplayDiv(educationCount) {
 
 
 function deleteEducation(educationCount) {
+  console.log("vidya")
   var container = document.getElementById('container2');
   var educationSection = container.querySelector('.education-section:nth-child(' + educationCount + ')');
+  console.log(educationSection)
   educationSection.remove();
 
   // Remove corresponding display div
@@ -313,8 +315,10 @@ function updateProjectName2(projectCount) {
 
 
 function deleteProject(projectCount) {
+  console.log("gghjdfghjn")
   var container = document.getElementById('container3');
   var projectSection = container.querySelector('.project-section1:nth-child(' + projectCount + ')');
+  console.log(projectSection,"fvghbnjmk")
   projectSection.remove();
 
   // Remove corresponding display div
