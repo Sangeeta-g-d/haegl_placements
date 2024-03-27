@@ -166,13 +166,44 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="row g-4">
                     <div class="col-lg-12">
                         <div class="row g-4">
-                            <div class="col-xl-3">
+                            <div class="col-xl-4">
                                 <div class="input-group w-100 mx-auto d-flex">
-                                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                                    <input type="search" id="searchInput" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                                    <button id="searchButton" class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
                                 </div>
+                                
+                                <script>
+                                    // Get the input element and search button
+                                    var searchInput = document.getElementById('searchInput');
+                                    var searchButton = document.getElementById('searchButton');
+                                
+                                    // Function to handle search
+                                    function performSearch() {
+                                        var searchQuery = searchInput.value.trim();
+                                        if (searchQuery !== "") {
+                                            // Here you can perform the actual search operation
+                                            alert('Perform search for: ' + searchQuery);
+                                        } else {
+                                            // Handle case where search query is empty
+                                            alert('Please enter a search query.');
+                                        }
+                                    }
+                                
+                                    // Add event listener to search button for click event
+                                    searchButton.addEventListener('click', performSearch);
+                                
+                                    // Add event listener to input for enter key press
+                                    searchInput.addEventListener('keypress', function(event) {
+                                        // Check if the pressed key is Enter (key code 13)
+                                        if (event.keyCode === 13) {
+                                            performSearch();
+                                        }
+                                    });
+                                </script>
+                                
+                                
                             </div>
-                            <div class="col-6"></div>
+                            <div class="col-5"></div>
                             <div class="col-xl-3">
                                 <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
                                     <label for="fruits">Default Sorting:</label>
@@ -260,46 +291,27 @@ document.addEventListener("DOMContentLoaded", function() {
                                 </div>
                             </div>
 
-                            
                             <div class="col-lg-3">
                                 <div class="row g-4">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12 filter" >
                                         <div class="mb-3">
-                                            <h4>Categories</h4>
+                                            <h4>Departements</h4>
                                             <ul class="list-unstyled fruite-categorie">
+                                              {% for x in unique_departments %}
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
-                                                        <span>(3)</span>
+                                                        <a href="#"><i class="fas fa-arrow-right me-2"></i>
+                                                          {{ x.department }}</a>
+                                                        <span>({{ x.count }})</span>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
-                                                        <span>(5)</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
-                                                        <span>(2)</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
-                                                        <span>(8)</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
-                                                        <span>(5)</span>
-                                                    </div>
-                                                </li>
+                                                {% endfor %}
+                                               
                                             </ul>
                                         </div>
                                     </div>
+
+                                 
                                     <div class="col-lg-12">
                                         <div class="mb-3">
                                             <h4 class="mb-2">Price</h4>
@@ -307,31 +319,32 @@ document.addEventListener("DOMContentLoaded", function() {
                                             <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <h4>Additional</h4>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
-                                                <label for="Categories-1"> Organic</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
-                                                <label for="Categories-2"> Fresh</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
-                                                <label for="Categories-3"> Sales</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
-                                                <label for="Categories-4"> Discount</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
-                                                <label for="Categories-5"> Expired</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                  <div class="col-lg-12">
+    <div class="mb-3 filter style">
+        <h4>Additional</h4>
+        
+            <div class="me-3">
+              <div class="d-flex align-items-center">
+                <input type="radio" id="option1" name="options" value="option1" style="margin-right: 25px; margin-bottom: 25px; margin-top: 22px;">
+                <label for="option1" style="margin-bottom: 22px; margin-top: 22px;">Option 1:</label>
+            </div>      
+            </div>
+            <div class="me-3">
+              <div class="d-flex align-items-center">
+                <input type="radio" id="option1" name="options" value="option1" style="margin-right: 25px; margin-bottom: 25px;">
+                <label for="option1" style="margin-bottom: 22px;">Option 1:</label>
+            </div> 
+            </div>
+            <div class="me-3">
+              <div class="d-flex align-items-center">
+                <input type="radio" id="option1" name="options" value="option1" style="margin-right: 25px; margin-bottom: 25px;">
+                <label for="option1" style="margin-bottom: 22px;">Option 1:</label>
+            </div> 
+            </div>
+       
+    </div>
+</div>
+
                                     <div class="col-lg-12">
                                         <h4 class="mb-3">Featured products</h4>
                                         <div class="d-flex align-items-center justify-content-start">
