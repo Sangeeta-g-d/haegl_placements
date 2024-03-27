@@ -168,38 +168,27 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="row g-4">
                             <div class="col-xl-4">
                                 <div class="input-group w-100 mx-auto d-flex">
-                                    <input type="search" id="searchInput" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                                    <button id="searchButton" class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                                    <input type="search" class="form-control p-3" id="searchInput" placeholder="keywords" aria-describedby="search-icon-1">
+                                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
                                 </div>
-                                
                                 <script>
-                                    // Get the input element and search button
-                                    var searchInput = document.getElementById('searchInput');
-                                    var searchButton = document.getElementById('searchButton');
-                                
-                                    // Function to handle search
-                                    function performSearch() {
-                                        var searchQuery = searchInput.value.trim();
-                                        if (searchQuery !== "") {
-                                            // Here you can perform the actual search operation
-                                            alert('Perform search for: ' + searchQuery);
-                                        } else {
-                                            // Handle case where search query is empty
-                                            alert('Please enter a search query.');
-                                        }
-                                    }
-                                
-                                    // Add event listener to search button for click event
-                                    searchButton.addEventListener('click', performSearch);
-                                
-                                    // Add event listener to input for enter key press
-                                    searchInput.addEventListener('keypress', function(event) {
-                                        // Check if the pressed key is Enter (key code 13)
-                                        if (event.keyCode === 13) {
-                                            performSearch();
-                                        }
+                                    document.getElementById('searchInput').addEventListener('input', function() {
+                                        var keyword = this.value.toLowerCase();
+                                        var jobCards = document.querySelectorAll('.fruite-item');
+                                        jobCards.forEach(function(card) {
+                                            var jobTitle = card.querySelector('h6').textContent.toLowerCase();
+                                            var companyName = card.querySelector('p').textContent.toLowerCase();
+                                            if (jobTitle.includes(keyword) || companyName.includes(keyword)) {
+                                                card.style.display = 'block';
+                                            } else {
+                                                card.style.display = 'none';
+                                            }
+                                        });
                                     });
                                 </script>
+                                
+
+                                
                                 
                                 
                             </div>
