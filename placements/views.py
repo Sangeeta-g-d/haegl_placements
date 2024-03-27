@@ -53,6 +53,13 @@ def download_file(request, file_id):
     response['Content-Disposition'] = f'attachment; filename="{uploaded_file.excel.name}"'
     return response
 
+def temp2(request):
+    return render(request,'temp2.html')
+
+
+def temp3(request):
+    return render(request,'temp3.html')
+
 def new_index(request):
     recent_jobs = list(JobDetails.objects.filter(J_type='job').order_by('-created_on')[:5])
 

@@ -13,6 +13,7 @@
     transition: background-color 0.3s ease;
 }
 
+
 .custom-button h3 {
     margin: 0; /* Remove default margin */
     text-align: left; /* Align text to the left */
@@ -349,3 +350,110 @@ label {
             width: 100%; /* Make form inputs full-width */
         }
     }
+  /* ResumeUI */
+  .left{
+    border:1px solid black;
+    padding: 18px;
+  }
+  .right{
+    border:1px solid black;
+    padding: 18px;
+  }
+  .heading{
+    display: flex;
+    margin-bottom: 15px ;
+    background-color: #f5f7de;
+  }
+  .header-left{
+    text-align: left;
+    padding: 18px;
+    flex: 2;
+  }
+  .header-right{
+    text-align: left;
+    padding: 18px;
+    flex: 1;
+  }
+  .p-info{
+    font-size: 11px;
+  }
+  .resume-subheading{
+    font-size: 17px;
+  }
+  .edu{
+    color: #868686;
+    font-size: 12px;
+    font-weight: 900;
+  }
+  .content-text{
+    font-size: 12px;
+  }
+  .college{
+    font-size: 12px;
+  }
+  .last-heading{
+    font-size: 13px;
+  }
+
+  /*template 3 styles  */
+  .temp3-left{
+    padding: 12px;
+    padding-bottom: 0;
+   text-align: left;
+    border-right: 1px solid black;
+    margin-top: 20px;
+    flex: 0.6;
+  }
+
+  .temp3-right{
+    padding: 8px;
+    padding-bottom: 0;
+    
+    margin-top: 20px;
+    flex: 1;
+    text-align: left;
+  }
+
+  .temp3-header{
+    background-color: #c9cbce;
+  }
+  .temp3-header-left{  
+    text-align: left;
+   
+    padding:28px;
+    flex: 2;
+  }
+  .temp3-header-right{  
+    text-align: left;
+   
+    padding:28px;
+    flex: 1;
+  }
+  .round-image {
+    border-radius: 50%;
+}
+.t3-profile-info{
+  text-align: left;
+  line-height: 33px;
+  font-size: 12px;
+}
+.t3-space{
+  letter-spacing: 3px;
+  text-transform: capitalize;
+}
+.t3-profile{
+  font-size: 17px;
+  letter-spacing: 3px;
+}
+.t3-content{
+  font-size: 12px;
+}
+.t3-ul{
+  line-height: 28px;
+}
+.t3-subheading{
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+ 
+ 

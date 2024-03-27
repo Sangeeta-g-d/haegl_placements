@@ -282,7 +282,7 @@ function loadProject() {
     document.getElementById('container3').innerHTML = containerHtml;
     document.getElementById('projectsContainer').innerHTML = projectContainerHtml;
   }
- // localStorage.clear()
+  //localStorage.clear()
 }
 function loadProjectData(projectCount) {
   // Load project name from localStorage
@@ -695,6 +695,8 @@ function updateExperienceDescription() {
   var descriptionValue = document.getElementById("description1").value;
     var descriptionElement = document.getElementById("Display_Description");
     descriptionElement.innerText = descriptionValue;
+    descriptionElement.style.fontSize = "12px"; 
+    descriptionElement.style.padding = "0px"; 
   
     localStorage.setItem("description", descriptionValue);
 }
@@ -740,7 +742,7 @@ function updateSkills() {
   var skillsArray = skill1.split(',').map(skill => skill.trim());
   
   // Generate the HTML for the skills list
-  var skillsHTML = '<ul>';
+  var skillsHTML = '<ul style="font-size: 12px; text-align:left; padding-left: 0px;">'; // Adjust padding-left value as needed
   skillsArray.forEach(skill => {
     skillsHTML += '<li>' + skill + '</li>';
   });
@@ -753,6 +755,51 @@ function updateSkills() {
   localStorage.setItem('enteredSkills', skill1);
 }
 
+function updateAchievements() {
+  const textarea = document.getElementById('achievementstext');
+  const achievementsSection = document.querySelector('.achievements');
+  const achievementList = document.getElementById('achievementList');
+  const achievementsText = textarea.value;
+  
+  // Clear existing list
+  achievementList.innerHTML = '';
+
+  // Split achievements text by full stops
+  const achievementsGroups = achievementsText.split('.').map(group => group.trim());
+
+  // Populate the list with achievements
+  achievementsGroups.forEach(group => {
+    if (group) {
+      const ul = document.createElement('ul');
+      ul.style.marginLeft = '0px';
+      ul.style.paddingLeft = '0px';
+      ul.style.textAlign = 'left'; // Adjust margin-left as needed
+
+      const groupAchievements = group.split(',').map(item => item.trim());
+
+      groupAchievements.forEach(achievement => {
+        if (achievement) {
+          const li = document.createElement('li');
+          li.textContent = achievement;
+          li.style.fontSize = '12px';
+          
+          li.style.lineHeight = '16px';
+          li.style.wordWrap = 'break-word';
+          ul.appendChild(li);
+        }
+      });
+
+      achievementList.appendChild(ul);
+    }
+  });
+
+  // Show the achievements section if there are achievements
+  if (achievementsText.trim() !== '') {
+    achievementsSection.classList.remove('hidden');
+  } else {
+    achievementsSection.classList.add('hidden');
+  }
+}
 
 
 
