@@ -318,6 +318,11 @@
     border-radius: 50%; /* This will make the image round */
 }
 
+.filter{
+    background: linear-gradient(to bottom, #efeff61a, #0225611a);
+    border-radius: 10px;
+}
+
 /*** Fruits End ***/
 
 
