@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+     .temp3-left{
+    padding: 12px;
+    padding-bottom: 0;
+   text-align: left;
+    border-right: 1px solid black;
+    margin-top: 20px;
+    flex: 0.6;
+  }
+
+  .temp3-right{
+    padding: 8px;
+    padding-bottom: 0;
+    
+    margin-top: 20px;
+    flex: 1;
+    text-align: left;
+  }
+
+  .temp3-header{
+    background-color: #daf5ae;
+  }
+  .temp3-header-left{  
+    text-align: left;
+   
+    padding:28px;
+    flex: 2;
+  }
+  .temp3-header-right{  
+    text-align: left;
+   
+    padding:28px;
+    flex: 1;
+  }
+  .round-image {
+    border-radius: 50%;
+}
+.t3-profile-info{
+  text-align: left;
+  line-height: 33px;
+  font-size: 12px;
+}
+.t3-space{
+  letter-spacing: 3px;
+  text-transform: capitalize;
+}
+.t3-profile{
+  font-size: 17px;
+  letter-spacing: 3px;
+}
+.t3-content{
+  font-size: 12px;
+}
+.t3-ul{
+  line-height: 28px;
+}
+.t3-subheading{
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+    </style>
+</head>
+<body>
+    <div class="temp3" style="height:800px; width:700px;">
+        <div class="temp3-header" style="display: flex;">
+        <div class="temp3-header-left">
+            <h3 class="t3-space"> <span id="Display_Fname">Pavan</span> <span id="Display_Lname">Kulkarni </span></h3>
+            <p class="content-text" id="Display_lnkedin">https://www.linkedin.com/in/sangeeta-dani-2688b6262/</p>
+        </div>
+        <div class="temp3-header-right">
+            <img src="/static/new_landing/img/avatar.jpg" height="80px" alt="profile" class="round-image">
+        </div>
+        
+    </div>
+    
+   <div style="display: flex;">
+    <div class="temp3-left">
+        <div class="personal-info">
+        <p class="t3-profile-info"><i class="fas fa-phone"></i> &nbsp;&nbsp; <span id="Display_Phoneno"> 9867564534 </span><br>
+            <i class="far fa-envelope"></i> &nbsp;&nbsp;  <span id="Display_Email"> kushagra34@gmail.com</span><br>
+           
+        </p>
+    </div><hr>
+    <div class="t3-skills">
+        <h4 class="t3-space" style="font-size: 17px;">Skills</h4>
+        <ul class="t3-ul" id="skillsList">
+            <li class="t3-content">Python</li>
+            <li class="t3-content">Good Communication</li>
+            <li class="t3-content">MS Excel</li>
+            <li class="t3-content">Django</li>
+            <li class="t3-content">Time Management</li>
+        </ul>
+    </div><hr>
+    <div class="t3-edu">
+        <h4 class="t3-space" style="font-size: 17px; margin-bottom: 18px;">Education</h4>
+        <div class="education-side">
+          <div class="education1">
+            <h5 class="t3-subheading" id="displayDegree" style="margin-bottom: 0px;">Bachelor of Science</h5>
+        
+        
+         <span class="t3-edu-date" style="font-size: 10px; margin-top: 0px;" id="displayDegreeFrom">2020</span> | <span class="t3-edu-date" style="font-size: 10px; margin-top: 0px;" id="displayDegreeTo">2023</span><br>
+         <span class="t3-edu-date" style="font-size: 12px; margin-top: 0px;" id="displayCollege">Kle College of Science</span> <br>
+         <span class="t3-edu-date" style="font-size: 12px; margin-top: 0px;" id="displayCity">Hubli</span>
+        </div>
+      </div>
+     
+
+    </div><hr>
+    <div class="t3-lang-known">
+      <h4 class="t3-space" style="font-size: 17px; margin-bottom: 18px;">Languages Known</h4>
+      <ul class="t3-ul">
+        <li class="t3-content">English</li>
+        <li class="t3-content">Hindi</li>
+        <li class="t3-content">Kannada</li>
+        </ul>
+    </div>
+    <hr>
+    </div>
+    <div class="temp3-right">
+        <div class="t3-profile-summary">
+            <h4 class="t3-space t3-profile">Profile</h4>
+            <p class="t3-content" id="Display_Summary">Enthusiastic recent graduate with a degree in
+                Computer Science and a passion for software development.
+                Proficient in Java and Python, with a strong foundation in algorithm design.  Eager to contribute to a dynamic team.
+                </p>
+        </div><hr>
+        <div class="t3-experience">
+          <div class="work-exp">
+          <h4 class="t3-space t3-profile">Experience</h4>
+          <div class="exp1">
+            <h5 class="t3-subheading" style="margin-bottom: 0px;" id="Display_Designation">Data Analyst</h5>
+            <span class="t3-edu-date" id="Display_Cname" style="font-size: 12px; margin-top: 0px;">Haegl Technologies Private Limited</span> <br>
+         <span class="t3-edu-date" style="font-size: 10px; margin-top: 0px; margin-bottom: 0px;" id="Display_From">2020</span> - <span class="t3-edu-date" style="font-size: 10px; margin-top: 0px; margin-bottom: 0px;" id="Display_To">2023</span><br>
+      
+        <p class="t3-content" id="Display_Description">Prototyped an average of 15 new products in a year, Increased user experience by 20% <br>
+          Implemented coding best practices that reduced rework by 25% and cost by 12% <br>
+          Received a website award for Best Navigation and Structure 2019</p>
+        
+        </div>
+        <div class="experience-side" id="experience-side' + experienceCount">
+          <!-- Placeholder for experience display -->
+        </div>
+        </div>
+        </div><hr>
+        <div class="t3-project">
+          <h4 class="t3-space t3-profile">Project</h4>
+          <div class="exp1">
+            <h5 class="t3-subheading" style="margin-bottom: 0px;" id="displayProjectName">Fees Management System</h5>
+            <span style="font-size: 12px;">Tools used | </span>
+            <span id="displayTools" class="t3-edu-date" style="font-size: 12px; margin-top: 0px;">Python, django, sql, excel</span> <br>
+                       
+        <p class="t3-content" id="displayProjectDes">Developed a streamlined and efficient fees processing website. User-friendly web-based Fees management System that automated entire fee processing workflow by integrating secure payment gateway. Students can crack their fees and pay accordingly through Razor pay gateway.</p>
+        
+        </div>
+        <div class="exp1">
+            <h5 class="t3-subheading" style="margin-bottom: 0px;" id="displayProjectName">Fees Management System</h5>
+            <span style="font-size: 12px;">Tools used | </span>
+            <span id="displayTools" class="t3-edu-date" style="font-size: 12px; margin-top: 0px;">Python, django, sql, excel</span> <br>
+                       
+        <p class="t3-content" id="displayProjectDes">Developed a streamlined and efficient fees processing website. User-friendly web-based Fees management System that automated entire fee processing workflow by integrating secure payment gateway. Students can crack their fees and pay accordingly through Razor pay gateway.</p>
+        
+        </div>
+        </div>
+       
+    </div>
+   </div>
+   </div>
+</body>
+</html>
