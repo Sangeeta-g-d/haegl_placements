@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Fruitables - Vegetable Website Template</title>
+        <title>Haegl InterviewEdge</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -28,7 +28,7 @@
         <!-- Template Stylesheet -->
         <link href="/static/new_landing/css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="/static/new_landing/css/new_style.css">
-
+        <link rel="stylesheet" href="/static/new_landing/css/custom.css">
 
         <style>
             .job-details {
@@ -111,7 +111,8 @@ document.addEventListener("DOMContentLoaded", function() {
                           <div class="navbar-nav mx-auto">
                           <a href="/" class="nav-item nav-link ">Home</a>
                           <a href="internship_program" class="nav-item nav-link ">Internship Program</a>
-                          <a href="/select_theme" class="nav-item nav-link active">Build Resume</a>
+                          <a href="/all_jobs" class="nav-item nav-link active">Jobs</a>
+                          <a href="/select_theme" class="nav-item nav-link ">Build Resume</a>
                           <a href="/contact_us" class="nav-item nav-link">Contact us</a>
                           <a href="user_registration" style="margin-top: 4px;">  <div class="text-white bg-primary px-3 py-1 rounded" style="top: 12px; right: 10px;">Register</div></a>
                          </div>
@@ -148,8 +149,8 @@ document.addEventListener("DOMContentLoaded", function() {
         <div class="container-fluid page-header py-5">
           <div class="row justify-content-center">
               <div class="col-md-8 text-center">
-                  <h2 class="mb-5 display-3 hero-heading text-primary">Internship Program</h2>
-                  <p class="mb-3 subtag"><b>Unlock Your Potential: Experience, Learn, Grow with Our Internship Program.</b></p>
+                  <h2 class="mb-5 display-3 hero-heading text-primary">Pathway to Success: Find Your Ideal Job Here</h2>
+                  <p class="mb-3 subtag"><b>Bringing together talent and opportunity for brighter futures.</b></p>
                   <ol class="breadcrumb mb-0">
                       
                   </ol>
@@ -240,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                                     <p><i class="fas fa-rupee-sign"></i>&nbsp;{{ x.salary }}</p>
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
                             
-                                                        <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"> Apply Now</a>
+                                                        <a href="/single_job/{{x.id}}" class="btn border border-secondary rounded-pill px-3 text-primary"> Apply Now</a>
                                                     </div>
                                                 </div>
                                             </div>

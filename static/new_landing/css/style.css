@@ -515,6 +515,7 @@
     opacity: 1;
 }
 
+
 /* Add hover effect to the entire card */
 .fruite-item:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Example shadow effect on hover */
