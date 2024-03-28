@@ -45,6 +45,7 @@ function education() {
       '<input type="month" id="' + toInputId + '" class="form-control" name="' + toInputId + '" style="height: 35px;" onchange="updateDisplay(' + educationCount + ')">' +
       '</div>' +
       '</form>';
+      
   
     newEducation.appendChild(header);
     newEducation.appendChild(content);
