@@ -973,12 +973,13 @@ def search_trend(request, keyword):
     return render(request,'search_trend.html', context)
 
 def single_job(request,job_id):
-    id=request.user.id
+    id = request.user.id
     job = JobDetails.objects.select_related('company_id').filter(id=job_id, status="open").first()
-
+    data = NewUser.objects.filter(id=id).first()
+   
     context = {
         'job': job,
-
+        'data':data
     }
         #here if true i want that button to disable and print applied on the button using jsonresponse
     return render(request, 'single_job.html',context)
