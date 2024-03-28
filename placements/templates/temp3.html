@@ -47,6 +47,8 @@
     rel="stylesheet">
 
   <link rel="stylesheet" href="/static/new_landing/css/new_style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
 
   <style>
     .testimonial-item {
@@ -69,7 +71,20 @@
       overflow-y: auto;
       /* Enable vertical scrolling */
     }
-
+    #downloadBtn {
+  background-color: #007bff; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 15px;
+ 
+}
     @media only screen and (max-width: 600px) {
       .custom-container {
         margin-bottom: 10px;
@@ -465,11 +480,14 @@
           </div>
           <div class="col-md-7">
             <!-- Content for the second half of the page -->
-            <div class="container-shadow1">
+            <div class="container-shadow1"> <button  id="downloadBtn">Download as PDF</button><br>
               <div class="content_wrapper">
+               
                 <div id="dynamicContent">
-                  <div class="temp3">
-                    <div class="temp3-header" style="display: flex;">
+                  
+                 
+                  <div  id="temp1" class="temp3">
+                    <div   class="temp3-header" style="display: flex;">
                     <div class="temp3-header-left">
                         <h3 class="t3-space"> <span id="Display_Fname">Pavan</span> <span id="Display_Lname">Kulkarni </span></h3>
                         <p class="content-text" id="Display_lnkedin">https://www.linkedin.com/in/sangeeta-dani-2688b6262/</p>
@@ -565,6 +583,31 @@
                 </div>
                </div>
                </div>
+               <script>
+                document.getElementById("downloadBtn").addEventListener("click", function() {
+                    // Select the element containing the content you want to download
+                    var element = document.getElementById("temp1");
+                
+                    // Options for the PDF generation
+                    var opt = {
+                        margin: 0.5,
+                        filename: 'resume.pdf',
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2 },
+                        jsPDF: { 
+                            unit: 'in', 
+                            format: 'a4', // Set the format to A4 size
+                            orientation: 'portrait' // Set the orientation to portrait
+                        }
+                    };
+                
+                    // Convert HTML to PDF
+                    html2pdf()
+                        .from(element)
+                        .set(opt)
+                        .save();
+                });
+                </script>
                 </div>
               </div>
             </div>

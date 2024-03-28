@@ -47,6 +47,9 @@
     rel="stylesheet">
 
   <link rel="stylesheet" href="/static/new_landing/css/new_style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
 
   <style>
     .testimonial-item {
@@ -98,6 +101,20 @@
         /* Make form inputs full-width */
       }
     }
+    #downloadBtn {
+  background-color: #007bff; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 15px;
+ 
+}
   </style>
 </head>
 
@@ -464,9 +481,12 @@
             </div>
           </div>
           <div class="col-md-7">
+          
             <!-- Content for the second half of the page -->
             <div class="container-shadow1">
-              <div class="content_wrapper">
+              <button  id="downloadBtn">Download as PDF</button>
+              <br>
+              <div id="temp1" class="content_wrapper">
                 <div id="dynamicContent">
                   <div>
                   <div class="heading">
@@ -578,6 +598,32 @@
                 </div>
               </div>
             </div>
+
+            <script>
+              document.getElementById("downloadBtn").addEventListener("click", function() {
+                  // Select the element containing the content you want to download
+                  var element = document.getElementById("temp1");
+              
+                  // Options for the PDF generation
+                  var opt = {
+                      margin: 0.5,
+                      filename: 'resume.pdf',
+                      image: { type: 'jpeg', quality: 0.98 },
+                      html2canvas: { scale: 2 },
+                      jsPDF: { 
+                          unit: 'in', 
+                          format: 'a4', // Set the format to A4 size
+                          orientation: 'portrait' // Set the orientation to portrait
+                      }
+                  };
+              
+                  // Convert HTML to PDF
+                  html2pdf()
+                      .from(element)
+                      .set(opt)
+                      .save();
+              });
+              </script>
           </div>
         </div>
       </div>
