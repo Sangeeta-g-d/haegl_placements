@@ -81,7 +81,6 @@ function generateDisplayDiv(educationCount) {
   return displayDiv;
 }
 
-
 function deleteEducation(educationCount) {
   console.log("vidya")
   var container = document.getElementById('container2');
@@ -104,7 +103,6 @@ function deleteEducation(educationCount) {
 
   saveEducation();
 }
-
 
 function saveEducation() {
   var containerHtml = document.getElementById('container2').innerHTML;
@@ -201,7 +199,7 @@ function addNewProject() {
   var header = document.createElement('div');
   header.classList.add('project-header');
   header.onclick = function () { toggleProject(this) };
-  header.innerHTML = '<i class="fas fa-chevron-down"></i><p><b>Projects ' + projectCount + '</b></p>'+  '<i class="fas fa-trash-alt" onclick="deleteProject(' + projectCount + ')"></i>'; ;
+  header.innerHTML = '<i class="fas fa-chevron-down"></i><p><b>Projects ' + projectCount + '</b></p>'+  '<i class="fas fa-trash-alt" onclick="deleteProjectNew(' + projectCount + ')"></i>'; ;
 
   var content = document.createElement('div');
   content.classList.add('project-content');
@@ -312,13 +310,9 @@ function updateProjectName2(projectCount) {
   localStorage.setItem('description' + projectCount, descriptionInputValue);
 }
 
-
-
 function deleteProject(projectCount) {
-  console.log("gghjdfghjn")
   var container = document.getElementById('container3');
   var projectSection = container.querySelector('.project-section1:nth-child(' + projectCount + ')');
-  console.log(projectSection,"fvghbnjmk")
   projectSection.remove();
 
   // Remove corresponding display div
@@ -330,17 +324,21 @@ function deleteProject(projectCount) {
   // Renumber the remaining project sections
   var projectHeaders = container.getElementsByClassName('project-header');
   for (var i = 0; i < projectHeaders.length; i++) {
-    projectHeaders[i].getElementsByTagName('b')[0].innerText = 'Project ' + (i + 1);
+    projectHeaders[i].getElementsByTagName('b')[0].innerText = 'Projects ' + (i + 1);
     projectHeaders[i].querySelector('.fa-trash-alt').setAttribute('onclick', 'deleteProject(' + (i + 1) + ')');
   }
 
-  // Update the IDs of the remaining projects
-  var projectSections = container.getElementsByClassName('project-section1');
-  for (var i = 0; i < projectSections.length; i++) {
-    projectSections[i].id = 'project' + (i + 1);
-  }
+  saveProjects();
+}
 
-  saveProject();
+function addNewProject() {
+  // Your existing addNewProject function remains unchanged
+
+  // Inside addNewProject function, update the delete icon with the proper onclick event
+  header.innerHTML = '<i class="fas fa-chevron-down"></i><p><b>Projects ' + projectCount + '</b></p>' +
+    '<i class="fas fa-trash-alt" onclick="deleteProject(' + projectCount + ')"></i>';
+
+  // Your existing code for adding a new project section continues...
 }
 
 
@@ -361,7 +359,6 @@ function toggleProject(header) {
   header.querySelector('i').classList.toggle('fa-chevron-up');
   content.classList.toggle('hidden');
 }
-
 
 
 function toggleContainer() {

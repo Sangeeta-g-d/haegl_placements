@@ -2058,3 +2058,7 @@ def new_user_register(request):
 
 def temp4(request):
     return render(request,'temp4.html')
+
+
+def pic(request):
+    return render(request,'pic.html')
