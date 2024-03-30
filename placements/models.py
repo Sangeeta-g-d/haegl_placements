@@ -71,8 +71,6 @@ class AppliedJobs(models.Model):
     experience = models.CharField(max_length=500,default='fresher')
     qualification = models.CharField(max_length=400,default='BE')
     skills = models.CharField(max_length=600,default='HTML')
-    city = models.CharField(max_length=500,default='Hubli')
-    expected_salary = models.CharField(max_length=300)
     resume = models.FileField(upload_to='applied_resume/')
     applied_date = models.DateField(default=timezone.now)
     status = models.CharField(max_length=200,default='Pending')
