@@ -864,6 +864,7 @@ def temp1(request):
     return render(request,'temp1.html')
 
 def user_login(request):
+    print("hhhhhhhhhhh")
     try:
          # Check if the user is already authenticated (logged in).
         if request.user.is_authenticated:
@@ -2063,3 +2064,6 @@ def temp4(request):
 
 def pic(request):
     return render(request,'pic.html')
+
+def A(request):
+    return render(request,"A.html")

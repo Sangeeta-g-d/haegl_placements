@@ -75,6 +75,7 @@ urlpatterns = [
     path('new_all_jobs',views.new_all_jobs,name='new_all_jobs'),
     path('temp4',views.temp4,name='temp4'),
     path('pic',views.pic,name='pic'),
+    path('A',views.A,name='A'),
 
 
 ]
