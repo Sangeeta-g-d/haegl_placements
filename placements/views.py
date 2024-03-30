@@ -999,16 +999,36 @@ def single_job(request, job_id):
 
     return render(request, 'single_job.html', context)
 
-def user_single_job(request,job_id):
+def user_single_job(request, job_id):
     id = request.user.id
     job = JobDetails.objects.select_related('company_id').filter(id=job_id, status="open").first()
-    user_has_applied = AppliedJobs.objects.filter(user_id_id=id, job_id_id=job_id).exists()
-    print("####333",user_has_applied)
+    
+    data = NewUser.objects.filter(id=id).first()
+    print(data)
+    obj = UserDetails.objects.filter(user_id_id=id).first()
+    print(obj)
+    # Extract individual keywords from the current job
+    keywords = job.mandatory_skills.split(',')  # Assuming keywords are comma-separated
+    
+    applied = AppliedJobs.objects.filter(user_id=id, job_id=job_id).exists()
+    # Get similar jobs based on shared mandatory skills
+    similar_jobs = []
+    for keyword in keywords:
+        similar_jobs.extend(JobDetails.objects.filter(mandatory_skills__icontains=keyword.strip(), status="open").select_related('company_id').exclude(id=job_id))
+    
+    # Remove duplicates from similar_jobs list
+    similar_jobs = list(set(similar_jobs))
+    print("similarrrrrrrrrrrr",similar_jobs)
+    for x in similar_jobs:
+        print(x.company_id.profile)
     context = {
         'job': job,
-        'user_has_applied':user_has_applied
+        'data': data,
+        'similar_jobs': similar_jobs,
+        'obj':obj,'applied':applied
     }
-    return render(request, 'user_single_job.html',context)
+
+    return render(request, 'user_single_job.html', context)
 
 def company(request,id):
     print("iddddddddd",id)
@@ -1734,7 +1754,6 @@ def application(request,job_id):
     user_id=AppliedJobs.objects.filter(user_id_id=id)
     degree = UserDetails.objects.filter(user_id_id=id).values('qualification')
     print(degree)
-
     #print("1111111111111111111111111111")
     if request.method == 'POST':
         #print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
@@ -1743,15 +1762,11 @@ def application(request,job_id):
         experience = request.POST.get('experience')
         expected_salary = request.POST.get('expected_salary')
         resume = request.FILES.get('resume')
-        city = request.POST.get('city')
-
-
+       
         application = AppliedJobs.objects.create(user_id_id=id,job_id_id=job_id,skills=skills,
-            qualification=degree,experience=experience,expected_salary=expected_salary,
-            city=city,resume=resume,applied=True)
-            #messages.success(request, 'Your application has been submitted successfully!')
-        #print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",application)
-        #messages.success(request, "Application sent successfully")
+            qualification=degree,experience=experience,
+           resume=resume,applied=True)
+        
         messages.success(request, 'Your application has been submitted successfully!')
         return redirect('user_single_job', job_id=job_id)
 
