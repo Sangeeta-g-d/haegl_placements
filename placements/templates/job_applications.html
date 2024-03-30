@@ -14,6 +14,19 @@
     <link rel="shortcut icon" href="/images/favicon.png" />
   </head>
   <style>
+    #statusMessage {
+    display: none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    
+   
+   
+    
+}
+
     .search-container {
   display: flex;
   align-items: center;
@@ -152,7 +165,11 @@ input[type="text"] {
                         <form class=""id="searchForm" >
                         <input type="text" name="search_query" class="form-control" id="jobSearch" placeholder="Search..."aria-label="search" aria-describedby="search" value="{{ request.GET.search_query }}">
                         </form>
+                        
+
                       </div>
+                      <div id="statusMessage" style="text-align:center; display:none">Status updated successfully!</div>
+                      <br>
                       <script>
                         document.addEventListener("DOMContentLoaded", function() {
                             // Function to handle search functionality
@@ -194,7 +211,7 @@ input[type="text"] {
                               <th>Designation</th>
                               <th>Resume</th>
                               <th>Department</th>
-                              <th>Location</th>
+                              
                                 <th>J_type</th>
                               <th>Work mode</th>
                               <th>No. of Vacancy</th>
@@ -217,7 +234,7 @@ input[type="text"] {
                                 <a href="{{ x.resume }}" target="_blank" class="badge badge-success">View Resume</a>
                                 </td>
                               <td>{{x.job_id.department}}</td>
-                              <td>{{x.city}}</td>
+                             
                                 <td>{{x.job_id.J_type}}</td>
                               <td>{{x.job_id.work_mode}}</td>
                               <td>{{x.job_id.no_of_vacancy}}</td>
@@ -228,14 +245,49 @@ input[type="text"] {
                               <td>{{x.job_id.job_type}}</td>
                               <td>{{x.user_id.email}}<br><br>{{x.user_id.phone_no}}</td>
                               <td>
-                                  <form method="POST" action="{% url 'delete_application' x.pk %}">
-                                    {% csrf_token %}
-                                <button class="badge badge-success" type="submit" name="button"> Delete</button>
-                                </form>
+                                <form method="POST" action="{% url 'update_application_status' %}" id="applicationForm">
+                                  {% csrf_token %}
+                                  <input type="hidden" name="application_id" value="{{ x.id }}">
+                                  <button class="badge badge-success" type="submit" name="button" value="Select" id="selectButton"> Select</button>
+                                  <button class="badge badge-danger" type="submit" name="button" value="Reject" id="rejectButton"> Reject</button>
+                              </form>
                               </td>
 
                               <td> </td>
                             </tr>
+                            <script>
+                              document.getElementById("applicationForm").addEventListener("submit", function(event) {
+    event.preventDefault();  // Prevent default form submission
+
+    var formData = new FormData(this);
+    var buttonClicked = event.submitter.value;  // Get the value of the clicked button
+
+    // Add the clicked button's value to the form data
+    formData.append('button', buttonClicked);
+
+    // Send AJAX request to handle form submission
+    fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',  // Add this header for Django to detect AJAX request
+            'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Disable buttons and show success message
+        document.getElementById("selectButton").disabled = true;
+        document.getElementById("rejectButton").disabled = true;
+        document.getElementById("statusMessage").style.display = "block";
+        setTimeout(function() {
+            successMessage.style.display = "none";
+        }, 6000);
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+                              </script>
                             <script>
                               document.addEventListener('DOMContentLoaded', function() {
                                 const tds = document.querySelectorAll('.break-words');
@@ -269,7 +321,8 @@ input[type="text"] {
               </div>
 
           </div>
-
+          <!-- updating status -->
+          
         </div>
         <!-- main-panel ends -->
       </div>

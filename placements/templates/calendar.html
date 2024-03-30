@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Haegl InterviewEdge</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet"> 
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="/static/new_landing/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+        <link href="/static/new_landing/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<!--custom font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Stoke:wght@300;400&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Stoke:wght@300;400&display=swap" rel="stylesheet">
+
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="/static/new_landing/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="/static/new_landing/css/style.css" rel="stylesheet">
+        <link href="/static/new_landing/css/custom.css" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+        <style>
+      .testimonial-item {
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .testimonial-item:hover {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+
+/* General styling for the calendar */
+#calendar-container .container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+#calendar-container .calendar {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    height: 400px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#calendar-container .calendar th,
+#calendar-container .calendar td {
+    padding: 10px;
+    text-align: center;
+}
+
+#calendar-container .calendar th {
+    background-color: #1E88E5;
+    color: white;
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
+    text-transform: uppercase;
+}
+
+#calendar-container .calendar td {
+    cursor: pointer;
+}
+
+#calendar-container .calendar td:hover {
+    background-color: #f0f0f0;
+}
+
+#calendar-container .calendar td.current-day {
+    background-color: #ffc107;
+    color: black;
+    width: 55px;
+    height: 10px;
+    border-radius: 100%;
+}
+
+#calendar-container .calendar td.sunday {
+    color: red;
+}
+
+#calendar-container .calendar td.other-month {
+    color: #ccc;
+}
+
+#calendar-container .month-year-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+#calendar-container .month-year-container select {
+    padding: 5px;
+    font-size: 16px;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 600px) {
+    #calendar-container .calendar {
+        max-width: 90%; /* Adjust width for smaller screens */
+        height: auto; /* Allow calendar height to adjust */
+    }
+
+    #calendar-container .month-year-container {
+        margin-top: 20px; /* Adjust margin top for better spacing */
+        text-align: center; /* Center align content */
+    }
+
+    #calendar-container .month-year-container select {
+        width: 48%; /* Adjust width for select boxes */
+        margin: 5px; /* Adjust margin */
+    }
+}
+
+
+        </style>
+    </head>
+
+    <body>
+
+       
+
+
+        <!-- Navbar start -->
+        <div class="container-fluid fixed-top">
+            <div class="container topbar bg-primary d-none d-lg-block">
+                <div class="d-flex justify-content-between">
+                    <div class="top-link ps-2">
+                        
+                    </div>
+                    <div id="top-link" style="margin-right:380px;" class="top-link pe-5">
+                        <small id="info1" class="info me-3 "><i class="fas fa-phone me-2 text-secondary"></i> <a href="#" class="text-white">+91 7676348382</a></small>
+                        <small id="info2" class="info me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">info@haegl.in</a></small>
+                    </div>    
+                </div>
+            </div>
+            <script>
+document.addEventListener("DOMContentLoaded", function() {
+    var infos = document.querySelectorAll(".info");
+    var currentIndex = 0;
+
+    function displayNextInfo() {
+        var currentInfo = infos[currentIndex];
+        currentInfo.classList.remove("active");
+        setTimeout(function() {
+            currentInfo.style.display = "none";
+            currentIndex = (currentIndex + 1) % infos.length;
+            var nextInfo = infos[currentIndex];
+            nextInfo.style.display = "inline";
+            setTimeout(function() {
+                nextInfo.classList.add("active");
+            }, 100); // Delay before fading in the next element
+        }, 1000); // Duration of fade out effect (1 second)
+        setTimeout(displayNextInfo, 3000); // Total delay before switching to next element (1s fade out + 3s delay)
+    }
+
+    displayNextInfo();
+});
+
+            </script>
+            <div class="container px-0">
+                <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                    <a href="/" class="navbar-brand">
+                        <img src="/static/new_landing/img/HAEGL_colour.png" width="200px" height="90px">
+                    </a>
+                    <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars text-primary"></span>
+                    </button>
+                    <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                        <div class="navbar-nav mx-auto">
+                           
+                          
+                        </div>
+                        <div class="d-flex m-3 me-0">
+                            <div class="navbar-nav mx-auto">
+                            <a href="/" class="nav-item nav-link active">Home</a>
+                            <a href="internship_program" class="nav-item nav-link">Internship Program</a>
+                            <a href="/all_jobs" class="nav-item nav-link">Jobs</a>
+                            <a href="/select_theme" class="nav-item nav-link">Build Resume</a>
+                            <a href="/calendar" class="nav-item nav-link">Calendar</a>
+                           
+                            <ul class="navbar-nav ml-auto mt-10">
+                              <li class="nav-item dropdown dropdown-slide @@dashboard">
+                                  <a class="nav-link " data-toggle="dropdown" href="#!">
+                                      <i class="fa fa-user"></i> <span><i class="fa fa-angle-down"></i></span>
+                                  </a>
+                                  <!-- Dropdown list -->
+                                  <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item @@dashboardPage" href="/profile">Profile</a></li>
+                                      <li><a class="dropdown-item @@dashboardMyAds" href="/user_logout">Logout</a></li>
+                                  </ul>
+                              </li>
+                          </ul>
+                          
+                           </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+      
+        <div class="container-fluid fruite py-5">
+           
+            <div id="calendar-container">
+               
+                <div class="container-fluid">
+                    <div class="month-year-container" id="month-year-container" style="margin: 10px;"></div>
+                    <table class="calendar" id="calendar-table">
+                        <thead id="calendar-head"></thead>
+                        <tbody id="calendar-body"></tbody>
+                    </table>
+                </div>
+            </div>
+           
+        
+            <script>
+                const monthYearContainer = document.getElementById('month-year-container');
+                const calendarHead = document.getElementById('calendar-head');
+                const calendarBody = document.getElementById('calendar-body');
+        
+                // Function to generate calendar
+                function generateCalendar(month, year) {
+                    calendarHead.innerHTML = '';
+                    calendarBody.innerHTML = '';
+                    const daysInMonth = new Date(year, month + 1, 0).getDate();
+                    const firstDay = new Date(year, month, 1).getDay();
+        
+                    // Set the days of the week header
+                    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                    const daysRow = document.createElement('tr');
+                    daysOfWeek.forEach(day => {
+                        const th = document.createElement('th');
+                        th.textContent = day;
+                        daysRow.appendChild(th);
+                    });
+                    calendarHead.appendChild(daysRow);
+        
+                    // Fill in the calendar
+                    let date = 1;
+                    for (let i = 0; i < 6; i++) {
+                        const row = document.createElement('tr');
+                        for (let j = 0; j < 7; j++) {
+                            const cell = document.createElement('td');
+                            if (i === 0 && j < firstDay) {
+                                // Fill empty cells before the first day of the month
+                                cell.textContent = '';
+                                cell.classList.add('other-month');
+                            } else if (date > daysInMonth) {
+                                // Break if we have reached the end of the month
+                                break;
+                            } else {
+                                // Fill cells with dates
+                                cell.textContent = date;
+                                if (date === new Date().getDate() && year === new Date().getFullYear() && month === new Date().getMonth()) {
+                                    cell.classList.add('current-day');
+                                }
+                                if (j === 0) {
+                                    cell.classList.add('sunday');
+                                }
+                                date++;
+                            }
+                            row.appendChild(cell);
+                        }
+                        calendarBody.appendChild(row);
+                    }
+                }
+        
+                // Function to populate month and year select options
+                function populateMonthYearSelect() {
+                    const currentDate = new Date();
+                    const currentMonth = currentDate.getMonth();
+                    const currentYear = currentDate.getFullYear();
+        
+                    // Display present month and year
+                    const presentMonthYear = new Date(currentYear, currentMonth).toLocaleString('en-US', { month: 'long', year: 'numeric' });
+                  
+        
+                    // Create month select
+                    const monthSelect = document.createElement('select');
+                    monthSelect.id = 'month-select';
+                    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                    months.forEach((month, index) => {
+                        const option = document.createElement('option');
+                        option.value = index;
+                        option.textContent = month;
+                        monthSelect.appendChild(option);
+                    });
+                    monthSelect.value = currentMonth; // Select current month by default
+        
+                    // Create year select
+                    const yearSelect = document.createElement('select');
+                    yearSelect.id = 'year-select';
+                    for (let year = currentYear - 5; year <= currentYear + 50; year++) {
+                        const option = document.createElement('option');
+                        option.value = year;
+                        option.textContent = year;
+                        yearSelect.appendChild(option);
+                    }
+                    yearSelect.value = currentYear; // Select current year by default
+        
+                    // Add event listener to update calendar when month or year is changed
+                    monthSelect.addEventListener('change', updateCalendar);
+                    yearSelect.addEventListener('change', updateCalendar);
+        
+                    // Add elements to container
+                    monthYearContainer.appendChild(document.createElement('br')); // Add line break for better spacing
+                    monthYearContainer.appendChild(monthSelect);
+                    monthYearContainer.appendChild(yearSelect);
+                }
+        
+                // Function to update calendar when month or year is changed
+                function updateCalendar() {
+                    const selectedMonth = parseInt(document.getElementById('month-select').value);
+                    const selectedYear = parseInt(document.getElementById('year-select').value);
+                    generateCalendar(selectedMonth, selectedYear);
+                }
+        
+                // Initial call to populate month and year select options and generate calendar for the current month and year
+                populateMonthYearSelect();
+                const currentDate = new Date();
+                generateCalendar(currentDate.getMonth(), currentDate.getFullYear());
+            </script>
+        </div>
+        
+       
+
+
+      
+        
+        
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-white-50 footer pt-1 mt-1">
+            <div class="container py-5">
+              
+                <div class="row g-5">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-item">
+                            <h4 class="text-light mb-3">HAEGL</h4>
+                            <p class="mb-4" >HAEGL Interview Egde is an innovative platform revolutionizing the recruitment landscape. Designed to streamline the hiring process for companies, and job seekers. </p>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="d-flex flex-column text-start footer-item">
+                            <h4 class="text-light mb-3">Pages</h4>
+                            <a class="btn-link" href="/">Home</a>
+                            <a class="btn-link" href="/user_registration">Register</a>
+                            
+                            <a class="btn-link" href="/internship_program">Internship Program</a>
+                            <a class="btn-link" href="/contact_us">Contact Us</a>
+                           
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-flex flex-column text-start footer-item">
+                            <h4 class="text-light mb-3">Contact</h4>
+                            <a class="btn-link" href="">+91 7676348382</a>
+                            <a class="btn-link" href="">haegl@gmail.com</a>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-item">
+                            <h4 class="text-light mb-3">Address</h4>
+                            <p class="mb-4">HAEGL TECHNOLOGIES PVT LTD, 1st Floor, AKALWADI MANSION, Vidyanagar, Hubballi, Karnataka 580021</p>
+                           
+                            <img src="img/payment.png" class="img-fluid" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
+                    <div class="row g-4">
+                        <div class="col-lg-3">
+                            
+                        </div>
+                        <div class="col-lg-6">
+                         
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="d-flex justify-content-end pt-3">
+                               
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" target="_blank" href="https://www.facebook.com/haegltechnologies/"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href="https://www.instagram.com/haegltechnologies/" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-outline-secondary btn-md-square rounded-circle" href="https://www.linkedin.com/company/haegl-technologies-pvt-ltd/mycompany/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+
+      
+     
+
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary border-1 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+
+        
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/new_landing/lib/easing/easing.min.js"></script>
+    <script src="/static/new_landing/lib/waypoints/waypoints.min.js"></script>
+    <script src="/static/new_landing/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="/static/new_landing/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/static/new_landing/js/main.js"></script>
+    </body>
+
+</html>

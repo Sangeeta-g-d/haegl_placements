@@ -1773,6 +1773,24 @@ def application(request,job_id):
     messages.error(request, 'There was an error processing your application.')
     return redirect('user_single_job', job_id=job_id)
 
+def update_application_status(request):
+    if request.method == 'POST':
+        application_id = request.POST.get('application_id')
+        button_clicked = request.POST.get('button')
+        print(button_clicked)
+        application = AppliedJobs.objects.get(id=application_id)
+        print(application)
+        if button_clicked == 'Select':
+            print("hhhhhhhhhhhhhhhhh")
+            application.status = 'Selected'
+        elif button_clicked == 'Reject':
+            application.status = 'Rejected'
+        application.save()
+
+        return JsonResponse({'status': 'success'})
+
+    return JsonResponse({'status': 'error'})
+
 @login_required
 def saved_jobs(request):
     if request.user.user_type != 'job seeker':
@@ -2096,3 +2114,6 @@ def pic(request):
 
 def A(request):
     return render(request,"A.html")
+
+def calendar(request):
+    return render(request,"calendar.html")

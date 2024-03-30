@@ -6,6 +6,7 @@ urlpatterns = [
     path('upload_file',views.upload_file,name='upload_file'),
     path('new_index',views.new_index,name='new_index'),
     path('contact_us',views.contact_us,name='contact_us'),
+    path('update_application_status',views.update_application_status,name='update_application_status'),
     path('temp1',views.temp1,name='temp1'),
     path('temp3',views.temp3,name='temp3'),
     path('temp2',views.temp2,name='temp2'),
@@ -76,6 +77,7 @@ urlpatterns = [
     path('temp4',views.temp4,name='temp4'),
     path('pic',views.pic,name='pic'),
     path('A',views.A,name='A'),
+    path('calendar',views.calendar,name='calendar'),
 
 
 ]
