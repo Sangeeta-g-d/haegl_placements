@@ -170,6 +170,9 @@ def index(request):
 def internship_program(request):
     return render(request,'internship_program.html')
 
+def user_internship_program(request):
+    return render(request,'user_internship_program.html')
+
 def search_results(request):
     keyword = request.GET.get('keyword')
     job_title = request.GET.get('job_title')
@@ -859,6 +862,9 @@ def user_registration(request):
 
 def select_theme(request):
     return render(request,'select_theme.html')
+
+def user_select_theme(request):
+    return render(request,'user_select_theme.html')
 
 def temp1(request):
     return render(request,'temp1.html')

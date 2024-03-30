@@ -77,6 +77,8 @@ urlpatterns = [
     path('pic',views.pic,name='pic'),
     path('A',views.A,name='A'),
     path('calendar',views.calendar,name='calendar'),
+    path('user_internship_program',views.user_internship_program,name='user_internship_program'),
+    path('user_select_theme',views.user_select_theme,name='user_select_theme'),
 
 
 ]

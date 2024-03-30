@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
             </script>
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="/" class="navbar-brand">
                         <img src="/static/new_landing/img/HAEGL_colour.png" width="200px" height="90px">
                     </a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -109,11 +109,25 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                         <div class="d-flex m-3 me-0">
                             <div class="navbar-nav mx-auto">
-                            <a href="/" class="nav-item nav-link ">Home</a>
-                            <a href="internship_program" class="nav-item nav-link ">Internship Program</a>
-                            <a href="/select_theme" class="nav-item nav-link active">Build Resume</a>
-                            <a href="/contact_us" class="nav-item nav-link">Contact us</a>
-                            <a href="user_registration" style="margin-top: 4px;">  <div class="text-white bg-primary px-3 py-1 rounded" style="top: 12px; right: 10px;">Register</div></a>
+                            <a href="/" class="nav-item nav-link active">Home</a>
+                            <a href="user_internship_program" class="nav-item nav-link">Internship Program</a>
+                            <a href="/all_jobs" class="nav-item nav-link">Jobs</a>
+                            <a href="/user_select_theme" class="nav-item nav-link">Build Resume</a>
+                            <a href="/calendar" class="nav-item nav-link">Calendar</a>
+                           
+                            <ul class="navbar-nav ml-auto mt-10">
+                              <li class="nav-item dropdown dropdown-slide @@dashboard">
+                                  <a class="nav-link " data-toggle="dropdown" href="#!">
+                                      <i class="fa fa-user"></i> <span><i class="fa fa-angle-down"></i></span>
+                                  </a>
+                                  <!-- Dropdown list -->
+                                  <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item @@dashboardPage" href="/profile">Profile</a></li>
+                                      <li><a class="dropdown-item @@dashboardMyAds" href="/user_logout">Logout</a></li>
+                                  </ul>
+                              </li>
+                          </ul>
+                          
                            </div>
                         </div>
                     </div>
@@ -150,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                                 </div>
                                                 <div class="p-4 rounded-bottom">
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
-                                                        <a href="/user_login" class="btn border border-secondary rounded-pill px-3 text-primary">Use Template</a>
+                                                        <a href="/temp1" class="btn border border-secondary rounded-pill px-3 text-primary">Use Template</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                                 </div>
                                                 <div class="p-4 rounded-bottom">
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
-                                                        <a href="/user_login" class="btn border border-secondary rounded-pill px-3 text-primary">Use Template</a>
+                                                        <a href="/temp2" class="btn border border-secondary rounded-pill px-3 text-primary">Use Template</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -174,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                                 </div>
                                                 <div class="p-4 rounded-bottom">
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
-                                                        <a href="/user_login" class="btn border border-secondary rounded-pill px-3 text-primary">Use Template</a>
+                                                        <a href="/temp3" class="btn border border-secondary rounded-pill px-3 text-primary">Use Template</a>
                                                     </div>
                                                 </div>
                                             </div>
