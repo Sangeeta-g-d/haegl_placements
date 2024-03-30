@@ -76,6 +76,7 @@ urlpatterns = [
     path('temp4',views.temp4,name='temp4'),
     path('pic',views.pic,name='pic'),
     path('A',views.A,name='A'),
+    path('calendar',views.calendar,name='calendar'),
 
 
 ]

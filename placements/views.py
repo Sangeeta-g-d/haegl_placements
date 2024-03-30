@@ -2081,3 +2081,6 @@ def pic(request):
 
 def A(request):
     return render(request,"A.html")
+
+def calendar(request):
+    return render(request,"calendar.html")
