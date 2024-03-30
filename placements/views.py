@@ -973,17 +973,31 @@ def search_trend(request, keyword):
     }
     return render(request,'search_trend.html', context)
 
-def single_job(request,job_id):
+def single_job(request, job_id):
     id = request.user.id
     job = JobDetails.objects.select_related('company_id').filter(id=job_id, status="open").first()
     data = NewUser.objects.filter(id=id).first()
-   
+    
+    # Extract individual keywords from the current job
+    keywords = job.mandatory_skills.split(',')  # Assuming keywords are comma-separated
+    
+    # Get similar jobs based on shared mandatory skills
+    similar_jobs = []
+    for keyword in keywords:
+        similar_jobs.extend(JobDetails.objects.filter(mandatory_skills__icontains=keyword.strip(), status="open").select_related('company_id').exclude(id=job_id))
+    
+    # Remove duplicates from similar_jobs list
+    similar_jobs = list(set(similar_jobs))
+    print("similarrrrrrrrrrrr",similar_jobs)
+    for x in similar_jobs:
+        print(x.company_id.profile)
     context = {
         'job': job,
-        'data':data
+        'data': data,
+        'similar_jobs': similar_jobs
     }
-        #here if true i want that button to disable and print applied on the button using jsonresponse
-    return render(request, 'single_job.html',context)
+
+    return render(request, 'single_job.html', context)
 
 def user_single_job(request,job_id):
     id = request.user.id
