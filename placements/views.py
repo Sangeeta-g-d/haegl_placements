@@ -884,6 +884,7 @@ def company_calendar(request):
 
 def save_available_timings(request):
     company_id = request.user.id
+    print("xcv bnmfvgbhnm")
     if request.method == 'POST':
         selected_date = request.POST.get('selectedDate')
         start_time = request.POST.get('startTime')
