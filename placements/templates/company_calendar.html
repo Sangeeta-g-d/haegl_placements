@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
     <link rel="stylesheet" href="/static/assets/css/style.css" />
     <link rel="shortcut icon" href="/images/favicon.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 
 
 
@@ -82,6 +84,37 @@
 #calendar-container .month-year-container select {
     padding: 5px;
     font-size: 16px;
+}
+#year-select,
+#month-select {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    
+}
+
+#year-select:focus,
+#month-select:focus {
+    outline: none;
+    border-color: dodgerblue;
+}
+
+.container1 {
+    display: flex;
+}
+
+.container1 select {
+    flex: 1;
+    margin-right: 10px; /* Adjust as needed */
+}
+
+
+.custom-select:focus {
+    outline: none;
+    border-color: dodgerblue;
 }
 
 /* Responsive adjustments */
@@ -213,9 +246,11 @@
 
 
 
-        <div class="main-panel">
-            <div class="page-header flex-wrap" style="margin-left: 30px;">
-                <div id="calendar-container">
+        <div class="main-panel" style="display: flex;">
+          
+            <div class="page-header">
+              
+                <div id="calendar-container" style="flex: 1; margin-left: 30px; margin-right: 30px;">
                     <div class="container-fluid">
                         <div class="month-year-container" id="month-year-container" style="margin: 10px;"></div>
                         <table class="calendar" id="calendar-table">
@@ -224,10 +259,43 @@
                         </table>
                     </div>
                 </div>
-                <div id="availability-section">
+                <div id="availability-section" style="flex: 2; margin-left: 30px;">
                     <h2>Set Available Timings</h2>
                     <p>Select dates on the calendar above to set your available timings:</p>
                     <div id="selected-dates"></div>
+
+                    <script>
+                      // Function to fetch data from the server
+                      function fetchData() {
+                          fetch('get-available-timings/')
+                              .then(response => response.json())
+                              .then(data => {
+                                  // Call function to display data
+                                  displayData(data);
+                              })
+                              .catch(error => {
+                                  console.error('Error fetching data:', error);
+                              });
+                      }
+                  
+                      // Function to display fetched data
+                      function displayData(data) {
+                          const selectedDatesDiv = document.getElementById('selected-dates');
+                  
+                          // Clear any existing content
+                          selectedDatesDiv.innerHTML = '';
+                  
+                          // Loop through the data and create li elements
+                          data.forEach(item => {
+                              const li = document.createElement('li');
+                              li.textContent = `Date: ${item.date}, Start Time: ${item.start_time}, End Time: ${item.end_time}`;
+                              selectedDatesDiv.appendChild(li);
+                          });
+                      }
+                  
+                      // Call the function to fetch data when the page loads
+                      fetchData();
+                  </script>
                 </div>
             </div>
         </div>
@@ -359,40 +427,104 @@
         
             // Function to save available timings
             function saveAvailableTimings() {
-                const selectedDate = document.getElementById('selectedDate').value;
-                const startTime = document.getElementById('startTime').value;
-                const endTime = document.getElementById('endTime').value;
-                const selectedTiming = `${startTime} - ${endTime}`;
-                selectedDates[selectedDate] = selectedTiming;
-                $('#availabilityModal').modal('hide');
-                updateSelectedDatesDisplay();
+    const selectedDate = document.getElementById('selectedDate').value;
+    const startTime = document.getElementById('startTime').value;
+    const endTime = document.getElementById('endTime').value;
+    const selectedTiming = `${startTime} - ${endTime}`;
+
+    // Get CSRF token from cookie
+    const csrftoken = getCookie('csrftoken');
+
+    // Make AJAX POST request to Django endpoint
+    $.ajax({
+        url: '/save-available-timings/',
+        type: 'POST',
+        data: {
+            selectedDate: selectedDate,
+            startTime: startTime,
+            endTime: endTime
+        },
+        beforeSend: function(xhr, settings) {
+            // Set CSRF token in request headers
+            xhr.setRequestHeader('X-CSRFToken', csrftoken);
+        },
+        success: function(response) {
+            console.log('Data saved successfully:', response);
+            // Handle success response as needed
+        },
+        error: function(xhr, status, error) {
+            console.error('Error saving data:', error);
+            // Handle error response as needed
+        }
+    });
+}
+
+// Function to get CSRF token from cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Check if cookie name matches csrfmiddlewaretoken
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
             }
-        
-            // Function to update the display of selected dates
-            function updateSelectedDatesDisplay() {
-                selectedDatesContainer.innerHTML = '';
-                if (Object.keys(selectedDates).length > 0) {
-                    const ul = document.createElement('ul');
-                    for (const date in selectedDates) {
-                        const li = document.createElement('li');
-                        li.textContent = `${new Date(date).toDateString()} - ${selectedDates[date]}`;
-                        ul.appendChild(li);
-                    }
-                    selectedDatesContainer.appendChild(ul);
-                } else {
-                    selectedDatesContainer.textContent = 'No dates selected.';
-                }
-            }
+        }
+    }
+    return cookieValue;
+}
+
+
+function updateSelectedDatesDisplay() {
+    // Assuming selectedDatesContainer is a global variable
+    const selectedDatesContainer = document.getElementById('selected-dates');
+    
+    // Clear the existing content of the container
+    selectedDatesContainer.innerHTML = '';
+
+    // Create a new unordered list element
+    const ul = document.createElement('ul');
+
+    // Fetch all available timings using AJAX
+    $.ajax({
+        url: '/get-available-timings/',
+        type: 'GET',
+        success: function(response) {
+
+            // Loop through the response data and create list items
+            response.forEach(timing => {
+                const li = document.createElement('li');
+                const date = timing.date; // Assuming 'date' is part of the response
+                li.textContent = `${new Date(date).toDateString()} - ${timing.start_time} - ${timing.end_time}`;
+                ul.appendChild(li);
+            });
+            // Append the unordered list to the selectedDatesContainer
+            selectedDatesContainer.appendChild(ul);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching available timings:', error);
+            // Display an error message if fetching fails
+            selectedDatesContainer.textContent = 'Error fetching available timings.';
+        }
+    });
+}
+
+
         
             // Function to populate month and year select options
             function populateMonthYearSelect() {
                 const currentDate = new Date();
                 const currentMonth = currentDate.getMonth();
                 const currentYear = currentDate.getFullYear();
-        
+
+                const container1 = document.createElement('div');
+                container1.classList.add('container1');
                 // Create month select
                 const monthSelect = document.createElement('select');
                 monthSelect.id = 'month-select';
+                
                 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
                 months.forEach((month, index) => {
                     const option = document.createElement('option');
@@ -405,6 +537,10 @@
                 // Create year select
                 const yearSelect = document.createElement('select');
                 yearSelect.id = 'year-select';
+
+                container1.appendChild(monthSelect);
+                container1.appendChild(yearSelect);
+                document.body.appendChild(container1);
                 for (let year = currentYear - 5; year <= currentYear + 50; year++) {
                     const option = document.createElement('option');
                     option.value = year;
@@ -452,6 +588,7 @@
     <script src="/static/assets/vendors/flot/jquery.flot.fillbetween.js"></script>
     <script src="/static/assets/vendors/flot/jquery.flot.stack.js"></script>
     <script src="/static/assets/vendors/flot/jquery.flot.pie.js"></script>
+    
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="/static/assets/js/off-canvas.js"></script>

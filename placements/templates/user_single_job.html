@@ -22,7 +22,7 @@
     <!-- Libraries Stylesheet -->
     <link href="/static/new_landing/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
     <link href="/static/new_landing/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/static/new_landing/css/bootstrap.min.css" rel="stylesheet">
@@ -447,7 +447,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form method="post" action="{% url 'application' job_id=job.id %}">
+                  <form method="post" id="applicationForm"  action="{% url 'application' job_id=job.id %}" enctype="multipart/form-data">
                     {% csrf_token %}
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
@@ -478,7 +478,59 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('applicationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
 
+            var form = this;
+            var formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest', // Add this header for Django to detect AJAX request
+                    'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Display SweetAlert for success
+                    swal({
+                        title: "Success!",
+                        text: "Your application has been submitted successfully!",
+                        icon: "success",
+                        button: "OK",
+                    }).then(function() {
+                        // Reload the page without refreshing
+                        window.location.reload();
+                    });
+                } else {
+                    // Display SweetAlert for failure
+                    swal({
+                        title: "Error!",
+                        text: "There was an error processing your application.",
+                        icon: "error",
+                        button: "OK",
+                    }).then(function() {
+                        // Reload the page without refreshing
+                        window.location.reload();
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Display SweetAlert for failure due to network error
+                swal({
+                    title: "Error!",
+                    text: "There was an error processing your application. Please check your network connection.",
+                    icon: "error",
+                    button: "OK",
+                });
+            });
+        });
+    </script>
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
@@ -494,6 +546,7 @@
     <script src="/static/new_landing/lib/owlcarousel/owl.carousel.min.js"></script>
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/new_landing/js/application_msg.js"></script>
 
 
     <!-- Template Javascript -->

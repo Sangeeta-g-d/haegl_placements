@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse,HttpResponseRedirect,HttpResponseForbidden,HttpResponseBadRequest
 from django.template import loader
-from .models import CompanyDetails, NewUser, JobDetails, TopCompanies, InterviewQuestions, UserDetails, CompanyJobSaved, AppliedJobs, UploadFile, ContactUs
+from .models import CompanyDetails, NewUser, JobDetails, TopCompanies, InterviewQuestions, UserDetails, CompanyJobSaved, AppliedJobs, UploadFile, ContactUs,AvailableTiming
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -16,10 +16,16 @@ import random
 from operator import attrgetter
 from django.utils import timezone
 from itertools import chain
+from django.core.mail import send_mail
+from django.conf import settings
 from urllib.parse import unquote
 from django.db.models import Count
 from collections import defaultdict
 from django.db.models import Q
+from email.mime.text import MIMEText
+from smtplib import SMTPException
+from email.mime.multipart import MIMEMultipart
+from django.core.mail import send_mail
 # Create your views here.
 
 def upload_file(request):
@@ -869,9 +875,32 @@ def user_select_theme(request):
 def temp1(request):
     return render(request,'temp1.html')
 
-
 def company_calendar(request):
-    return render(request,'company_calendar.html')
+    first_name = request.user.first_name
+    context = {
+        'first_name':first_name
+    }
+    return render(request,'company_calendar.html',context)
+
+def save_available_timings(request):
+    company_id = request.user.id
+    if request.method == 'POST':
+        selected_date = request.POST.get('selectedDate')
+        start_time = request.POST.get('startTime')
+        end_time = request.POST.get('endTime')
+        # Create and save SelectedTiming object
+        selected_timing = AvailableTiming(date=selected_date, start_time=start_time, end_time=end_time,company_id_id=company_id)
+        selected_timing.save()
+
+        return JsonResponse({'message': 'Data saved successfully'}, status=200)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+def get_available_timings(request):
+    print("hiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+    company_id = request.user.id
+    available_timings = AvailableTiming.objects.filter(company_id_id=company_id).values('date', 'start_time', 'end_time')
+    return JsonResponse(list(available_timings), safe=False)
 
 def user_login(request):
     print("hhhhhhhhhhh")
@@ -1682,6 +1711,21 @@ def user_dashboard1(request):
     obj = NewUser.objects.get(id=id)
 
     print("profileeee",obj.profile)
+
+    # latest jobs
+    recent_jobs = list(JobDetails.objects.filter(J_type='job').order_by('-created_on')[:5])
+
+    # Shuffle the list of recent jobs
+    random.shuffle(recent_jobs)
+
+    # Sort combined_jobs by the latest job posted (created_on) in descending order
+    recent_jobs = sorted(recent_jobs, key=attrgetter('created_on'), reverse=True)
+
+    for x in recent_jobs:
+
+        days_since_posted = (timezone.now().date() - x.created_on).days
+        x.days_since_posted = days_since_posted
+
     # Get user details
     user_details = UserDetails.objects.filter(user_id_id=id).first()
 
@@ -1753,53 +1797,79 @@ def user_dashboard1(request):
 
     context = {'obj':obj,'combined_recommended_jobs':combined_recommended_jobs
     ,'department_open_counts':department_open_counts,
-    'combined_counts':combined_counts
+    'combined_counts':combined_counts,'recent_jobs':recent_jobs
     }
     return render(request,'user_dashboard.html',context)
 
-def application(request,job_id):
+def application(request, job_id):
     id = request.user.id
     obj = NewUser.objects.get(id=id)
     today_date = date.today()
-    user_id=AppliedJobs.objects.filter(user_id_id=id)
+    user_id = AppliedJobs.objects.filter(user_id_id=id)
     degree = UserDetails.objects.filter(user_id_id=id).values('qualification')
-    print(degree)
-    #print("1111111111111111111111111111")
+    
     if request.method == 'POST':
-        #print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
         skills = request.POST.get('skills')
         qualification = request.POST.get('qualification')
         experience = request.POST.get('experience')
         expected_salary = request.POST.get('expected_salary')
         resume = request.FILES.get('resume')
-       
-        application = AppliedJobs.objects.create(user_id_id=id,job_id_id=job_id,skills=skills,
-            qualification=degree,experience=experience,
-           resume=resume,applied=True)
         
-        messages.success(request, 'Your application has been submitted successfully!')
-        return redirect('user_single_job', job_id=job_id)
+        application = AppliedJobs.objects.create(
+            user_id_id=id,
+            job_id_id=job_id,
+            skills=skills,
+            qualification=degree,  # Use degree directly as qualification
+            experience=experience,
+            resume=resume,
+            applied=True
+        )
 
-    messages.error(request, 'There was an error processing your application.')
-    return redirect('user_single_job', job_id=job_id)
+        # Return a JSON response indicating success
+        return JsonResponse({'success': True})
+
+    # Return a JSON response indicating failure
+    return JsonResponse({'success': False})
 
 def update_application_status(request):
     if request.method == 'POST':
         application_id = request.POST.get('application_id')
-        button_clicked = request.POST.get('button')
-        print(button_clicked)
-        application = AppliedJobs.objects.get(id=application_id)
-        print(application)
-        if button_clicked == 'Select':
-            print("hhhhhhhhhhhhhhhhh")
+        application = AppliedJobs.objects.filter(id=application_id).select_related('job_id','user_id').first()
+        
+        # Check if the application exists
+        if not application:
+            return JsonResponse({'status': 'error', 'message': 'Application not found'}, status=404)
+    
+       
+        user_email = application.user_id.email   
+        smtp_server = settings.EMAIL_HOST
+        smtp_port = settings.EMAIL_PORT
+        sender_email = settings.EMAIL_HOST_USER
+        sender_password = settings.EMAIL_HOST_PASSWORD
+
+        # Prepare email content
+        des = application.job_id.designation
+        print("desssssssssssssssssssssss",des)
+        company_name = application.job_id.company_id.first_name
+        
+       
+        subject = f'Congratulations!'
+        body = f"""Dear {application.user_id.first_name},\nSending this mail to inform that you have been shortlisted for the profile {des} at {company_name}. You will be notified further soon"""
+        
+        try:
+            # Send email
+            send_mail(subject, body, sender_email, [user_email])
+            print("mail senttttttttttttt")
+            # Update application status
             application.status = 'Selected'
-        elif button_clicked == 'Reject':
-            application.status = 'Rejected'
-        application.save()
+            application.save()
 
-        return JsonResponse({'status': 'success'})
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            # Handle email sending failure
+            return JsonResponse({'status': 'error', 'message': 'Failed to send email. Please check your network connection.'}, status=500)
 
-    return JsonResponse({'status': 'error'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
 @login_required
 def saved_jobs(request):
@@ -1862,38 +1932,38 @@ def saved_jobs(request):
 def job_applications(request):
     if request.user.user_type != 'Company':
         return HttpResponseForbidden()
+
+    success = request.GET.get('success', False)
     i = request.user.id
     first_name = request.user.first_name
     obj = NewUser.objects.get(id=i)
     today_date = date.today()
     search_query = request.GET.get('search_query', '')
 
-    data = AppliedJobs.objects.select_related('job_id','user_id').filter(job_id_id__company_id_id =i)
-    for x in data:
-        print(x.user_id.username)
-
+    data = AppliedJobs.objects.select_related('job_id', 'user_id').filter(job_id__company_id=i)
 
     if search_query:
         # Perform case-insensitive search for string fields
         data = data.filter(
-            Q(designation__icontains=search_query) |
-            Q(department__icontains=search_query) |
-            Q(location__icontains=search_query) |
-            Q(mandatory_skills__icontains=search_query) |
-            Q(optional_skills__icontains=search_query) |
+            Q(job_id__designation__icontains=search_query) |
+            Q(job_id__department__icontains=search_query) |
+            Q(job_id__location__icontains=search_query) |
+            Q(job_id__mandatory_skills__icontains=search_query) |
+            Q(job_id__optional_skills__icontains=search_query) |
             Q(qualification__icontains=search_query) |
-            Q(no_of_vacancy__icontains=search_query)
+            Q(job_id__no_of_vacancy__icontains=search_query)
         )
 
         # Handle case-insensitive search for numeric fields by converting them to strings
         data = data.filter(
-            Q(experience__icontains=str(search_query)) |
-            Q(salary__icontains=str(search_query))
+            Q(job_id__experience__icontains=str(search_query)) |
+            Q(job_id__salary__icontains=str(search_query))
         )
 
-    context = {'obj':obj,'today_date':today_date,'data':data,'first_name':first_name}
+    context = {'obj': obj, 'today_date': today_date, 'data': data, 'first_name': first_name, 'success': success}
 
-    return render(request,'job_applications.html',context)
+    return render(request, 'job_applications.html', context)
+
 
 @login_required
 def application_status(request):

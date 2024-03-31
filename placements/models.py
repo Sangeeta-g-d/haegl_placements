@@ -106,4 +106,10 @@ class ContactUs(models.Model):
     name = models.CharField(max_length=700, default='name')
     email = models.CharField(max_length=700, default='email')
     message = models.CharField(max_length=700, default='message')
-   
+
+
+class AvailableTiming(models.Model):
+    date =  models.CharField(max_length=700, default='date')
+    start_time =  models.CharField(max_length=700, default='start time')
+    end_time =  models.CharField(max_length=700, default='end time')
+    company_id = models.ForeignKey('NewUser', on_delete=models.CASCADE)
