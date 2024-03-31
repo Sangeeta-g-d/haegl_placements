@@ -6,6 +6,7 @@ urlpatterns = [
     path('upload_file',views.upload_file,name='upload_file'),
     path('new_index',views.new_index,name='new_index'),
     path('contact_us',views.contact_us,name='contact_us'),
+    path('schedule-interview/', views.schedule_interview, name='schedule_interview'),
     path('update_application_status',views.update_application_status,name='update_application_status'),
     path('fetch_available_timings/', views.fetch_available_timings, name='fetch_available_timings'),
     path('get-available-timings/', views.get_available_timings, name='get_available_timings'),

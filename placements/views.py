@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse,HttpResponseRedirect,HttpResponseForbidden,HttpResponseBadRequest
 from django.template import loader
-from .models import CompanyDetails, NewUser, JobDetails, TopCompanies, InterviewQuestions, UserDetails, CompanyJobSaved, AppliedJobs, UploadFile, ContactUs,AvailableTiming
+from .models import CompanyDetails, NewUser, JobDetails, TopCompanies, InterviewQuestions, UserDetails, CompanyJobSaved, AppliedJobs, UploadFile, ContactUs,AvailableTiming, ScheduleInterview
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -1971,7 +1971,33 @@ def fetch_available_timings(request):
     timings_data = [{'start_time': timing.start_time, 'end_time': timing.end_time} for timing in timings]
     return JsonResponse({'timings': timings_data})
 
-    
+def schedule_interview(request):
+    if request.method == "POST":
+        # Get form data
+        user_id = request.POST.get("user_id")
+        application_id = request.POST.get("application_id")
+        designation = request.POST.get("designation")
+        interview_date = request.POST.get("date")
+        start_time = request.POST.get("start_time")
+        end_time = request.POST.get("end_time")
+        mode_of_interview = request.POST.get("mode_of_interview")
+        
+        # Save data to ScheduleInterview model
+        schedule = ScheduleInterview.objects.create(
+            user_id_id=user_id,
+            application_id_id=application_id,
+            interview_date=interview_date,
+            start_time=start_time,
+            end_time=end_time,
+            mode_of_interview=mode_of_interview,  # Default value
+            confirmation="Pending",  # Default value
+            user_confirmation=False  # Default value
+        )
+        
+        return JsonResponse({"status": "success"})
+    else:
+        return JsonResponse({"status": "error", "message": "Invalid request method"})
+
 @login_required
 def application_status(request):
     if request.user.user_type != 'job seeker':

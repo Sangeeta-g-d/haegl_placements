@@ -237,7 +237,8 @@ input[type="text"] {
           </form>
         </div>
         <div style="flex: 1;">
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" onclick="setDesignation('{{ x.job_id.designation }}')">
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" onclick="setDesignation('{{ x.job_id.designation }}', '{{ x.id }}', '{{ x.user_id_id }}')">
+
             Schedule
            </button>
             </div>
@@ -286,9 +287,15 @@ input[type="text"] {
     </div>
     {% endfor %}
     <script>
-      function setDesignation(designation) {
-        document.getElementById('designation').value = designation;
-      }
+    function setDesignation(designation, applicationId, userId) {
+    // Your existing code to set the designation
+    console.log("user idddddddddddd",userId)
+    document.getElementById('designation').value = designation;
+
+    // Store applicationId and companyId in hidden inputs
+    document.getElementById('applicationId').value = applicationId;
+    document.getElementById('UserId').value = userId;
+}
     </script>
   </div>
 </div>
@@ -321,34 +328,91 @@ input[type="text"] {
           </button>
         </div>
         <div class="modal-body">
-          <form id="scheduleForm">
+          <form id="scheduleForm" method="post" action="{% url 'schedule_interview' %}">
+            {% csrf_token %}
             <div class="form-group">
-              <label for="designation">Designation:</label>
-              <input type="text" name="designation" class="form-control" id="designation" placeholder="Enter designation">
+                <label for="designation">Designation:</label>
+                <input type="text" name="designation" class="form-control" id="designation" placeholder="Enter designation">
             </div>
-            
+            <input type="hidden" id="applicationId" name="application_id">
+            <input type="hidden" id="UserId" name="user_id">
+
             <div class="form-group">
-              <label for="date">Date:</label>
-              <input type="date" class="form-control" id="date">
+                <label for="date">Date:</label>
+                <input type="date" class="form-control" name="date" id="date">
+            </div>
+            <div id="availableTimings"></div>
+            <div class="form-group">
+                <label for="start_time">Start Time:</label>
+                <input type="time" class="form-control" name="start_time" id="start_time">
+            </div>
+            <div class="form-group">
+                <label for="end_time">End Time:</label>
+                <input type="time" class="form-control" name="end_time" id="end_time">
+            </div>
+            <div class="form-group">
+              <label>Mode of Interview:</label><br>
+              <div class="form-row">
+                  <div class="col-auto">
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="mode_of_interview" id="walkIn" name="mode_of_interview" value="Walk in">
+                          <label class="form-check-label" for="walkIn">Walk in</label>
+                      </div>
+                  </div>
+                  <div class="col-auto">
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" name="mode_of_interview" type="radio" name="mode_of_interview" id="online" value="Online">
+                          <label class="form-check-label" for="online">Online</label>
+                      </div>
+                  </div>
+              </div>
           </div>
-          <div id="availableTimings"></div>
-            <div class="form-group">
-              <label for="start_time">Start Time:</label>
-              <input type="time" class="form-control" id="start_time">
-            </div>
-            <div class="form-group">
-              <label for="end_time">End Time:</label>
-              <input type="time" class="form-control" id="end_time">
-            </div>
-          </form>
+            <button type="button" class="btn btn-success" id="submitSchedule">Submit</button>
+        </form>
+        
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" form="scheduleForm" class="btn btn-success">Submit</button>
+          
         </div>
       </div>
     </div>
   </div>
+  <!-- form submission -->
+  <script>
+    document.getElementById("submitSchedule").addEventListener("click", function () {
+        // Get form data
+        const formData = new FormData(document.getElementById("scheduleForm"));
+        
+        // Fetch URL
+        fetch("{% url 'schedule_interview' %}", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                // Display success message
+                alert("Interview scheduled successfully!");
+
+                // You can customize the alert using SweetAlert or other libraries
+                // For SweetAlert:
+                // swal("Success!", "Interview scheduled successfully!", "success");
+            } else {
+                // Handle error
+                alert("Failed to schedule interview. Please try again.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred while scheduling the interview. Please try again later.");
+        });
+    });
+</script>
+
   <script>
     const today = new Date().toISOString().split('T')[0];
 
