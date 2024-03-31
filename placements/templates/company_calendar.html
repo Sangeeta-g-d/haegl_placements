@@ -116,24 +116,56 @@
     outline: none;
     border-color: dodgerblue;
 }
+/* CSS for making the page responsive */
+.availability-item {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            /* Add left padding */
+            padding-left: 30px;
+            margin-right: 50px;
+        }
 
-/* Responsive adjustments */
-@media only screen and (max-width: 600px) {
-    #calendar-container .calendar {
-        max-width: 90%; /* Adjust width for smaller screens */
-        height: auto; /* Allow calendar height to adjust */
-    }
+        /* Style for the date */
+        .date {
+            font-weight: 12px;
+            color: #343a40;
+            margin-bottom: 5px;
+            line-height: 35px;
+            
+        }
 
-    #calendar-container .month-year-container {
-        margin-top: 20px; /* Adjust margin top for better spacing */
-        text-align: center; /* Center align content */
-    }
-
-    #calendar-container .month-year-container select {
-        width: 48%; /* Adjust width for select boxes */
-        margin: 5px; /* Adjust margin */
-    }
+        /* Style for start and end times */
+        .time {
+          
+            color: #6c757d;
+            display: block;
+        }
+/* Adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+  /* Navbar adjustments */
+  .navbar-brand.brand-logo-mini {
+    display: none; /* Hide mini logo on smaller screens */
+  }
+  
+  /* Adjust margin for calendar and availability sections */
+  #calendar-container,
+  #availability-section {
+    margin: 10px; /* Adjust margin for smaller screens */
+  }
 }
+
+/* Adjustments for extra small screens */
+@media screen and (max-width: 576px) {
+  /* Adjust margin for calendar and availability sections */
+  #calendar-container,
+  #availability-section {
+    margin: 5px; /* Further adjust margin for extra small screens */
+  }
+}
+
 
     </style>
   </head>
@@ -260,42 +292,49 @@
                     </div>
                 </div>
                 <div id="availability-section" style="flex: 2; margin-left: 30px;">
-                    <h2>Set Available Timings</h2>
-                    <p>Select dates on the calendar above to set your available timings:</p>
-                    <div id="selected-dates"></div>
+                  <h2>Set Available Timings</h2>
+                  <p>Select dates on the calendar above to set your available timings:</p>
+                  <div id="selected-dates"></div>
 
-                    <script>
-                      // Function to fetch data from the server
-                      function fetchData() {
-                          fetch('get-available-timings/')
-                              .then(response => response.json())
-                              .then(data => {
-                                  // Call function to display data
-                                  displayData(data);
-                              })
-                              .catch(error => {
-                                  console.error('Error fetching data:', error);
-                              });
-                      }
-                  
-                      // Function to display fetched data
-                      function displayData(data) {
-                          const selectedDatesDiv = document.getElementById('selected-dates');
-                  
-                          // Clear any existing content
-                          selectedDatesDiv.innerHTML = '';
-                  
-                          // Loop through the data and create li elements
-                          data.forEach(item => {
-                              const li = document.createElement('li');
-                              li.textContent = `Date: ${item.date}, Start Time: ${item.start_time}, End Time: ${item.end_time}`;
-                              selectedDatesDiv.appendChild(li);
-                          });
-                      }
-                  
-                      // Call the function to fetch data when the page loads
-                      fetchData();
-                  </script>
+                  <script>
+                    // Function to fetch data from the server
+                    function fetchData() {
+                        fetch('get-available-timings/')
+                            .then(response => response.json())
+                            .then(data => {
+                                // Call function to display data
+                                displayData(data);
+                            })
+                            .catch(error => {
+                                console.error('Error fetching data:', error);
+                            });
+                    }
+            
+                    // Function to display fetched data
+                    function displayData(data) {
+                        const selectedDatesDiv = document.getElementById('selected-dates');
+            
+                        // Clear any existing content
+                        selectedDatesDiv.innerHTML = '';
+            
+                        // Loop through the data and create li elements
+                        data.forEach(item => {
+                            const li = document.createElement('li');
+                            // Apply CSS class to the list item
+                            li.classList.add('availability-item');
+                            // Set inner HTML with styled content
+                            li.innerHTML = `
+                                <span class="date"> ${item.date}</span><br>
+                                <span class="time">&nbsp;&nbsp;&nbsp;&nbsp;Timimg : ${item.start_time} - ${item.end_time}</span>
+                               
+                            `;
+                            selectedDatesDiv.appendChild(li);
+                        });
+                    }
+            
+                    // Call the function to fetch data when the page loads
+                    fetchData();
+                </script>
                 </div>
             </div>
         </div>
@@ -426,11 +465,14 @@
             }
         
             // Function to save available timings
-            function saveAvailableTimings() {
+          // Function to save available timings
+          function saveAvailableTimings() {
     const selectedDate = document.getElementById('selectedDate').value;
     const startTime = document.getElementById('startTime').value;
+    const formattedStartTime = formatTime(startTime);
     const endTime = document.getElementById('endTime').value;
-    const selectedTiming = `${startTime} - ${endTime}`;
+    const formattedEndTime = formatTime(endTime);
+    const selectedTiming = `${formattedStartTime} - ${formattedEndTime}`;
 
     // Get CSRF token from cookie
     const csrftoken = getCookie('csrftoken');
@@ -441,8 +483,8 @@
         type: 'POST',
         data: {
             selectedDate: selectedDate,
-            startTime: startTime,
-            endTime: endTime
+            startTime: formattedStartTime,
+            endTime: formattedEndTime
         },
         beforeSend: function(xhr, settings) {
             // Set CSRF token in request headers
@@ -450,13 +492,22 @@
         },
         success: function(response) {
             console.log('Data saved successfully:', response);
-            // Handle success response as needed
+            // Close the modal after saving data successfully
+            $('#availabilityModal').modal('hide');
         },
         error: function(xhr, status, error) {
             console.error('Error saving data:', error);
             // Handle error response as needed
         }
     });
+}
+
+// Function to format time to 12-hour format with AM/PM
+function formatTime(time) {
+    const [hours, minutes] = time.split(':');
+    const formattedHours = parseInt(hours) % 12 || 12; // Convert to 12-hour format
+    const period = parseInt(hours) < 12 ? 'AM' : 'PM'; // Determine AM/PM
+    return `${formattedHours}:${minutes} ${period}`;
 }
 
 // Function to get CSRF token from cookie

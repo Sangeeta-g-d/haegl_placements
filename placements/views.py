@@ -884,6 +884,7 @@ def company_calendar(request):
 
 def save_available_timings(request):
     company_id = request.user.id
+    print("xcv bnmfvgbhnm")
     if request.method == 'POST':
         selected_date = request.POST.get('selectedDate')
         start_time = request.POST.get('startTime')
@@ -1964,7 +1965,13 @@ def job_applications(request):
 
     return render(request, 'job_applications.html', context)
 
+def fetch_available_timings(request):
+    selected_date = request.GET.get('date')
+    timings = AvailableTiming.objects.filter(date=selected_date)
+    timings_data = [{'start_time': timing.start_time, 'end_time': timing.end_time} for timing in timings]
+    return JsonResponse({'timings': timings_data})
 
+    
 @login_required
 def application_status(request):
     if request.user.user_type != 'job seeker':
