@@ -1,385 +1,472 @@
 <!DOCTYPE html>
-
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
-
 <html lang="en">
-<head>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Haegl InterviewEdge</title>
+    <link rel="stylesheet" href="/static/assets/vendors/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="/static/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
+    <link rel="stylesheet" href="/static/assets/vendors/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="/static/assets/css/style.css" />
+    <link rel="shortcut icon" href="/images/favicon.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-  <!-- ** Basic Page Needs ** -->
-  <meta charset="utf-8">
-  <title>Haegl InterviewEdge</title>
 
-  <!-- ** Mobile Specific Metas ** -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Agency HTML Template">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="author" content="Themefisher">
-  <meta name="generator" content="Themefisher Classified Marketplace Template v1.0">
 
-  <!-- theme meta -->
-  <meta name="theme-name" content="classimax" />
 
-  <!-- favicon -->
-  <link href="images/favicon.png" rel="shortcut icon">
+    <style>
+        #calendar-container .container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
 
-  <!--
-  Essential stylesheets
-  =====================================-->
-  <link href="/static/assets1/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
-  <link href="/static/assets1/plugins/bootstrap/bootstrap-slider.css" rel="stylesheet">
-  <link href="/static/assets1/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="/static/assets1/plugins/slick/slick.css" rel="stylesheet">
-  <link href="/static/assets1/plugins/slick/slick-theme.css" rel="stylesheet">
-  <link href="/static/assets1/plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link href="/static/assets1/css/style.css" rel="stylesheet">
-  <!-- Icon Font Stylesheet -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+#calendar-container .calendar {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    height: 400px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  </head>
-  <style media="screen">
-    .product-item .card .card-body {
-      height: 248px; /* Adjust the height as needed */
-      overflow: hidden;
+#calendar-container .calendar th,
+#calendar-container .calendar td {
+    padding: 10px;
+    text-align: center;
+}
+
+#calendar-container .calendar th {
+    background-color: #1E88E5;
+    color: white;
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
+    text-transform: uppercase;
+}
+
+#calendar-container .calendar td {
+    cursor: pointer;
+}
+
+#calendar-container .calendar td:hover {
+    background-color: #f0f0f0;
+}
+
+#calendar-container .calendar td.current-day {
+    background-color: #ffc107;
+    color: black;
+    width: 55px;
+    height: 10px;
+    border-radius: 100%;
+}
+
+#calendar-container .calendar td.sunday {
+    color: red;
+}
+
+#calendar-container .calendar td.other-month {
+    color: #ccc;
+}
+
+#calendar-container .month-year-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+#calendar-container .month-year-container select {
+    padding: 5px;
+    font-size: 16px;
+}
+#year-select,
+#month-select {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    
+}
+
+#year-select:focus,
+#month-select:focus {
+    outline: none;
+    border-color: dodgerblue;
+}
+
+.container1 {
+    display: flex;
+}
+
+.container1 select {
+    flex: 1;
+    margin-right: 10px; /* Adjust as needed */
+}
+
+
+.custom-select:focus {
+    outline: none;
+    border-color: dodgerblue;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 600px) {
+    #calendar-container .calendar {
+        max-width: 90%; /* Adjust width for smaller screens */
+        height: auto; /* Allow calendar height to adjust */
     }
-    .empty-bookmark path {
-      fill: black; /* Define the fill color for the empty bookmark */
-      stroke: #660000; /* Define the stroke color for the empty bookmark */
-       stroke-width: 2;
-       color: black;
-    }
-    /* Styles for the filled bookmark icon */
-    .filled-bookmark path {
-        fill: red; /* Define the fill color for the filled bookmark */
-        stroke: red; /* Define the stroke color for the filled bookmark */
-        stroke-width: 100; /* Define the stroke width for the filled bookmark */
+
+    #calendar-container .month-year-container {
+        margin-top: 20px; /* Adjust margin top for better spacing */
+        text-align: center; /* Center align content */
     }
 
-    #suggestionListJobTitle {
-        list-style: none;
-        padding: 0;
-        margin: 5px 0 0 0;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        max-height: 200px;
-        overflow-y: auto;
-        display: none; /* Hide the list initially */
-    }
-
-    #suggestionListJobTitle li {
-        padding: 8px 12px;
-        cursor: pointer;
-        color : white;
-    }
-
-    #suggestionListJobTitle li:hover {
-        background-color: #f2f2f2;
-        color:black;
-    }
-    .product-item:hover {
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add a box shadow when hovering */
-          transform: translateY(-20px); /* Move the card slightly up when hovering */
-          transition: box-shadow 0.7s ease, transform 0.7s ease; /* Add a smooth transition effect */
-      }
-    </style>
-
-  <body>
-    <header>
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-md-12">
-    				<nav class="navbar navbar-expand-lg navbar-light navigation">
-    					<a class="navbar-brand" href="/user_dashboard">
-                <img src="/static/new_landing/img/HAEGL_colour.png" width="240px" height="100px" alt="Logo"  >
-    					</a>
-    					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    						<span class="navbar-toggler-icon"></span>
-    					</button>
-    					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-    						<ul class="navbar-nav ml-auto main-nav ">
-
-
-                  <li class="nav-item dropdown dropdown-slide @@dashboard">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#!">Jobs<span><i class="fa fa-angle-down"></i></span>
-                    </a>
-
-                    <!-- Dropdown list -->
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item @@dashboardPage" href="/user_dashboard">Recommanded</a></li>
-                      <li><a class="dropdown-item @@dashboardMyAds" href="/saved_jobs">Saved</a></li>
-                      <li><a class="dropdown-item @@dashboardMyAds" href="/jobs">All Jobs</a></li>
-
-
-                    </ul>
-                  </li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="/user_internship">Internships Program</a>
-                  </li>
-
-                 
-                
-
-    						</ul>
-
-
-    						<ul class="navbar-nav ml-auto mt-10">
-                  <li class="nav-item dropdown dropdown-slide @@dashboard">
-                    <a class="nav-link " data-toggle="dropdown" href="#!">
-  <i class="fa fa-user fa-2x"></i> <span><i class="fa fa-angle-down"></i></span>
-</a>
-                    <!-- Dropdown list -->
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item @@dashboardPage" href="/profile">Profile</a></li>
-                      <li><a class="dropdown-item @@dashboardMyAds" href="/user_logout">Logout</a></li>
-                    </ul>
-                  </li>
-    						</ul>
-    					</div>
-    				</nav>
-    			</div>
-    		</div>
-    	</div>
-    </header>
-
-
-<section class="page-search">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<!-- Advance Search -->
-				<div class="advance-search nice-select-white">
-          <form method="GET" action="{% url 'user_search_results' %}">
-            <div class="form-row">
-              <div class="form-group col-xl-4 col-lg-3 col-md-6">
- <input type="text" name="job_title" class="form-control my-2 my-lg-1" id="inputtext4" placeholder="Job Title">
- <ul id="suggestionListJobTitle"></ul> <!-- Empty <ul> for displaying suggestions -->
-</div>
-              <div class="form-group col-lg-3 col-md-6">
-                <select  name="type" class="w-100 form-control mt-lg-1 mt-md-2">
-                  <option>Job Type</option>
-                  <option value="Full time">Full Time</option>
-                  <option value="Part time">Part Time</option>
-
-                </select>
-              </div>
-              <div class="form-group col-lg-3 col-md-6">
-                <input  name="keyword" type="text" class="form-control my-2 my-lg-1" id="inputLocation4" placeholder="Location">
-              </div>
-              <div class="form-group col-xl-2 col-lg-3 col-md-6 align-self-center">
-                <button style="background:white;" type="submit" class="btn active w-100">Search Now</button>
-              </div>
-            </div>
-          </form>
-				</div>
-			</div>
-		</div>
-	</div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('#inputtext4').on('input', function() {
-        const keyword = $(this).val().trim();
-        const suggestionList = $('#suggestionListJobTitle');
-
-        if (keyword.length >= 2) {  // Adjust the minimum length for suggestions
-            $.ajax({
-                url: '/autocomplete-job-title/',  // Replace with your Django URL for job title suggestions
-                data: { keyword: keyword },
-                dataType: 'json',
-                success: function(response) {
-                    const suggestions = response.suggestions;
-                    suggestionList.empty(); // Clear previous suggestions
-                    if (suggestions.length > 0) {
-                        suggestions.forEach(function(suggestion) {
-                            suggestionList.append(`<li>${suggestion}</li>`); // Append suggestions to the <ul>
-                        });
-                        suggestionList.show(); // Show the suggestion list
-                    } else {
-                        suggestionList.hide(); // Hide the suggestion list if no suggestions
-                    }
-                }
-            });
-        } else {
-            suggestionList.hide(); // Hide the suggestion list if input length is less than 2
-        }
-    });
-
-    // Handle click on suggestion and populate the input field
-    $('body').on('click', '#suggestionListJobTitle li', function() {
-        const suggestionText = $(this).text();
-        $('#inputtext4').val(suggestionText);
-        $('#suggestionListJobTitle').hide(); // Hide the suggestion list after selecting a suggestion
-    });
-});
-</script>
-</section>
-<section class="section-sm">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="search-result bg-gray">
-          <h2>Recommendations</h2>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-            <div class="col-lg-9 col-md-8">
-
-				<div class="product-grid-list">
-					<div class="row mt-30">
-            {% for x in combined_recommended_jobs %}
-						<div class="col-lg-6 col-md-6">
-							<!-- product card -->
-<div class="product-item bg-light">
-	<div class="card ml-2">
-    <span class="bookmark-icon" data-job-id="{{ x.id }}" data-company-id="{{ x.company_id_id }}">
-      <svg class="{% if x.is_saved %}filled-bookmark{% else %}empty-bookmark{% endif %}" xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512" style="margin-left: 10px;">
-      <!-- SVG path for an empty bookmark -->
-      <path d="M336 0H48C21.5 0 0 21.5 0 48v464l192-112 192 112V48c0-26.5-21.5-48-48-48zm0 428.4l-144-84-144 84V54a6 6 0 0 1 6-6h276c3.3 0 6 2.7 6 6V428.4z"/>
-    </svg>
-  </span>
-		<div class="thumb-content">
-			<!-- <div class="price">$200</div> -->
-      {% if x.company_id.first_name %}
-      <div class="image-container">
-        <a href="{% url 'user_single_job' job_id=x.id  %}" style="display: block; text-align: center;">
-      <img class="card-img-top img-fluid mt-3" src="/{{ x.company_id.profile }}" alt="Card image cap" style="width: 200px; height: 100px; margin: 0 auto;">
-  </a>
-
-  </div>
-      {% else %}
-      <div class="image-container">
-        <a href="{% url 'user_single_job' job_id=x.id  %}" style="display: block; text-align: center;">
-      <img class="card-img-top img-fluid mt-3" src="/{{ x.company_id.profile }}" alt="Card image cap" style="width: 100px; height: auto; margin: 0 auto;">
-  </a>
-  </div>
-      {% endif %}
-		</div>
-		<div class="card-body">
-      {% if x.company_id.first_name %}
-    <h4 class="card-title">
-      {{ x.designation }}
-     
-    </h4>
-  {% else %}
-    <h4 class="card-title">
-      {{ x.designation }}
-      
-    </h4>
-  {% endif %}
-
-		    <ul class="list-inline product-meta">
-          {% if x.company_id.first_name %}
-          <li class="list-inline-item">
-		    	{{x.company_id.first_name}}
-		    	</li><br>
-          {% else %}
-          <li class="list-inline-item">
-            {{x.company_id.company_name}}
-          </li><br>
-          {% endif %}
-		    	<li class="list-inline-item">
-		    	<i class="fas fa-stopwatch"></i> {{x.job_type}}
-		    	</li>
-		    	<li class="list-inline-item">
-		    		<i class="fa fa-map-marker"></i> {{x.location}}
-		    	</li>
-          <li class="list-inline-item">
-            <i class="fa fa-rupee-sign"></i> {{x.salary}}
-          </li>
-		    </ul>
-        <p class="card-text">Required Skills : {{ x.mandatory_skills }}</p>
-        {% if x.company_id.first_name %}
-    <a class="nav-link text-white add-button" href="{% url 'user_single_job' job_id=x.id  %}" class="read-more-link">Apply now</a><br>
-    {% else %}
-    <a class="nav-link text-white add-button" href="{% url 'user_single_job' job_id=x.id %}" class="read-more-link">Apply now</a><br>
-    {% endif %}
-		</div>
-      &nbsp<p class="card-text">Posted {{x.days_since_posted}} ago</p>
-	</div>
-</div>
-</div>
-<script type="text/javascript">
-// Function to truncate text and show "Know More" link if necessary
-function truncateText(element, maxLength) {
-    let text = element.textContent.trim();
-    if (text.length > maxLength) {
-        let truncatedText = text.slice(0, maxLength) + '...';
-        element.textContent = truncatedText;
-
-        let readMoreLink = element.nextElementSibling; // Assuming the link is the next sibling
-        readMoreLink.style.display = 'inline'; // Show the "Know More" link
+    #calendar-container .month-year-container select {
+        width: 48%; /* Adjust width for select boxes */
+        margin: 5px; /* Adjust margin */
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    let cardTextElements = document.querySelectorAll('.card-text');
-    const MAX_WORDS = 50;
+    </style>
+  </head>
+  <body>
+    <div class="container-scroller">
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
+          <div class="d-flex align-items-center">
+    <img style="margin-right:0;" width="70px" height="80px" src="/static/assets/images/haegl_transparent.png" alt="logo"/>
+    <h3 class="mb-0">InterviewEdge</h3>
+  </div>
+          <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="index.html"><img src="/static/assets/images/logo-mini.svg" alt="logo" /></a>
+        </div>
+        <br> <br>
+        <ul class="nav">
+          <li class="nav-item nav-profile">
 
-    cardTextElements.forEach(function (element) {
-        truncateText(element, MAX_WORDS);
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/company_dashboard">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/job_vacancy">
+              <i class="mdi mdi-contacts menu-icon"></i>
+              <span class="menu-title">Jobs</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/internship_list">
+              <i class="mdi mdi-contacts menu-icon"></i>
+              <span class="menu-title">Internship</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/job_applications">
+              <i class="mdi mdi-contacts menu-icon"></i>
+              <span class="menu-title">Applications</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/company_calendar">
+              <i class="mdi mdi-contacts menu-icon"></i>
+              <span class="menu-title">Calendar</span>
+            </a>
+          </li>
+
+
+
+        </ul>
+      </nav>
+      <div class="container-fluid page-body-wrapper">
+        <div id="theme-settings" class="settings-panel">
+          <i class="settings-close mdi mdi-close"></i>
+          <p class="settings-heading">SIDEBAR SKINS</p>
+          <div class="sidebar-bg-options selected" id="sidebar-default-theme">
+            <div class="img-ss rounded-circle bg-light border mr-3"></div> Default
+          </div>
+          <div class="sidebar-bg-options" id="sidebar-dark-theme">
+            <div class="img-ss rounded-circle bg-dark border mr-3"></div> Dark
+          </div>
+          <p class="settings-heading mt-2">HEADER SKINS</p>
+          <div class="color-tiles mx-0 px-4">
+            <div class="tiles light"></div>
+            <div class="tiles dark"></div>
+          </div>
+        </div>
+        <nav class="navbar col-lg-12 col-12 p-lg-0 fixed-top d-flex flex-row">
+          <div class="navbar-menu-wrapper d-flex align-items-stretch justify-content-between">
+            <a class="navbar-brand brand-logo-mini align-self-center d-lg-none" href="index.html"><img src="/static/assets/images/logo-mini.svg" alt="logo" /></a>
+            <button class="navbar-toggler navbar-toggler align-self-center mr-2" type="button" data-toggle="minimize">
+              <i class="mdi mdi-menu"></i>
+            </button>
+            <ul class="navbar-nav">
+              <li class="nav-item nav-search border-0 ml-1 ml-md-3 ml-lg-5 d-none d-md-flex">
+                <form class="nav-link form-inline mt-2 mt-md-0">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" />
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <i class="mdi mdi-magnify"></i>
+                      </span>
+                    </div>
+                  </div>
+                </form>
+              </li>
+            </ul>
+            <ul class="navbar-nav navbar-nav-right ml-lg-auto">
+
+              <li class="nav-item nav-profile dropdown border-0">
+                <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
+                  <img class="nav-profile-img mr-2" alt="" src="/static/assets/images/user.png" />
+                  <span class="profile-name">{{first_name}}</span>
+                </a>
+                <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
+
+                  <a class="dropdown-item" href="/company_logout">
+                    <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
+                </div>
+              </li>
+            </ul>
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+              <span class="mdi mdi-menu"></span>
+            </button>
+          </div>
+        </nav>
+
+
+
+        <div class="main-panel" style="display: flex;">
+          
+            <div class="page-header">
+              
+                <div id="calendar-container" style="flex: 1; margin-left: 30px; margin-right: 30px;">
+                    <div class="container-fluid">
+                        <div class="month-year-container" id="month-year-container" style="margin: 10px;"></div>
+                        <table class="calendar" id="calendar-table">
+                            <thead id="calendar-head"></thead>
+                            <tbody id="calendar-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="availability-section" style="flex: 2; margin-left: 30px;">
+                    <h2>Set Available Timings</h2>
+                    <p>Select dates on the calendar above to set your available timings:</p>
+                    <div id="selected-dates"></div>
+
+                    <script>
+                      // Function to fetch data from the server
+                      function fetchData() {
+                          fetch('get-available-timings/')
+                              .then(response => response.json())
+                              .then(data => {
+                                  // Call function to display data
+                                  displayData(data);
+                              })
+                              .catch(error => {
+                                  console.error('Error fetching data:', error);
+                              });
+                      }
+                  
+                      // Function to display fetched data
+                      function displayData(data) {
+                          const selectedDatesDiv = document.getElementById('selected-dates');
+                  
+                          // Clear any existing content
+                          selectedDatesDiv.innerHTML = '';
+                  
+                          // Loop through the data and create li elements
+                          data.forEach(item => {
+                              const li = document.createElement('li');
+                              li.textContent = `Date: ${item.date}, Start Time: ${item.start_time}, End Time: ${item.end_time}`;
+                              selectedDatesDiv.appendChild(li);
+                          });
+                      }
+                  
+                      // Call the function to fetch data when the page loads
+                      fetchData();
+                  </script>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Availability Modal -->
+        <div class="modal fade" id="availabilityModal" tabindex="-1" role="dialog" aria-labelledby="availabilityModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="availabilityModalLabel">Set Available Timings</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form -->
+                        <form id="availableTimingsForm">
+                            <div class="form-group">
+                                <label for="selectedDate">Date:</label>
+                                <input type="date" class="form-control" id="selectedDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="startTime">From:</label>
+                                <select class="form-control" id="startTime">
+                                    <!-- Options will be dynamically populated using JavaScript -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="endTime">To:</label>
+                                <select class="form-control" id="endTime">
+                                    <!-- Options will be dynamically populated using JavaScript -->
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="saveAvailableTimings()">Set Available Timings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            const monthYearContainer = document.getElementById('month-year-container');
+            const calendarHead = document.getElementById('calendar-head');
+            const calendarBody = document.getElementById('calendar-body');
+            const selectedDatesContainer = document.getElementById('selected-dates');
+            let selectedDates = {};
+        
+            // Function to generate calendar
+            function generateCalendar(month, year) {
+                calendarHead.innerHTML = '';
+                calendarBody.innerHTML = '';
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const firstDay = new Date(year, month, 1).getDay();
+        
+                // Set the days of the week header
+                const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                const daysRow = document.createElement('tr');
+                daysOfWeek.forEach(day => {
+                    const th = document.createElement('th');
+                    th.textContent = day;
+                    daysRow.appendChild(th);
+                });
+                calendarHead.appendChild(daysRow);
+        
+                // Fill in the calendar
+                let date = 1;
+                for (let i = 0; i < 6; i++) {
+                    const row = document.createElement('tr');
+                    for (let j = 0; j < 7; j++) {
+                        const cell = document.createElement('td');
+                        if (i === 0 && j < firstDay) {
+                            // Fill empty cells before the first day of the month
+                            cell.textContent = '';
+                            cell.classList.add('other-month');
+                        } else if (date > daysInMonth) {
+                            // Break if we have reached the end of the month
+                            break;
+                        } else {
+                            // Fill cells with dates
+                            cell.textContent = date;
+                            const currentDate = new Date(year, month, date);
+                            const dateString = currentDate.toISOString().split('T')[0]; // Store the date in ISO format as data attribute
+                            if (selectedDates[dateString]) {
+                                cell.classList.add('selected');
+                            }
+                            cell.dataset.date = dateString;
+                            cell.addEventListener('click', toggleAvailability);
+                            if (j === 0) {
+                                cell.classList.add('sunday');
+                            }
+                            date++;
+                        }
+                        row.appendChild(cell);
+                    }
+                    calendarBody.appendChild(row);
+                }
+            }
+        
+            // Function to toggle availability of dates
+            function toggleAvailability(event) {
+                const clickedDate = event.target.dataset.date;
+                // Open the modal
+                $('#availabilityModal').modal('show');
+                // Set the selected date in the form
+                document.getElementById('selectedDate').value = clickedDate;
+                // Populate options for start time and end time
+                populateTimeOptions();
+            }
+        
+            // Function to populate time options
+            function populateTimeOptions() {
+                const startTimeSelect = document.getElementById('startTime');
+                const endTimeSelect = document.getElementById('endTime');
+                startTimeSelect.innerHTML = '';
+                endTimeSelect.innerHTML = '';
+                for (let hour = 8; hour <= 22; hour++) {
+                    const time12HourFormat = hour > 12 ? `${hour - 12}:00 PM` : (hour === 12 ? '12:00 PM' : `${hour}:00 AM`);
+                    const value = `${hour < 10 ? '0' + hour : hour}:00`;
+                    startTimeSelect.innerHTML += `<option value="${value}">${time12HourFormat}</option>`;
+                    endTimeSelect.innerHTML += `<option value="${value}">${time12HourFormat}</option>`;
+                }
+            }
+        
+            // Function to save available timings
+            function saveAvailableTimings() {
+    const selectedDate = document.getElementById('selectedDate').value;
+    const startTime = document.getElementById('startTime').value;
+    const endTime = document.getElementById('endTime').value;
+    const selectedTiming = `${startTime} - ${endTime}`;
+
+    // Get CSRF token from cookie
+    const csrftoken = getCookie('csrftoken');
+
+    // Make AJAX POST request to Django endpoint
+    $.ajax({
+        url: '/save-available-timings/',
+        type: 'POST',
+        data: {
+            selectedDate: selectedDate,
+            startTime: startTime,
+            endTime: endTime
+        },
+        beforeSend: function(xhr, settings) {
+            // Set CSRF token in request headers
+            xhr.setRequestHeader('X-CSRFToken', csrftoken);
+        },
+        success: function(response) {
+            console.log('Data saved successfully:', response);
+            // Handle success response as needed
+        },
+        error: function(xhr, status, error) {
+            console.error('Error saving data:', error);
+            // Handle error response as needed
+        }
     });
-});
+}
 
-</script>
-            {% endfor %}
-					</div>
-				</div>
-
-			</div>
-			<div class="col-lg-3 col-md-4">
-				<div class="category-sidebar">
-					<div class="widget category-list">
-	<h4 class="widget-header">All Departments</h4>
-  <ul class="category-list">
-      {% for department, count in department_open_counts %}
-		<li><a href="{% url 'user_job_list' department|urlencode %}">{{ department }} </a></li>
-	{% endfor %}
-	</ul>
-</div>
-
-<div class="widget category-list">
-	<h4 class="widget-header">Work Mode</h4>
-	<ul class="category-list">
-
-    <li><a href="{% url 'user_work_mode' 'Work from office' %}">Work from Office</a></li>
-    <li><a href="{% url 'user_work_mode' 'hybrid' %}">Hybrid</a></li>
-    <li><a href="{% url 'user_work_mode' 'remote' %}">Remote</a></li>
-	</ul>
-</div>
-<div class="widget category-list">
-	<h4 class="widget-header">Location</h4>
-	<ul class="category-list">
-
-
-    {% for location, job_count in combined_counts.items %}
-		<li><a href="{% url 'user_location_related' location|urlencode %}">{{ location }}<span>({{job_count }})</span></a></li>
-	{% endfor %}
-	</ul>
-</div>
-
-
-				</div>
-			</div>
-
-		</div>
-	</div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <script>
-    // Get the CSRF token from the cookie
+// Function to get CSRF token from cookie
 function getCookie(name) {
-    var cookieValue = null;
+    let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Check if cookie name matches csrfmiddlewaretoken
             if (cookie.substring(0, name.length + 1) === (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
@@ -389,148 +476,127 @@ function getCookie(name) {
     return cookieValue;
 }
 
-$(document).ready(function() {
-    $('.bookmark-icon').on('click', function() {
-        var jobID = $(this).data('job-id');
-        var companyID = $(this).data('company-id');
-        var icon = $(this).find('svg');
 
-        // Get the CSRF token
-        var csrftoken = getCookie('csrftoken');
+function updateSelectedDatesDisplay() {
+    // Assuming selectedDatesContainer is a global variable
+    const selectedDatesContainer = document.getElementById('selected-dates');
+    
+    // Clear the existing content of the container
+    selectedDatesContainer.innerHTML = '';
 
-        if (icon.hasClass('empty-bookmark')) {
-            // If the icon is empty, save it in the database
-            $.ajax({
-                type: 'POST',
-                url: '/save_job/' + jobID + '/' + companyID + '/',
-                headers: { 'X-CSRFToken': csrftoken },
-                data: JSON.stringify({
-                    'job_id': jobID,
-                    'u_id': companyID
-                }),
-                contentType: 'application/json',
-                success: function(response) {
-                    // Update the icon on success
-                    icon.removeClass('empty-bookmark').addClass('filled-bookmark');
-                    alert('Job Saved')
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                    // Handle error scenario
-                }
+    // Create a new unordered list element
+    const ul = document.createElement('ul');
+
+    // Fetch all available timings using AJAX
+    $.ajax({
+        url: '/get-available-timings/',
+        type: 'GET',
+        success: function(response) {
+
+            // Loop through the response data and create list items
+            response.forEach(timing => {
+                const li = document.createElement('li');
+                const date = timing.date; // Assuming 'date' is part of the response
+                li.textContent = `${new Date(date).toDateString()} - ${timing.start_time} - ${timing.end_time}`;
+                ul.appendChild(li);
             });
-        } else {  
-            // If the icon is filled, remove it from the database
-            $.ajax({
-                type: 'POST',
-                url: '/remove_job/' + jobID + '/' + companyID + '/', // Adjust the URL for removing the job
-                headers: { 'X-CSRFToken': csrftoken },
-                data: JSON.stringify({
-                    'job_id': jobID,
-                    'u_id': companyID
-                }),
-                contentType: 'application/json',
-                success: function(response) {
-                    // Update the icon on success
-                    icon.removeClass('filled-bookmark').addClass('empty-bookmark');
-                    alert('Job aved')
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                    // Handle error scenario
-                }
-            });
+            // Append the unordered list to the selectedDatesContainer
+            selectedDatesContainer.appendChild(ul);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching available timings:', error);
+            // Display an error message if fetching fails
+            selectedDatesContainer.textContent = 'Error fetching available timings.';
         }
     });
-});
+}
 
 
-</script>
-</section>
-<!--============================
-=            Footer            =
-=============================-->
+        
+            // Function to populate month and year select options
+            function populateMonthYearSelect() {
+                const currentDate = new Date();
+                const currentMonth = currentDate.getMonth();
+                const currentYear = currentDate.getFullYear();
 
- <!-- Footer Start -->
- <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
-  <div class="container py-5">
-      <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
-          <div class="row g-4">
-              <div class="col-lg-3">
-                  <a href="/">
-                      <img src="/static/new_landing/img/HAEGL_colour.png" width="240px" height="100px" alt="Logo"  >
-                      
-                  </a>
-              </div>
-              <div class="col-lg-6">
-               
-              </div>
-              <div class="col-lg-3">
-                  <div class="d-flex justify-content-end pt-3">
-                     
-                      <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" target="_blank" href="https://www.facebook.com/haegltechnologies/"><i class="fab fa-facebook-f"></i></a>
-                      <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href="https://www.instagram.com/haegltechnologies/" target="_blank"><i class="fab fa-instagram"></i></a>
-                      <a class="btn btn-outline-secondary btn-md-square rounded-circle" href="https://www.linkedin.com/company/haegl-technologies-pvt-ltd/mycompany/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                  </div>
-              </div>
-          </div>
+                const container1 = document.createElement('div');
+                container1.classList.add('container1');
+                // Create month select
+                const monthSelect = document.createElement('select');
+                monthSelect.id = 'month-select';
+                
+                const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                months.forEach((month, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = month;
+                    monthSelect.appendChild(option);
+                });
+                monthSelect.value = currentMonth; // Select current month by default
+        
+                // Create year select
+                const yearSelect = document.createElement('select');
+                yearSelect.id = 'year-select';
+
+                container1.appendChild(monthSelect);
+                container1.appendChild(yearSelect);
+                document.body.appendChild(container1);
+                for (let year = currentYear - 5; year <= currentYear + 50; year++) {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = year;
+                    yearSelect.appendChild(option);
+                }
+                yearSelect.value = currentYear; // Select current year by default
+        
+                // Add event listener to update calendar when month or year is changed
+                monthSelect.addEventListener('change', updateCalendar);
+                yearSelect.addEventListener('change', updateCalendar);
+        
+                // Add elements to container
+                monthYearContainer.appendChild(document.createElement('br')); // Add line break for better spacing
+                monthYearContainer.appendChild(monthSelect);
+                monthYearContainer.appendChild(yearSelect);
+            }
+        
+            // Function to update calendar when month or year is changed
+            function updateCalendar() {
+                const selectedMonth = parseInt(document.getElementById('month-select').value);
+                const selectedYear = parseInt(document.getElementById('year-select').value);
+                generateCalendar(selectedMonth, selectedYear);
+            }
+        
+            // Initial call to populate month and year select options and generate calendar for the current month and year
+            populateMonthYearSelect();
+            const currentDate = new Date();
+            generateCalendar(currentDate.getMonth(), currentDate.getFullYear());
+        </script>
+        <!-- main-panel ends -->
       </div>
-      <div class="row g-5">
-          <div class="col-lg-4 col-md-6">
-              <div class="footer-item">
-                 
-                  <p class="mb-4" style="text-align: justify;">HAEGL Interview Egde is an innovative platform revolutionizing the recruitment landscape. Designed to streamline the hiring process for companies, and job seekers. </p>
-                  
-              </div>
-          </div>
-          <div class="col-lg-2 col-md-6">
-              <div class="d-flex flex-column text-start footer-item">
-                  <h4 class="text-light mb-3">Pages</h4>
-                  <a class="btn-link" href="">Search Job</a>
-                  <a class="btn-link" href="">Contact Us</a>
-                  <a class="btn-link" href="">Privacy Policy</a>
-                  
-              </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-              <div class="d-flex flex-column text-start footer-item">
-                  <h4 class="text-light mb-3">Contact</h4>
-                  <a class="btn-link" href="">+91 950 0499 570</a>
-                  <a class="btn-link" href="">haegl@gmail.com</a>
-                  
-              </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-              <div class="footer-item">
-                  <h4 class="text-light mb-3">Address</h4>
-                  <p>HAEGL TECHNOLOGIES PVT LTD, 1st Floor, AKALWADI MANSION, Vidyanagar, Hubballi, Karnataka 580021</p>
-                 
-                  <img src="img/payment.png" class="img-fluid" alt="">
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
-<!-- Footer End -->
-
-
-<!--
-Essential Scripts
-=====================================-->
-<script src="/static/assets1/plugins/jquery/jquery.min.js"></script>
-<script src="/static/assets1/plugins/bootstrap/popper.min.js"></script>
-<script src="/static/assets1/plugins/bootstrap/bootstrap.min.js"></script>
-<script src="/static/assets1/plugins/bootstrap/bootstrap-slider.js"></script>
-<script src="/static/assets1/plugins/tether/js/tether.min.js"></script>
-<script src="/static/assets1/plugins/raty/jquery.raty-fa.js"></script>
-<script src="/static/assets1/plugins/slick/slick.min.js"></script>
-<script src="/static/assets1/plugins/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-<!-- google map -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" defer></script>
-<script src="/static/assets1/plugins/google-map/map.js" defer></script>
-
-<script src="/static/assets1/js/script.js"></script>
-
-</body>
-
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="/static/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="/static/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="/static/assets/vendors/flot/jquery.flot.js"></script>
+    <script src="/static/assets/vendors/flot/jquery.flot.resize.js"></script>
+    <script src="/static/assets/vendors/flot/jquery.flot.categories.js"></script>
+    <script src="/static/assets/vendors/flot/jquery.flot.fillbetween.js"></script>
+    <script src="/static/assets/vendors/flot/jquery.flot.stack.js"></script>
+    <script src="/static/assets/vendors/flot/jquery.flot.pie.js"></script>
+    
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/static/assets/js/off-canvas.js"></script>
+    <script src="/static/assets/js/hoverable-collapse.js"></script>
+    <script src="/static/assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="/static/assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+  </body>
 </html>

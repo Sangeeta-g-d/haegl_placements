@@ -113,3 +113,14 @@ class AvailableTiming(models.Model):
     start_time =  models.CharField(max_length=700, default='start time')
     end_time =  models.CharField(max_length=700, default='end time')
     company_id = models.ForeignKey('NewUser', on_delete=models.CASCADE)
+
+
+class ScheduleInterview(models.Model):
+    companyIdOrAgencyId =  models.ForeignKey('NewUser',on_delete=models.CASCADE)
+    application_id = models.ForeignKey('AppliedJobs',on_delete=models.CASCADE)
+    interview_date = models.DateField()
+    start_time = models.CharField(max_length = 200, default='Pending')
+    end_time = models.CharField(max_length = 200, default='Pending')   
+    mode_of_interview= models.CharField(max_length=500,default='Office')
+    confirmation = models.CharField(max_length = 200, default='Pending')
+    user_confirmation=models.BooleanField(default=0)

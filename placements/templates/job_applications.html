@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="/static/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
     <link rel="stylesheet" href="/static/assets/vendors/css/vendor.bundle.base.css" />
     <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
     <link rel="stylesheet" href="/static/assets/css/style.css" />
+    
     <link rel="shortcut icon" href="/images/favicon.png" />
   </head>
   <style>
@@ -225,11 +227,29 @@ input[type="text"] {
           <a target="_blank" href="/{{x.resume}}"><button class="btn btn-secondary" type="button" button >View Resume</button></a>
         </div>
         <div class="card-footer">
+          {% if x.status == "Pending" %}
           <form method="POST" action="{% url 'update_application_status' %}" id="applicationForm">
-            {% csrf_token %}
-            <input type="hidden" name="application_id" value="{{ x.id }}">
-            <button class="btn btn-success" type="button" name="button" value="Select" id="selectButton">Select</button>
-        </form>
+              {% csrf_token %}
+              <input type="hidden" name="application_id" value="{{ x.id }}">
+              <button class="btn btn-success" type="button" name="button" value="Select" id="selectButton">Select</button>
+          </form>
+      {% else %}
+      <div style="display: flex;">
+        <div style="flex: 1;">
+          <form method="POST" action="{% url 'update_application_status' %}" id="applicationForm">
+              {% csrf_token %}
+              <input type="hidden" name="application_id" value="{{ x.id }}">
+              <button class="btn btn-success" type="button" name="button" value="Select" id="selectButton" disabled>Select</button>
+          </form>
+        </div>
+        <div style="flex: 1;">
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" onclick="setDesignation('{{ x.job_id.designation }}')">
+            Schedule
+           </button>
+            </div>
+            </div>
+      {% endif %}
+      
         <script>
           // Function to handle form submission via JavaScript
           function submitForm(buttonValue) {
@@ -271,6 +291,11 @@ input[type="text"] {
       </div>
     </div>
     {% endfor %}
+    <script>
+      function setDesignation(designation) {
+        document.getElementById('designation').value = designation;
+      }
+    </script>
   </div>
 </div>
 
@@ -290,13 +315,85 @@ input[type="text"] {
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+   <!-- schedule modal -->
    
+   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Schedule Interview</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="scheduleForm">
+            <div class="form-group">
+              <label for="designation">Designation:</label>
+              <input type="text" name="designation" class="form-control" id="designation" placeholder="Enter designation">
+            </div>
+            
+            <div class="form-group">
+              <label for="date">Date:</label>
+              <input type="date" class="form-control" id="date">
+          </div>
+          <div id="availableTimings"></div>
+            <div class="form-group">
+              <label for="start_time">Start Time:</label>
+              <input type="time" class="form-control" id="start_time">
+            </div>
+            <div class="form-group">
+              <label for="end_time">End Time:</label>
+              <input type="time" class="form-control" id="end_time">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" form="scheduleForm" class="btn btn-success">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const today = new Date().toISOString().split('T')[0];
+
+// Set the min attribute of the date input field to today's date
+document.getElementById('date').addEventListener('change', function() {
+    const selectedDate = this.value;
+    fetch(`/fetch_available_timings/?date=${selectedDate}`)
+        .then(response => response.json())
+        .then(data => {
+            const availableTimingsDiv = document.getElementById('availableTimings');
+            availableTimingsDiv.innerHTML = ''; // Clear previous timings
+            
+            if (data.timings.length > 0) {
+                data.timings.forEach(timing => {
+                    const button = document.createElement('button');
+                    button.textContent = `${timing.start_time} - ${timing.end_time}`;
+                    button.classList.add('btn', 'btn-secondary', 'mr-2', 'mb-2');
+                    availableTimingsDiv.appendChild(button);
+                });
+            } else {
+                const message = document.createElement('p');
+                message.textContent = 'No timings available for selected date.';
+                availableTimingsDiv.appendChild(message);
+            }
+        })
+        .catch(error => console.error('Error fetching timings:', error));
+});
+
+  </script>
 
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="/static/assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="/static/assets/vendors/chart.js/Chart.min.js"></script>
     <script src="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <script src="/static/assets/vendors/flot/jquery.flot.js"></script>

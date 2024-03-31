@@ -1933,7 +1933,7 @@ def saved_jobs(request):
 def job_applications(request):
     if request.user.user_type != 'Company':
         return HttpResponseForbidden()
-
+    today = date.today()
     success = request.GET.get('success', False)
     i = request.user.id
     first_name = request.user.first_name
@@ -1961,11 +1961,17 @@ def job_applications(request):
             Q(job_id__salary__icontains=str(search_query))
         )
 
-    context = {'obj': obj, 'today_date': today_date, 'data': data, 'first_name': first_name, 'success': success}
+    context = {'obj': obj, 'today': today, 'data': data, 'first_name': first_name, 'success': success}
 
     return render(request, 'job_applications.html', context)
 
+def fetch_available_timings(request):
+    selected_date = request.GET.get('date')
+    timings = AvailableTiming.objects.filter(date=selected_date)
+    timings_data = [{'start_time': timing.start_time, 'end_time': timing.end_time} for timing in timings]
+    return JsonResponse({'timings': timings_data})
 
+    
 @login_required
 def application_status(request):
     if request.user.user_type != 'job seeker':
@@ -2036,6 +2042,7 @@ def profile(request):
         obj.city = request.POST.get('city')
         obj.country = request.POST.get('country')
         p = request.FILES.get('profile')
+        print("ppppppppppppppppppp",p)
         data.qualification = request.POST.get('qualification')
         data.experience = request.POST.get('experience')
         data.skills = request.POST.get('skills')

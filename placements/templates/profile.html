@@ -70,6 +70,7 @@
     margin-right: 40px; /* Adjust the margin to move the image to the right */
     border: 4px solid #fff; /* Add a white border around the image */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+    object-fit: cover;
 }
 
 
@@ -264,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			<div class="container py-3">
 				<h3 class="mb-4">Edit Personal Information</h3>
 				<br><br>
-				<form method="post">
+				<form method="post" enctype="multipart/form-data">
 					{% csrf_token %}
 					<div class="row g-5">
 						<div class="col-md-12 col-lg-6">
