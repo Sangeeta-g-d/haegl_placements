@@ -1932,7 +1932,7 @@ def saved_jobs(request):
 def job_applications(request):
     if request.user.user_type != 'Company':
         return HttpResponseForbidden()
-
+    today = date.today()
     success = request.GET.get('success', False)
     i = request.user.id
     first_name = request.user.first_name
@@ -1960,7 +1960,7 @@ def job_applications(request):
             Q(job_id__salary__icontains=str(search_query))
         )
 
-    context = {'obj': obj, 'today_date': today_date, 'data': data, 'first_name': first_name, 'success': success}
+    context = {'obj': obj, 'today': today, 'data': data, 'first_name': first_name, 'success': success}
 
     return render(request, 'job_applications.html', context)
 
