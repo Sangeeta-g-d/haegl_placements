@@ -2127,6 +2127,7 @@ def profile(request):
         obj.city = request.POST.get('city')
         obj.country = request.POST.get('country')
         p = request.FILES.get('profile')
+        print("ppppppppppppppppppp",p)
         data.qualification = request.POST.get('qualification')
         data.experience = request.POST.get('experience')
         data.skills = request.POST.get('skills')

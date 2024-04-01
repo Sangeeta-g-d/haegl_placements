@@ -59,69 +59,81 @@
 
         <!-- Navbar start -->
         <div class="container-fluid fixed-top">
-          <div class="container topbar bg-primary d-none d-lg-block">
-              <div class="d-flex justify-content-between">
-                  <div class="top-link ps-2">
-                      
-                  </div>
-                  <div id="top-link" style="margin-right:380px;" class="top-link pe-5">
-                      <small id="info1" class="info me-3 "><i class="fas fa-phone me-2 text-secondary"></i> <a href="#" class="text-white">+91 7676348382</a></small>
-                      <small id="info2" class="info me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">info@haegl.in</a></small>
-                  </div>    
-              </div>
-          </div>
-          <script>
+            <div class="container topbar bg-primary d-none d-lg-block">
+                <div class="d-flex justify-content-between">
+                    <div class="top-link ps-2">
+                        
+                    </div>
+                    <div id="top-link" style="margin-right:380px;" class="top-link pe-5">
+                        <small id="info1" class="info me-3 "><i class="fas fa-phone me-2 text-secondary"></i> <a href="#" class="text-white">+91 7676348382</a></small>
+                        <small id="info2" class="info me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">info@haegl.in</a></small>
+                    </div>    
+                </div>
+            </div>
+            <script>
 document.addEventListener("DOMContentLoaded", function() {
-  var infos = document.querySelectorAll(".info");
-  var currentIndex = 0;
+    var infos = document.querySelectorAll(".info");
+    var currentIndex = 0;
 
-  function displayNextInfo() {
-      var currentInfo = infos[currentIndex];
-      currentInfo.classList.remove("active");
-      setTimeout(function() {
-          currentInfo.style.display = "none";
-          currentIndex = (currentIndex + 1) % infos.length;
-          var nextInfo = infos[currentIndex];
-          nextInfo.style.display = "inline";
-          setTimeout(function() {
-              nextInfo.classList.add("active");
-          }, 100); // Delay before fading in the next element
-      }, 1000); // Duration of fade out effect (1 second)
-      setTimeout(displayNextInfo, 3000); // Total delay before switching to next element (1s fade out + 3s delay)
-  }
+    function displayNextInfo() {
+        var currentInfo = infos[currentIndex];
+        currentInfo.classList.remove("active");
+        setTimeout(function() {
+            currentInfo.style.display = "none";
+            currentIndex = (currentIndex + 1) % infos.length;
+            var nextInfo = infos[currentIndex];
+            nextInfo.style.display = "inline";
+            setTimeout(function() {
+                nextInfo.classList.add("active");
+            }, 100); // Delay before fading in the next element
+        }, 1000); // Duration of fade out effect (1 second)
+        setTimeout(displayNextInfo, 3000); // Total delay before switching to next element (1s fade out + 3s delay)
+    }
 
-  displayNextInfo();
+    displayNextInfo();
 });
 
-          </script>
-          <div class="container px-0">
-              <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                  <a href="index.html" class="navbar-brand">
-                      <img src="/static/new_landing/img/HAEGL_colour.png" width="200px" height="90px">
-                  </a>
-                  <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                      <span class="fa fa-bars text-primary"></span>
-                  </button>
-                  <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
-                      <div class="navbar-nav mx-auto">
-                         
-                        
-                      </div>
-                      <div class="d-flex m-3 me-0">
-                          <div class="navbar-nav mx-auto">
-                          <a href="/" class="nav-item nav-link ">Home</a>
-                          <a href="internship_program" class="nav-item nav-link ">Internship Program</a>
-                          <a href="/all_jobs" class="nav-item nav-link active">Jobs</a>
-                          <a href="/select_theme" class="nav-item nav-link ">Build Resume</a>
-                          <a href="/contact_us" class="nav-item nav-link">Contact us</a>
-                          <a href="user_registration" style="margin-top: 4px;">  <div class="text-white bg-primary px-3 py-1 rounded" style="top: 12px; right: 10px;">Register</div></a>
-                         </div>
-                      </div>
-                  </div>
-              </nav>
-          </div>
-      </div>
-
+            </script>
+            <div class="container px-0">
+                <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                    <a href="/" class="navbar-brand">
+                        <img src="/static/new_landing/img/HAEGL_colour.png" width="200px" height="90px">
+                    </a>
+                    <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars text-primary"></span>
+                    </button>
+                    <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                        <div class="navbar-nav mx-auto">
+                           
+                          
+                        </div>
+                        <div class="d-flex m-3 me-0">
+                            <div class="navbar-nav mx-auto">
+                            <a href="/" class="nav-item nav-link active">Home</a>
+                            <a href="user_internship_program" class="nav-item nav-link">Internship Program</a>
+                            <a href="/jobs" class="nav-item nav-link">Jobs</a>
+                            <a href="/user_select_theme" class="nav-item nav-link">Build Resume</a>
+                            <a href="/calendar" class="nav-item nav-link">Calendar</a>
+                           
+                            <ul class="navbar-nav ml-auto mt-10">
+                              <li class="nav-item dropdown dropdown-slide @@dashboard">
+                                  <a class="nav-link " data-toggle="dropdown" href="#!">
+                                      <i class="fa fa-user"></i> <span><i class="fa fa-angle-down"></i></span>
+                                  </a>
+                                  <!-- Dropdown list -->
+                                  <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item @@dashboardPage" href="/profile">Profile</a></li>
+                                      <li><a class="dropdown-item @@dashboardMyAds" href="/user_logout">Logout</a></li>
+                                  </ul>
+                              </li>
+                          </ul>
+                          
+                           </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
         <!-- Navbar End -->
 
 
@@ -465,66 +477,67 @@ document.addEventListener("DOMContentLoaded", function() {
 
          <!-- Footer Start -->
          <div class="container-fluid bg-dark text-white-50 footer pt-1 mt-1">
-          <div class="container py-5">
-            
-              <div class="row g-5">
-                  <div class="col-lg-4 col-md-6">
-                      <div class="footer-item">
-                          <h4 class="text-light mb-3">HAEGL PVT LTD</h4>
-                          <p class="mb-4" >HAEGL Interview Egde is an innovative platform revolutionizing the recruitment landscape. Designed to streamline the hiring process for companies, and job seekers. </p>
-                          
-                      </div>
-                  </div>
-                  <div class="col-lg-2 col-md-6">
-                      <div class="d-flex flex-column text-start footer-item">
-                          <h4 class="text-light mb-3">Pages</h4>
-                          <a class="btn-link" href="/">Home</a>
-                          <a class="btn-link" href="/user_registration">Register</a>
-                          
-                          <a class="btn-link" href="/internship_program">Internship Program</a>
-                          <a class="btn-link" href="/contact_us">Contact Us</a>
-                         
-                          
-                      </div>
-                  </div>
-                  <div class="col-lg-3 col-md-6">
-                      <div class="d-flex flex-column text-start footer-item">
-                          <h4 class="text-light mb-3">Contact</h4>
-                          <a class="btn-link" href="">+91 7676348382</a>
-                          <a class="btn-link" href="">info@haegl.in</a>
-                          
-                      </div>
-                  </div>
-                  <div class="col-lg-3 col-md-6">
-                      <div class="footer-item">
-                          <h4 class="text-light mb-3">Address</h4>
-                          <p class="mb-4">HAEGL TECHNOLOGIES PVT LTD, 1st Floor, AKALWADI MANSION, Vidyanagar, Hubballi, Karnataka 580021</p>
-                         
-                          <img src="img/payment.png" class="img-fluid" alt="">
-                      </div>
-                  </div>
-              </div>
+            <div class="container py-5">
+              
+                <div class="row g-5">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-item">
+                            <h4 class="text-light mb-3">HAEGL PVT LTD</h4>
+                            <p class="mb-4" >HAEGL Interview Egde is an innovative platform revolutionizing the recruitment landscape. Designed to streamline the hiring process for companies, and job seekers. </p>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="d-flex flex-column text-start footer-item">
+                            <h4 class="text-light mb-3">Pages</h4>
+                            <a class="btn-link" href="/">Home</a>
+                            <a class="btn-link" href="/user_registration">Register</a>
+                            
+                            <a class="btn-link" href="/internship_program">Internship Program</a>
+                            <a class="btn-link" href="/contact_us">Contact Us</a>
+                            <a class="btn-link" href="/all_jobs">Jobs</a>
+                           
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-flex flex-column text-start footer-item">
+                            <h4 class="text-light mb-3">Contact</h4>
+                            <a class="btn-link" href="">+91 7676348382</a>
+                            <a class="btn-link" href="">info@haegl.in</a>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-item">
+                            <h4 class="text-light mb-3">Address</h4>
+                            <p class="mb-4">HAEGL TECHNOLOGIES PVT LTD, 1st Floor, AKALWADI MANSION, Vidyanagar, Hubballi, Karnataka 580021</p>
+                           
+                            <img src="img/payment.png" class="img-fluid" alt="">
+                        </div>
+                    </div>
+                </div>
 
-              <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
-                  <div class="row g-4">
-                      <div class="col-lg-3">
-                          
-                      </div>
-                      <div class="col-lg-6">
-                       
-                      </div>
-                      <div class="col-lg-3">
-                          <div class="d-flex justify-content-end pt-3">
-                             
-                              <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" target="_blank" href="https://www.facebook.com/haegltechnologies/"><i class="fab fa-facebook-f"></i></a>
-                              <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href="https://www.instagram.com/haegltechnologies/" target="_blank"><i class="fab fa-instagram"></i></a>
-                              <a class="btn btn-outline-secondary btn-md-square rounded-circle" href="https://www.linkedin.com/company/haegl-technologies-pvt-ltd/mycompany/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+                <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
+                    <div class="row g-4">
+                        <div class="col-lg-3">
+                            
+                        </div>
+                        <div class="col-lg-6">
+                         
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="d-flex justify-content-end pt-3">
+                               
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" target="_blank" href="https://www.facebook.com/haegltechnologies/"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href="https://www.instagram.com/haegltechnologies/" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-outline-secondary btn-md-square rounded-circle" href="https://www.linkedin.com/company/haegl-technologies-pvt-ltd/mycompany/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
       <!-- Footer End -->
 
         <!-- Copyright Start -->

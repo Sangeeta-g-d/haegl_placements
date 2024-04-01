@@ -70,6 +70,7 @@
     margin-right: 40px; /* Adjust the margin to move the image to the right */
     border: 4px solid #fff; /* Add a white border around the image */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+    object-fit: cover;
 }
 
 
@@ -147,69 +148,81 @@ button[type="submit"]:hover {
 
         <!-- Navbar start -->
         <div class="container-fluid fixed-top">
-          <div class="container topbar bg-primary d-none d-lg-block">
-              <div class="d-flex justify-content-between">
-                  <div class="top-link ps-2">
-                      
-                  </div>
-                  <div id="top-link" style="margin-right:380px;" class="top-link pe-5">
-                      <small id="info1" class="info me-3 "><i class="fas fa-phone me-2 text-secondary"></i> <a href="#" class="text-white">+91 7676348382</a></small>
-                      <small id="info2" class="info me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">info@haegl.in</a></small>
-                  </div>    
-              </div>
-          </div>
-          <script>
+            <div class="container topbar bg-primary d-none d-lg-block">
+                <div class="d-flex justify-content-between">
+                    <div class="top-link ps-2">
+                        
+                    </div>
+                    <div id="top-link" style="margin-right:380px;" class="top-link pe-5">
+                        <small id="info1" class="info me-3 "><i class="fas fa-phone me-2 text-secondary"></i> <a href="#" class="text-white">+91 7676348382</a></small>
+                        <small id="info2" class="info me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">info@haegl.in</a></small>
+                    </div>    
+                </div>
+            </div>
+            <script>
 document.addEventListener("DOMContentLoaded", function() {
-  var infos = document.querySelectorAll(".info");
-  var currentIndex = 0;
+    var infos = document.querySelectorAll(".info");
+    var currentIndex = 0;
 
-  function displayNextInfo() {
-      var currentInfo = infos[currentIndex];
-      currentInfo.classList.remove("active");
-      setTimeout(function() {
-          currentInfo.style.display = "none";
-          currentIndex = (currentIndex + 1) % infos.length;
-          var nextInfo = infos[currentIndex];
-          nextInfo.style.display = "inline";
-          setTimeout(function() {
-              nextInfo.classList.add("active");
-          }, 100); // Delay before fading in the next element
-      }, 1000); // Duration of fade out effect (1 second)
-      setTimeout(displayNextInfo, 3000); // Total delay before switching to next element (1s fade out + 3s delay)
-  }
+    function displayNextInfo() {
+        var currentInfo = infos[currentIndex];
+        currentInfo.classList.remove("active");
+        setTimeout(function() {
+            currentInfo.style.display = "none";
+            currentIndex = (currentIndex + 1) % infos.length;
+            var nextInfo = infos[currentIndex];
+            nextInfo.style.display = "inline";
+            setTimeout(function() {
+                nextInfo.classList.add("active");
+            }, 100); // Delay before fading in the next element
+        }, 1000); // Duration of fade out effect (1 second)
+        setTimeout(displayNextInfo, 3000); // Total delay before switching to next element (1s fade out + 3s delay)
+    }
 
-  displayNextInfo();
+    displayNextInfo();
 });
 
-          </script>
-          <div class="container px-0">
-              <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                  <a href="index.html" class="navbar-brand">
-                      <img src="/static/new_landing/img/HAEGL_colour.png" width="200px" height="90px">
-                  </a>
-                  <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                      <span class="fa fa-bars text-primary"></span>
-                  </button>
-                  <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
-                      <div class="navbar-nav mx-auto">
-                         
-                        
-                      </div>
-                      <div class="d-flex m-3 me-0">
-                          <div class="navbar-nav mx-auto">
-                          <a href="/" class="nav-item nav-link ">Home</a>
-                          <a href="internship_program" class="nav-item nav-link ">Internship Program</a>
-                          <a href="/all_jobs" class="nav-item nav-link active">Jobs</a>
-                          <a href="/select_theme" class="nav-item nav-link ">Build Resume</a>
-                          <a href="/contact_us" class="nav-item nav-link">Contact us</a>
-                          <a href="user_registration" style="margin-top: 4px;">  <div class="text-white bg-primary px-3 py-1 rounded" style="top: 12px; right: 10px;">Register</div></a>
-                         </div>
-                      </div>
-                  </div>
-              </nav>
-          </div>
-      </div>
-
+            </script>
+            <div class="container px-0">
+                <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                    <a href="/" class="navbar-brand">
+                        <img src="/static/new_landing/img/HAEGL_colour.png" width="200px" height="90px">
+                    </a>
+                    <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars text-primary"></span>
+                    </button>
+                    <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                        <div class="navbar-nav mx-auto">
+                           
+                          
+                        </div>
+                        <div class="d-flex m-3 me-0">
+                            <div class="navbar-nav mx-auto">
+                            <a href="/" class="nav-item nav-link active">Home</a>
+                            <a href="user_internship_program" class="nav-item nav-link">Internship Program</a>
+                            <a href="/jobs" class="nav-item nav-link">Jobs</a>
+                            <a href="/user_select_theme" class="nav-item nav-link">Build Resume</a>
+                            <a href="/calendar" class="nav-item nav-link">Calendar</a>
+                           
+                            <ul class="navbar-nav ml-auto mt-10">
+                              <li class="nav-item dropdown dropdown-slide @@dashboard">
+                                  <a class="nav-link " data-toggle="dropdown" href="#!">
+                                      <i class="fa fa-user"></i> <span><i class="fa fa-angle-down"></i></span>
+                                  </a>
+                                  <!-- Dropdown list -->
+                                  <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item @@dashboardPage" href="/profile">Profile</a></li>
+                                      <li><a class="dropdown-item @@dashboardMyAds" href="/user_logout">Logout</a></li>
+                                  </ul>
+                              </li>
+                          </ul>
+                          
+                           </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
         <!-- Navbar End -->
 
 
@@ -264,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			<div class="container py-3">
 				<h3 class="mb-4">Edit Personal Information</h3>
 				<br><br>
-				<form method="post">
+				<form method="post" enctype="multipart/form-data">
 					{% csrf_token %}
 					<div class="row g-5">
 						<div class="col-md-12 col-lg-6">
