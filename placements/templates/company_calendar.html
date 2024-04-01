@@ -22,9 +22,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+   
     flex-direction: column;
 }
+
+.dot {
+                height: 8px;
+                width: 8px;
+                background-color: black;
+                border-radius: 50%;
+                display: inline-block;
+                margin-left: 2px; /* Adjust as needed */
+            }
+            .present-day {
+            background-color: #ffc107;
+            width: 9px;
+            height: 7px;
+            border-radius: 50%;
+            }
 
 #calendar-container .calendar {
     font-family: Arial, sans-serif;
@@ -40,6 +55,7 @@
 
 #calendar-container .calendar th,
 #calendar-container .calendar td {
+    margin: 50px;
     padding: 10px;
     text-align: center;
 }
@@ -54,6 +70,12 @@
 
 #calendar-container .calendar td {
     cursor: pointer;
+    height: 70px;
+}
+
+.scheduled {
+    background-color: #f6ebca; /* Example color for scheduled dates */
+    /* Add any other styles you want for scheduled dates */
 }
 
 #calendar-container .calendar td:hover {
@@ -278,12 +300,13 @@
 
 
 
-        <div class="main-panel" style="display: flex;">
+        <div class="main-panel" >
           
-            <div class="page-header">
+            
               
-                <div id="calendar-container" style="flex: 1; margin-left: 30px; margin-right: 30px;">
+                <div id="calendar-container" style="margin-top: 40px; margin-left: 30px; margin-right: 30px;">
                     <div class="container-fluid">
+                        <h3>Calendar</h3>
                         <div class="month-year-container" id="month-year-container" style="margin: 10px;"></div>
                         <table class="calendar" id="calendar-table">
                             <thead id="calendar-head"></thead>
@@ -291,92 +314,12 @@
                         </table>
                     </div>
                 </div>
-                <div id="availability-section" style="flex: 2; margin-left: 30px;">
-                  <h2>Set Available Timings</h2>
-                  <p>Select dates on the calendar above to set your available timings:</p>
-                  <div id="selected-dates"></div>
-
-                  <script>
-                    // Function to fetch data from the server
-                    function fetchData() {
-                        fetch('get-available-timings/')
-                            .then(response => response.json())
-                            .then(data => {
-                                // Call function to display data
-                                displayData(data);
-                            })
-                            .catch(error => {
-                                console.error('Error fetching data:', error);
-                            });
-                    }
+               
             
-                    // Function to display fetched data
-                    function displayData(data) {
-                        const selectedDatesDiv = document.getElementById('selected-dates');
-            
-                        // Clear any existing content
-                        selectedDatesDiv.innerHTML = '';
-            
-                        // Loop through the data and create li elements
-                        data.forEach(item => {
-                            const li = document.createElement('li');
-                            // Apply CSS class to the list item
-                            li.classList.add('availability-item');
-                            // Set inner HTML with styled content
-                            li.innerHTML = `
-                                <span class="date"> ${item.date}</span><br>
-                                <span class="time">&nbsp;&nbsp;&nbsp;&nbsp;Timimg : ${item.start_time} - ${item.end_time}</span>
-                               
-                            `;
-                            selectedDatesDiv.appendChild(li);
-                        });
-                    }
-            
-                    // Call the function to fetch data when the page loads
-                    fetchData();
-                </script>
-                </div>
-            </div>
         </div>
         
         <!-- Availability Modal -->
-        <div class="modal fade" id="availabilityModal" tabindex="-1" role="dialog" aria-labelledby="availabilityModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="availabilityModalLabel">Set Available Timings</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Form -->
-                        <form id="availableTimingsForm">
-                            <div class="form-group">
-                                <label for="selectedDate">Date:</label>
-                                <input type="date" class="form-control" id="selectedDate" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="startTime">From:</label>
-                                <select class="form-control" id="startTime">
-                                    <!-- Options will be dynamically populated using JavaScript -->
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="endTime">To:</label>
-                                <select class="form-control" id="endTime">
-                                    <!-- Options will be dynamically populated using JavaScript -->
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="saveAvailableTimings()">Set Available Timings</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
         
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -385,197 +328,97 @@
             const monthYearContainer = document.getElementById('month-year-container');
             const calendarHead = document.getElementById('calendar-head');
             const calendarBody = document.getElementById('calendar-body');
-            const selectedDatesContainer = document.getElementById('selected-dates');
-            let selectedDates = {};
-        
+            let scheduledDates = []; // Array to store scheduled interview dates
+    
+            // Extract scheduled dates from Django template context
+            {% for interview in data %}
+                scheduledDates.push(new Date('{{ interview.interview_date }}').toISOString().split('T')[0]);
+            {% endfor %}
+    
             // Function to generate calendar
             function generateCalendar(month, year) {
-                calendarHead.innerHTML = '';
-                calendarBody.innerHTML = '';
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-                const firstDay = new Date(year, month, 1).getDay();
-        
-                // Set the days of the week header
-                const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                const daysRow = document.createElement('tr');
-                daysOfWeek.forEach(day => {
-                    const th = document.createElement('th');
-                    th.textContent = day;
-                    daysRow.appendChild(th);
-                });
-                calendarHead.appendChild(daysRow);
-        
-                // Fill in the calendar
-                let date = 1;
-                for (let i = 0; i < 6; i++) {
-                    const row = document.createElement('tr');
-                    for (let j = 0; j < 7; j++) {
-                        const cell = document.createElement('td');
-                        if (i === 0 && j < firstDay) {
-                            // Fill empty cells before the first day of the month
-                            cell.textContent = '';
-                            cell.classList.add('other-month');
-                        } else if (date > daysInMonth) {
-                            // Break if we have reached the end of the month
-                            break;
-                        } else {
-                            // Fill cells with dates
-                            cell.textContent = date;
-                            const currentDate = new Date(year, month, date);
-                            const dateString = currentDate.toISOString().split('T')[0]; // Store the date in ISO format as data attribute
-                            if (selectedDates[dateString]) {
-                                cell.classList.add('selected');
-                            }
-                            cell.dataset.date = dateString;
-                            cell.addEventListener('click', toggleAvailability);
-                            if (j === 0) {
-                                cell.classList.add('sunday');
-                            }
-                            date++;
-                        }
-                        row.appendChild(cell);
-                    }
-                    calendarBody.appendChild(row);
-                }
-            }
-        
-            // Function to toggle availability of dates
-            function toggleAvailability(event) {
-                const clickedDate = event.target.dataset.date;
-                // Open the modal
-                $('#availabilityModal').modal('show');
-                // Set the selected date in the form
-                document.getElementById('selectedDate').value = clickedDate;
-                // Populate options for start time and end time
-                populateTimeOptions();
-            }
-        
-            // Function to populate time options
-            function populateTimeOptions() {
-                const startTimeSelect = document.getElementById('startTime');
-                const endTimeSelect = document.getElementById('endTime');
-                startTimeSelect.innerHTML = '';
-                endTimeSelect.innerHTML = '';
-                for (let hour = 8; hour <= 22; hour++) {
-                    const time12HourFormat = hour > 12 ? `${hour - 12}:00 PM` : (hour === 12 ? '12:00 PM' : `${hour}:00 AM`);
-                    const value = `${hour < 10 ? '0' + hour : hour}:00`;
-                    startTimeSelect.innerHTML += `<option value="${value}">${time12HourFormat}</option>`;
-                    endTimeSelect.innerHTML += `<option value="${value}">${time12HourFormat}</option>`;
-                }
-            }
-        
-            // Function to save available timings
-          // Function to save available timings
-          function saveAvailableTimings() {
-    const selectedDate = document.getElementById('selectedDate').value;
-    const startTime = document.getElementById('startTime').value;
-    const formattedStartTime = formatTime(startTime);
-    const endTime = document.getElementById('endTime').value;
-    const formattedEndTime = formatTime(endTime);
-    const selectedTiming = `${formattedStartTime} - ${formattedEndTime}`;
+    calendarHead.innerHTML = '';
+    calendarBody.innerHTML = '';
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDay = new Date(year, month, 1).getDay();
 
-    // Get CSRF token from cookie
-    const csrftoken = getCookie('csrftoken');
-
-    // Make AJAX POST request to Django endpoint
-    $.ajax({
-        url: '/save-available-timings/',
-        type: 'POST',
-        data: {
-            selectedDate: selectedDate,
-            startTime: formattedStartTime,
-            endTime: formattedEndTime
-        },
-        beforeSend: function(xhr, settings) {
-            // Set CSRF token in request headers
-            xhr.setRequestHeader('X-CSRFToken', csrftoken);
-        },
-        success: function(response) {
-            console.log('Data saved successfully:', response);
-            // Close the modal after saving data successfully
-            $('#availabilityModal').modal('hide');
-        },
-        error: function(xhr, status, error) {
-            console.error('Error saving data:', error);
-            // Handle error response as needed
-        }
+    // Set the days of the week header
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const daysRow = document.createElement('tr');
+    daysOfWeek.forEach(day => {
+        const th = document.createElement('th');
+        th.textContent = day;
+        daysRow.appendChild(th);
     });
-}
+    calendarHead.appendChild(daysRow);
 
-// Function to format time to 12-hour format with AM/PM
-function formatTime(time) {
-    const [hours, minutes] = time.split(':');
-    const formattedHours = parseInt(hours) % 12 || 12; // Convert to 12-hour format
-    const period = parseInt(hours) < 12 ? 'AM' : 'PM'; // Determine AM/PM
-    return `${formattedHours}:${minutes} ${period}`;
-}
-
-// Function to get CSRF token from cookie
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Check if cookie name matches csrfmiddlewaretoken
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+    // Fill in the calendar
+   // Fill in the calendar
+let date = 1;
+for (let i = 0; i < 6; i++) {
+    const row = document.createElement('tr');
+    for (let j = 0; j < 7; j++) {
+        const cell = document.createElement('td');
+        if (i === 0 && j < firstDay) {
+            // Fill empty cells before the first day of the month
+            cell.textContent = '';
+            cell.classList.add('other-month');
+        } else if (date <= daysInMonth) {
+            // Fill cells with dates
+            cell.textContent = date;
+            const currentDate = new Date(year, month, date);
+            const dateString = currentDate.toISOString().split('T')[0];
+            if (scheduledDates.includes(dateString)) {
+                // Apply class to highlight dates with scheduled interviews
+                cell.classList.add('scheduled-interview');
+                // Add black dot
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                cell.appendChild(dot);
+                cell.setAttribute('data-date', dateString);
             }
+            if (j === 0) {
+                cell.classList.add('sunday');
+            }
+            if (currentDate.toDateString() === new Date().toDateString()) {
+                // Highlight present day
+                cell.classList.add('present-day');
+            }
+            date++;
+        } else {
+            // Fill empty cells after the end of the month
+            cell.textContent = '';
+            cell.classList.add('other-month');
         }
+        row.appendChild(cell);
     }
-    return cookieValue;
+    calendarBody.appendChild(row);
 }
 
 
-function updateSelectedDatesDisplay() {
-    // Assuming selectedDatesContainer is a global variable
-    const selectedDatesContainer = document.getElementById('selected-dates');
-    
-    // Clear the existing content of the container
-    selectedDatesContainer.innerHTML = '';
-
-    // Create a new unordered list element
-    const ul = document.createElement('ul');
-
-    // Fetch all available timings using AJAX
-    $.ajax({
-        url: '/get-available-timings/',
-        type: 'GET',
-        success: function(response) {
-
-            // Loop through the response data and create list items
-            response.forEach(timing => {
-                const li = document.createElement('li');
-                const date = timing.date; // Assuming 'date' is part of the response
-                li.textContent = `${new Date(date).toDateString()} - ${timing.start_time} - ${timing.end_time}`;
-                ul.appendChild(li);
-            });
-            // Append the unordered list to the selectedDatesContainer
-            selectedDatesContainer.appendChild(ul);
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching available timings:', error);
-            // Display an error message if fetching fails
-            selectedDatesContainer.textContent = 'Error fetching available timings.';
-        }
+    // Add click event listener to scheduled dates
+    const scheduledCells = document.querySelectorAll('.scheduled-interview');
+scheduledCells.forEach(cell => {
+    const dateString = cell.getAttribute('data-date');
+    cell.addEventListener('click', () => {
+        openPopup(dateString);
     });
+});
 }
 
-
-        
+    
             // Function to populate month and year select options
             function populateMonthYearSelect() {
                 const currentDate = new Date();
                 const currentMonth = currentDate.getMonth();
                 const currentYear = currentDate.getFullYear();
-
-                const container1 = document.createElement('div');
-                container1.classList.add('container1');
+    
+                // Display present month and year
+                const presentMonthYear = new Date(currentYear, currentMonth).toLocaleString('en-US', { month: 'long', year: 'numeric' });
+    
                 // Create month select
                 const monthSelect = document.createElement('select');
                 monthSelect.id = 'month-select';
-                
                 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
                 months.forEach((month, index) => {
                     const option = document.createElement('option');
@@ -584,14 +427,10 @@ function updateSelectedDatesDisplay() {
                     monthSelect.appendChild(option);
                 });
                 monthSelect.value = currentMonth; // Select current month by default
-        
+    
                 // Create year select
                 const yearSelect = document.createElement('select');
                 yearSelect.id = 'year-select';
-
-                container1.appendChild(monthSelect);
-                container1.appendChild(yearSelect);
-                document.body.appendChild(container1);
                 for (let year = currentYear - 5; year <= currentYear + 50; year++) {
                     const option = document.createElement('option');
                     option.value = year;
@@ -599,29 +438,104 @@ function updateSelectedDatesDisplay() {
                     yearSelect.appendChild(option);
                 }
                 yearSelect.value = currentYear; // Select current year by default
-        
+    
                 // Add event listener to update calendar when month or year is changed
                 monthSelect.addEventListener('change', updateCalendar);
                 yearSelect.addEventListener('change', updateCalendar);
-        
+    
                 // Add elements to container
                 monthYearContainer.appendChild(document.createElement('br')); // Add line break for better spacing
                 monthYearContainer.appendChild(monthSelect);
                 monthYearContainer.appendChild(yearSelect);
             }
-        
+    
             // Function to update calendar when month or year is changed
             function updateCalendar() {
                 const selectedMonth = parseInt(document.getElementById('month-select').value);
                 const selectedYear = parseInt(document.getElementById('year-select').value);
                 generateCalendar(selectedMonth, selectedYear);
             }
-        
+    
+            // Function to open popup window
+           // Function to open popup window
+         // Function to open popup window
+         
+         function openPopup(clickedDate) {
+    console.log(clickedDate);
+    // Send AJAX request to backend view
+    $.ajax({
+        url: '/get_scheduled_interviews/',
+        method: 'GET',
+        data: { date: clickedDate },
+        success: function(response) {
+            // Display scheduled interviews in modal
+            const modalBody = document.querySelector('.modal-body');
+            modalBody.innerHTML = ''; // Clear previous content
+            
+            if (response.interviews.length > 0) {
+                response.interviews.forEach(interview => {
+                    const interviewItem = document.createElement('div');
+                    interviewItem.classList.add('interview-item');
+
+                    const dateLabel = document.createElement('p');
+                    dateLabel.textContent = 'Date: ' + interview.date;
+                    interviewItem.appendChild(dateLabel);
+
+                    const startTimeLabel = document.createElement('p');
+                    startTimeLabel.textContent = 'Start Time: ' + interview.start_time;
+                    interviewItem.appendChild(startTimeLabel);
+
+                    const endTimeLabel = document.createElement('p');
+                    endTimeLabel.textContent = 'End Time: ' + interview.end_time;
+                    interviewItem.appendChild(endTimeLabel);
+
+                    const modeLabel = document.createElement('p');
+                    modeLabel.textContent = 'Mode of Interview: ' + interview.mode_of_interview;
+                    interviewItem.appendChild(modeLabel);
+
+                    const userLabel = document.createElement('p');
+                    userLabel.textContent = 'User: ' + interview.user_name + ' (' + interview.user_email + ')';
+                    interviewItem.appendChild(userLabel);
+
+                    modalBody.appendChild(interviewItem);
+                });
+            } else {
+                const noInterviewsMessage = document.createElement('p');
+                noInterviewsMessage.textContent = 'No interviews scheduled for this date.';
+                modalBody.appendChild(noInterviewsMessage);
+            }
+
+            // Display modal
+            $('#myModal').modal('show');
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
+}
+
+
             // Initial call to populate month and year select options and generate calendar for the current month and year
             populateMonthYearSelect();
             const currentDate = new Date();
             generateCalendar(currentDate.getMonth(), currentDate.getFullYear());
         </script>
+
+<!-- Bootstrap Modal -->
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Scheduled Interviews</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
         <!-- main-panel ends -->
       </div>
       <!-- page-body-wrapper ends -->
