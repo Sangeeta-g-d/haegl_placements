@@ -89,6 +89,7 @@
 
 #calendar-container .calendar td {
     cursor: pointer;
+    
 }
 
 #calendar-container .calendar td:hover {
@@ -120,6 +121,37 @@
     padding: 5px;
     font-size: 16px;
 }
+#year-select,
+#month-select {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    
+}
+
+#year-select:focus,
+#month-select:focus {
+    outline: none;
+    border-color: rgb(4, 104, 204);
+}
+
+.dot {
+                height: 8px;
+                width: 8px;
+                background-color: black;
+                border-radius: 50%;
+                display: inline-block;
+                margin-left: 2px; /* Adjust as needed */
+            }
+            .present-day {
+            background-color: #ffc107;
+            width: 9px;
+            height: 7px;
+            border-radius: 50%;
+            }
 
 /* Responsive adjustments */
 @media only screen and (max-width: 600px) {
@@ -238,6 +270,206 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             </div>
            
+<<<<<<< HEAD
+        
+            <script>
+                const monthYearContainer = document.getElementById('month-year-container');
+                const calendarHead = document.getElementById('calendar-head');
+                const calendarBody = document.getElementById('calendar-body');
+                let scheduledDates = []; // Array to store scheduled interview dates
+        
+                // Extract scheduled dates from Django template context
+                {% for interview in data %}
+                    scheduledDates.push(new Date('{{ interview.interview_date }}').toISOString().split('T')[0]);
+                {% endfor %}
+        
+                // Function to generate calendar
+                function generateCalendar(month, year) {
+        calendarHead.innerHTML = '';
+        calendarBody.innerHTML = '';
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const firstDay = new Date(year, month, 1).getDay();
+    
+        // Set the days of the week header
+        const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const daysRow = document.createElement('tr');
+        daysOfWeek.forEach(day => {
+            const th = document.createElement('th');
+            th.textContent = day;
+            daysRow.appendChild(th);
+        });
+        calendarHead.appendChild(daysRow);
+    
+        // Fill in the calendar
+       // Fill in the calendar
+    let date = 1;
+    for (let i = 0; i < 6; i++) {
+        const row = document.createElement('tr');
+        for (let j = 0; j < 7; j++) {
+            const cell = document.createElement('td');
+            if (i === 0 && j < firstDay) {
+                // Fill empty cells before the first day of the month
+                cell.textContent = '';
+                cell.classList.add('other-month');
+            } else if (date <= daysInMonth) {
+                // Fill cells with dates
+                cell.textContent = date;
+                const currentDate = new Date(year, month, date);
+                const dateString = currentDate.toISOString().split('T')[0];
+                if (scheduledDates.includes(dateString)) {
+                    // Apply class to highlight dates with scheduled interviews
+                    cell.classList.add('scheduled-interview');
+                    // Add black dot
+                    const dot = document.createElement('span');
+                    dot.classList.add('dot');
+                    cell.appendChild(dot);
+                    cell.setAttribute('data-date', dateString);
+                }
+                if (j === 0) {
+                    cell.classList.add('sunday');
+                }
+                if (currentDate.toDateString() === new Date().toDateString()) {
+                    // Highlight present day
+                    cell.classList.add('present-day');
+                }
+                date++;
+            } else {
+                // Fill empty cells after the end of the month
+                cell.textContent = '';
+                cell.classList.add('other-month');
+            }
+            row.appendChild(cell);
+        }
+        calendarBody.appendChild(row);
+    }
+    
+    
+        // Add click event listener to scheduled dates
+        const scheduledCells = document.querySelectorAll('.scheduled-interview');
+    scheduledCells.forEach(cell => {
+        const dateString = cell.getAttribute('data-date');
+        cell.addEventListener('click', () => {
+            openPopup(dateString);
+        });
+    });
+    }
+    
+        
+                // Function to populate month and year select options
+                function populateMonthYearSelect() {
+                    const currentDate = new Date();
+                    const currentMonth = currentDate.getMonth();
+                    const currentYear = currentDate.getFullYear();
+        
+                    // Display present month and year
+                    const presentMonthYear = new Date(currentYear, currentMonth).toLocaleString('en-US', { month: 'long', year: 'numeric' });
+        
+                    // Create month select
+                    const monthSelect = document.createElement('select');
+                    monthSelect.id = 'month-select';
+                    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                    months.forEach((month, index) => {
+                        const option = document.createElement('option');
+                        option.value = index;
+                        option.textContent = month;
+                        monthSelect.appendChild(option);
+                    });
+                    monthSelect.value = currentMonth; // Select current month by default
+        
+                    // Create year select
+                    const yearSelect = document.createElement('select');
+                    yearSelect.id = 'year-select';
+                    for (let year = currentYear - 5; year <= currentYear + 50; year++) {
+                        const option = document.createElement('option');
+                        option.value = year;
+                        option.textContent = year;
+                        yearSelect.appendChild(option);
+                    }
+                    yearSelect.value = currentYear; // Select current year by default
+        
+                    // Add event listener to update calendar when month or year is changed
+                    monthSelect.addEventListener('change', updateCalendar);
+                    yearSelect.addEventListener('change', updateCalendar);
+        
+                    // Add elements to container
+                    monthYearContainer.appendChild(document.createElement('br')); // Add line break for better spacing
+                    monthYearContainer.appendChild(monthSelect);
+                    monthYearContainer.appendChild(yearSelect);
+                }
+        
+                // Function to update calendar when month or year is changed
+                function updateCalendar() {
+                    const selectedMonth = parseInt(document.getElementById('month-select').value);
+                    const selectedYear = parseInt(document.getElementById('year-select').value);
+                    generateCalendar(selectedMonth, selectedYear);
+                }
+        
+                // Function to open popup window
+               // Function to open popup window
+             // Function to open popup window
+             
+             function openPopup(clickedDate) {
+        console.log(clickedDate);
+        // Send AJAX request to backend view
+        $.ajax({
+            url: '/get_user_scheduled_interviews/',
+            method: 'GET',
+            data: { date: clickedDate },
+            success: function(response) {
+                // Display scheduled interviews in modal
+                const modalBody = document.querySelector('.modal-body');
+                modalBody.innerHTML = ''; // Clear previous content
+                
+                if (response.interviews.length > 0) {
+                    response.interviews.forEach(interview => {
+                        const interviewItem = document.createElement('div');
+                        interviewItem.classList.add('interview-item');
+    
+                        const dateLabel = document.createElement('p');
+                        dateLabel.textContent = 'Date: ' + interview.date;
+                        interviewItem.appendChild(dateLabel);
+    
+                        const startTimeLabel = document.createElement('p');
+                        startTimeLabel.textContent = 'Start Time: ' + interview.start_time;
+                        interviewItem.appendChild(startTimeLabel);
+    
+                        const endTimeLabel = document.createElement('p');
+                        endTimeLabel.textContent = 'End Time: ' + interview.end_time;
+                        interviewItem.appendChild(endTimeLabel);
+    
+                        const modeLabel = document.createElement('p');
+                        modeLabel.textContent = 'Mode of Interview: ' + interview.mode_of_interview;
+                        interviewItem.appendChild(modeLabel);
+    
+                        const userLabel = document.createElement('p');
+                        userLabel.textContent = 'Designtaion: ' + interview.designation ;
+                        interviewItem.appendChild(userLabel);
+
+                        const companyLabel = document.createElement('p');
+                        companyLabel.textContent = 'Company : ' + interview.company_name ;
+                        interviewItem.appendChild(companyLabel);
+    
+                        modalBody.appendChild(interviewItem);
+                    });
+                } else {
+                    const noInterviewsMessage = document.createElement('p');
+                    noInterviewsMessage.textContent = 'No interviews scheduled for this date.';
+                    modalBody.appendChild(noInterviewsMessage);
+                }
+    
+                // Display modal
+                $('#myModal').modal('show');
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+    
+    
+                // Initial call to populate month and year select options and generate calendar for the current month and year
+                populateMonthYearSelect();
+=======
         </div>
            
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -328,6 +560,7 @@ scheduledCells.forEach(cell => {
     
             // Function to populate month and year select options
             function populateMonthYearSelect() {
+>>>>>>> b7bc75e835138c5b52fbf16da69a93f995e6505b
                 const currentDate = new Date();
                 const currentMonth = currentDate.getMonth();
                 const currentYear = currentDate.getFullYear();
@@ -503,7 +736,19 @@ scheduledCells.forEach(cell => {
         
         </div>
         
-       
+        <div id="myModal" class="modal fade">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Scheduled Interviews</h5>
+                       
+                    </div>
+                    <div class="modal-body">
+                        <div id="modal-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
       

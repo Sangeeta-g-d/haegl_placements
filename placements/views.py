@@ -902,6 +902,8 @@ def get_scheduled_interviews(request):
         interviews_list = []
         for interview in scheduled_interviews:
             interview_info = {
+                'scheduled_id':interview.id,
+                'designation': interview.application_id.job_id.designation,
                 'date': interview.interview_date,
                 'start_time': interview.start_time,
                 'end_time': interview.end_time,
@@ -914,6 +916,65 @@ def get_scheduled_interviews(request):
         return JsonResponse({'interviews': interviews_list})
     else:
         return JsonResponse({'error': 'Invalid request'})
+
+
+
+
+
+
+
+
+
+
+def reschedule_interview(request, scheduled_id):
+    if request.method == 'POST':
+        # Retrieve form data
+        new_date = request.POST.get('new_date')
+        new_start_time = request.POST.get('new_start_time')
+        new_end_time = request.POST.get('new_end_time')
+        new_mode_of_interview = request.POST.get('new_mode_of_interview')
+
+        try:
+            scheduled_interview = ScheduleInterview.objects.get(id=scheduled_id)
+            user_id = scheduled_interview.user_id_id
+            data = NewUser.objects.get(id=user_id)
+            user_email = data.email
+            print(user_email)
+            old_date = scheduled_interview.interview_date
+            old_start_time = scheduled_interview.start_time
+            old_end_time = scheduled_interview.end_time
+            old_mode_of_interview = scheduled_interview.mode_of_interview
+            print("hhhhhhhhhhhhhhhhhhh")
+            # Update the scheduled interview with new details
+            scheduled_interview.interview_date = new_date
+            scheduled_interview.start_time = new_start_time
+            scheduled_interview.end_time = new_end_time
+            scheduled_interview.mode_of_interview = new_mode_of_interview
+            scheduled_interview.save()
+            print("llllllllllllllllllll")
+            # Prepare email content
+            subject = 'Interview Rescheduled'
+            body = f"Your interview scheduled for {old_date} from {old_start_time} to {old_end_time} ({old_mode_of_interview}) has been rescheduled to {new_date} from {new_start_time} to {new_end_time} ({new_mode_of_interview})."
+            user_email=user_email
+            sender_email = settings.EMAIL_HOST_USER
+            print("iiiiiiiiiiiiiiiiiiiiiii")
+            # Send email
+            send_mail(subject, body, sender_email, [user_email])
+            print("Rescheduled interview email sent successfully")
+
+            return JsonResponse({'status': 'success', 'message': 'Interview rescheduled successfully'})
+        except ScheduleInterview.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Scheduled interview not found'}, status=404)
+        except NewUser.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+    else:
+        # Handle GET request if needed (e.g., render form for rescheduling)
+        pass
+
+            
 
 
 def save_available_timings(request):
@@ -1920,45 +1981,35 @@ def schedule_interview(request):
         end_time = request.POST.get("end_time")
         mode_of_interview = request.POST.get("mode_of_interview")
         
-        # Save data to ScheduleInterview model
-        schedule = ScheduleInterview.objects.create(
-            user_id_id=user_id,
-            application_id_id=application_id,
-            interview_date=interview_date,
-            start_time=start_time,
-            end_time=end_time,
-            mode_of_interview=mode_of_interview,  # Default value
-            confirmation="Pending",  # Default value
-            user_confirmation=False  # Default value
-        )
-        if schedule:
-            user_email = application.email   
-            smtp_server = settings.EMAIL_HOST
-            smtp_port = settings.EMAIL_PORT
-            sender_email = settings.EMAIL_HOST_USER
-            sender_password = settings.EMAIL_HOST_PASSWORD
-
-        # Prepare email content
-            des = designation
-            print("desssssssssssssssssssssss",des)
-            
-        
-       
-            subject = f'Congratulations!'
-            body = f"""Shortlisted"""
-        
-
-        
         try:
+            # Prepare email content
+            subject = 'Congratulations!'
+            body = 'Shortlisted'
+            user_email = application.email   
+            sender_email = settings.EMAIL_HOST_USER
+
             # Send email
             send_mail(subject, body, sender_email, [user_email])
-            print("mail senttttttttttttt")
-            # Update application status
+            print("Mail sent successfully")
             
+            # Save data to ScheduleInterview model
+            schedule = ScheduleInterview.objects.create(
+                user_id_id=user_id,
+                application_id_id=application_id,
+                interview_date=interview_date,
+                start_time=start_time,
+                end_time=end_time,
+                mode_of_interview=mode_of_interview,  # Default value
+                confirmation="Pending",  # Default value
+                user_confirmation=False  # Default value
+            )
+            if schedule:
+                print("Data stored successfully")
 
             return JsonResponse({'status': 'success'})
         except Exception as e:
             # Handle email sending failure
+            print("Failed to send email:", str(e))
             return JsonResponse({'status': 'error', 'message': 'Failed to send email. Please check your network connection.'}, status=500)
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
@@ -2296,3 +2347,27 @@ def calendar(request):
     context={'data':data}
     return render(request,"calendar.html" ,context)
 
+def get_user_scheduled_interviews(request):
+    user_id = request.user.id
+    if request.method == 'GET' and 'date' in request.GET:
+        date_str = request.GET.get('date')
+        date = datetime.strptime(date_str, '%Y-%m-%d')
+        date += timedelta(days=1)  # Add one day
+        next_day_str = date.strftime('%Y-%m-%d')
+        scheduled_interviews = ScheduleInterview.objects.select_related('user_id', 'application_id').filter(interview_date=next_day_str, user_id_id=user_id)
+
+        interviews_list = []
+        for interview in scheduled_interviews:
+            interview_info = {
+                'date': interview.interview_date,
+                'start_time': interview.start_time,
+                'end_time': interview.end_time,
+                'mode_of_interview': interview.mode_of_interview,
+                'designation': interview.application_id.job_id.designation,
+                'company_name': interview.application_id.job_id.company_id.first_name
+            }
+            interviews_list.append(interview_info)
+
+        return JsonResponse({'interviews': interviews_list})
+    else:
+        return JsonResponse({'error': 'Invalid request'})
