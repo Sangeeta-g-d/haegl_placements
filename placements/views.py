@@ -1906,6 +1906,63 @@ def update_application_status(request):
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
+
+def schedule_interview(request):
+    if request.method == "POST":
+        # Get form data
+        user_id = request.POST.get("user_id")
+        application = NewUser.objects.get(id=user_id)
+        print(application.email)
+        application_id = request.POST.get("application_id")
+        designation = request.POST.get("designation")
+        interview_date = request.POST.get("date")
+        start_time = request.POST.get("start_time")
+        end_time = request.POST.get("end_time")
+        mode_of_interview = request.POST.get("mode_of_interview")
+        
+        # Save data to ScheduleInterview model
+        schedule = ScheduleInterview.objects.create(
+            user_id_id=user_id,
+            application_id_id=application_id,
+            interview_date=interview_date,
+            start_time=start_time,
+            end_time=end_time,
+            mode_of_interview=mode_of_interview,  # Default value
+            confirmation="Pending",  # Default value
+            user_confirmation=False  # Default value
+        )
+        if schedule:
+            user_email = application.email   
+            smtp_server = settings.EMAIL_HOST
+            smtp_port = settings.EMAIL_PORT
+            sender_email = settings.EMAIL_HOST_USER
+            sender_password = settings.EMAIL_HOST_PASSWORD
+
+        # Prepare email content
+            des = designation
+            print("desssssssssssssssssssssss",des)
+            
+        
+       
+            subject = f'Congratulations!'
+            body = f"""Shortlisted"""
+        
+
+        
+        try:
+            # Send email
+            send_mail(subject, body, sender_email, [user_email])
+            print("mail senttttttttttttt")
+            # Update application status
+            
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            # Handle email sending failure
+            return JsonResponse({'status': 'error', 'message': 'Failed to send email. Please check your network connection.'}, status=500)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
 @login_required
 def saved_jobs(request):
     if request.user.user_type != 'job seeker':
@@ -2000,32 +2057,6 @@ def job_applications(request):
     return render(request, 'job_applications.html', context)
 
 
-def schedule_interview(request):
-    if request.method == "POST":
-        # Get form data
-        user_id = request.POST.get("user_id")
-        application_id = request.POST.get("application_id")
-        designation = request.POST.get("designation")
-        interview_date = request.POST.get("date")
-        start_time = request.POST.get("start_time")
-        end_time = request.POST.get("end_time")
-        mode_of_interview = request.POST.get("mode_of_interview")
-        
-        # Save data to ScheduleInterview model
-        schedule = ScheduleInterview.objects.create(
-            user_id_id=user_id,
-            application_id_id=application_id,
-            interview_date=interview_date,
-            start_time=start_time,
-            end_time=end_time,
-            mode_of_interview=mode_of_interview,  # Default value
-            confirmation="Pending",  # Default value
-            user_confirmation=False  # Default value
-        )
-        
-        return JsonResponse({"status": "success"})
-    else:
-        return JsonResponse({"status": "error", "message": "Invalid request method"})
 
 @login_required
 def application_status(request):
