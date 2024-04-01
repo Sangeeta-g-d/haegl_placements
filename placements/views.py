@@ -877,10 +877,44 @@ def temp1(request):
 
 def company_calendar(request):
     first_name = request.user.first_name
+    company_id = request.user.id
+    data = ScheduleInterview.objects.select_related('application_id','user_id').filter(application_id_id__job_id_id__company_id = company_id)
+    print("jjjjjjjjjjjj",data)
     context = {
-        'first_name':first_name
+        'first_name':first_name,'data':data
     }
     return render(request,'company_calendar.html',context)
+
+def fetch_scheduled_dates(request):
+    scheduled_dates = ScheduleInterview.objects.values_list('interview_date', flat=True)
+    print(scheduled_dates)
+    return JsonResponse({'scheduled_dates': list(scheduled_dates)})
+
+def get_scheduled_interviews(request):
+    company_id = request.user.id
+    if request.method == 'GET' and 'date' in request.GET:
+        date_str = request.GET.get('date')
+        date = datetime.strptime(date_str, '%Y-%m-%d')
+        date += timedelta(days=1)  # Add one day
+        next_day_str = date.strftime('%Y-%m-%d')
+        scheduled_interviews = ScheduleInterview.objects.select_related('user_id', 'application_id').filter(interview_date=next_day_str, application_id_id__job_id_id__company_id=company_id)
+
+        interviews_list = []
+        for interview in scheduled_interviews:
+            interview_info = {
+                'date': interview.interview_date,
+                'start_time': interview.start_time,
+                'end_time': interview.end_time,
+                'mode_of_interview': interview.mode_of_interview,
+                'user_name': interview.user_id.first_name,
+                'user_email': interview.user_id.email
+            }
+            interviews_list.append(interview_info)
+
+        return JsonResponse({'interviews': interviews_list})
+    else:
+        return JsonResponse({'error': 'Invalid request'})
+
 
 def save_available_timings(request):
     company_id = request.user.id
@@ -1965,11 +1999,6 @@ def job_applications(request):
 
     return render(request, 'job_applications.html', context)
 
-def fetch_available_timings(request):
-    selected_date = request.GET.get('date')
-    timings = AvailableTiming.objects.filter(date=selected_date)
-    timings_data = [{'start_time': timing.start_time, 'end_time': timing.end_time} for timing in timings]
-    return JsonResponse({'timings': timings_data})
 
 def schedule_interview(request):
     if request.method == "POST":
