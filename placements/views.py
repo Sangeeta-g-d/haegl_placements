@@ -1363,48 +1363,55 @@ def jobs(request):
         return HttpResponseForbidden()
     data = JobDetails.objects.all().select_related('company_id').filter(status="open",J_type='job')
     print(data)
+
     combined_data = list(chain(data))
     print("^^^^^^^^^^^^^^^^^^^^^^^^^^",combined_data)
 # Shuffle the combined list
     random.shuffle(combined_data)
+
     # Sort the combined list based on 'created_on' attribute to display recent jobs first
     combined_data.sort(key=lambda x: x.created_on, reverse=True)
 
 
-    saved_company_jobs_ids = CompanyJobSaved.objects.filter(user_id=request.user.id).values_list('job_id_id', flat=True)
-    saved_job_ids =  list(saved_company_jobs_ids)
-
 # Display the jumbled results
     for item in combined_data:
         print(item)
+
+
     for x in combined_data:
-        print("%%%%%%%%%%",x.company_id.id)
         days_since_posted = (timezone.now().date() - x.created_on).days
         x.days_since_posted = days_since_posted
-        x.is_saved = x.id in saved_job_ids
-    unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
-    all_unique_departments = list(set(chain( unique_departments_job)))
+
+
+
+    unique_departments = JobDetails.objects.values('department').annotate(count=Count('department')).order_by('department')
+
+    for department in unique_departments:
+        print(f"Department: {department['department']} - Count: {department['count']}")
+
     open_status_count_job = (
         JobDetails.objects.filter(status='open',J_type='job')
         .values('department')
         .annotate(open_count=Count('department'))
     )
+
+
     open_jobs_count = defaultdict(int)
     for item in open_status_count_job:
         open_jobs_count[item['department']] += item['open_count']
-    department_open_counts = [
-        (department, open_jobs_count.get(department, 0)) for department in all_unique_departments
-    ]
-    job_details_count = JobDetails.objects.filter(J_type='job').values('location').annotate(job_count=Count('location'))
+
+
+
+    
+
+    unique_locations = JobDetails.objects.values('location').annotate(count=Count('location')).order_by('location')
+
 # Count jobs in each unique location from AgencyJobDetails
-# Combine the counts
-    combined_counts = {}
-    for job_detail in job_details_count:
-        combined_counts[job_detail['location']] = combined_counts.get(job_detail['location'], 0) + job_detail['job_count']
+
 
     context = {'data':data,'combined_data':combined_data,
-    'department_open_counts':department_open_counts,'combined_counts':combined_counts}
-    return render(request,'jobs.html',context)
+    'unique_departments':unique_departments,'unique_locations':unique_locations}
+    return render(request,'all_jobs.html',context)
 
 from django.views.decorators.csrf import csrf_exempt
 import json
