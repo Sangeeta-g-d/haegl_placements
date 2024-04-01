@@ -902,6 +902,8 @@ def get_scheduled_interviews(request):
         interviews_list = []
         for interview in scheduled_interviews:
             interview_info = {
+                'scheduled_id':interview.id,
+                'designation': interview.application_id.job_id.designation,
                 'date': interview.interview_date,
                 'start_time': interview.start_time,
                 'end_time': interview.end_time,
@@ -914,6 +916,34 @@ def get_scheduled_interviews(request):
         return JsonResponse({'interviews': interviews_list})
     else:
         return JsonResponse({'error': 'Invalid request'})
+
+def reschedule_interview(request, scheduled_id):
+    if request.method == 'POST':
+        print("hiiiiiiiiiiii")
+        # Assuming you have a form to collect rescheduling details
+        # Retrieve form data
+        new_date = request.POST.get('new_date')
+        new_start_time = request.POST.get('new_start_time')
+        new_end_time = request.POST.get('new_end_time')
+        new_mode_of_interview = request.POST.get('new_mode_of_interview')
+
+        # Update the scheduled interview with new details
+        try:
+            scheduled_interview = ScheduleInterview.objects.get(id=scheduled_id)
+            scheduled_interview.interview_date = new_date
+            scheduled_interview.start_time = new_start_time
+            scheduled_interview.end_time = new_end_time
+            scheduled_interview.mode_of_interview = new_mode_of_interview
+            scheduled_interview.save()
+            return JsonResponse({'status': 'success', 'message': 'Interview rescheduled successfully'})
+        except ScheduleInterview.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Scheduled interview not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+    else:
+        # Handle GET request if needed (e.g., render form for rescheduling)
+        pass
 
 
 def save_available_timings(request):
@@ -2258,4 +2288,33 @@ def A(request):
     return render(request,"A.html")
 
 def calendar(request):
-    return render(request,"calendar.html")
+    id=request.user.id
+    print(id)
+    data=ScheduleInterview.objects.filter(user_id_id=id)
+    context={'data':data}
+    return render(request,"calendar.html" ,context)
+
+def get_user_scheduled_interviews(request):
+    user_id = request.user.id
+    if request.method == 'GET' and 'date' in request.GET:
+        date_str = request.GET.get('date')
+        date = datetime.strptime(date_str, '%Y-%m-%d')
+        date += timedelta(days=1)  # Add one day
+        next_day_str = date.strftime('%Y-%m-%d')
+        scheduled_interviews = ScheduleInterview.objects.select_related('user_id', 'application_id').filter(interview_date=next_day_str, user_id_id=user_id)
+
+        interviews_list = []
+        for interview in scheduled_interviews:
+            interview_info = {
+                'date': interview.interview_date,
+                'start_time': interview.start_time,
+                'end_time': interview.end_time,
+                'mode_of_interview': interview.mode_of_interview,
+                'designation': interview.application_id.job_id.designation,
+                'company_name': interview.application_id.job_id.company_id.first_name
+            }
+            interviews_list.append(interview_info)
+
+        return JsonResponse({'interviews': interviews_list})
+    else:
+        return JsonResponse({'error': 'Invalid request'})

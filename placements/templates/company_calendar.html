@@ -477,6 +477,10 @@ scheduledCells.forEach(cell => {
                     const interviewItem = document.createElement('div');
                     interviewItem.classList.add('interview-item');
 
+                    const designationLabel = document.createElement('p');
+                    designationLabel.textContent = 'Designation: ' + interview.designation;
+                    interviewItem.appendChild(designationLabel);
+
                     const dateLabel = document.createElement('p');
                     dateLabel.textContent = 'Date: ' + interview.date;
                     interviewItem.appendChild(dateLabel);
@@ -494,8 +498,24 @@ scheduledCells.forEach(cell => {
                     interviewItem.appendChild(modeLabel);
 
                     const userLabel = document.createElement('p');
-                    userLabel.textContent = 'User: ' + interview.user_name + ' (' + interview.user_email + ')';
+                    userLabel.textContent = 'Candidate: ' + interview.user_name + ' (' + interview.user_email + ')';
                     interviewItem.appendChild(userLabel);
+
+                    const rescheduleButton = document.createElement('button');
+                    rescheduleButton.textContent = 'Reschedule';
+                    rescheduleButton.classList.add('btn', 'btn-success');
+                    rescheduleButton.dataset.scheduledId = interview.scheduled_id; // Add scheduled ID to the button's dataset
+                    rescheduleButton.addEventListener('click', function() {
+                        // Display the reschedule modal and pass the scheduled ID to it
+                        const scheduledId = this.dataset.scheduledId;
+                        $('#rescheduleModal').modal('show');
+                        // Populate the reschedule form with the corresponding data
+                        populateRescheduleForm(interview);
+                    });
+                    interviewItem.appendChild(rescheduleButton);
+                  
+                    const hr = document.createElement('hr');
+                    interviewItem.appendChild(hr);
 
                     modalBody.appendChild(interviewItem);
                 });
@@ -513,6 +533,22 @@ scheduledCells.forEach(cell => {
         }
     });
 }
+
+function populateRescheduleForm(interview) {
+    // Populate the reschedule form fields with the corresponding data
+    document.getElementById('designationInput').value = interview.designation;
+    document.getElementById('dateInput').value = interview.date;
+    document.getElementById('startTimeInput').value = interview.start_time;
+    document.getElementById('endTimeInput').value = interview.end_time;
+    document.getElementById('modeInput').value = interview.mode_of_interview;
+    // Set the scheduled ID as a hidden input value
+    document.getElementById('scheduledIdInput').value = interview.scheduled_id;
+
+     // Set the form action dynamically
+    const rescheduleForm = document.getElementById('rescheduleForm');
+    rescheduleForm.action = `/reschedule_interview/${interview.scheduled_id}/`; // Replace '/reschedule_interview/' with your actual URL pattern
+}
+
 
 
             // Initial call to populate month and year select options and generate calendar for the current month and year
@@ -535,6 +571,91 @@ scheduledCells.forEach(cell => {
         </div>
     </div>
 </div>
+
+<div id="rescheduleModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="rescheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rescheduleModalLabel">Reschedule Interview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="rescheduleForm" method="post" >
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="designation">Designation</label>
+                        <input type="text" disabled class="form-control" id="designationInput" name="designation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" class="form-control" id="dateInput" name="new_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="startTime">Start Time</label>
+                        <input type="time" class="form-control" id="startTimeInput" name="new_start_time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endTime">End Time</label>
+                        <input type="time" class="form-control" id="endTimeInput" name="new_end_time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mode">Mode of Interview</label>
+                        <input type="text" class="form-control" id="modeInput" name="new_mode_of_interview" required>
+                    </div>
+                    <input type="text" id="scheduledIdInput" hidden>
+                    <button type="submit" class="btn btn-secondary">Reschedule</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const rescheduleForm = document.getElementById('rescheduleForm');
+    
+    // Prevent default form submission
+    rescheduleForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Collect form data
+        const formData = new FormData(rescheduleForm);
+        
+        // Send AJAX request
+        fetch(rescheduleForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest', // Add this header for Django to detect AJAX request
+                'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Display response message
+            alert(data.message);
+            
+            // Close the modal if the submission was successful
+            if (data.status === 'success') {
+                $('#rescheduleModal').modal('hide');
+                // Close all modals
+                $('.modal').modal('hide');
+                // Reload the page after the alert is closed
+                $(document).on('hidden.bs.modal', '.modal', function () {
+                    location.reload();
+                });
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+
+</script>
 
         <!-- main-panel ends -->
       </div>
