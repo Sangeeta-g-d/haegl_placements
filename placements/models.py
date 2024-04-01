@@ -116,7 +116,7 @@ class AvailableTiming(models.Model):
 
 
 class ScheduleInterview(models.Model):
-    companyIdOrAgencyId =  models.ForeignKey('NewUser',on_delete=models.CASCADE)
+    user_id =  models.ForeignKey('NewUser',on_delete=models.CASCADE)
     application_id = models.ForeignKey('AppliedJobs',on_delete=models.CASCADE)
     interview_date = models.DateField()
     start_time = models.CharField(max_length = 200, default='Pending')
