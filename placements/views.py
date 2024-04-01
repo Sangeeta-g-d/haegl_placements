@@ -1927,16 +1927,16 @@ def application(request, job_id):
     # Return a JSON response indicating failure
     return JsonResponse({'success': False})
 
+
 def update_application_status(request):
     if request.method == 'POST':
         application_id = request.POST.get('application_id')
-        application = AppliedJobs.objects.filter(id=application_id).select_related('job_id','user_id').first()
+        application = AppliedJobs.objects.filter(id=application_id).select_related('job_id', 'user_id').first()
         
         # Check if the application exists
         if not application:
             return JsonResponse({'status': 'error', 'message': 'Application not found'}, status=404)
     
-       
         user_email = application.user_id.email   
         smtp_server = settings.EMAIL_HOST
         smtp_port = settings.EMAIL_PORT
@@ -1945,25 +1945,23 @@ def update_application_status(request):
 
         # Prepare email content
         des = application.job_id.designation
-        print("desssssssssssssssssssssss",des)
         company_name = application.job_id.company_id.first_name
         
-       
         subject = f'Congratulations!'
         body = f"""Dear {application.user_id.first_name},\nSending this mail to inform that you have been shortlisted for the profile {des} at {company_name}. You will be notified further soon"""
         
         try:
             # Send email
             send_mail(subject, body, sender_email, [user_email])
-            print("mail senttttttttttttt")
+            
             # Update application status
             application.status = 'Selected'
             application.save()
 
-            return JsonResponse({'status': 'success'})
+            return JsonResponse({'status': 'success', 'message': 'Mail sent successfully'})
         except Exception as e:
             # Handle email sending failure
-            return JsonResponse({'status': 'error', 'message': 'Failed to send email. Please check your network connection.'}, status=500)
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
@@ -2102,6 +2100,9 @@ def job_applications(request):
             Q(job_id__experience__icontains=str(search_query)) |
             Q(job_id__salary__icontains=str(search_query))
         )
+    for item in data:
+        # Check if interview is scheduled for each application
+        item.interview_scheduled = ScheduleInterview.objects.filter(application_id=item.id).exists()
 
     context = {'obj': obj, 'today': today, 'data': data, 'first_name': first_name, 'success': success}
 

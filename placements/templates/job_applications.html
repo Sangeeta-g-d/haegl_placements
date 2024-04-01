@@ -12,47 +12,47 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
     <link rel="stylesheet" href="/static/assets/css/style.css" />
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <link rel="shortcut icon" href="/images/favicon.png" />
+    <style>
+      #statusMessage {
+      display: none;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      
+     
+     
+      
+  }
+  
+      .search-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .card-title {
+    margin-right: 20px; /* Adjust the spacing between the title and input field */
+  }
+  
+  input[type="text"] {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-bottom: 14px;
+  }
+  
+    </style>
   </head>
-  <style>
-    #statusMessage {
-    display: none;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    
-   
-   
-    
-}
-
-    .search-container {
-  display: flex;
-  align-items: center;
-}
-
-.card-title {
-  margin-right: 20px; /* Adjust the spacing between the title and input field */
-}
-
-input[type="text"] {
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  margin-bottom: 14px;
-}
-
-  </style>
+ 
   <body>
     <div class="container-scroller">
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
-          <div class="d-flex align-items-center">
-    <img style="margin-right:0;" width="70px" height="80px" src="/static/assets/images/haegl_transparent.png" alt="logo"/>
-    <h3 class="mb-0">InterviewEdge</h3>
+          <div style="margin-top: 50px; margin-left: 50px;">
+   <img src="/static/assets/images/HAEGL_colour.png" height="70px" width="160px" alt="">
   </div>
           <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="index.html"><img src="/static/assets/images/logo-mini.svg" alt="logo" /></a>
         </div>
@@ -231,7 +231,7 @@ input[type="text"] {
           <form method="POST" action="{% url 'update_application_status' %}" id="applicationForm">
               {% csrf_token %}
               <input type="hidden" name="application_id" value="{{ x.id }}">
-              <button class="btn btn-success" type="submit" name="button" value="Select" id="selectButton">Select</button>
+              <button class="btn btn-danger" type="submit" name="button" value="Select" id="selectButton">Select</button>
           </form>
           {% else %}
           <div style="display: flex;">
@@ -239,63 +239,78 @@ input[type="text"] {
                   <button class="btn btn-success" type="button" name="button" value="Select" id="selectButton" disabled>Selected</button>
               </div>
               <div style="flex: 1;">
-                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" onclick="setDesignation('{{ x.job_id.designation }}', '{{ x.id }}', '{{ x.user_id_id }}')">
-                      Schedule
-                  </button>
-              </div>
+                {% if not x.interview_scheduled %}
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" onclick="setDesignation('{{ x.job_id.designation }}', '{{ x.id }}', '{{ x.user_id_id }}')">
+                        Schedule
+                    </button>
+                {% else %}
+                    <button class="btn btn-success" type="button" disabled>Interview Scheduled</button>
+                {% endif %}
+            </div>
           </div>
-          {% endif %}
-          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-      
-          <script>
-              // Function to handle form submission via JavaScript
-              function submitForm(buttonValue) {
-                  const form = document.getElementById('applicationForm');
-                  const formData = new FormData(form);
-      
-                  // Add the clicked button's value to the form data
-                  formData.append('button', buttonValue);
-      
-                  fetch(form.action, {
-                          method: 'POST',
-                          body: formData,
-                          headers: {
-                              'X-Requested-With': 'XMLHttpRequest', // Add this header for Django to detect AJAX request
-                              'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
-                          }
-                      })
-                      .then(response => response.json())
-                      .then(data => {
-                          // Display SweetAlert
-                          if (data.status === 'success') {
-                              Swal.fire({
-                                  icon: 'success',
-                                  title: 'Congratulations!',
-                                  text: data.message
-                              });
-      
-                              // Update button text and disable it if status is success
-                              const selectButton = document.getElementById('selectButton');
-                              selectButton.textContent = 'Selected';
-                              selectButton.disabled = true;
-                          } else {
-                              Swal.fire({
-                                  icon: 'error',
-                                  title: 'Oops...',
-                                  text: data.message
-                              });
-                          }
-                      })
-                      .catch(error => console.error('Error:', error));
-              }
-      
-              // Event listener for button clicks
-              document.getElementById('selectButton').addEventListener('click', function() {
-                  submitForm(this.value);
-              });
-          </script>
-      </div>
-      
+      {% endif %}
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+      <script>
+        // Function to handle form submission via JavaScript
+        function submitForm(buttonValue) {
+            const form = document.getElementById('applicationForm');
+            const formData = new FormData(form);
+    
+            // Add the clicked button's value to the form data
+            formData.append('button', buttonValue);
+    
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest', // Add this header for Django to detect AJAX request
+                    'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display SweetAlert
+                if (data.status === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Application Updated!',
+                        text: data.message,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        // Reload the page after clicking "OK" in the SweetAlert
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: data.message,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                }
+    
+                // Update button text and disable it if status is success
+                if (data.status === 'success') {
+                    const selectButton = document.getElementById('selectButton');
+                    selectButton.textContent = 'Selected';
+                    selectButton.disabled = true;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    
+        // Event listener for form submission
+        document.getElementById('applicationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            submitForm('Select'); // Call the submitForm function with the button value
+        });
+    </script>
+        </div>
       </div>
     </div>
     {% endfor %}
