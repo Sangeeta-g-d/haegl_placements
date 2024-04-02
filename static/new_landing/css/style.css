@@ -82,8 +82,8 @@
 }
 
 .topbar {
-    padding: 10px;
-   max-width: 3209px;
+    padding: 10px ;
+    max-width: 3210px;
 }
 
 .topbar .top-info {
@@ -133,7 +133,7 @@
 .navbar .navbar-nav .nav-link.active,
 .fixed-top.bg-white .navbar .navbar-nav .nav-link:hover,
 .fixed-top.bg-white .navbar .navbar-nav .nav-link.active {
-    color: #1E88E5;
+    color:#fc081f;
 }
 
 .navbar .dropdown-toggle::after {
@@ -473,7 +473,7 @@
 }
   
 .pagination a.active {
-    background-color: #1E88E5 !important;
+    background-color: #fc081f;
     color: var(--bs-light);
     border: 1px solid var(--bs-secondary);
 }

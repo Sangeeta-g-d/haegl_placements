@@ -860,7 +860,10 @@ def user_registration(request):
         user = NewUser.objects.create(username=username, password=passw,
                                        email=email, phone_no=phone_no, linkedin=linkedin)
         
-        # Instead of redirecting, render the template and pass a flag indicating successful registration
+        # Login the user after registration
+        login(request, user)
+        
+        # Render the template and pass a flag indicating successful registration
         return render(request, 'user_registration.html', {'registered': True})
     
     return render(request, 'user_registration.html')
@@ -1834,7 +1837,7 @@ def user_dashboard1(request):
     user_details = UserDetails.objects.filter(user_id_id=id).first()
 
     # Extract user skills
-    user_skills = set(user_details.skills.lower().split(','))  # Assuming skills are comma-separated
+    # Assuming skills are comma-separated
 
     # Get all job details from JobDetails model
     all_jobs = JobDetails.objects.all().select_related('company_id').filter(status="open",J_type='job')
@@ -1842,29 +1845,13 @@ def user_dashboard1(request):
     recommended_jobs_job_details = []
 
     # Compare user skills with job required skills in JobDetails model
-    for job in all_jobs:
-        job_required_skills = set(job.mandatory_skills.lower().split(','))
-        common_skills = user_skills.intersection(job_required_skills)
-        if common_skills:
-            recommended_jobs_job_details.append(job)
-    # Combine recommendations from both models into a single list
-    combined_recommended_jobs = list(chain(recommended_jobs_job_details))
-    combined_recommended_jobs.sort(key=lambda x: x.created_on, reverse=True)
-    r_jobs = len(combined_recommended_jobs)
-    print("**********",r_jobs)
-
+    
     # Fetch saved job IDs for the current user from both models
 
     saved_company_jobs_ids = CompanyJobSaved.objects.filter(user_id=request.user.id).values_list('job_id_id', flat=True)
     saved_job_ids =  list(saved_company_jobs_ids)
 
-    for x in combined_recommended_jobs:
-        print(x)
-        days_since_posted = (timezone.now().date() - x.created_on).days
-        x.days_since_posted = days_since_posted
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",x.days_since_posted)
-        x.is_saved = x.id in saved_job_ids
-
+   
 
     unique_departments_job = JobDetails.objects.filter(J_type='job').values_list('department', flat=True).distinct()
     all_unique_departments = list(set(chain( unique_departments_job)))
@@ -1899,7 +1886,7 @@ def user_dashboard1(request):
 
 
 
-    context = {'obj':obj,'combined_recommended_jobs':combined_recommended_jobs
+    context = {'obj':obj
     ,'department_open_counts':department_open_counts,
     'combined_counts':combined_counts,'recent_jobs':recent_jobs
     }

@@ -1,8 +1,8 @@
 .text-primary {
-    color: #1e0202 !important; /* Adding !important to ensure the color change takes precedence */
+    color: #191919 !important; /* Adding !important to ensure the color change takes precedence */
 }
 .btn-primary{
-    background-color: #1E88E5 !important;;
+    background-color: #1E88E5;
 }
 .para{
     color: rgb(28, 28, 28);
