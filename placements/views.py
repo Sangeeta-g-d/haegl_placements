@@ -1446,7 +1446,7 @@ def jobs(request):
 
     context = {'data':data,'combined_data':combined_data,
     'unique_departments':unique_departments,'unique_locations':unique_locations}
-    return render(request,'all_jobs.html',context)
+    return render(request,'jobs.html',context)
 
 from django.views.decorators.csrf import csrf_exempt
 import json
