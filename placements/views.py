@@ -859,7 +859,7 @@ def user_registration(request):
         
         user = NewUser.objects.create(username=username, password=passw,
                                        email=email, phone_no=phone_no, linkedin=linkedin)
-        user.backend = 'django.contrib.auth.backends.ModelBackend'
+        
         
         # Login the user after registration
         login(request, user)
@@ -1009,30 +1009,15 @@ def user_login(request):
         password = request.POST.get('password')
         print("Password:", password)
 
-        # Check if the input is an email or username
-        if '@' in username_or_email:
-            kwargs = {'email': username_or_email}
+        user = authenticate(request, username=username_or_email, password=password)
+        print("Authenticated User:", user)
+
+        if user is not None:
+            login(request, user)
+            return redirect('/user_dashboard')
         else:
-            kwargs = {'username': username_or_email}
-
-        # Retrieve the user based on the provided identifier
-        users = NewUser.objects.filter(**kwargs)
-
-        # If no user is found, display an error message
-        if not users.exists():
             error_message = "Invalid username/email or password."
             return render(request, 'user_login.html', {'error_message': error_message})
-
-        # Iterate through the filtered users to authenticate
-        for user in users:
-            if check_password(password, user.password):
-                # Login the first matching user
-                login(request, user)
-                return redirect('/user_dashboard')
-
-        # If none of the users matched the provided password, display an error message
-        error_message = "Invalid username/email or password."
-        return render(request, 'user_login.html', {'error_message': error_message})
 
     return render(request, 'user_login.html')
 
