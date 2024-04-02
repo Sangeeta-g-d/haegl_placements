@@ -917,33 +917,64 @@ def get_scheduled_interviews(request):
     else:
         return JsonResponse({'error': 'Invalid request'})
 
+
+
+
+
+
+
+
+
+
 def reschedule_interview(request, scheduled_id):
     if request.method == 'POST':
-        print("hiiiiiiiiiiii")
-        # Assuming you have a form to collect rescheduling details
         # Retrieve form data
         new_date = request.POST.get('new_date')
         new_start_time = request.POST.get('new_start_time')
         new_end_time = request.POST.get('new_end_time')
         new_mode_of_interview = request.POST.get('new_mode_of_interview')
 
-        # Update the scheduled interview with new details
         try:
             scheduled_interview = ScheduleInterview.objects.get(id=scheduled_id)
+            user_id = scheduled_interview.user_id_id
+            data = NewUser.objects.get(id=user_id)
+            user_email = data.email
+            print(user_email)
+            old_date = scheduled_interview.interview_date
+            old_start_time = scheduled_interview.start_time
+            old_end_time = scheduled_interview.end_time
+            old_mode_of_interview = scheduled_interview.mode_of_interview
+            print("hhhhhhhhhhhhhhhhhhh")
+            # Update the scheduled interview with new details
             scheduled_interview.interview_date = new_date
             scheduled_interview.start_time = new_start_time
             scheduled_interview.end_time = new_end_time
             scheduled_interview.mode_of_interview = new_mode_of_interview
             scheduled_interview.save()
+            print("llllllllllllllllllll")
+            # Prepare email content
+            subject = 'Interview Rescheduled'
+            body = f"Your interview scheduled for {old_date} from {old_start_time} to {old_end_time} ({old_mode_of_interview}) has been rescheduled to {new_date} from {new_start_time} to {new_end_time} ({new_mode_of_interview})."
+            user_email=user_email
+            sender_email = settings.EMAIL_HOST_USER
+            print("iiiiiiiiiiiiiiiiiiiiiii")
+            # Send email
+            send_mail(subject, body, sender_email, [user_email])
+            print("Rescheduled interview email sent successfully")
+
             return JsonResponse({'status': 'success', 'message': 'Interview rescheduled successfully'})
         except ScheduleInterview.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'Scheduled interview not found'}, status=404)
+        except NewUser.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
 
     else:
         # Handle GET request if needed (e.g., render form for rescheduling)
         pass
+
+            
 
 
 def save_available_timings(request):
@@ -1303,10 +1334,15 @@ def all_companies(request):
     return render(request,'all_companies.html',context)
 
 
-def all_jobs(request):
-
+def all_jobs(request, category=None):
+    print("cccccccccccccc",category)
     data = JobDetails.objects.all().select_related('company_id').filter(status="open",J_type='job')
     print(data)
+
+    if category:
+        print("categorryyyyyyyyyyyyyyy")
+        category = category.replace('+', ' ')
+        data = data.filter(department=category)
 
     combined_data = list(chain(data))
     print("^^^^^^^^^^^^^^^^^^^^^^^^^^",combined_data)
@@ -1345,13 +1381,9 @@ def all_jobs(request):
         open_jobs_count[item['department']] += item['open_count']
 
 
-
-    
-
     unique_locations = JobDetails.objects.values('location').annotate(count=Count('location')).order_by('location')
 
 # Count jobs in each unique location from AgencyJobDetails
-
 
     context = {'data':data,'combined_data':combined_data,
     'unique_departments':unique_departments,'unique_locations':unique_locations}
@@ -1941,6 +1973,53 @@ def update_application_status(request):
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
+
+def schedule_interview(request):
+    if request.method == "POST":
+        # Get form data
+        user_id = request.POST.get("user_id")
+        application = NewUser.objects.get(id=user_id)
+        print(application.email)
+        application_id = request.POST.get("application_id")
+        designation = request.POST.get("designation")
+        interview_date = request.POST.get("date")
+        start_time = request.POST.get("start_time")
+        end_time = request.POST.get("end_time")
+        mode_of_interview = request.POST.get("mode_of_interview")
+        
+        try:
+            # Prepare email content
+            subject = 'Congratulations!'
+            body = 'Shortlisted'
+            user_email = application.email   
+            sender_email = settings.EMAIL_HOST_USER
+
+            # Send email
+            send_mail(subject, body, sender_email, [user_email])
+            print("Mail sent successfully")
+            
+            # Save data to ScheduleInterview model
+            schedule = ScheduleInterview.objects.create(
+                user_id_id=user_id,
+                application_id_id=application_id,
+                interview_date=interview_date,
+                start_time=start_time,
+                end_time=end_time,
+                mode_of_interview=mode_of_interview,  # Default value
+                confirmation="Pending",  # Default value
+                user_confirmation=False  # Default value
+            )
+            if schedule:
+                print("Data stored successfully")
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            # Handle email sending failure
+            print("Failed to send email:", str(e))
+            return JsonResponse({'status': 'error', 'message': 'Failed to send email. Please check your network connection.'}, status=500)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
 @login_required
 def saved_jobs(request):
     if request.user.user_type != 'job seeker':
@@ -2038,32 +2117,6 @@ def job_applications(request):
     return render(request, 'job_applications.html', context)
 
 
-def schedule_interview(request):
-    if request.method == "POST":
-        # Get form data
-        user_id = request.POST.get("user_id")
-        application_id = request.POST.get("application_id")
-        designation = request.POST.get("designation")
-        interview_date = request.POST.get("date")
-        start_time = request.POST.get("start_time")
-        end_time = request.POST.get("end_time")
-        mode_of_interview = request.POST.get("mode_of_interview")
-        
-        # Save data to ScheduleInterview model
-        schedule = ScheduleInterview.objects.create(
-            user_id_id=user_id,
-            application_id_id=application_id,
-            interview_date=interview_date,
-            start_time=start_time,
-            end_time=end_time,
-            mode_of_interview=mode_of_interview,  # Default value
-            confirmation="Pending",  # Default value
-            user_confirmation=False  # Default value
-        )
-        
-        return JsonResponse({"status": "success"})
-    else:
-        return JsonResponse({"status": "error", "message": "Invalid request method"})
 
 @login_required
 def application_status(request):

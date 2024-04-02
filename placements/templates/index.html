@@ -64,36 +64,13 @@
                     <div class="top-link ps-2">
                         
                     </div>
-                    <div id="top-link" style="margin-right:380px;" class="top-link pe-5">
-                        <small id="info1" class="info me-3 "><i class="fas fa-phone me-2 text-secondary"></i> <a href="#" class="text-white">+91 7676348382</a></small>
-                        <small id="info2" class="info me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">info@haegl.in</a></small>
+                    <div id="top-link" style="align-items: center;" class="top-link pe-5">
+                        <small  class=" me-3 "><i class="fas fa-phone me-2 text-secondary"></i> <a href="#" class="text-white">+91 7676348382</a></small>
+                        <small  class=" me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">info@haegl.in</a></small>
                     </div>    
                 </div>
             </div>
-            <script>
-document.addEventListener("DOMContentLoaded", function() {
-    var infos = document.querySelectorAll(".info");
-    var currentIndex = 0;
-
-    function displayNextInfo() {
-        var currentInfo = infos[currentIndex];
-        currentInfo.classList.remove("active");
-        setTimeout(function() {
-            currentInfo.style.display = "none";
-            currentIndex = (currentIndex + 1) % infos.length;
-            var nextInfo = infos[currentIndex];
-            nextInfo.style.display = "inline";
-            setTimeout(function() {
-                nextInfo.classList.add("active");
-            }, 100); // Delay before fading in the next element
-        }, 1000); // Duration of fade out effect (1 second)
-        setTimeout(displayNextInfo, 3000); // Total delay before switching to next element (1s fade out + 3s delay)
-    }
-
-    displayNextInfo();
-});
-
-            </script>
+          
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
                     <a href="/" class="navbar-brand">
@@ -114,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             <a href="/all_jobs" class="nav-item nav-link">Jobs</a>
                             <a href="/select_theme" class="nav-item nav-link">Build Resume</a>
                             <a href="/contact_us" class="nav-item nav-link">Contact us</a>
-                            <a href="user_registration" style="margin-top: 4px;">  <div class="text-white bg-primary px-3 py-1 rounded" style="top: 12px; right: 10px;">Register</div></a>
+                            <a href="user_registration" style="margin-top: 4px;">  <div class="text-white bg-danger px-3 py-1 rounded" style="top: 12px; right: 10px;">Register</div></a>
                            </div>
                         </div>
                     </div>
@@ -156,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </p><br>
                             <div class="d-flex m-3 me-0">
                            
-                                <a href="user_registration" class="my-auto">   <div class="text-white bg-primary px-3 py-1 rounded" style="top: 10px; right: 10px;">Get started</div></a>
+                                <a href="user_registration" class="my-auto">   <div class="text-white bg-danger px-3 py-1 rounded" style="top: 10px; right: 10px;">Get started</div></a>
                                
                             </div>
                     </div>
@@ -341,7 +318,9 @@ document.addEventListener("DOMContentLoaded", function() {
                                 </div>
                             </div>
                             <div class="col-8">
-                                <a href="{% url 'job_list' 'Development and IT' %}" class="h6">Development and IT</a>
+                                <a href="{% url 'all_jobs_with_category' category='Development+and+IT' %}" class="h6">Development and IT</a>
+
+ 
                             </div>
                         </div>
                     </div>
@@ -359,7 +338,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             </div>
                         </div>
                         <div class="col-8">
-                            <a href="{% url 'job_list' 'Design and Creative' %}" class="h6">Design and Creative</a>
+                            <a href="{% url 'all_jobs_with_category' category='Design+and+Creative' %}" class="h6">Design and Creative</a>
                            
                         </div>
                     </div>
@@ -375,7 +354,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             </div>
                         </div>
                         <div class="col-8">
-                            <a href="{% url 'job_list' 'Sales and Marketing' %}" class="h6">Sales and Marketing</a>
+                            <a href="{% url 'all_jobs_with_category' category='Sales+and+Marketing' %}" class="h6">Sales and Marketing</a>
                           
                         </div>
                     </div>
@@ -391,7 +370,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             </div>
                         </div>
                         <div class="col-8">
-                            <a href="{% url 'job_list' 'Customer Support' %}" class="h6">Customer Support</a>
+                            <a href="{% url 'all_jobs_with_category' category='Customer+Support' %}" class="h6">Customer Support</a>
                           
                         </div>
                     </div>
@@ -408,7 +387,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             </div>
                         </div>
                         <div class="col-8">
-                            <a href="{% url 'job_list' 'Accounting' %}" class="h6">Accounting</a>
+                            <a href="{% url 'all_jobs_with_category' category='Accounting' %}" class="h6">Accounting</a>
                            
                         </div>
                     </div>
@@ -424,7 +403,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             </div>
                         </div>
                         <div class="col-8">
-                            <a href="{% url 'job_list' 'Engineering' %}" class="h6">Engineering</a>
+                            <a href="{% url 'all_jobs_with_category' category='Engineering' %}" class="h6">Engineering</a>
                             
                         </div>
                     </div>
@@ -438,7 +417,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <img src="/static/new_landing/img/legal.png" class="img-fluid rounded-circle w-100" alt="">
                             </div>
                             <div class="col-8 pl-0">
-                                <a href="{% url 'job_list' 'legal' %}" class="h6" style="margin-left: -10px;">legal</a>
+                                <a href="{% url 'all_jobs_with_category' category='Legal' %}" class="h6">Legal</a>
                                 <!-- Adjust the margin as needed -->
                             </div>
                         </div>
@@ -456,7 +435,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             <img src="/static/new_landing/img/medical.png" class="img-fluid rounded-circle w-100" alt="">
                         </div>
                         <div class="col-8">
-                            <a href="{% url 'job_list' 'Medical' %}" class="h6">Medical</a>
+                            <a href="{% url 'all_jobs_with_category' category='Medical' %}" class="h6">Medical</a>
                            
                         </div>
                     </div>
@@ -494,7 +473,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <div class="featurs-item text-center rounded p-4 featurs-card" style="background: linear-gradient(to right, #efeff61a, #0225611a);">
-                                <div class="featurs-content text-center">
+                                <div class="featurs-content text-center" style="height: 180px;">
                                     <i style="font-size: 30px; color: #747d88;" class="fas fa-cogs"></i>
                                     <h5 style="color: #747d88;">Expertise</h5>
                                     <hr style="border-top: 1px solid rgba(255,255,255,0.3);">
@@ -505,7 +484,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         
                         <div class="col-md-6">
                             <div class="featurs-item text-center rounded p-4 featurs-card" style="background: linear-gradient(to right, #efeff61a, #0225611a);">
-                                <div class="featurs-content text-center">
+                                <div class="featurs-content text-center" style="height: 180px;">
                                     <i style="font-size: 30px; color: #747d88;" class="fas fa-user"></i>
                                     <h5 style="color: #747d88;">Personalized Approach</h5>
                                     <hr style="border-top: 1px solid rgba(255,255,255,0.3);">
@@ -517,7 +496,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div class="row g-6 mb-4">
                         <div class="col-md-6">
                             <div class="featurs-item text-center rounded p-4 featurs-card" style="background: linear-gradient(to right, #efeff61a, #0225611a);">
-                                <div class="featurs-content text-center">
+                                <div class="featurs-content text-center" style="height: 180px;">
                                     <i style="font-size: 30px; color: #747d88;" class="fas fa-network-wired"></i>
                                     <h5 style="color: #747d88;">Diverse Network</h5>
                                     <hr style="border-top: 1px solid rgba(255,255,255,0.3);">
@@ -527,7 +506,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                         <div class="col-md-6">
                             <div class="featurs-item text-center rounded p-4 featurs-card" style="background: linear-gradient(to right, #efeff61a, #0225611a);">
-                                <div class="featurs-content text-center">
+                                <div class="featurs-content text-center" style="height: 180px;">
                                     <i style="font-size: 30px; color: #747d88;" class="fas fa-medal"></i>
                                     <h5 style="color: #747d88;">Commitment to Excellence</h5>
                                     <hr style="border-top: 1px solid rgba(255,255,255,0.3);">
@@ -574,7 +553,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <input type="text" required class="w-100 form-control border-0 py-3 mb-4" placeholder="Your Name" name="name">
                         <input type="email"required class="w-100 form-control border-0 py-3 mb-4" placeholder="Enter Your Email" name="email">
                         <textarea required class="w-100 form-control border-0 mb-4" rows="5" cols="10" placeholder="Your Message" name="message"></textarea>
-                        <button class="text-white bg-primary px-3 py-1 rounded" type="submit">Submit</button>
+                        <button class="text-white bg-danger px-3 py-1 rounded" type="submit">Submit</button>
                     </form>
                 </div>
               

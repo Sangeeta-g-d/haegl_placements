@@ -64,39 +64,16 @@
                     <div class="top-link ps-2">
                         
                     </div>
-                    <div id="top-link" style="margin-right:380px;" class="top-link pe-5">
-                        <small id="info1" class="info me-3 "><i class="fas fa-phone me-2 text-secondary"></i> <a href="#" class="text-white">+91 7676348382</a></small>
-                        <small id="info2" class="info me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">info@haegl.in</a></small>
-                    </div>    
+                    <div id="top-link" style="align-items: center;" class="top-link pe-5">
+                        <small  class=" me-3 "><i class="fas fa-phone me-2 text-secondary"></i> <a href="#" class="text-white">+91 7676348382</a></small>
+                        <small  class=" me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">info@haegl.in</a></small>
+                    </div>     
                 </div>
             </div>
-            <script>
-document.addEventListener("DOMContentLoaded", function() {
-    var infos = document.querySelectorAll(".info");
-    var currentIndex = 0;
-
-    function displayNextInfo() {
-        var currentInfo = infos[currentIndex];
-        currentInfo.classList.remove("active");
-        setTimeout(function() {
-            currentInfo.style.display = "none";
-            currentIndex = (currentIndex + 1) % infos.length;
-            var nextInfo = infos[currentIndex];
-            nextInfo.style.display = "inline";
-            setTimeout(function() {
-                nextInfo.classList.add("active");
-            }, 100); // Delay before fading in the next element
-        }, 1000); // Duration of fade out effect (1 second)
-        setTimeout(displayNextInfo, 3000); // Total delay before switching to next element (1s fade out + 3s delay)
-    }
-
-    displayNextInfo();
-});
-
-            </script>
+          
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="/" class="navbar-brand">
                         <img src="/static/new_landing/img/HAEGL_colour.png" width="200px" height="90px">
                     </a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -111,7 +88,8 @@ document.addEventListener("DOMContentLoaded", function() {
                             <div class="navbar-nav mx-auto">
                             <a href="/" class="nav-item nav-link ">Home</a>
                             <a href="internship_program" class="nav-item nav-link active">Internship Program</a>
-                            <a href="/select_theme" class="nav-item nav-link ">Build Resume</a>
+                            <a href="/all_jobs" class="nav-item nav-link">Jobs</a>
+                            <a href="/select_theme" class="nav-item nav-link">Build Resume</a>
                             <a href="/contact_us" class="nav-item nav-link">Contact us</a>
                             <a href="user_registration" style="margin-top: 4px;">  <div class="text-white bg-primary px-3 py-1 rounded" style="top: 12px; right: 10px;">Register</div></a>
                            </div>
@@ -120,7 +98,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 </nav>
             </div>
         </div>
-
         <div class="container-fluid page-header py-5">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
@@ -140,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="col-lg-5">
                             <div class="border rounded">
                                 <a href="#">
-                                    <img src="/static/new_landing/img/web.png" class=" rounded" alt="Image" width="400px" height="360px">
+                                    <img src="/static/new_landing/img/web.png" class=" rounded" alt="Image" width="400px" height="373px">
                                 </a>
                             </div>
                         </div>
@@ -175,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="col-lg-5">
                             <div class="border rounded text-center">
                                 <a href="#">
-                                    <img src="/static/new_landing/img/soft.png" class="rounded" width="350px" height="360px" alt="Image">
+                                    <img src="/static/new_landing/img/soft.png" class="rounded" width="350px" height="410px" alt="Image">
                                 </a>
                             </div>
                         </div>
@@ -193,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="col-lg-5">
                             <div class="border rounded">
                                 <a href="#">
-                                    <img src="/static/new_landing/img/iot.png" class=" rounded" width="400px" height="360px" alt="Image">
+                                    <img src="/static/new_landing/img/iot.png" class=" rounded" width="400px" height="395px" alt="Image">
                                 </a>
                             </div>
                         </div>

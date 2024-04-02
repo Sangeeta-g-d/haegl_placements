@@ -203,55 +203,26 @@
                   <i class="fas fa-chevron-down"></i>
                   <h3 class="mb-0 display-3 resume-form">Personal Information</h3>
                 </button>
-
                 <div id="profile" class="custom-container custom-container1 hidden">
                   <div class="columns-wrapper">
                     <div class="column">
                       <!-- Column 1: Profile Image -->
                       <img src="/static/dashboard_assets/img/team-2.jpg" alt="Profile Image" class="profile-image"><br>
-                      <button class="edit-button" id="exampleModalLabel" >
+                      <button class="edit-button" onclick="openPopup()">
                         <i class="fas fa-pencil-alt"></i>&nbsp;
                         Edit
-                      </button>
-                      <br>
-                    </div>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                          <div class="modal-content">
-                              <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Apply Now</h5>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                  <form>
-                                     
-                                      <div class="mb-3">
-                                          <label for="email" class="form-label">Email</label>
-                                          <input type="email" class="form-control" id="email" placeholder="Enter your email" value="{{data.email}}">
-                                      </div>
-                                      <div class="mb-3">
-                                          <label for="skills" class="form-label">Skills</label>
-                                          <input type="text" class="form-control" id="skills" placeholder="Enter your skills">
-                                      </div>
-                                      <div class="mb-3">
-                                          <label for="phone" class="form-label">Phone Number</label>
-                                          <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
-                                      </div>
-                                      <div class="mb-3">
-                                          <label for="address" class="form-label">Address</label>
-                                          <textarea class="form-control" id="address" rows="3" placeholder="Enter your address"></textarea>
-                                      </div>
-                                      <div class="mb-3">
-                                          <label for="profile" class="form-label">Profile</label>
-                                          <input type="File" class="form-control" id="profile" placeholder="Enter your profile">
-                                      </div>
-                                      <button type="submit" class="btn btn-primary">Submit</button>
-                                  </form>
-                              </div>
-                          </div>
+                      </button><br>
+
+
+                      <div id="imagePopup" class="popup">
+                        <!-- Popup content -->
+                        <label for="imageInput">Image:</label>
+                        <input type="file" id="imageInput" accept="image/*">
+                        <button onclick="closePopup()">Close</button>
                       </div>
-                  </div>
-                   
+
+                    </div>
+
                     <div class="column">
                       <!-- Column 2: User Information -->
                       <div class="form-group">
@@ -280,6 +251,9 @@
                     </div>
                   </div>
                 </div>
+
+
+               
                 <br>
                 <button type="button" class="custom-button" onclick="toggleSummary()">
                   <i class="fas fa-chevron-down"></i>
@@ -523,7 +497,7 @@
                     <div class="temp3-header-right">
                         <img src="/static/new_landing/img/avatar.jpg" height="80px" alt="profile" class="round-image">
                     </div>
-                    
+                
                 </div>
                 
                <div style="display: flex;">

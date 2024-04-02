@@ -52,38 +52,13 @@
                 <div class="top-link ps-2">
 
                 </div>
-                <div id="top-link" style="margin-right:380px;" class="top-link pe-5">
-                    <small id="info1" class="info me-3 "><i class="fas fa-phone me-2 text-secondary"></i> <a href="#"
-                            class="text-white">+91 7676348382</a></small>
-                    <small id="info2" class="info me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#"
-                            class="text-white">info@haegl.in</a></small>
-                </div>
+                <div id="top-link" style="align-items: center;" class="top-link pe-5">
+                    <small  class=" me-3 "><i class="fas fa-phone me-2 text-secondary"></i> <a href="#" class="text-white">+91 7676348382</a></small>
+                    <small  class=" me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">info@haegl.in</a></small>
+                </div>  
             </div>
         </div>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                var infos = document.querySelectorAll(".info");
-                var currentIndex = 0;
-
-                function displayNextInfo() {
-                    var currentInfo = infos[currentIndex];
-                    currentInfo.classList.remove("active");
-                    setTimeout(function () {
-                        currentInfo.style.display = "none";
-                        currentIndex = (currentIndex + 1) % infos.length;
-                        var nextInfo = infos[currentIndex];
-                        nextInfo.style.display = "inline";
-                        setTimeout(function () {
-                            nextInfo.classList.add("active");
-                        }, 100); // Delay before fading in the next element
-                    }, 1000); // Duration of fade out effect (1 second)
-                    setTimeout(displayNextInfo, 3000); // Total delay before switching to next element (1s fade out + 3s delay)
-                }
-
-                displayNextInfo();
-            });
-
-        </script>
+        
         <div class="container px-0">
             <nav class="navbar navbar-light bg-white navbar-expand-xl">
                 <a href="/" class="navbar-brand">
@@ -100,9 +75,9 @@
                     </div>
                     <div class="d-flex m-3 me-0">
                         <div class="navbar-nav mx-auto">
-                            <a href="/" class="nav-item nav-link active">Home</a>
+                            <a href="/" class="nav-item nav-link ">Home</a>
                             <a href="internship_program" class="nav-item nav-link">Internship Program</a>
-                            <a href="/all_jobs" class="nav-item nav-link">Jobs</a>
+                            <a href="/all_jobs" class="nav-item nav-link active">Jobs</a>
                             <a href="/select_theme" class="nav-item nav-link">Build Resume</a>
                             <a href="/contact_us" class="nav-item nav-link">Contact us</a>
                             <a href="/user_registration" style="margin-top: 4px;">

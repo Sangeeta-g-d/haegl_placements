@@ -1,5 +1,5 @@
 .text-primary {
-    color: #1E88E5 !important; /* Adding !important to ensure the color change takes precedence */
+    color: #1e0202 !important; /* Adding !important to ensure the color change takes precedence */
 }
 .btn-primary{
     background-color: #1E88E5 !important;;
@@ -100,12 +100,10 @@ font-style: normal;
   .image-container img {
     display: inline-block;
     margin: 0 10px; /* Adjust margin as needed */
-    transition: transform 0.3s ease; /* Smooth transition */
+  
   }
   
-  .image-container img:hover {
-    transform: scale(1.1); /* Zoom effect on hover */
-  }
+  
   .bgc-secondary{
     background-color: #F4F6F8 !important;
   }
