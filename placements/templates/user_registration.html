@@ -1041,6 +1041,22 @@ h1 {
 </script>
 {% endif %}
 
+{% if email_exists %}
+<script>
+    // Display SweetAlert alert
+    swal({
+        title: "Registration Failed!",
+        text: "The email address you provided is already in use.",
+        icon: "error",
+        button: "OK",
+    }).then(function() {
+        // Redirect to registration page or any other action you desire
+        window.location.href = "{% url 'user_registration' %}";
+    });
+</script>
+{% endif %}
+
+
   <!-- container-scroller -->
   <!-- base:js -->
   </div>

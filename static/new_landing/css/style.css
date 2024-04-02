@@ -85,7 +85,10 @@
     padding: 10px ;
     max-width: 3210px;
 }
-
+.topnav{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
 .topbar .top-info {
     font-size: 15px;
     line-height: 0;
