@@ -44,9 +44,9 @@ input[type="password"] {
 .register-button {
     background-color: #fc081f;
     color: #fff;
-    padding: 18px 30px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 4px;
+    border-radius: 40px;
     outline: none;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -70,7 +70,9 @@ input[type="password"] {
   <div class="logo">
     <img src="/static/new_landing/img/HAEGL_colour.png" width="220px" height="90px" >
   </div>
-  
+  <div id="popupMessage" style="display: none;">
+    Invalid email, phone number, or password.
+</div>
   <h2>Login</h2>
 
   {% if error_message %}
@@ -83,11 +85,32 @@ input[type="password"] {
     <input type="text" id="username" name="username_or_email" required>
 
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
+    <input type="password" id="password" name="password"  required>
+<div style="text-align: center;">
+    <button type="submit" class="register-button" id="registerButton">
+      Login
+  </button>
+</div>
 
-    <button type="submit" class="register-button">Register</button>
-  </form>
+  </form><br>
+  <script>
+    function validateForm() {
+        var usernameOrEmail = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
 
+        // Add your validation logic here (e.g., regex validation for email or phone)
+
+        // For demo purpose, just check if usernameOrEmail and password are not empty
+        if (usernameOrEmail === "" || password === "") {
+            // Show the popup message
+            document.getElementById("popupMessage").style.display = "block";
+            return false; // Prevent form submission
+        }
+
+        // Form submission is allowed if validation passes
+        return true;
+    }
+</script>
   <div class="text-center mt-4 font-weight-light" style="text-align: center;">
     Don't have an account? <a href="/user_registration" class="text-primary">Create</a>
   </div>
