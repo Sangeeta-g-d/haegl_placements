@@ -43,21 +43,27 @@ input[type="password"] {
   box-sizing: border-box;
 }
 
-button[type="submit"] {
-  width: 100%;
-  background-color: #dc3545 ;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
 
 button[type="submit"]:hover {
  
   color: black;
 }
+.register-button {
+    background-color: #fc081f;
+    color: #fff;
+    padding: 18px 30px;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+}
+
+.register-button:hover {
+    background-color: #c82333;
+}
+
 
 </style>
 </head>
@@ -77,7 +83,9 @@ button[type="submit"]:hover {
     <label for="password">Password:</label>
     <input type="password" id="password" name="password"  required>
 
-    <button type="submit">Login</button>
+    <button type="submit" class="register-button" id="registerButton">
+      Register
+  </button>
     
 
   </form><br>
