@@ -31,7 +31,6 @@ h2 {
   margin-bottom: 20px;
 }
 
-
 input[type="text"],
 input[type="password"] {
   width: 100%;
@@ -41,7 +40,6 @@ input[type="password"] {
   border-radius: 4px;
   box-sizing: border-box;
 }
-
 
 .register-button {
     background-color: #fc081f;
@@ -59,7 +57,11 @@ input[type="password"] {
     background-color: #c82333;
 }
 
-
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
 </style>
 </head>
 <body>
@@ -72,10 +74,15 @@ input[type="password"] {
     Invalid email, phone number, or password.
 </div>
   <h2>Login</h2>
+
+  {% if error_message %}
+  <div class="error-message">{{ error_message }}</div>
+  {% endif %}
+
   <form method="post">
     {% csrf_token %}
     <label for="username">Enter email or Phone no:</label>
-    <input type="text" id="username" name="username_or_email"  required>
+    <input type="text" id="username" name="username_or_email" required>
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password"  required>
@@ -111,5 +118,3 @@ input[type="password"] {
 
 </body>
 </html>
-
-

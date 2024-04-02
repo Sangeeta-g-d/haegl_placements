@@ -1,6 +1,7 @@
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+from django.core.exceptions import MultipleObjectsReturned
 
 class EmailOrPhoneBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
@@ -12,3 +13,8 @@ class EmailOrPhoneBackend(ModelBackend):
                 return user
         except UserModel.DoesNotExist:
             return None
+        except MultipleObjectsReturned:
+            # Log the error or handle it according to your application's requirements
+            # For example, you could return the first user found
+            users = UserModel.objects.filter(Q(email=username) | Q(phone_no=username))
+            return users.first()

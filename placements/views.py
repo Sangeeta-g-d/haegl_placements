@@ -861,8 +861,7 @@ def user_registration(request):
                                        email=email, phone_no=phone_no, linkedin=linkedin)
         
         
-        # Login the user after registration
-        login(request, user)
+       
         
         # Render the template and pass a flag indicating successful registration
         return render(request, 'user_registration.html', {'registered': True})
@@ -920,12 +919,6 @@ def get_scheduled_interviews(request):
         return JsonResponse({'interviews': interviews_list})
     else:
         return JsonResponse({'error': 'Invalid request'})
-
-
-
-
-
-
 
 
 
@@ -1020,7 +1013,6 @@ def user_login(request):
             return render(request, 'user_login.html', {'error_message': error_message})
 
     return render(request, 'user_login.html')
-
 
 def search_trend(request, keyword):
     print(keyword)
@@ -1432,7 +1424,7 @@ def jobs(request):
 
     context = {'data':data,'combined_data':combined_data,
     'unique_departments':unique_departments,'unique_locations':unique_locations}
-    return render(request,'all_jobs.html',context)
+    return render(request,'jobs.html',context)
 
 from django.views.decorators.csrf import csrf_exempt
 import json
