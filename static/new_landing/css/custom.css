@@ -1,5 +1,5 @@
 .text-primary {
-    color: #1E88E5 !important; /* Adding !important to ensure the color change takes precedence */
+    color: rgb(47, 8, 8) !important; /* Adding !important to ensure the color change takes precedence */
 }
 .btn-primary{
     background-color: #1E88E5 !important;;
