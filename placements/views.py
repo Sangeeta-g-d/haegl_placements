@@ -1009,12 +1009,7 @@ def user_login(request):
         password = request.POST.get('password')
         print("Password:", password)
 
-        if '@' in username_or_email:
-            kwargs = {'email': username_or_email}
-        else:
-            kwargs = {'username': username_or_email}
-
-        user = authenticate(request, **kwargs, password=password)
+        user = authenticate(request, username=username_or_email, password=password)
         print("Authenticated User:", user)
 
         if user is not None:
