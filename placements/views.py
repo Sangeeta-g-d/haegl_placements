@@ -924,12 +924,6 @@ def get_scheduled_interviews(request):
 
 
 
-
-
-
-
-
-
 def reschedule_interview(request, scheduled_id):
     if request.method == 'POST':
         # Retrieve form data
