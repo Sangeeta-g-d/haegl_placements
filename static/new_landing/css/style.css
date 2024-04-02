@@ -70,7 +70,7 @@
 }
 
 .btn.border-secondary:hover {
-    background: var(--bs-secondary) !important;
+    background: #fc081f !important;
     color: var(--bs-white) !important;
 }
 
