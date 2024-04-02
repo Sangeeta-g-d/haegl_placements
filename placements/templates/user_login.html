@@ -71,8 +71,8 @@ button[type="submit"]:hover {
   <h2>Login</h2>
   <form method="post">
     {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username"  required>
+    <label for="username">Enter email or Phone no:</label>
+    <input type="text" id="username" name="username_or_email"  required>
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password"  required>

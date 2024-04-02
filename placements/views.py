@@ -860,6 +860,7 @@ def user_registration(request):
         user = NewUser.objects.create(username=username, password=passw,
                                        email=email, phone_no=phone_no, linkedin=linkedin)
         
+        
         # Login the user after registration
         login(request, user)
         
@@ -1002,38 +1003,28 @@ def get_available_timings(request):
     return JsonResponse(list(available_timings), safe=False)
 
 def user_login(request):
-    print("hhhhhhhhhhh")
-    try:
-         # Check if the user is already authenticated (logged in).
-        if request.user.is_authenticated:
-            print("Hiiiiiiiiiiiiiii")
+    if request.method == 'POST':
+        username_or_email = request.POST.get('username_or_email')
+        print("Username or Email:", username_or_email)
+        password = request.POST.get('password')
+        print("Password:", password)
+
+        if '@' in username_or_email:
+            kwargs = {'email': username_or_email}
+        else:
+            kwargs = {'username': username_or_email}
+
+        user = authenticate(request, **kwargs, password=password)
+        print("Authenticated User:", user)
+
+        if user is not None:
+            login(request, user)
             return redirect('/user_dashboard')
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            print(username)
-            password = request.POST.get('password')
-            print(password)
-            user = authenticate(request, username=username, password=password)
-            print("!!!!!!!!!!!!!!!!",user)
-            if user is not None and user.user_type == 'job seeker':
-                login(request, user)
-                i = request.user.id
-                print("agencyyyy idddd",i)
-                obj = UserDetails.objects.filter(user_id_id=i).first()
-                print("!!!!!!!!!",obj)
-                if obj is None:
-                    return redirect('user_details')
-                else:
+        else:
+            error_message = "Invalid username/email or password."
+            return render(request, 'user_login.html', {'error_message': error_message})
 
-                    return redirect('user_dashboard')
-            else:
-                messages.error(request, 'Invalid username or password.')
-                return render(request, 'user_login.html')
-
-    except Exception as e:
-          # Handle any exceptions that may occur and print them for debugging purposes.
-            print(e)
-    return render(request, 'user_login.html', {'messages': messages.get_messages(request)})
+    return render(request, 'user_login.html')
 
 
 def search_trend(request, keyword):
