@@ -90,12 +90,13 @@ body {
 .register-button {
     background-color: #fc081f;
     color: #fff;
-    padding: 8px 16px;
+    padding: 18px 30px;
     border: none;
     border-radius: 4px;
     outline: none;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
 }
 
 .register-button:hover {
@@ -323,8 +324,13 @@ h1 {
 
 .small_text { 
     color: #6d7883; 
-    font-size: 15px;
-} 
+    font-size: 18px;
+    max-width: 400px; /* Adjust the width as per your requirement */
+    margin: 0 auto; /* Center-align the text horizontally */
+    text-align: center; /* Center-align the text within the container */
+    word-wrap: break-word; /* Ensures that long words are broken and wrap onto the next line */
+}
+
 
 .browse { 
     margin: 30px auto 20px; 
@@ -834,13 +840,13 @@ h1 {
 
 .container-scroller {
     width: auto;
-    padding: 20px;
+    padding: 40px;
 }
 
 
 
 .reg_right {
-    flex-basis: 45%; /* Adjust the width of the registration form section */
+    flex-basis: 50%; /* Adjust the width of the registration form section */
     padding-left: 20px; /* Add padding to separate form from image */
 }
 
@@ -887,7 +893,7 @@ h1 {
     }
     #registerButton {
     
-        margin-left: 60px !important; /* Adjust as needed */
+         /* Adjust as needed */
    
     .right-90 {
         margin-left: 0px !important;
@@ -921,13 +927,14 @@ h1 {
    <div class="d-flex flex-row justify-content-between justify-content-center  h-100 mt-0">
       <div  id="hidediv" class="d-flex flex-column m-auto">
         <div class="text-center">
-            <img src="/static/new_landing/img/HAEGL_colour.png" width="200px" height="90px" >
+            <img src="/static/new_landing/img/HAEGL_colour.png" width="300px" height="150px" >
         </div>
         <div class="d-flex flex-column reg_text w-100">
             <h1  >
                 Your Next Career Move Starts Here.
             </h1>
-            <div class="small_text text-start" style="max-width: 400px; line-height: 1.5; font-size: 22px!important;">
+            <div class="small_text">
+              
                 Join us in shaping the future of talent acquisition and career advancement. Reach out to us today and let's embark on this journey together!
             </div>
         </div>
@@ -983,15 +990,15 @@ h1 {
           </div>
           
         
-        
+        <div style="text-align: left;">
           <button type="submit" class="register-button" id="registerButton">
             Register
         </button>
+        <p style="margin-top: 20px; font-size: 14px;">Already have an account ? <a href="/user_login">login</a></p>
+      </div>
          
         </form>
-        <div class="text-center mt-4 font-weight-light" style="  font-size: 14px;">
-          Already have an account? <a href="/user_login" class="text-primary">Sign in</a>
-        </div>
+        
         
 
       </div>

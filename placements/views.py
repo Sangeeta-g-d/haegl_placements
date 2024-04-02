@@ -859,6 +859,7 @@ def user_registration(request):
         
         user = NewUser.objects.create(username=username, password=passw,
                                        email=email, phone_no=phone_no, linkedin=linkedin)
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
         
         # Login the user after registration
         login(request, user)
@@ -1002,39 +1003,38 @@ def get_available_timings(request):
     return JsonResponse(list(available_timings), safe=False)
 
 def user_login(request):
-    print("hhhhhhhhhhh")
-    try:
-         # Check if the user is already authenticated (logged in).
-        if request.user.is_authenticated:
-            print("Hiiiiiiiiiiiiiii")
-            return redirect('/user_dashboard')
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            print(username)
-            password = request.POST.get('password')
-            print(password)
-            user = authenticate(request, username=username, password=password)
-            print("!!!!!!!!!!!!!!!!",user)
-            if user is not None and user.user_type == 'job seeker':
+    if request.method == 'POST':
+        username_or_email = request.POST.get('username_or_email')
+        print("Username or Email:", username_or_email)
+        password = request.POST.get('password')
+        print("Password:", password)
+
+        # Check if the input is an email or username
+        if '@' in username_or_email:
+            kwargs = {'email': username_or_email}
+        else:
+            kwargs = {'username': username_or_email}
+
+        # Retrieve the user based on the provided identifier
+        users = NewUser.objects.filter(**kwargs)
+
+        # If no user is found, display an error message
+        if not users.exists():
+            error_message = "Invalid username/email or password."
+            return render(request, 'user_login.html', {'error_message': error_message})
+
+        # Iterate through the filtered users to authenticate
+        for user in users:
+            if check_password(password, user.password):
+                # Login the first matching user
                 login(request, user)
-                i = request.user.id
-                print("agencyyyy idddd",i)
-                obj = UserDetails.objects.filter(user_id_id=i).first()
-                print("!!!!!!!!!",obj)
-                if obj is None:
-                    return redirect('user_details')
-                else:
+                return redirect('/user_dashboard')
 
-                    return redirect('user_dashboard')
-            else:
-                messages.error(request, 'Invalid username or password.')
-                return render(request, 'user_login.html')
+        # If none of the users matched the provided password, display an error message
+        error_message = "Invalid username/email or password."
+        return render(request, 'user_login.html', {'error_message': error_message})
 
-    except Exception as e:
-          # Handle any exceptions that may occur and print them for debugging purposes.
-            print(e)
-    return render(request, 'user_login.html', {'messages': messages.get_messages(request)})
-
+    return render(request, 'user_login.html')
 
 def search_trend(request, keyword):
     print(keyword)
