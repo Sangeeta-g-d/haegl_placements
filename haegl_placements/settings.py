@@ -104,6 +104,7 @@ AUTH_USER_MODEL = 'placements.NewUser'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
+    
     'placements.authentication.EmailOrPhoneBackend',
 ]
 # Internationalization

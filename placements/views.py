@@ -861,8 +861,7 @@ def user_registration(request):
                                        email=email, phone_no=phone_no, linkedin=linkedin)
         
         
-        # Login the user after registration
-        login(request, user)
+       
         
         # Render the template and pass a flag indicating successful registration
         return render(request, 'user_registration.html', {'registered': True})
