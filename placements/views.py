@@ -581,19 +581,15 @@ def registration(request):
         password1 = request.POST.get('password1')
         email = request.POST.get('email')
         contact_no = request.POST.get('contact_number')
-        country = request.POST.get('country')
-        state = request.POST.get('state')
         address = request.POST.get('address')
-        city = request.POST.get('city')
         company_logo = request.FILES.get('profile')
         print("!!!!!!!!!",company_logo)
-        about = request.POST.get('about')
         user_type = "Company"
         if password == password1:
             passw = make_password(password)
             user = NewUser.objects.create(first_name=company_name,username=username,password=passw,
-            email=email,phone_no=contact_no,user_type=user_type, country=country,state=state,address=address,city=city,
-            profile=company_logo,about=about)
+            email=email,phone_no=contact_no,user_type=user_type, address=address,
+            profile=company_logo)
             success_message = f"Registered successfully! Username: {username}, Password: {password}"
             request.session['success_message'] = success_message  # Store the success message in session
 
