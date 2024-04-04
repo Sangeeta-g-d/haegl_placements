@@ -1,6 +1,8 @@
 from django.urls import path,include
 from . import views
 from django.contrib import admin
+from django.conf.urls import handler404
+
 
 urlpatterns = [
     path('upload_file',views.upload_file,name='upload_file'),
@@ -93,3 +95,4 @@ urlpatterns = [
 
 
 ]
+handler404 = 'placements.views.custom_page_not_found'

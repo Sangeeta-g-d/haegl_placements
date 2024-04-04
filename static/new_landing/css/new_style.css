@@ -42,7 +42,7 @@ textarea {
     }
 .custom-container {
     width: 400px; /* Adjust the width as needed */
-    background: linear-gradient(#ffffff, #565555);
+    background: #eaecec;
     color: #171616;
     padding: 20px;
     border-radius: 20px;

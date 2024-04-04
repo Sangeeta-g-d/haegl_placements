@@ -1008,12 +1008,15 @@ def user_login(request):
 
         if user is not None:
             login(request, user)
-            return redirect('/user_dashboard')
+            return redirect('/jobs')
         else:
             error_message = "Invalid username/email or password."
             return render(request, 'user_login.html', {'error_message': error_message})
 
     return render(request, 'user_login.html')
+
+def custom_page_not_found(request, exception):
+    return render(request, '404.html', status=404)
 
 def search_trend(request, keyword):
     print(keyword)
@@ -2144,8 +2147,7 @@ def profile(request):
     id = request.user.id
     obj = NewUser.objects.get(id=id)
     today_date = date.today()
-    print("%%%%%%%%%%%%%%%%",obj.profile)
-    data = UserDetails.objects.get(user_id=id)
+    data = UserDetails.objects.filter(user_id=id).first()
    
     if request.method == 'POST':
         obj.first_name = request.POST.get('first_name')
@@ -2154,25 +2156,30 @@ def profile(request):
         obj.city = request.POST.get('city')
         obj.country = request.POST.get('country')
         p = request.FILES.get('profile')
-        print("ppppppppppppppppppp",p)
-        data.qualification = request.POST.get('qualification')
-        data.experience = request.POST.get('experience')
-        data.skills = request.POST.get('skills')
+        data = UserDetails.objects.filter(user_id=id).first()  # Retrieve data again after POST
+        
+        if data is not None:
+            data.qualification = request.POST.get('qualification')
+            data.experience = request.POST.get('experience')
+            data.skills = request.POST.get('skills')
+            data.save()
+        else:
+            # Create a new UserDetails object if it doesn't exist
+            data = UserDetails.objects.create(user_id_id=id, qualification=request.POST.get('qualification'), 
+                                              experience=request.POST.get('experience'), 
+                                              skills=request.POST.get('skills'))
+
         if p is not None:
             obj.profile = p
 
-        else:
-            obj.profile =obj.profile
-
         obj.save()
-        data.save()
-    applied_jobs = AppliedJobs.objects.select_related('job_id').filter(user_id_id=id)
 
+    applied_jobs = AppliedJobs.objects.select_related('job_id').filter(user_id_id=id)
     combined_jobs = list(applied_jobs)
     combined_jobs.sort(key=lambda x: x.applied_date, reverse=True)
     no = len(combined_jobs)
-    context = {'obj':obj,'today_date':today_date,'data':data,'success_message':success_message,'no':no}
-    return render(request,'profile.html',context)
+    context = {'obj': obj, 'today_date': today_date, 'data': data, 'success_message': success_message, 'no': no}
+    return render(request, 'profile.html', context)
 
 def delete_application(request, pk):
     application = get_object_or_404(AppliedJobs, pk=pk)

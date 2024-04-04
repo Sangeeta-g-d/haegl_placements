@@ -199,7 +199,7 @@ function addNewProject() {
   var header = document.createElement('div');
   header.classList.add('project-header');
   header.onclick = function () { toggleProject(this) };
-  header.innerHTML = '<i class="fas fa-chevron-down"></i><p><b>Projects ' + projectCount + '</b></p>'+  '<i class="fas fa-trash-alt" onclick="deleteProjectNew(' + projectCount + ')"></i>'; ;
+  header.innerHTML = '<i class="fas fa-chevron-down"></i><p><b>Projects ' + projectCount + '</b></p>'+  '<i class="fas fa-trash-alt" onclick="deleteProject(' + projectCount + ')"></i>'; ;
 
   var content = document.createElement('div');
   content.classList.add('project-content');
@@ -324,21 +324,11 @@ function deleteProject(projectCount) {
   // Renumber the remaining project sections
   var projectHeaders = container.getElementsByClassName('project-header');
   for (var i = 0; i < projectHeaders.length; i++) {
-    projectHeaders[i].getElementsByTagName('b')[0].innerText = 'Projects ' + (i + 1);
-    projectHeaders[i].querySelector('.fa-trash-alt').setAttribute('onclick', 'deleteProject(' + (i + 1) + ')');
+    projectHeaders[i].getElementsByTagName('b')[0].innerText = 'Projects ' + (i + 2);
+    projectHeaders[i].querySelector('.fa-trash-alt').setAttribute('onclick', 'deleteProject(' + (i + 2) + ')');
   }
 
   saveProjects();
-}
-
-function addNewProject() {
-  // Your existing addNewProject function remains unchanged
-
-  // Inside addNewProject function, update the delete icon with the proper onclick event
-  header.innerHTML = '<i class="fas fa-chevron-down"></i><p><b>Projects ' + projectCount + '</b></p>' +
-    '<i class="fas fa-trash-alt" onclick="deleteProject(' + projectCount + ')"></i>';
-
-  // Your existing code for adding a new project section continues...
 }
 
 
@@ -722,7 +712,6 @@ function updateProjectDes(){
   localStorage.setItem("projectDesLocal", projectDesValue);
 }
 
-
 function updateExperience() {
   var inputValue = document.getElementById("jobtitle1").value;
   var divElement = document.getElementById("Display_Designation");
@@ -1008,12 +997,9 @@ function retrieveStoredValue() {
   }
       
   handlePresentCheckbox();
-  loadEducation();
-  loadExperience();
-  loadProject();
+ 
       }
   
 
  
 // Call the function to retrieve stored value when the page loads
-window.onload = retrieveStoredValue;

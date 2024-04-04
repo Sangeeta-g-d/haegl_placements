@@ -12,15 +12,15 @@ class UploadFile(models.Model):
 
 class NewUser(AbstractUser):
     user_type = models.CharField(max_length=100, default='job seeker')
-    phone_no = models.CharField(max_length=100, default='9999999999')
-    country = models.CharField(max_length=300, default='India')
-    state = models.CharField(max_length=300, default='Karnataka')
+    phone_no = models.CharField(max_length=100, default='contact no')
+    country = models.CharField(max_length=300, default='country')
+    state = models.CharField(max_length=300, default='state')
     address = models.CharField(max_length=100, default='abc')
-    city = models.CharField(max_length=100, default='hubli')
+    city = models.CharField(max_length=100, default='city')
     about = models.CharField(max_length=1000, default='about')
     profile = models.ImageField(upload_to='uploaded_images/',default="profile")
     status = models.BooleanField(default=0)
-    linkedin = models.CharField(max_length=400,default="xyz")
+    linkedin = models.CharField(max_length=400,default="linkedin url")
 
 
 class CompanyDetails(models.Model):
