@@ -28,6 +28,10 @@ from email.mime.multipart import MIMEMultipart
 from django.core.mail import send_mail
 # Create your views here.
 
+
+def custom_page_not_found(request, exception):
+    return render(request, 'custom.html', status=404)
+
 def upload_file(request):
     if request.method == 'POST':
         excel = request.FILES.get('excel')
@@ -1334,7 +1338,6 @@ def all_jobs(request, category=None):
     # Sort the combined list based on 'created_on' attribute to display recent jobs first
     combined_data.sort(key=lambda x: x.created_on, reverse=True)
 
-
 # Display the jumbled results
     for item in combined_data:
         print(item)
@@ -1357,15 +1360,11 @@ def all_jobs(request, category=None):
         .annotate(open_count=Count('department'))
     )
 
-
     open_jobs_count = defaultdict(int)
     for item in open_status_count_job:
         open_jobs_count[item['department']] += item['open_count']
 
-
     unique_locations = JobDetails.objects.values('location').annotate(count=Count('location')).order_by('location')
-
-# Count jobs in each unique location from AgencyJobDetails
 
     context = {'data':data,'combined_data':combined_data,
     'unique_departments':unique_departments,'unique_locations':unique_locations}

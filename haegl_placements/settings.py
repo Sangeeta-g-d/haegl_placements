@@ -28,6 +28,12 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+MIDDLEWARE = [
+    # Other middleware classes
+    'placements.custom_404_middleware.Custom404Middleware',
+]
+
+
 # Application definition
 
 INSTALLED_APPS = [

@@ -199,7 +199,7 @@ function addNewProject() {
   var header = document.createElement('div');
   header.classList.add('project-header');
   header.onclick = function () { toggleProject(this) };
-  header.innerHTML = '<i class="fas fa-chevron-down"></i><p><b>Projects ' + projectCount + '</b></p>'+  '<i class="fas fa-trash-alt" onclick="deleteProjectNew(' + projectCount + ')"></i>'; ;
+  header.innerHTML = '<i class="fas fa-chevron-down"></i><p><b>Projects ' + projectCount + '</b></p>'+  '<i class="fas fa-trash-alt" onclick="deleteProject(' + projectCount + ')"></i>'; ;
 
   var content = document.createElement('div');
   content.classList.add('project-content');
@@ -279,15 +279,6 @@ function saveProject() {
 }
 
 
-function loadProject() {
-  var containerHtml = localStorage.getItem('containerHtml');
-  var projectContainerHtml = localStorage.getItem('projectContainerHtml');
-  if (containerHtml && projectContainerHtml) {
-    document.getElementById('container3').innerHTML = containerHtml;
-    document.getElementById('projectsContainer').innerHTML = projectContainerHtml;
-  }
-  //localStorage.clear()
-}
 
 
 function updateProjectName2(projectCount) {
@@ -324,35 +315,17 @@ function deleteProject(projectCount) {
   // Renumber the remaining project sections
   var projectHeaders = container.getElementsByClassName('project-header');
   for (var i = 0; i < projectHeaders.length; i++) {
-    projectHeaders[i].getElementsByTagName('b')[0].innerText = 'Projects ' + (i + 1);
-    projectHeaders[i].querySelector('.fa-trash-alt').setAttribute('onclick', 'deleteProject(' + (i + 1) + ')');
+    projectHeaders[i].getElementsByTagName('b')[0].innerText = 'Projects ' + (i + 2);
+    projectHeaders[i].querySelector('.fa-trash-alt').setAttribute('onclick', 'deleteProject(' + (i + 2) + ')');
   }
 
   saveProjects();
 }
 
-function addNewProject() {
-  // Your existing addNewProject function remains unchanged
-
-  // Inside addNewProject function, update the delete icon with the proper onclick event
-  header.innerHTML = '<i class="fas fa-chevron-down"></i><p><b>Projects ' + projectCount + '</b></p>' +
-    '<i class="fas fa-trash-alt" onclick="deleteProject(' + projectCount + ')"></i>';
-
-  // Your existing code for adding a new project section continues...
-}
 
 
-function loadProjectData(projectCount) {
-  // Load project name from localStorage
-  var projectNameInput = document.getElementById("projectName" + projectCount);
-  if (projectNameInput) {
-    var storedValue = localStorage.getItem("dynamicProjectNameLocal" + projectCount);
-    if (storedValue) {
-      projectNameInput.value = storedValue;
-      updateProjectName2(projectCount); // Update the display immediately
-    }
-  }
-}
+
+
 function toggleProject(header) {
   var content = header.nextElementSibling;
   header.querySelector('i').classList.toggle('fa-chevron-down');

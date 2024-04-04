@@ -469,10 +469,27 @@ function updateExperience2(experienceCount) {
     var fromValue2 = document.getElementById('from' + experienceCount).value;
     document.getElementById('displayFrom' + experienceCount).innerText = fromValue2;
     console.log("frommmmmmm",fromValue2)
-    var toValue2 = document.getElementById('to' + experienceCount).value;
-    document.getElementById('displayTo' + experienceCount).innerText = toValue2;
-}
 
+
+    var toValue2 = document.getElementById('to' + experienceCount).value;
+    var toDisplay = document.getElementById('Display_To' + experienceCount);
+    if (toDisplay) {
+      toDisplay.innerText = toValue2;
+    }
+}
+function handlePresentCheckboxExperience(experienceCount) {
+  console.log("gggggggggggggg")
+  var toInput = document.getElementById("to" + experienceCount);
+  var toContainer = document.getElementById("Display_To" + experienceCount);
+
+  if (document.getElementById("present" + experienceCount).checked) {
+    toInput.disabled = true;
+    toContainer.innerText = "Present";
+  } else {
+    toInput.disabled = false;
+    updateExperience2(experienceCount);
+  }
+}
 
 
   function saveExperience() {
@@ -493,26 +510,7 @@ function updateExperience2(experienceCount) {
   }
 
 
-  function handlePresentCheckbox() {
-    console.log("hhhhhhooooooooooo")
-    var toInput = document.getElementById("to1");
-    var toContainer = document.getElementById("to1Container");
-    var fieldEDDT = document.getElementById("FIELD_EDDT");
   
-    if (document.getElementById("present1").checked) {
-        toInput.disabled = true; // Disable the input field
-        toContainer.innerHTML = "Present"; // Display "Present" text
-        if (fieldEDDT) {
-            fieldEDDT.textContent = "Present"; // Update FIELD_EDDT span with "Present" text if it exists
-        }
-    } else {
-        toInput.disabled = false; // Enable the input field when present is unchecked
-        toContainer.innerHTML = '<input type="month" id="to1" class="form-control" name="to1" style="height: 35px;" onchange="updateExperience()">'; // Restore input field
-        if (fieldEDDT) {
-            fieldEDDT.textContent = ""; // Reset FIELD_EDDT span if it exists
-        }
-    }
-  }
   function toggleExperience(header) {
     var content = header.nextElementSibling;
     header.querySelector('i').classList.toggle('fa-chevron-down');
@@ -675,8 +673,7 @@ function updateExperience2(experienceCount) {
   }
   
   
-   // Experience
-   function updateExperience() {
+  function updateExperience() {
     var inputValue = document.getElementById("jobtitle1").value;
     var divElement = document.getElementById("Display_Designation");
     divElement.innerText = inputValue;
@@ -685,32 +682,47 @@ function updateExperience2(experienceCount) {
     var companyNameElement = document.getElementById("Display_Cname");
     companyNameElement.innerText = companyValue;
   
-   
-  
     var FromValue = document.getElementById("from1").value;
     var FromElement = document.getElementById("Display_From");
     FromElement.innerText = FromValue;
   
     var ToValue = document.getElementById("to1").value;
-    console.log(ToValue)
     var ToElement = document.getElementById("Display_To");
-    console.log(ToElement)
-    ToElement.innerText = ToValue;
   
-    var toDate = document.getElementById('to1').value;
-    if (!toDate) {
-        document.getElementById('Display_To').textContent = '';
+    // Check if "Present" checkbox is checked
+    var presentCheckbox = document.getElementById("present1");
+    if (presentCheckbox.checked) {
+      ToElement.innerText = "Present";
     } else {
-        document.getElementById('Display_To').textContent = toDate;
+      if (ToValue) {
+        ToElement.innerText = ToValue;
+      } else {
+        ToElement.innerText = "";
+      }
     }
+  
     // Save the current value to localStorage
-    localStorage.setItem('toValue', toDate);
-    
+    localStorage.setItem("toValue", ToValue);
+  
     // Store all values in local storage
     localStorage.setItem("jobTitle", inputValue);
     localStorage.setItem("companyName", companyValue);
-    
     localStorage.setItem("from1", FromValue);
+  }
+  
+  function handlePresentCheckbox() {
+    console.log("kkkkkkkkkkkkkkk")
+    var presentCheckbox = document.getElementById("present1");
+    var toDateInput = document.getElementById("to1");
+  
+    if (presentCheckbox.checked) {
+      toDateInput.disabled = true;
+    } else {
+      toDateInput.disabled = false;
+    }
+  
+    // Update displayed date
+    updateExperience();
   }
   
   function updateExperienceDescription() {
