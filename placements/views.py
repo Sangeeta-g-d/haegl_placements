@@ -526,6 +526,19 @@ def admin_db(request):
     print(data)
     return render(request,'admin_db.html',context)
 
+def delete_user(request):
+    if request.method == "POST":
+        user_id = request.POST.get("user_id")
+        try:
+            # Get user object by ID and delete it
+            user = NewUser.objects.get(id=user_id)
+            user.delete()
+            return HttpResponse(status=200)  # Success response
+        except NewUser.DoesNotExist:
+            return HttpResponse(status=404)  # User not found
+    else:
+        return HttpResponse(status=405)  # Method not allowed
+
 def update_status(request):
     print("hiiiiiiiiiiii")
     if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':

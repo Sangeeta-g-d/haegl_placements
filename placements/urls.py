@@ -91,8 +91,8 @@ urlpatterns = [
     path('user_internship_program',views.user_internship_program,name='user_internship_program'),
     path('user_select_theme',views.user_select_theme,name='user_select_theme'),
     path('company_calendar',views.company_calendar,name='company_calendar'),
-   
-
-
+    path('delete_user/', views.delete_user, name='delete_user'),  # URL mapping for delete view
 ]
+
+
 handler404 = 'placements.views.custom_page_not_found'

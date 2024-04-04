@@ -18,8 +18,10 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
           <div class="d-flex align-items-center">
-    <img style="margin-right:0;" width="70px" height="80px" src="/static/assets/images/haegl_transparent.png" alt="logo"/>
-    <h3 class="mb-0">InterviewEdge</h3>
+            <div style="margin-top: 50px; margin-left: 67px;">
+              <img src="/static/assets/images/HAEGL_colour.png" height="50px" width="130px" alt="">
+             </div>
+    
   </div>
           <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="index.html"><img src="/static/assets/images/logo-mini.svg" alt="logo" /></a>
         </div>
@@ -119,72 +121,46 @@
                     <div class="table-responsive">
                       <table class="table">
                         <thead class="bg-light">
-                          <tr>
-                            <th>Id</th>
-                            <th>Company Name</th>
-                            <th>Contact Number</th>
-                            <th>Email</th>
-                            <th>Address</th>
-                            <th>Action</th>
-                            <th></th>
-                          </tr>
+                            <tr>
+                                <th>Id</th>
+                                <th>Company Name</th>
+                                <th>Contact Number</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Action</th>
+                                <th></th>
+                                <th></th> 
+                                <!-- New column for Delete button -->
+                            </tr>
                         </thead>
                         <tbody>
-                          {% for x in data %} 
-                          <tr>
-                            <td>{{x.id}}</td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                              
-                                <div class="table-user-name ml-3">
-                                  <p class="mb-0 font-weight-medium">{{x.first_name}}</p>
-                                  
-                                </div>
-                              </div>
-                            </td>
-                            <td>{{x.phone_no}}</td>
-                            <td>{{x.email}}</td>
-                            <td>{{x.address}} <br> <br>{{x.city}}</td>
-                            
-                           
-                            <td>
-                              <button class="badge badge-inverse-danger approve-btn" data-user-id="{{ x.id }}" {% if x.status %} disabled {% endif %}>  {% if x.status %} Approved {% else %} Approve {% endif %} </button>
-                            </td>
-                            <td> </td>
-                          </tr>
-                          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                            <script>
-                                $(document).ready(function () {
-                                    $(".approve-btn").on("click", function () {
-                                        var userId = $(this).data("user-id");
-                                        var button = $(this); // Reference to the clicked button
-                                        
-                                        // Send an AJAX request to update the user status
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "{% url 'update_status' %}",
-                                            data: {
-                                                'user_id': userId,
-                                                'csrfmiddlewaretoken': '{{ csrf_token }}'
-                                            },
-                                            success: function (response) {
-                                                // Update the UI or perform any action upon success
-                                                console.log("Status updated successfully!");
-                                                button.prop('disabled', true); // Disable the button after approval
-                                                button.text('Approved'); // Optionally change the button text
-                                                // Assuming response includes updated status, update the UI
-                                                button.closest('tr').find('.status-cell').text('True'); // Update status cell value
-                                            },
-                                            error: function (error) {
-                                                console.log("Error occurred:", error);
-                                            }
-                                        });
-                                    });
-                                });
-                            </script>
-                          {% endfor %}
+                            {% for x in data %} 
+                            <tr>
+                                <td>{{ x.id }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="table-user-name ml-3">
+                                            <p class="mb-0 font-weight-medium">{{ x.first_name }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ x.phone_no }}</td>
+                                <td>{{ x.email }}</td>
+                                <td>{{ x.address }} <br><br>{{ x.city }}</td>
+                                <td>
+                                    <button class="badge badge-inverse-danger approve-btn" data-user-id="{{ x.id }}" {% if x.status %} disabled {% endif %}>
+                                        {% if x.status %} Approved {% else %} Approve {% endif %}
+                                    </button>
+                                </td>
+                                <td>
+                                    <!-- Delete button -->
+                                    <button class="badge badge-inverse-danger delete-btn" data-user-id="{{ x.id }}">Delete</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
                         </tbody>
-                      </table>
+                    </table>
+                    
                     </div>
                    
                   </div>
@@ -206,6 +182,48 @@
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  $(document).ready(function() {
+      // Function to handle delete button click
+      $(".delete-btn").on("click", function() {
+          var userId = $(this).data("user-id");
+          
+          // Display SweetAlert confirmation dialog
+          Swal.fire({
+              title: 'Are you sure?',
+              text: 'You won\'t be able to revert this!',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#d33',
+              cancelButtonColor: '#3085d6',
+              confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+              // If user confirms deletion
+              if (result.isConfirmed) {
+                  // Send AJAX request to delete view
+                  $.ajax({
+                      type: "POST",
+                      url: "{% url 'delete_user' %}",  // URL to your delete view
+                      data: {
+                          'user_id': userId,
+                          'csrfmiddlewaretoken': '{{ csrf_token }}'
+                      },
+                      success: function(response) {
+                          // Reload the page or remove the row from the table upon success
+                          location.reload();  // Reload page
+                      },
+                      error: function(error) {
+                          console.log("Error occurred:", error);
+                      }
+                  });
+              }
+          });
+      });
+  });
+  </script>
+  
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="/static/assets/vendors/js/vendor.bundle.base.js"></script>
