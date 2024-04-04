@@ -28,6 +28,10 @@ from email.mime.multipart import MIMEMultipart
 from django.core.mail import send_mail
 # Create your views here.
 
+
+def custom_page_not_found(request, exception):
+    return render(request, 'custom.html', status=404)
+
 def upload_file(request):
     if request.method == 'POST':
         excel = request.FILES.get('excel')
@@ -590,19 +594,15 @@ def registration(request):
         password1 = request.POST.get('password1')
         email = request.POST.get('email')
         contact_no = request.POST.get('contact_number')
-        country = request.POST.get('country')
-        state = request.POST.get('state')
         address = request.POST.get('address')
-        city = request.POST.get('city')
         company_logo = request.FILES.get('profile')
         print("!!!!!!!!!",company_logo)
-        about = request.POST.get('about')
         user_type = "Company"
         if password == password1:
             passw = make_password(password)
             user = NewUser.objects.create(first_name=company_name,username=username,password=passw,
-            email=email,phone_no=contact_no,user_type=user_type, country=country,state=state,address=address,city=city,
-            profile=company_logo,about=about)
+            email=email,phone_no=contact_no,user_type=user_type, address=address,
+            profile=company_logo)
             success_message = f"Registered successfully! Username: {username}, Password: {password}"
             request.session['success_message'] = success_message  # Store the success message in session
 
@@ -1350,7 +1350,6 @@ def all_jobs(request, category=None):
     # Sort the combined list based on 'created_on' attribute to display recent jobs first
     combined_data.sort(key=lambda x: x.created_on, reverse=True)
 
-
 # Display the jumbled results
     for item in combined_data:
         print(item)
@@ -1373,15 +1372,11 @@ def all_jobs(request, category=None):
         .annotate(open_count=Count('department'))
     )
 
-
     open_jobs_count = defaultdict(int)
     for item in open_status_count_job:
         open_jobs_count[item['department']] += item['open_count']
 
-
     unique_locations = JobDetails.objects.values('location').annotate(count=Count('location')).order_by('location')
-
-# Count jobs in each unique location from AgencyJobDetails
 
     context = {'data':data,'combined_data':combined_data,
     'unique_departments':unique_departments,'unique_locations':unique_locations}

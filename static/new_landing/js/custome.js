@@ -279,15 +279,6 @@ function saveProject() {
 }
 
 
-function loadProject() {
-  var containerHtml = localStorage.getItem('containerHtml');
-  var projectContainerHtml = localStorage.getItem('projectContainerHtml');
-  if (containerHtml && projectContainerHtml) {
-    document.getElementById('container3').innerHTML = containerHtml;
-    document.getElementById('projectsContainer').innerHTML = projectContainerHtml;
-  }
-  //localStorage.clear()
-}
 
 
 function updateProjectName2(projectCount) {
@@ -332,17 +323,8 @@ function deleteProject(projectCount) {
 }
 
 
-function loadProjectData(projectCount) {
-  // Load project name from localStorage
-  var projectNameInput = document.getElementById("projectName" + projectCount);
-  if (projectNameInput) {
-    var storedValue = localStorage.getItem("dynamicProjectNameLocal" + projectCount);
-    if (storedValue) {
-      projectNameInput.value = storedValue;
-      updateProjectName2(projectCount); // Update the display immediately
-    }
-  }
-}
+
+
 function toggleProject(header) {
   var content = header.nextElementSibling;
   header.querySelector('i').classList.toggle('fa-chevron-down');

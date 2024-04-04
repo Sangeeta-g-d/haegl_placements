@@ -1,10 +1,12 @@
 from django.urls import path,include
 from . import views
 from django.contrib import admin
-from django.conf.urls import handler404
+handler404 = 'placements.views.custom_page_not_found'
+
 
 
 urlpatterns = [
+   
     path('upload_file',views.upload_file,name='upload_file'),
     path('new_index',views.new_index,name='new_index'),
     path('contact_us',views.contact_us,name='contact_us'),
@@ -95,4 +97,3 @@ urlpatterns = [
 ]
 
 
-handler404 = 'placements.views.custom_page_not_found'
