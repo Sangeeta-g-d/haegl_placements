@@ -950,7 +950,7 @@ h1 {
         <p class="sub-heading" >
           Begin Your Career Journey in Minutes: Register Now!
         </p>
-        <form method="post">
+        <form id="registrationForm" method="post">
           {% csrf_token %}
           <input type="text" id="style-yEkw9" class="style-yEkw9">
           <input type="password" id="style-sMXoh" class="style-sMXoh">
@@ -958,46 +958,51 @@ h1 {
           <div class="form-group-parent mb-3">
             <div class="form-group  d-flex">
               <input maxlength="200" type="text" required id="id_name" class="cls_animation" fdprocessedid="h4h5y" placeholder="Name" name="username">
-             
             </div>
           </div>
           <div class="form-group-parent mb-3">
             <div class="form-group d-flex  flex-column">
-              <input maxlength="200" type="text" required id="id_email" class="cls_animation"  placeholder="Email" name="email" >
-             
+              <input maxlength="200" type="text" required id="id_email" class="cls_animation" placeholder="Email" name="email">
+              <span id="emailError" style="color: red; display: none;">Please enter a valid email address.</span>
             </div>
           </div>
           <div class="form-group-parent mb-3 ">
             <div class="form-group d-flex flex-column">
-              <input maxlength="10"type="text" id="id_cell_phone" required class="cls_animation" fdprocessedid="8a6msa" placeholder="Mobile Number" pattern="[0-9]{10}" inputmode="numeric" title="Please enter a 10-digit mobile number" required name="phone_no">
-          </div>
-          
+              <input maxlength="10" type="text" id="id_cell_phone" required class="cls_animation" fdprocessedid="8a6msa" placeholder="Mobile Number" pattern="[0-9]{10}" inputmode="numeric" title="Please enter a 10-digit mobile number" required name="phone_no">
+            </div>
           </div>
           <div class="form-group-parent mb-3">
             <div class="form-group d-flex">
               <input maxlength="15" required type="Password" id="id_password" autocomplete="new-password" class="cls_animation" fdprocessedid="mga1o9" placeholder="Password" name="password">
-             
             </div>
           </div>
-
-        
-
-          
           <div class="form-group-parent mb-3">
             <div class="form-group d-flex">
-              <input maxlength="200" required type="text" id="id_linkedin_url" class="cls_animation" fdprocessedid="mga1o9" pattern="^(https?:\/\/)?(www\.)?linkedin\.com\/.*$" title="Please enter a valid LinkedIn URL" placeholder="LinkedIn URL" name="linkedin">    
+              <input maxlength="200" required type="text" id="id_linkedin_url" class="cls_animation" fdprocessedid="mga1o9" pattern="^(https?:\/\/)?(www\.)?linkedin\.com\/.*$" title="Please enter a valid LinkedIn URL" placeholder="LinkedIn URL" name="linkedin">
             </div>
           </div>
-          
-        
-        <div style="text-align: left;">
-          <button type="submit" class="register-button" id="registerButton">
-            Register
-        </button>
-        <p style="margin-top: 20px; font-size: 14px;">Already have an account ? <a href="/user_login">login</a></p>
-      </div>
-         
+          <div style="text-align: left;">
+            <button type="submit" class="register-button" id="registerButton">
+              Register
+            </button>
+            <p style="margin-top: 20px; font-size: 14px;">Already have an account ? <a href="/user_login">login</a></p>
+          </div>
         </form>
+        
+        <script>
+          document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            var emailInput = document.getElementById("id_email");
+            var email = emailInput.value;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+              document.getElementById("emailError").style.display = "block";
+              event.preventDefault(); // Prevent the form from submitting
+            } else {
+              document.getElementById("emailError").style.display = "none";
+            }
+          });
+        </script>
+        
         
         
 

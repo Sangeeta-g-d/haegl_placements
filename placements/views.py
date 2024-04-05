@@ -869,7 +869,7 @@ def user_registration(request):
 
         passw = make_password(password)
         
-        user = NewUser.objects.create(username=username, password=passw,
+        user = NewUser.objects.create(first_name=username, password=passw,
                                        email=email, phone_no=phone_no, linkedin=linkedin)
         
         # Render the template and pass a flag indicating successful registration
