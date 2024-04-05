@@ -1045,17 +1045,31 @@ h1 {
     });
 </script>
 {% endif %}
-
-{% if email_exists %}
+{% if email_exists or phone_no_exit %}
 <script>
     // Display SweetAlert alert
     swal({
         title: "Registration Failed!",
-        text: "The email address you provided is already in use.",
+        text: "The email or phone number address you provided is already in use.",
         icon: "error",
         button: "OK",
     }).then(function() {
-        // Redirect to registration page or any other action you desire
+        // Redirect only if registration failed
+        window.location.href = "{% url 'user_registration' %}";
+    });
+</script>
+{% endif %}
+
+{% if username_exists %}
+<script>
+    // Display SweetAlert alert
+    swal({
+        title: "Registration Failed!",
+        text: " username already exist",
+        icon: "error",
+        button: "OK",
+    }).then(function() {
+        // Redirect only if registration failed
         window.location.href = "{% url 'user_registration' %}";
     });
 </script>

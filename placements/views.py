@@ -863,16 +863,22 @@ def user_registration(request):
         phone_no = request.POST.get('phone_no')
         linkedin = request.POST.get('linkedin')
         
+        # Check if the username already exists
+        if NewUser.objects.filter(username=username).exists():
+            return render(request, 'user_registration.html', {'username_exists': True})
+        
+        if NewUser.objects.filter(phone_no=phone_no).exists():
+            return render(request, 'user_registration.html', {'phone_no_exists': True})
+        
         # Check if the email already exists
         if NewUser.objects.filter(email=email).exists():
             return render(request, 'user_registration.html', {'email_exists': True})
 
         passw = make_password(password)
         
-        user = NewUser.objects.create(first_name=username, password=passw,
+        user = NewUser.objects.create(username=username, password=passw,
                                        email=email, phone_no=phone_no, linkedin=linkedin)
         
-        # Render the template and pass a flag indicating successful registration
         return render(request, 'user_registration.html', {'registered': True})
     
     return render(request, 'user_registration.html')

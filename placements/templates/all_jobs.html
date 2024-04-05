@@ -255,12 +255,18 @@
                                     <div class="mb-3">
                                         <h4>Departments</h4>
                                         <ul class="list-unstyled fruite-categorie">
+                                            <li>
+                                                <a href="#" class="department-link" data-department="all">
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        All
+                                                    </div>
+                                                </a>
+                                            </li>
                                             {% for x in unique_departments %}
                                             <li>
                                                 <a href="#" class="department-link" data-department="{{ x.department }}">
                                                     <div class="d-flex justify-content-between fruite-name">
                                                         {{ x.department }}
-                                                     
                                                     </div>
                                                 </a>
                                             </li>
@@ -268,10 +274,19 @@
                                         </ul>
                                     </div>
                                 </div>
+                                
+                                <!-- Similar changes for work mode and location filters -->
+                                
                                   
                                 <div class="col-lg-12 filter">
                                     <div class="mb-3">
                                         <h4>Work Mode</h4>
+                                        <div class="me-3">
+                                            <div class="d-flex align-items-center" style="margin-top: 20px;">
+                                                <input type="radio" id="allWorkModes" name="work_mode" value="all" style="margin-right: 15px;">
+                                                <label for="allWorkModes">All</label>
+                                            </div>
+                                        </div>
                                         <div class="me-3">
                                             <div class="d-flex align-items-center" style="margin-top: 20px;">
                                                 <input type="radio" id="office" name="work_mode" value="Work from office" style="margin-right: 15px;">
@@ -279,13 +294,13 @@
                                             </div>
                                         </div>
                                         <div class="me-3">
-                                            <div class="d-flex align-items-center"style="margin-top: 20px;">
+                                            <div class="d-flex align-items-center" style="margin-top: 20px;">
                                                 <input type="radio" id="hybrid" name="work_mode" value="Hybrid" style="margin-right: 15px;">
                                                 <label for="hybrid">Hybrid</label>
                                             </div>
                                         </div>
                                         <div class="me-3">
-                                            <div class="d-flex align-items-center"style="margin-top: 20px;">
+                                            <div class="d-flex align-items-center" style="margin-top: 20px;">
                                                 <input type="radio" id="home" name="work_mode" value="Work from Home" style="margin-right: 15px;">
                                                 <label for="home">Work from Home</label>
                                             </div>
@@ -295,68 +310,121 @@
                                 
                                 
                                 <script>
-                                    document.addEventListener("DOMContentLoaded", function () {
-                                        var workModeRadios = document.querySelectorAll('input[name="work_mode"]');
-                                        var jobCards = document.querySelectorAll('.job-card');
-                                
-                                        workModeRadios.forEach(function (radio) {
-                                            radio.addEventListener('change', function () {
-                                                var selectedWorkMode = this.value;
-                                                filterJobCardsByWorkMode(selectedWorkMode);
-                                            });
-                                        });
-                                
-                                        function filterJobCardsByWorkMode(workMode) {
-                                            jobCards.forEach(function (card) {
-                                                if (card.dataset.workMode === workMode) {
-                                                    card.style.display = 'block';
-                                                } else {
-                                                    card.style.display = 'none';
-                                                }
-                                            });
-                                        }
-                                    });
+                                   document.addEventListener("DOMContentLoaded", function () {
+    var workModeRadios = document.querySelectorAll('input[name="work_mode"]');
+    var jobCards = document.querySelectorAll('.job-card');
+
+    workModeRadios.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+            var selectedWorkMode = this.value;
+            filterJobCardsByWorkMode(selectedWorkMode);
+        });
+    });
+
+    function filterJobCardsByWorkMode(workMode) {
+        jobCards.forEach(function (card) {
+            if (workMode === 'all' || card.dataset.workMode === workMode) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+});
+
                                 </script>
                                 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        var departmentLinks = document.querySelectorAll('.department-link');
-        var jobCards = document.querySelectorAll('.job-card');
+    var departmentLinks = document.querySelectorAll('.department-link');
+    var workModeRadios = document.querySelectorAll('input[name="work_mode"]');
+    var locationLinks = document.querySelectorAll('.location-link');
+    var jobCards = document.querySelectorAll('.job-card');
 
-        departmentLinks.forEach(function (link) {
-            link.addEventListener('click', function (event) {
-                event.preventDefault();
-                var department = link.dataset.department;
-                hideAllJobCards();
-                showJobCardsByDepartment(department);
-            });
+    // Department filter
+    departmentLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            var department = link.dataset.department;
+            filterJobCardsByDepartment(department);
         });
-
-        function hideAllJobCards() {
-            jobCards.forEach(function (card) {
-                card.style.display = 'none';
-            });
-        }
-
-        function showJobCardsByDepartment(department) {
-            jobCards.forEach(function (card) {
-                if (card.dataset.department === department) {
-                    card.style.display = 'block';
-                }
-            });
-        }
     });
+
+    // Work mode filter
+    workModeRadios.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+            var selectedWorkMode = this.value;
+            filterJobCardsByWorkMode(selectedWorkMode);
+        });
+    });
+
+    // Location filter
+    locationLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            var location = link.dataset.location;
+            filterJobCardsByLocation(location);
+        });
+    });
+
+    // Function to show all job cards
+    function showAllJobCards() {
+        jobCards.forEach(function (card) {
+            card.style.display = 'block';
+        });
+    }
+
+    // Function to filter job cards by department
+    function filterJobCardsByDepartment(department) {
+        jobCards.forEach(function (card) {
+            if (department === 'all' || card.dataset.department === department) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Function to filter job cards by work mode
+    function filterJobCardsByWorkMode(workMode) {
+        jobCards.forEach(function (card) {
+            if (workMode === 'all' || card.dataset.workMode === workMode) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Function to filter job cards by location
+    function filterJobCardsByLocation(location) {
+        jobCards.forEach(function (card) {
+            if (location === 'all' || card.dataset.location === location) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+});
+
 </script>
 <div class="col-lg-12 filter">
     <div class="mb-3">
         <h4>Locations</h4>
         <ul class="list-unstyled fruite-categorie">
+            <li>
+                <a href="#" class="location-link" data-location="all">
+                    <div class="d-flex justify-content-between fruite-name">
+                        All
+                    </div>
+                </a>
+            </li>
             {% for x in unique_locations %}
             <li>
                 <a href="#" class="location-link" data-location="{{ x.location }}">
                     <div class="d-flex justify-content-between fruite-name">
                         {{ x.location }}
-                      
                     </div>
                 </a>
             </li>
@@ -364,34 +432,31 @@
         </ul>
     </div>
 </div>
+
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var locationLinks = document.querySelectorAll('.location-link');
-        var jobCards = document.querySelectorAll('.job-card');
+   document.addEventListener("DOMContentLoaded", function () {
+    var locationLinks = document.querySelectorAll('.location-link');
+    var jobCards = document.querySelectorAll('.job-card');
 
-        locationLinks.forEach(function (link) {
-            link.addEventListener('click', function (event) {
-                event.preventDefault();
-                var location = link.dataset.location;
-                hideAllJobCards();
-                showJobCardsByLocation(location);
-            });
+    locationLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            var location = link.dataset.location;
+            filterJobCardsByLocation(location);
         });
-
-        function hideAllJobCards() {
-            jobCards.forEach(function (card) {
-                card.style.display = 'none';
-            });
-        }
-
-        function showJobCardsByLocation(location) {
-            jobCards.forEach(function (card) {
-                if (card.dataset.location === location) {
-                    card.style.display = 'block';
-                }
-            });
-        }
     });
+
+    function filterJobCardsByLocation(location) {
+        jobCards.forEach(function (card) {
+            if (location === 'all' || card.dataset.location === location) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+});
+
 </script>
  
                                
