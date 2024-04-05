@@ -360,7 +360,6 @@
                                             filterJobCardsByDepartment(department);
                                         });
                                     });
-<<<<<<< HEAD
                                 
                                     // Work mode filter
                                     workModeRadios.forEach(function (radio) {
@@ -421,40 +420,6 @@
                                 });
                                 
                                 </script>
-=======
-                                </script>
-    
-    
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var departmentLinks = document.querySelectorAll('.department-link');
-        var jobCards = document.querySelectorAll('.job-card');
-
-        departmentLinks.forEach(function (link) {
-            link.addEventListener('click', function (event) {
-                event.preventDefault();
-                var department = link.dataset.department;
-                hideAllJobCards();
-                showJobCardsByDepartment(department);
-            });
-        });
-
-        function hideAllJobCards() {
-            jobCards.forEach(function (card) {
-                card.style.display = 'none';
-            });
-        }
-
-        function showJobCardsByDepartment(department) {
-            jobCards.forEach(function (card) {
-                if (card.dataset.department === department) {
-                    card.style.display = 'block';
-                }
-            });
-        }
-    });
-</script>
->>>>>>> beaa5b044e3c160b54f00e0642cf96709df59c2a
 <div class="col-lg-12 filter">
     <div class="mb-3">
         <h4>Locations</h4>
