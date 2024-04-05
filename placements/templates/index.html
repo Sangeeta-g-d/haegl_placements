@@ -71,7 +71,14 @@
 @media (max-width: 767px) {
     .col-md-5, .col-md-7 {
         padding: 0; /* Remove padding for smaller screens */
-        margin: 0 20px; /* Adjust margin for smaller screens */
+        margin: 0 10px; /* Adjust margin for smaller screens */
+    }
+  
+}
+@media (max-width: 767px) {
+    .col-md-5 {
+        border-right: none; /* Remove right border for mobile screens */
+        border-left: none; /* Remove left border for mobile screens */
     }
 }
 
@@ -489,7 +496,7 @@
                 <p class="mb-3 subtag"><b>We understand the importance of finding the perfect job that aligns with your skills</b></p>
             </div>
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-5 col-sm-12 ">
                     <!-- Content for the left column -->
                     <div class="card h-100">
                         <div class="card-body d-flex flex-column justify-content-between">
@@ -497,10 +504,14 @@
                                 <h5 class="mb-0 display-3 why-subheading">Try exploring MAANG companies. 🚀</h5>
                                 <span class="mb-3 subtag d-block">500+ students from 25+ colleges have trusted us.</span>
                             </div>
-                            <img src="/static/new_landing/img/maan.gif" class="mx-auto d-block mb-3" width="320px" height="256px" alt="">
+                            <img src="/static/new_landing/img/maan.gif" class="mx-auto d-block mb-3 img-fluid" width="320px" height="256px" alt="">
                         </div>
                     </div>
                 </div>
+                
+                
+                
+                
                 <div class="col-md-7">
                     <div class="row mb-4">
                         <div class="col-md-6">

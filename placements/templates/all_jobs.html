@@ -264,7 +264,7 @@
                                             </li>
                                             {% for x in unique_departments %}
                                             <li>
-                                                <a href="#" class="department-link" data-department="{{ x.department }}">
+                                                <a href="#" style="color: inherit; text-decoration: none;"  class="department-link" data-department="{{ x.department }}">
                                                     <div class="d-flex justify-content-between fruite-name">
                                                         {{ x.department }}
                                                     </div>
@@ -290,19 +290,19 @@
                                         <div class="me-3">
                                             <div class="d-flex align-items-center" style="margin-top: 20px;">
                                                 <input type="radio" id="office" name="work_mode" value="Work from office" style="margin-right: 15px;">
-                                                <label for="office">Work from Office</label>
+                                                <label for="office" style="font-size: 15px;">Work from Office</label>
                                             </div>
                                         </div>
                                         <div class="me-3">
                                             <div class="d-flex align-items-center" style="margin-top: 20px;">
                                                 <input type="radio" id="hybrid" name="work_mode" value="Hybrid" style="margin-right: 15px;">
-                                                <label for="hybrid">Hybrid</label>
+                                                <label  style="font-size: 15px;" for="hybrid">Hybrid</label>
                                             </div>
                                         </div>
                                         <div class="me-3">
                                             <div class="d-flex align-items-center" style="margin-top: 20px;">
                                                 <input type="radio" id="home" name="work_mode" value="Work from Home" style="margin-right: 15px;">
-                                                <label for="home">Work from Home</label>
+                                                <label  style="font-size: 15px;" for="home">Work from Home</label>
                                             </div>
                                         </div>
                                     </div>
@@ -422,7 +422,7 @@
             </li>
             {% for x in unique_locations %}
             <li>
-                <a href="#" class="location-link" data-location="{{ x.location }}">
+                <a href="#" style="color: inherit; text-decoration: none;" class="location-link" data-location="{{ x.location }}">
                     <div class="d-flex justify-content-between fruite-name">
                         {{ x.location }}
                     </div>

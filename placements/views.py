@@ -2163,6 +2163,7 @@ def profile(request):
         obj.last_name = request.POST.get('last_name')
         obj.email = request.POST.get('email')
         obj.city = request.POST.get('city')
+        obj.linkedin = request.POST.get('linkedin')
         obj.country = request.POST.get('country')
         p = request.FILES.get('profile')
         data = UserDetails.objects.filter(user_id=id).first()  # Retrieve data again after POST
