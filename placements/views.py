@@ -47,7 +47,6 @@ def upload_file(request):
         else:
             # If no existing file, create a new UploadFile object with the new file
             obj = UploadFile.objects.create(excel=excel)
-
         return render(request, 'upload_file.html', {'message': 'Process Completed Successfully'})
 
     return render(request, 'upload_file.html')
@@ -65,7 +64,6 @@ def download_file(request, file_id):
 
 def temp2(request):
     return render(request,'temp2.html')
-
 
 def temp3(request):
     return render(request,'temp3.html')
