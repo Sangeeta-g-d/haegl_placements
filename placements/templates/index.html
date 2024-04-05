@@ -50,6 +50,29 @@
         .testimonial-item:hover {
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
         }
+
+.featurs {
+    margin: 0 auto; /* Center the container horizontally */
+    max-width: calc(100% - 40px); /* Adjusted width to account for margins */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Adjust the card width to fit within the column */
+.featurs-card {
+    width: 100%; /* Ensure cards fill the column width */
+}
+
+/* Adjust margin between rows */
+.mb-4 {
+    margin-bottom: 20px; /* Add space between rows */
+}
+
+/* Adjust padding within columns for smaller screens */
+@media (max-width: 767px) {
+    .col-md-5, .col-md-7 {
+        padding: 0; /* Remove padding for smaller screens */
+    }
+}
         </style>
     </head>
 
@@ -469,7 +492,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="mb-0 display-3 why-subheading">Try exploring MAANG companies. 🚀</h5><br>
-                            <span class="mb-3 subtag" style="display: flex; justify-content: left;">5000+ students from 25+ colleges have trusted us.</span>
+                            <span class="mb-3 subtag" style="display: flex; justify-content: left;">500+ students from 25+ colleges have trusted us.</span>
                             <img src="/static/new_landing/img/maan.gif" style="margin-left: 36px;" width="460px" height="370px" alt="">
                             <p class="card-text"></p>
                         </div>
