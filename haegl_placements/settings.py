@@ -23,18 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-wn@#)9-^&$^abv&zqy*hdk^#k!gx@0+mgq0j2e1(=%h+l)07rq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-<<<<<<< HEAD
-=======
-
-
-MIDDLEWARE = [
-    # Other middleware classes
-    'placements.custom_404_middleware.Custom404Middleware',
-]
->>>>>>> aef8dfe38cb724d80a53ed455c3811b8ff872f62
+ALLOWED_HOSTS = []
 
 
 # Application definition
