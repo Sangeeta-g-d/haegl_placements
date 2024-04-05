@@ -29,9 +29,6 @@ from django.core.mail import send_mail
 # Create your views here.
 
 
-def custom_page_not_found(request, exception):
-    return render(request, 'custom.html', status=404)
-
 def upload_file(request):
     if request.method == 'POST':
         excel = request.FILES.get('excel')
