@@ -350,6 +350,8 @@
                                     var departmentLinks = document.querySelectorAll('.department-link');
                                     var workModeRadios = document.querySelectorAll('input[name="work_mode"]');
                                     var locationLinks = document.querySelectorAll('.location-link');
+                            
+                            
                                     var jobCards = document.querySelectorAll('.job-card');
                                 
                                     // Department filter
@@ -360,38 +362,66 @@
                                             filterJobCardsByDepartment(department);
                                         });
                                     });
+                                
+                                    // Work mode filter
+                                    workModeRadios.forEach(function (radio) {
+                                        radio.addEventListener('change', function () {
+                                            var selectedWorkMode = this.value;
+                                            filterJobCardsByWorkMode(selectedWorkMode);
+                                        });
+                                    });
+                                
+                                    // Location filter
+                                    locationLinks.forEach(function (link) {
+                                        link.addEventListener('click', function (event) {
+                                            event.preventDefault();
+                                            var location = link.dataset.location;
+                                            filterJobCardsByLocation(location);
+                                        });
+                                    });
+                                
+                                    // Function to show all job cards
+                                    function showAllJobCards() {
+                                        jobCards.forEach(function (card) {
+                                            card.style.display = 'block';
+                                        });
+                                    }
+                                
+                                    // Function to filter job cards by department
+                                    function filterJobCardsByDepartment(department) {
+                                        jobCards.forEach(function (card) {
+                                            if (department === 'all' || card.dataset.department === department) {
+                                                card.style.display = 'block';
+                                            } else {
+                                                card.style.display = 'none';
+                                            }
+                                        });
+                                    }
+                                
+                                    // Function to filter job cards by work mode
+                                    function filterJobCardsByWorkMode(workMode) {
+                                        jobCards.forEach(function (card) {
+                                            if (workMode === 'all' || card.dataset.workMode === workMode) {
+                                                card.style.display = 'block';
+                                            } else {
+                                                card.style.display = 'none';
+                                            }
+                                        });
+                                    }
+                                
+                                    // Function to filter job cards by location
+                                    function filterJobCardsByLocation(location) {
+                                        jobCards.forEach(function (card) {
+                                            if (location === 'all' || card.dataset.location === location) {
+                                                card.style.display = 'block';
+                                            } else {
+                                                card.style.display = 'none';
+                                            }
+                                        });
+                                    }
+                                });
+                                
                                 </script>
-    
-    
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var departmentLinks = document.querySelectorAll('.department-link');
-        var jobCards = document.querySelectorAll('.job-card');
-
-        departmentLinks.forEach(function (link) {
-            link.addEventListener('click', function (event) {
-                event.preventDefault();
-                var department = link.dataset.department;
-                hideAllJobCards();
-                showJobCardsByDepartment(department);
-            });
-        });
-
-        function hideAllJobCards() {
-            jobCards.forEach(function (card) {
-                card.style.display = 'none';
-            });
-        }
-
-        function showJobCardsByDepartment(department) {
-            jobCards.forEach(function (card) {
-                if (card.dataset.department === department) {
-                    card.style.display = 'block';
-                }
-            });
-        }
-    });
-</script>
 <div class="col-lg-12 filter">
     <div class="mb-3">
         <h4>Locations</h4>
