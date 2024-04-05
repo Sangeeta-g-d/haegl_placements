@@ -360,68 +360,6 @@
                                             filterJobCardsByDepartment(department);
                                         });
                                     });
-<<<<<<< HEAD
-                                
-                                    // Work mode filter
-                                    workModeRadios.forEach(function (radio) {
-                                        radio.addEventListener('change', function () {
-                                            var selectedWorkMode = this.value;
-                                            filterJobCardsByWorkMode(selectedWorkMode);
-                                        });
-                                    });
-                                
-                                    // Location filter
-                                    locationLinks.forEach(function (link) {
-                                        link.addEventListener('click', function (event) {
-                                            event.preventDefault();
-                                            var location = link.dataset.location;
-                                            filterJobCardsByLocation(location);
-                                        });
-                                    });
-                                
-                                    // Function to show all job cards
-                                    function showAllJobCards() {
-                                        jobCards.forEach(function (card) {
-                                            card.style.display = 'block';
-                                        });
-                                    }
-                                
-                                    // Function to filter job cards by department
-                                    function filterJobCardsByDepartment(department) {
-                                        jobCards.forEach(function (card) {
-                                            if (department === 'all' || card.dataset.department === department) {
-                                                card.style.display = 'block';
-                                            } else {
-                                                card.style.display = 'none';
-                                            }
-                                        });
-                                    }
-                                
-                                    // Function to filter job cards by work mode
-                                    function filterJobCardsByWorkMode(workMode) {
-                                        jobCards.forEach(function (card) {
-                                            if (workMode === 'all' || card.dataset.workMode === workMode) {
-                                                card.style.display = 'block';
-                                            } else {
-                                                card.style.display = 'none';
-                                            }
-                                        });
-                                    }
-                                
-                                    // Function to filter job cards by location
-                                    function filterJobCardsByLocation(location) {
-                                        jobCards.forEach(function (card) {
-                                            if (location === 'all' || card.dataset.location === location) {
-                                                card.style.display = 'block';
-                                            } else {
-                                                card.style.display = 'none';
-                                            }
-                                        });
-                                    }
-                                });
-                                
-                                </script>
-=======
                                 </script>
     
     
@@ -454,7 +392,6 @@
         }
     });
 </script>
->>>>>>> beaa5b044e3c160b54f00e0642cf96709df59c2a
 <div class="col-lg-12 filter">
     <div class="mb-3">
         <h4>Locations</h4>
