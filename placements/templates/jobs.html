@@ -58,16 +58,22 @@
 
 
         <!-- Navbar start -->
-        <div class="container-fluid fixed-top">
-            <div class="container topbar bg-danger d-none d-lg-block">
-                <div class="d-flex justify-content-between">
-                    <div class="top-link ps-2">
-                        
+        <div class="container-fluid fixed-top" style="padding-left: 0px; padding-right: 0px;">
+            <div class="topnav" >
+                <div class="topbar bg-danger d-none d-lg-block" >
+                    <div class="d-flex justify-content-between">
+                        <div class="top-link ps-2">
+                            
+                        </div>
+                        <div id="top-link" style="align-items: center;" class="top-link pe-5">
+                            <small  class=" me-3 "><i class="fas fa-phone me-2" style="color: white;"></i> <a href="#" class="text-white">+91 7676348382</a></small>
+                            <small  class=" me-3"><i class="fas fa-envelope me-2" style="color: white;"></i><a href="#" class="text-white">info@haegl.in</a></small>                 
+                            <small  class=" me-1"><i class="fab fa-instagram me-2" style="color: white;"><a href="#" class="text-white"></a></i></small>
+                            <small  class=" me-1"><i class="fab fa-facebook-f me-2" style="color: white;"><a href="#" class="text-white"></a></i></small>
+                             <small  class=" me-1"><i class="fab fa-linkedin-in me-2" style="color: white;"><a href="#" class="text-white"></a></i></small>
+                           
+                        </div>     
                     </div>
-                    <div id="top-link" style="align-items: center;" class="top-link pe-5">
-                        <small  class=" me-3 "><i class="fas fa-phone me-2" style="color: white;"></i> <a href="#" class="text-white">+91 7676348382</a></small>
-                        <small  class=" me-3"><i class="fas fa-envelope me-2" style="color: white;"></i><a href="#" class="text-white">info@haegl.in</a></small>
-                    </div> 
                 </div>
             </div>
         
@@ -279,7 +285,7 @@
                                             </li>
                                             {% for x in unique_departments %}
                                             <li>
-                                                <a href="#" class="department-link" data-department="{{ x.department }}">
+                                                <a href="#" style="color: inherit; text-decoration: none;"  class="department-link" data-department="{{ x.department }}">
                                                     <div class="d-flex justify-content-between fruite-name">
                                                         {{ x.department }}
                                                     </div>
@@ -301,19 +307,19 @@
                                         <div class="me-3">
                                             <div class="d-flex align-items-center" style="margin-top: 20px;">
                                                 <input type="radio" id="office" name="work_mode" value="Work from office" style="margin-right: 15px;">
-                                                <label for="office">Work from Office</label>
+                                                <label for="office" style="font-size: 15px;">Work from Office</label>
                                             </div>
                                         </div>
                                         <div class="me-3">
                                             <div class="d-flex align-items-center" style="margin-top: 20px;">
                                                 <input type="radio" id="hybrid" name="work_mode" value="Hybrid" style="margin-right: 15px;">
-                                                <label for="hybrid">Hybrid</label>
+                                                <label  style="font-size: 15px;" for="hybrid">Hybrid</label>
                                             </div>
                                         </div>
                                         <div class="me-3">
                                             <div class="d-flex align-items-center" style="margin-top: 20px;">
                                                 <input type="radio" id="home" name="work_mode" value="Work from Home" style="margin-right: 15px;">
-                                                <label for="home">Work from Home</label>
+                                                <label  style="font-size: 15px;" for="home">Work from Home</label>
                                             </div>
                                         </div>
                                     </div>
@@ -350,6 +356,7 @@
                                     var departmentLinks = document.querySelectorAll('.department-link');
                                     var workModeRadios = document.querySelectorAll('input[name="work_mode"]');
                                     var locationLinks = document.querySelectorAll('.location-link');
+                                                    
                                     var jobCards = document.querySelectorAll('.job-card');
                                 
                                     // Department filter
@@ -433,7 +440,7 @@
             </li>
             {% for x in unique_locations %}
             <li>
-                <a href="#" class="location-link" data-location="{{ x.location }}">
+                <a href="#" style="color: inherit; text-decoration: none;" class="location-link" data-location="{{ x.location }}">
                     <div class="d-flex justify-content-between fruite-name">
                         {{ x.location }}
                     </div>
