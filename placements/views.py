@@ -811,10 +811,16 @@ def add_job(request):
         state = request.POST.get('state')
         type = request.POST.get('type')
         country = request.POST.get('country')
+        is_promoting = request.POST.get('is_promoting')
+        job_link = request.POST.get('job_link')
+        company_profile = request.POST.get('company_profile')
+
+
         obj = JobDetails.objects.create(company_id_id=i,designation=designation,department=department,location=location,work_mode=work_mode,
         no_of_vacancy=no_of_vacancy,mandatory_skills=mandatory_skills,optional_skills=optional_skills,
         qualification=qualification,experience=experience,
-        salary=salary,job_description=description,J_type=type)
+        salary=salary,job_description=description,J_type=type,
+        is_promoting=is_promoting,job_link=job_link,company_profile=company_profile)
 
         print(obj)
         return redirect(reverse('job_vacancy') + '?success_message=1')
