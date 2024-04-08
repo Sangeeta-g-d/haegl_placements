@@ -182,12 +182,7 @@
                                             }
                                         });
                                     });
-                                </script>
-                                
-
-                                
-                                
-                                
+                                </script>                            
                             </div>
                             <div class="col-5"></div>
                             <div class="col-xl-3">
@@ -209,6 +204,7 @@
                         <div class="row g-4">
                             <div class="col-lg-9" style="padding-right: 50px;">
                                 <div class="row g-4 justify-content-center" id="jobListings">
+                                    {% if combined_data %}
                                     {% for x in combined_data %}
                                     <div class="col-md-6 col-lg-6 col-xl-4 job-card" data-department="{{ x.department }}" data-work-mode="{{ x.work_mode }}" data-location="{{ x.location }}" data-job-type="{{ x.job_type }}">
                                         <div class="rounded position-relative fruite-item">
@@ -244,6 +240,13 @@
                                         </div>
                                     </div>
                                     {% endfor %}
+                                    {% else %}
+                                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                        <img src="/static/new_landing/img/sad.png" height="100px" width="100px" alt=""> <br>
+                                        <h3>Oops! no jobs found</h3>
+                                    </div>
+                                    {% endif %}
+                                    
                             
                                     <script>
                                         // Function to truncate text

@@ -171,6 +171,12 @@
 
                                  </select>
                               </div>
+                              <div class="form-group">
+                                <label for="exampleInputEmail3">Job Link</label>
+                                <input type="url" name="job_link" class="form-control" id="exampleInputEmail3" placeholder="number of vacancy">
+                              </div>
+
+                              
                             <!-- Add more form fields as needed -->
                           </div>
                           <div class="col-md-6">
@@ -221,6 +227,19 @@
 
                                  </select>
                               </div>
+                              <div class="form-group">
+                                <label for="exampleInputPassword4">Is promoting</label>
+                                <select name="is_promoting" type="text" class="form-control" id="exampleInputPassword4">
+                                    <option value="">--select--</option>
+                                  <option value="True">Yes</option>
+                                  <option value="False">No</option>
+                                 </select>
+                              </div>
+
+                              <div class="form-group">
+                                <label for="exampleInputPassword4">Company Profile</label>
+                               <input type="file" class="form-control" name="p_profile" >
+                              </div>
                             <!-- Additional form fields -->
                           </div>
                         </div>
@@ -228,8 +247,7 @@
                             <label for="exampleTextarea1">Job Description</label>
                             <textarea name="job_description" class="form-control" id="exampleTextarea1" rows="6"></textarea>
                           </div>
-                        <button type="submit" class="btn btn-danger mr-2">Submit</button>
-
+                        <button type="submit" class="btn btn-success mr-2">Submit</button>
                       </form>
 
                   </div>
