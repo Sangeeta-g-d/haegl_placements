@@ -64,7 +64,7 @@ class JobDetails(models.Model):
     state = models.CharField(max_length=300, default='Karnataka')
     J_type = models.CharField(max_length=300, default='job')
     is_promoting = models.BooleanField(default=False)
-    profile = models.ImageField(upload_to='uploaded_images/',default="company logo")
+    company_profile = models.ImageField(upload_to='uploaded_images/',default="company logo")
     job_link =  models.CharField(max_length=700, default='job link')
 
 
