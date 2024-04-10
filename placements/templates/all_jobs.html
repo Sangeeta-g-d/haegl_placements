@@ -201,9 +201,9 @@
                                     <div class="col-md-6 col-lg-6 col-xl-4 job-card" data-department="{{ x.department }}" data-work-mode="{{ x.work_mode }}" data-location="{{ x.location }}" data-job-type="{{ x.job_type }}">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="border border-secondary rounded-top rounded-bottom">
-                                                {% if x.company_id.first_name %}
+                                                {% if x.is_promoting %}
                                                 <div class="fruite-img">
-                                                    <img src="/{{ x.company_id.profile }}" class="img-fluid w-100 rounded-top" alt="">
+                                                    <img src="/{{ x.company_profile }}" class="img-fluid w-100 rounded-top" alt="">
                                                 </div>
                                                 {% else %}
                                                 <div class="fruite-img">

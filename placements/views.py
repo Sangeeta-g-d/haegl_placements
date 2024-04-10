@@ -813,7 +813,7 @@ def add_job(request):
         country = request.POST.get('country')
         is_promoting = request.POST.get('is_promoting')
         job_link = request.POST.get('job_link')
-        company_profile = request.POST.get('company_profile')
+        company_profile = request.FILES.get('company_profile')
 
 
         obj = JobDetails.objects.create(company_id_id=i,designation=designation,department=department,location=location,work_mode=work_mode,
@@ -1359,6 +1359,8 @@ def all_jobs(request, category=None):
 
 # Display the jumbled results
     for item in combined_data:
+        if item.is_promoting:
+            print("^^^^^^^^^^^^^^^^^^^^^^^^^",item.company_profile)
         print(item)
 
 
