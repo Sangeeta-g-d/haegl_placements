@@ -619,11 +619,8 @@ def login1(request):
             login(request, user)
             i = request.user.id
             print("companyyy idddd",i)
-            record = CompanyDetails.objects.filter(company_id_id = i)
-            if record:
-                return redirect('/company_dashboard')
-            else:
-                return redirect('/company_details')
+            return redirect('/company_dashboard')
+            
         elif user is not None and user.user_type == 'Company' and user.status == False:
             request.session['error_message'] = 'Wait till account varifies'
             return redirect('/login')
