@@ -3,6 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect,HttpResponseForbidden,
 from django.template import loader
 from .models import CompanyDetails, NewUser, JobDetails, TopCompanies, InterviewQuestions, UserDetails, CompanyJobSaved, AppliedJobs, UploadFile, ContactUs,AvailableTiming, ScheduleInterview
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from datetime import date
@@ -113,11 +114,16 @@ def new_job_des(request,id):
     }
     return render(request,'new_job_des.html',context)
 
+
+def voice(request):
+    return render(request,'voice.html')
+
+
 def index(request):
     if request.user.is_authenticated:
             print("Hiiiiiiiiiiiiiii")
             return redirect('/user_dashboard')
-    recent_jobs = list(JobDetails.objects.filter(J_type='job').order_by('-created_on')[:5])
+    recent_jobs = list(JobDetails.objects.filter(J_type='job').order_by('-created_on')[:10])
 
     # Shuffle the list of recent jobs
     random.shuffle(recent_jobs)
@@ -586,49 +592,52 @@ def registration(request):
         company_name = request.POST.get('company_name')
         username = request.POST.get('username')
         password = request.POST.get('password')
-        password1 = request.POST.get('password1')
         email = request.POST.get('email')
-        contact_no = request.POST.get('contact_number')
+        contact_no = request.POST.get('contact_no')
         address = request.POST.get('address')
         company_logo = request.FILES.get('profile')
-        print("!!!!!!!!!",company_logo)
         user_type = "Company"
-        if password == password1:
-            passw = make_password(password)
-            user = NewUser.objects.create(first_name=company_name,username=username,password=passw,
-            email=email,phone_no=contact_no,user_type=user_type, address=address,
-            profile=company_logo)
-            success_message = f"Registered successfully! Username: {username}, Password: {password}"
-            request.session['success_message'] = success_message  # Store the success message in session
+        
+        # Hash the password
+        passw = make_password(password)
+        
+        # Create a new user
+        user = NewUser.objects.create(
+            first_name=company_name,
+            username=username,
+            password=passw,
+            email=email,
+            phone_no=contact_no,
+            user_type=user_type,
+            address=address,
+            profile=company_logo
+        )
+        
+        # Redirect to login page with success message in query parameter
+        success_message = f"Registered successfully! Username: {username}, Password: {password}"
+        return redirect(f'/login?success_message={success_message}')
 
-            return redirect('login')
-        else:
-            messages.error(request,'Password is not matching')
-
-    return render(request,'registration.html')
+    return render(request, 'registration.html')
 
 def login1(request):
     if request.method == 'POST':
         username = request.POST.get('username')
-        print(username)
         password = request.POST.get('password')
-        print(password)
         user = authenticate(request, username=username, password=password)
-        print("!!!!!!!!!!!!!!!!",user)
+        
         if user is not None and user.user_type == 'Company' and user.status == True:
             login(request, user)
-            i = request.user.id
-            print("companyyy idddd",i)
             return redirect('/company_dashboard')
             
         elif user is not None and user.user_type == 'Company' and user.status == False:
-            request.session['error_message'] = 'Wait till account varifies'
-            return redirect('/login')
+            error_message = 'Wait till account verifies'
+            return redirect(f'/login?error_message={error_message}')
+        
         else:
-            request.session['error_message'] = 'Account not Found'
-            return redirect('/login')
+            error_message = 'Account not found'
+            return redirect(f'/login?error_message={error_message}')
 
-    return render(request,'login.html')
+    return render(request, 'login.html')
 
 def add_company_details(request):
     i = request.user.id
@@ -811,13 +820,14 @@ def add_job(request):
         is_promoting = request.POST.get('is_promoting')
         job_link = request.POST.get('job_link')
         company_profile = request.FILES.get('company_profile')
+        company_name = request.POST.get('company_name')
 
 
         obj = JobDetails.objects.create(company_id_id=i,designation=designation,department=department,location=location,work_mode=work_mode,
         no_of_vacancy=no_of_vacancy,mandatory_skills=mandatory_skills,optional_skills=optional_skills,
         qualification=qualification,experience=experience,
         salary=salary,job_description=description,J_type=type,
-        is_promoting=is_promoting,job_link=job_link,company_profile=company_profile)
+        is_promoting=is_promoting,job_link=job_link,company_profile=company_profile,promoting_company_name=company_name)
 
         print(obj)
         return redirect(reverse('job_vacancy') + '?success_message=1')
@@ -1337,8 +1347,8 @@ def all_companies(request):
 
 
 def all_jobs(request, category=None):
-    print("cccccccccccccc",category)
-    data = JobDetails.objects.all().select_related('company_id').filter(status="open",J_type='job')
+    print("cccccccccccccc", category)
+    data = JobDetails.objects.all().select_related('company_id').filter(status="open", J_type='job').order_by('created_on')
     print(data)
 
     if category:
@@ -1347,101 +1357,96 @@ def all_jobs(request, category=None):
         data = data.filter(department=category)
 
     combined_data = list(chain(data))
-    print("^^^^^^^^^^^^^^^^^^^^^^^^^^",combined_data)
-# Shuffle the combined list
+    print("^^^^^^^^^^^^^^^^^^^^^^^^^^", combined_data)
+
+    # Shuffle the combined list
     random.shuffle(combined_data)
 
     # Sort the combined list based on 'created_on' attribute to display recent jobs first
     combined_data.sort(key=lambda x: x.created_on, reverse=True)
 
-# Display the jumbled results
-    for item in combined_data:
-        if item.is_promoting:
-            print("^^^^^^^^^^^^^^^^^^^^^^^^^",item.company_profile)
-        print(item)
+    paginator = Paginator(combined_data, 12)  # 12 jobs per page
+    page_number = request.GET.get('page')
+    try:
+        jobs_page = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        jobs_page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        jobs_page = paginator.page(paginator.num_pages)
 
-
-    for x in combined_data:
+    for x in jobs_page:
         days_since_posted = (timezone.now().date() - x.created_on).days
         x.days_since_posted = days_since_posted
-
-
 
     unique_departments = JobDetails.objects.values('department').annotate(count=Count('department')).order_by('department')
 
     for department in unique_departments:
         print(f"Department: {department['department']} - Count: {department['count']}")
 
-    open_status_count_job = (
-        JobDetails.objects.filter(status='open',J_type='job')
-        .values('department')
-        .annotate(open_count=Count('department'))
-    )
-
-    open_jobs_count = defaultdict(int)
-    for item in open_status_count_job:
-        open_jobs_count[item['department']] += item['open_count']
-
     unique_locations = JobDetails.objects.values('location').annotate(count=Count('location')).order_by('location')
 
-    context = {'data':data,'combined_data':combined_data,
-    'unique_departments':unique_departments,'unique_locations':unique_locations}
-    return render(request,'all_jobs.html',context)
+    context = {
+        'data': data,
+        'combined_data': combined_data,
+        'unique_departments': unique_departments,
+        'unique_locations': unique_locations,
+        'jobs_page': jobs_page
+    }
+    return render(request, 'all_jobs.html', context)
+
 
 @login_required
-def jobs(request):
+def jobs(request, category=None):
     if request.user.user_type != 'job seeker':
         return HttpResponseForbidden()
-    data = JobDetails.objects.all().select_related('company_id').filter(status="open",J_type='job')
+    print("cccccccccccccc", category)
+    data = JobDetails.objects.all().select_related('company_id').filter(status="open", J_type='job').order_by('created_on')
     print(data)
 
+    if category:
+        print("categorryyyyyyyyyyyyyyy")
+        category = category.replace('+', ' ')
+        data = data.filter(department=category)
+
     combined_data = list(chain(data))
-    print("^^^^^^^^^^^^^^^^^^^^^^^^^^",combined_data)
-# Shuffle the combined list
+    print("^^^^^^^^^^^^^^^^^^^^^^^^^^", combined_data)
+
+    # Shuffle the combined list
     random.shuffle(combined_data)
 
     # Sort the combined list based on 'created_on' attribute to display recent jobs first
-    combined_data.sort(key=lambda x: x.created_on, reverse=True)
+   
+    paginator = Paginator(combined_data, 12)  # 12 jobs per page
+    page_number = request.GET.get('page')
+    try:
+        jobs_page = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        jobs_page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        jobs_page = paginator.page(paginator.num_pages)
 
-
-# Display the jumbled results
-    for item in combined_data:
-        print(item)
-
-
-    for x in combined_data:
+    for x in jobs_page:
         days_since_posted = (timezone.now().date() - x.created_on).days
         x.days_since_posted = days_since_posted
-
-
 
     unique_departments = JobDetails.objects.values('department').annotate(count=Count('department')).order_by('department')
 
     for department in unique_departments:
         print(f"Department: {department['department']} - Count: {department['count']}")
 
-    open_status_count_job = (
-        JobDetails.objects.filter(status='open',J_type='job')
-        .values('department')
-        .annotate(open_count=Count('department'))
-    )
-
-
-    open_jobs_count = defaultdict(int)
-    for item in open_status_count_job:
-        open_jobs_count[item['department']] += item['open_count']
-
-
-
-    
-
     unique_locations = JobDetails.objects.values('location').annotate(count=Count('location')).order_by('location')
 
-# Count jobs in each unique location from AgencyJobDetails
-
-
-    context = {'data':data,'combined_data':combined_data,
-    'unique_departments':unique_departments,'unique_locations':unique_locations}
+    context = {
+        'data': data,
+        'combined_data': combined_data,
+        'unique_departments': unique_departments,
+        'unique_locations': unique_locations,
+        'jobs_page': jobs_page
+    }
     return render(request,'jobs.html',context)
 
 from django.views.decorators.csrf import csrf_exempt
@@ -1918,6 +1923,12 @@ def application(request, job_id):
     # Return a JSON response indicating failure
     return JsonResponse({'success': False})
 
+def new_c_db(request):
+    return render(request,'new_c_db.html')
+
+def reg(request):
+    return render(request,'reg.html')
+
 
 def update_application_status(request):
     if request.method == 'POST':
@@ -1973,7 +1984,8 @@ def schedule_interview(request):
         try:
             # Prepare email content
             subject = 'Congratulations!'
-            body = 'Shortlisted'
+            body = f"""Dear,\nSending this mail to inform that your interview have been scheduled for the profile {designation}  on {interview_date}\n
+            Timing : {start_time} - {end_time}"""
             user_email = application.email   
             sender_email = settings.EMAIL_HOST_USER
 

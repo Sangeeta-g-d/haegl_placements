@@ -306,7 +306,9 @@
 .fruite .fruite-item {
     transition: 0.5s;
 }
-
+.fruite-item:hover {
+    border-color: #fc081f; /* Change border color on hover */
+}
 
 .fruite .fruite-item .fruite-img {
     overflow: hidden;
@@ -339,19 +341,22 @@
 .vesitable .vesitable-item:hover {
     box-shadow: 0 0 55px rgba(0, 0, 0, 0.1);
 }
-
 .vesitable .vesitable-item .vesitable-img {
+    height: 100px; /* Set the height of the container */
     overflow: hidden;
-    transition: 0.5s;
-    border-radius: 10px 10px 0 0;
-    height: 100px; /* Adjust this height as needed */
-    margin: 9px;
+   /* Ensure the image doesn't overflow the container */
+    /* Additional styles as needed */
+    display: flex;
+    padding: 10px;
+    justify-content: center; /* Horizontally center the image */
+    align-items: center; 
 }
 
+
 .vesitable .vesitable-item .vesitable-img img {
-  
-    height: 90px; /* Ensure the image covers the entire container */
-    width: 20px;
+    width: 120px !important;
+    height: 100%;
+    object-fit: contain;
 }
 
 
@@ -382,7 +387,7 @@
 .vesitable .owl-nav .owl-next {
     position: absolute;
     top: -8px;
-    right: 88px;
+    
     color: var(--bs-primary);
     padding: 5px 25px;
     border: 1px solid var(--bs-secondary);
@@ -483,12 +488,13 @@
     border: 1px solid var(--bs-secondary);
 }
   
-.pagination a:hover:not(.active) {background-color: var(--bs-primary)}
+.pagination a:hover:not(.active) {background-color: #fc081f}
 
 .nav.nav-tabs .nav-link.active {
     border-bottom: 2px solid var(--bs-secondary) !important;
 }
 /*** Single Page End ***/
+
 
 
 
@@ -527,12 +533,67 @@
 }
 
 .c-border {
-    border: 1px solid #000; /* Change color and size as needed */
+    border: 1px solid #303030; /* Change color and size as needed */
 }
+
+.image-container-single {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px; /* Adjust the width of the container */
+    height: 120px; /* Adjust the height of the container */
+    overflow: hidden;
+   
+}
+
+.apply-button {
+    background-color: #3a4242;
+    color: white !important;
+    transition: background-color 0.3s; /* Smooth transition effect */
+}
+
+.apply-button:hover {
+    background-color: red;
+}
+.image-container-single img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Fit the image within the container while maintaining aspect ratio */
+}
+
 
 .fruite-item:hover .p-4 {
     border-color: #ffc107; /* Change border color of the card content on hover */
 }
+
+.p-size{
+    font-size: 14px;
+}
+
+#searchInput {
+    height: 40px; /* Adjust the height here as needed */
+}
+
+#searchInput input {
+    height: 40px; /* Adjust the height of the input field */
+}
+.company-profile-image {
+   /* Set the width of the container */
+     height: 100px; /* Set the height of the container */
+     overflow: hidden;
+    /* Ensure the image doesn't overflow the container */
+     /* Additional styles as needed */
+     display: flex;
+     padding: 10px;
+     justify-content: center; /* Horizontally center the image */
+     align-items: center; /* Vertically center the image */
+ }
+ 
+ .company-profile-image img {
+     width: 120px !important; /* Make the image fill the container */
+     height: 100%; /* Make the image fill the container */
+     object-fit: contain; /* Maintain aspect ratio and fit the image within the container */
+ }
 
 .fruite-item:hover .text-white {
     background-color: #ffc107; /* Change background color of the card content on hover */

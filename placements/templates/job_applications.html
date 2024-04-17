@@ -344,6 +344,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
         <div class="modal-body">
           <form id="scheduleForm" method="post" action="{% url 'schedule_interview' %}">
             {% csrf_token %}
@@ -414,13 +415,14 @@
             if (data.status === "success") {
                 // Display success message
                 alert("Interview scheduled successfully!");
-
+                window.location.reload();
                 // You can customize the alert using SweetAlert or other libraries
                 // For SweetAlert:
                 // swal("Success!", "Interview scheduled successfully!", "success");
             } else {
                 // Handle error
                 alert("Failed to schedule interview. Please try again.");
+                window.location.reload();
             }
         })
         .catch(error => {

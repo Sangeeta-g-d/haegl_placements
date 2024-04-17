@@ -56,11 +56,11 @@
                     <div id="top-link" style="align-items: center;" class="top-link pe-5">
                         <small  class=" me-3 "><i class="fas fa-phone me-2" style="color: white;"></i> <a href="#" class="text-white">+91 7676348382</a></small>
                         <small  class=" me-3"><i class="fas fa-envelope me-2" style="color: white;"></i><a href="#" class="text-white">info@haegl.in</a></small>                 
-                        <small  class=" me-1"><i class="fab fa-instagram me-2" style="color: white;"><a href="#" class="text-white"></a></i></small>
-                        <small  class=" me-1"><i class="fab fa-facebook-f me-2" style="color: white;"><a href="#" class="text-white"></a></i></small>
-                         <small  class=" me-1"><i class="fab fa-linkedin-in me-2" style="color: white;"><a href="#" class="text-white"></a></i></small>
+                        <small  class=" me-1"><a target="_blank" href="https://www.instagram.com/haegltechnologies/" class="text-white"><i class="fab fa-instagram me-2" style="color: white;"></a></i></small>
+                        <small  class=" me-1"><a href="https://www.facebook.com/haegltechnologies/"  target="_blank"  class="text-white"> <i class="fab fa-facebook-f me-2" style="color: white;"></a></i></small>
+                         <small  class=" me-1"><a href="https://www.linkedin.com/company/haegl-technologies-pvt-ltd/mycompany/"  target="_blank"  class="text-white"><i class="fab fa-linkedin-in me-2" style="color: white;"></a></i></small>
                        
-                    </div>     
+                    </div>    
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
                             <a href="/internship_program" class="nav-item nav-link">Internship Program</a>
                             <a href="/all_jobs" class="nav-item nav-link active">Jobs</a>
                             <a href="/select_theme" class="nav-item nav-link">Build Resume</a>
-                            <a href="/contact_us" class="nav-item nav-link">Contact us</a>
+                            <a href="/contact_us" class="nav-item nav-link">Contact us</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <a href="/user_registration" style="margin-top: 4px;">
                                 <div class="text-white bg-danger px-3 py-1 rounded" style="top: 12px; right: 10px;">
                                     Register</div>
@@ -123,11 +123,19 @@
     <!-- Single Page Header start -->
     <div class="container-fluid page-header py-5">
         <div class="row justify-content-center">
-            <div class="col-md-8 text-center">
+            <div class="col-md-8 text-center d-flex flex-column align-items-center">
                 <h6 class="mb-3 display-3 hero-heading text-primary" style="font-size: 30px;">{{job.designation}}</h6>
-                <p style="font-size: 20px;">{{job.company_id.first_name}}</p>
+                {% if job.is_promoting %}
+                <div class="image-container-single" >
+                    <img src="/{{job.company_profile}}" alt="">
+                </div>
+                {% else %}
+                <div class="image-container-single" >
+                    <img src="/{{job.company_id.profile}}" alt="">
+                </div>
+                {% endif %}
                 <div class="d-flex justify-content-center flex-lg-wrap">
-                    <a href="/user_login" class="btn border border-secondary rounded-pill px-3 text-primary" 
+                    <a href="/user_login" class="btn rounded-pill px-3 apply-button" 
                         >Apply Now</a>
                 </div>
             </div>
@@ -194,7 +202,7 @@
                                             <h6
                                                 style="color: rgb(73, 67, 67); display: inline-block; margin-right: 5px;">
                                                 <i class="fas fa-map-marker"></i></h6>
-                                            <p style="display: inline-block;">Hubli Karnataka India</p>
+                                            <p style="display: inline-block;">{{job.location}} {{job.state}} {{job.country}}</p>
                                         </div>
 
                                         <br>
@@ -289,14 +297,25 @@
                                 <div class="rounded position-relative fruite-item">
                                     <div class="border border-secondary rounded-top rounded-bottom">
 
-                                        <div class="fruite-img">
+                                        {% if x.is_promoting %}
+                                        <div class="company-profile-image">
+                                            <img src="/{{x.company_profile}}"
+                                                class="img-fluid w-100 rounded-top" alt="">
+                                        </div>
+                                        {% else %}
+                                        <div class="company-profile-image">
                                             <img src="/{{x.company_id.profile}}"
                                                 class="img-fluid w-100 rounded-top" alt="">
                                         </div>
+                                        {% endif %}
                                         <div class="p-4">
                                             <h6 id="designationPlaceholder5">{{x.designation}}</h6>
 
+                                            {% if x.is_promoting %}
+                                            <p id="firstNamePlaceholder5">{{x.promoting_company_name}}</p>
+                                            {% else %}
                                             <p id="firstNamePlaceholder5">{{x.company_id.first_name}}</p>
+                                            {% endif %}
 
                                            
                                           

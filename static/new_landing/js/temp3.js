@@ -509,26 +509,6 @@ function loadExperience() {
 }
 
 
-    var toValue2 = document.getElementById('to' + experienceCount).value;
-    var toDisplay = document.getElementById('Display_To' + experienceCount);
-    if (toDisplay) {
-      toDisplay.innerText = toValue2;
-    }
-}
-function handlePresentCheckboxExperience(experienceCount) {
-  console.log("gggggggggggggg")
-  var toInput = document.getElementById("to" + experienceCount);
-  var toContainer = document.getElementById("Display_To" + experienceCount);
-
-  if (document.getElementById("present" + experienceCount).checked) {
-    toInput.disabled = true;
-    toContainer.innerText = "Present";
-  } else {
-    toInput.disabled = false;
-    updateExperience2(experienceCount);
-  }
-}
-
 
 function toggleExperience(header) {
   var content = header.nextElementSibling;

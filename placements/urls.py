@@ -29,7 +29,7 @@ urlpatterns = [
     path('download_file/<int:file_id>/', views.download_file, name='download_file'),
     path('',views.index,name='index'),
     path('admin_db',views.admin_db,name='admin_db'),
-    path('login',views.login1,name='login'),
+    path('login',views.login1,name='login1'),
     path('top_companies',views.top_companies,name='top_companies'),
     path('update_status',views.update_status,name='update_status'),
     path('add_job',views.add_job,name='add_job'),
@@ -71,6 +71,7 @@ urlpatterns = [
     path('saved_jobs',views.saved_jobs,name='saved_jobs'),
     path('job_applications',views.job_applications,name='job_applications'),
     path('jobs',views.jobs,name='jobs'),
+    path('jobs/<str:category>', views.jobs, name='jobs_with_category'),
     path('save_job/<int:job_id>/<int:u_id>/',views.save_job,name="save_job"),
     path('remove_job/<int:job_id>/<int:u_id>/',views.remove_job,name="remove_job"),
     path('delete_application/<int:pk>',views.delete_application,name="delete_application"),
@@ -93,7 +94,10 @@ urlpatterns = [
     path('user_internship_program',views.user_internship_program,name='user_internship_program'),
     path('user_select_theme',views.user_select_theme,name='user_select_theme'),
     path('company_calendar',views.company_calendar,name='company_calendar'),
-    path('delete_user/', views.delete_user, name='delete_user'),  # URL mapping for delete view
+    path('delete_user/', views.delete_user, name='delete_user'),
+    path('voice', views.voice, name='voice'),
+    path('reg', views.reg, name='reg'),
+    path('new_c_db', views.new_c_db, name='new_c_db'),  # URL mapping for delete view
 ]
 
 

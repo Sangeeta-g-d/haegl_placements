@@ -56,11 +56,11 @@
                     <div id="top-link" style="align-items: center;" class="top-link pe-5">
                         <small  class=" me-3 "><i class="fas fa-phone me-2" style="color: white;"></i> <a href="#" class="text-white">+91 7676348382</a></small>
                         <small  class=" me-3"><i class="fas fa-envelope me-2" style="color: white;"></i><a href="#" class="text-white">info@haegl.in</a></small>                 
-                        <small  class=" me-1"><i class="fab fa-instagram me-2" style="color: white;"><a href="#" class="text-white"></a></i></small>
-                        <small  class=" me-1"><i class="fab fa-facebook-f me-2" style="color: white;"><a href="#" class="text-white"></a></i></small>
-                         <small  class=" me-1"><i class="fab fa-linkedin-in me-2" style="color: white;"><a href="#" class="text-white"></a></i></small>
+                        <small  class=" me-1"><a target="_blank" href="https://www.instagram.com/haegltechnologies/" class="text-white"><i class="fab fa-instagram me-2" style="color: white;"></a></i></small>
+                        <small  class=" me-1"><a href="https://www.facebook.com/haegltechnologies/"  target="_blank"  class="text-white"> <i class="fab fa-facebook-f me-2" style="color: white;"></a></i></small>
+                         <small  class=" me-1"><a href="https://www.linkedin.com/company/haegl-technologies-pvt-ltd/mycompany/"  target="_blank"  class="text-white"><i class="fab fa-linkedin-in me-2" style="color: white;"></a></i></small>
                        
-                    </div>     
+                    </div>       
                 </div>
             </div>
         </div>
@@ -133,19 +133,33 @@
     <!-- Single Page Header start -->
     <div class="container-fluid page-header py-5">
         <div class="row justify-content-center">
-            <div class="col-md-8 text-center">
+            <div class="col-md-8 text-center  d-flex flex-column align-items-center">
                 <h6 class="mb-3 display-3 hero-heading text-primary" style="font-size: 30px;">{{job.designation}}</h6>
-                <p style="font-size: 20px;">{{job.company_id.first_name}}</p>
+                {% if job.is_promoting %}
+                <div class="image-container-single" >
+                    <img src="/{{job.company_profile}}" alt="">
+                </div>
+                <div class="d-flex justify-content-center flex-lg-wrap">
+                    <a href="{{job.job_link}}" target="_blank" class="btn rounded-pill px-3  apply-button">
+                        Apply now
+                    </a>
+                </div>
+                {% else %}
+                <div class="image-container-single" >
+                    <img src="/{{job.company_id.profile}}" alt="">
+                </div>
+               
                 {% if applied %}
                 <div class="d-flex justify-content-center flex-lg-wrap">
-                  <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary" >Applied</a>
+                  <a href="#" class="btn rounded-pill px-3 apply-button" >Applied</a>
               </div>
               
                 {% else %}
                 <div class="d-flex justify-content-center flex-lg-wrap">
-                  <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary" id="applyBtn"
+                  <a href="#" class="btn  rounded-pill px-3 apply-button" id="applyBtn"
                       data-bs-toggle="modal" data-bs-target="#exampleModal">Apply now</a>
               </div>
+              {% endif %}
               {% endif %}
             </div>
         </div>
@@ -305,15 +319,24 @@
                                 {% for x in similar_jobs %}
                                 <div class="rounded position-relative fruite-item">
                                     <div class="border border-secondary rounded-top rounded-bottom">
-
-                                        <div class="fruite-img">
+                                        {% if x.is_promoting %}
+                                        <div class="company-profile-image">
+                                            <img src="/{{x.company_profile}}"
+                                                class="img-fluid w-100 rounded-top" alt="">
+                                        </div>
+                                        {% else %}
+                                        <div class="company-profile-image">
                                             <img src="/{{x.company_id.profile}}"
                                                 class="img-fluid w-100 rounded-top" alt="">
                                         </div>
+                                        {% endif %}
                                         <div class="p-4">
                                             <h6 id="designationPlaceholder5">{{x.designation}}</h6>
-
+                                            {% if x.is_promoting %}
+                                            <p id="firstNamePlaceholder5">{{x.promoting_company_name}}</p>
+                                            {% else %}
                                             <p id="firstNamePlaceholder5">{{x.company_id.first_name}}</p>
+                                            {% endif %}
 
                                            
                                           
@@ -367,12 +390,12 @@
                 <div class="col-lg-2 col-md-6">
                     <div class="d-flex flex-column text-start footer-item">
                         <h5 class="text-light mb-3">Pages</h5>
-                        <a class="btn-link" href="/">Home</a>
-                        <a class="btn-link" href="/user_registration">Register</a>
+                        <a class="btn-link" href="/user_dashboard">Home</a>
                         
-                        <a class="btn-link" href="/internship_program">Internship Program</a>
-                        <a class="btn-link" href="/contact_us">Contact Us</a>
-                        <a class="btn-link" href="/all_jobs">Jobs</a>
+                        
+                        <a class="btn-link" href="/user_internship_program">Internship Program</a>
+                        
+                        <a class="btn-link" href="/jobs">Jobs</a>
                        
                         
                     </div>
@@ -420,96 +443,92 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form method="post" id="applicationForm"  action="{% url 'application' job_id=job.id %}" enctype="multipart/form-data">
-                    {% csrf_token %}
+                    <form method="post" id="applicationForm" action="{% url 'application' job_id=job.id %}" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email"
-                                value="{{data.email}}">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" value="{{data.email}}">
                         </div>
                         <div class="mb-3">
-                          <label for="address" class="form-label">Skills</label>
-                          <textarea class="form-control" name="skills" id="address" rows="3"
-                              placeholder="Enter your address">{{obj.skills}}</textarea>
-                      </div>
+                            <label for="address" class="form-label">Skills</label>
+                            <textarea class="form-control" name="skills" id="address" rows="3" placeholder="Enter your address">{{obj.skills}}</textarea>
+                        </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Phone Number</label>
                             <input type="text" maxlength="10" name="phone_no" class="form-control" id="phone" placeholder="Enter your phone number" value="{{data.phone_no}}">
                         </div>
                         <div class="mb-3">
-                          <label for="exp" class="form-label">Experience</label>
-                          <input type="text" name="experience" class="form-control" id="exp" placeholder="Enter your phone number" value="{{obj.experience}}">
-                      </div>
-                      
+                            <label for="exp" class="form-label">Experience</label>
+                            <input type="text" name="experience" class="form-control" id="exp" placeholder="Enter your experience" value="{{obj.experience}}">
+                        </div>
                         <div class="mb-3">
                             <label for="profile" class="form-label">Upload resume</label>
                             <input type="File" name="resume" class="form-control" id="profile" placeholder="Enter your profile">
                         </div>
-                        <button type="submit" class="btn btn-danger style="color:white">Submit</button>
+                        <button type="submit" class="btn btn-danger" style="color:white">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById('applicationForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
-
-            var form = this;
-            var formData = new FormData(form);
-
-            fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest', // Add this header for Django to detect AJAX request
-                    'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Display SweetAlert for success
-                    swal({
-                        title: "Success!",
-                        text: "Your application has been submitted successfully!",
-                        icon: "success",
-                        button: "OK",
-                    }).then(function() {
-                        // Reload the page without refreshing
-                        window.location.reload();
-                    });
-                } else {
-                    // Display SweetAlert for failure
-                    swal({
-                        title: "Error!",
-                        text: "There was an error processing your application.",
-                        icon: "error",
-                        button: "OK",
-                    }).then(function() {
-                        // Reload the page without refreshing
-                        window.location.reload();
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // Display SweetAlert for failure due to network error
-                swal({
-                    title: "Error!",
-                    text: "There was an error processing your application. Please check your network connection.",
-                    icon: "error",
-                    button: "OK",
-                });
-            });
-        });
-    </script>
-
+  
     <!-- Back to Top -->
     <a href="#" class="btn btn-danger border-3 border-primary rounded-circle back-to-top"><i
             class="fa fa-arrow-up"></i></a>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
+            <script>
+                document.getElementById('applicationForm').addEventListener('submit', function(event) {
+                    event.preventDefault(); // Prevent default form submission
+            
+                    var form = this;
+                    var formData = new FormData(form);
+            
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest', // Add this header for Django to detect AJAX request
+                            'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Display SweetAlert for success
+                            Swal.fire({
+                                title: "Success!",
+                                text: "Your application has been submitted successfully!",
+                                icon: "success",
+                                confirmButtonText: "OK"
+                            }).then(function() {
+                                // Optionally, you can redirect the user to another page after successful submission
+                                window.location.reload();
+                            });
+                        } else {
+                            // Display SweetAlert for failure
+                            Swal.fire({
+                                title: "Error!",
+                                text: "There was an error processing your application.",
+                                icon: "error",
+                                confirmButtonText: "OK"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        // Display SweetAlert for failure due to network error
+                        Swal.fire({
+                            title: "Error!",
+                            text: "There was an error processing your application. Please check your network connection.",
+                            icon: "error",
+                            confirmButtonText: "OK"
+                        });
+                    });
+                });
+            </script>
+        
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

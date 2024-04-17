@@ -1,131 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+  lang="en"
+  class="light-style customizer-hide"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="/static/company_assets"
+  data-template="vertical-menu-template-free"
+>
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Haegl InterviewEdge</title>
-    <link rel="stylesheet" href="/static/assets/vendors/mdi/css/materialdesignicons.min.css" />
-    <link rel="stylesheet" href="/static/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
-    <link rel="stylesheet" href="/static/assets/vendors/css/vendor.bundle.base.css" />
-    <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
-    <link rel="stylesheet" href="/static/assets/css/style.css" />
-    <link rel="shortcut icon" href="/images/favicon.png" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>Company Registration</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="static/company_assets/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="static/company_assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="static/company_assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="static/company_assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="static/company_assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Page CSS -->
+    <!-- Page -->
+    <link rel="stylesheet" href="static/company_assets/vendor/css/pages/page-auth.css" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    <!-- Helpers -->
+    <script src="static/company_assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="static/company_assets/js/config.js"></script>
   </head>
-  <style>
-  .success-message {
-      padding: 10px;
-      background-color: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-      border-radius: 5px;
-      margin-bottom: 15px;
-    }
 
-    .error-message {
-      padding: 10px;
-      background-color: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
-      border-radius: 5px;
-      margin-bottom: 15px;
-    }
-    </style>
-<body>
-  <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper">
-      <div class="content-wrapper d-flex align-items-center auth px-0">
-        <div class="row w-100 mx-0 justify-content-center">
-          <div class="col-md-5 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-center">
-      <img width="200px" height="90px" src="/static/new_landing/img/HAEGL_colour.png" alt=""><br>
-    </div>
-              <br>
-                <div class="d-flex justify-content-center">
-                <h4>Register Here</h4>
-
+  <body>
+    <!-- Content -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <div class="container-xxl">
+      <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="authentication-inner">
+          <!-- Register Card -->
+          <div class="card">
+            <div class="card-body">
+              <!-- Logo -->
+              <div class="app-brand justify-content-center">
+                <a href="/" class="app-brand-link gap-2">
+                 
+                 <img width="200px" height="90px" src="/static/new_landing/img/HAEGL_colour.png" alt="">
+                </a>
               </div>
-            
-                    <form class="forms-sample" method="post" enctype="multipart/form-data">
-                      {% csrf_token %}
-                            <div class="form-group">
-                              <label for="exampleInputName1">Company Name</label>
-                              <input type="text" name="company_name" class="form-control" id="exampleInputName1" placeholder="company name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputEmail3">Email address</label>
-                              <input type="email" name="email" class="form-control" id="exampleInputEmail3" placeholder="email">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputName1">Set Username</label>
-                              <input type="text" name="username" class="form-control" id="exampleInputName1" placeholder="username">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputPassword4">Password</label>
-                              <input type="password" name="password" class="form-control" id="exampleInputPassword4" placeholder="password">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputPassword4">Confirm Password</label>
-                              <input type="password" name="password1" class="form-control" id="exampleInputPassword4" placeholder="confirm password">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputName1">Contact Number</label>
-                              <input type="text" name="contact_number" class="form-control" max="10" id="exampleInputName1" placeholder="contact number">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleTextarea1">Address</label>
-                              <textarea class="form-control" name="address" id="exampleTextarea1" rows="4"></textarea>
-                            </div>
-                          
-                            <div class="form-group">
-                              <label>File upload</label>
-                              <div class="input-group col-xs-12">
-                                <input type="file" name="profile" class="form-control file-upload-info"  placeholder="Upload Image">
+              <!-- /Logo -->
+              
+              
 
-                              </div>
-                            </div>
-                        
-                              <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn mr-2" style="background-color: #fc081f; color: white;"> Register </button>
-                            </div>
-                            <br>
-                              <div class="d-flex justify-content-center">
-                            <h5>Have an account ? <a href="/login">Login</a> </h5>
-                            </div>
+              <form id="formAuthentication" enctype="multipart/form-data" class="mb-3"method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="username" class="form-label">Company Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    name="company_name"
+                    placeholder="Enter your company name"
+                    autofocus
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="username" class="form-label">Create Username</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    name="username"
+                    placeholder="Create username"
+                    autofocus
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                </div>
+                <div class="mb-3 form-password-toggle">
+                  <label class="form-label" for="password">Password</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                      type="password"
+                      id="password"
+                      class="form-control"
+                      name="password"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      aria-describedby="password"
+                    />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Contact Number</label>
+                  <input type="number" class="form-control" id="contact" name="contact_no" placeholder="Enter contact number" />
+                </div>
+                <div class="mb-3">
+                  <label for="address" class="form-label">Address</label>
+                  <textarea type="number" class="form-control" id="address" name="address" ></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="logo" class="form-label">Upload company logo</label>
+                  <input type="file" class="form-control" id="logo" name="profile" />
+                </div>
 
-                          </form>
-                         
-              </div>
+               
+                <button class="btn btn-primary d-grid w-100">Sign up</button>
+              </form>
+
+              <p class="text-center">
+                <span>Already have an account?</span>
+                <a href="/login">
+                  <span>Sign in instead</span>
+                </a>
+              </p>
             </div>
           </div>
+          <!-- Register Card -->
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- container-scroller -->
-  <script src="/static/assets/vendors/js/vendor.bundle.base.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page -->
-  <script src="/static/assets/vendors/chart.js/Chart.min.js"></script>
-  <script src="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-  <script src="/static/assets/vendors/flot/jquery.flot.js"></script>
-  <script src="/static/assets/vendors/flot/jquery.flot.resize.js"></script>
-  <script src="/static/assets/vendors/flot/jquery.flot.categories.js"></script>
-  <script src="/static/assets/vendors/flot/jquery.flot.fillbetween.js"></script>
-  <script src="/static/assets/vendors/flot/jquery.flot.stack.js"></script>
-  <script src="/static/assets/vendors/flot/jquery.flot.pie.js"></script>
-  <!-- End plugin js for this page -->
-  <!-- inject:js -->
-  <script src="/static/assets/js/off-canvas.js"></script>
-  <script src="/static/assets/js/hoverable-collapse.js"></script>
-  <script src="/static/assets/js/misc.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page -->
-  <script src="/static/assets/js/dashboard.js"></script>
-  <!-- End custom js for this page -->
-</body>
+    <!-- / Content -->
+
+   
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="static/company_assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="static/company_assets/vendor/libs/popper/popper.js"></script>
+    <script src="static/company_assets/vendor/js/bootstrap.js"></script>
+    <script src="static/company_assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="static/company_assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+    <script src="static/company_assets/js/main.js"></script>
+
+    <!-- Page JS -->
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
 </html>

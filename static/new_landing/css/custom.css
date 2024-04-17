@@ -35,7 +35,9 @@ font-style: normal;
   font-family: "League Spartan", sans-serif;
   font-optical-sizing: auto;
 font-weight: 600;
+color: #616569;
 font-style: normal;
+
 }
 .why-heading{
   font-size: 34px;
@@ -44,7 +46,7 @@ font-style: normal;
   font-weight: 600;
   font-style: normal;
   display: flex;
-  color: #747d88;;
+  color: #616569;
   justify-content: center;
   
 }
@@ -59,7 +61,7 @@ font-style: normal;
   
 }
 .subtag{
-  font-size: 26px;
+  font-size: 21px;
   font-family: "League Spartan", sans-serif;
   font-optical-sizing: auto;
   font-weight: 300;
@@ -94,6 +96,7 @@ font-style: normal;
   .int{
     margin-left: 30px;
     margin-right: 30px;
+    font-family: "League Spartan", sans-serif;
     display: flex;
     justify-content: center;
   }
@@ -103,7 +106,9 @@ font-style: normal;
   
   }
   
-  
+  .p-font{
+font-size: 18px;
+  }
   .bgc-secondary{
     background-color: #F4F6F8 !important;
   }

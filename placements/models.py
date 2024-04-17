@@ -66,6 +66,7 @@ class JobDetails(models.Model):
     is_promoting = models.BooleanField(default=False)
     company_profile = models.ImageField(upload_to='uploaded_images/',default="company logo")
     job_link =  models.CharField(max_length=700, default='job link')
+    promoting_company_name =  models.CharField(max_length=700, default='promoting company name')
 
 
 class AppliedJobs(models.Model):

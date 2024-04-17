@@ -227,7 +227,7 @@ function generateProjectDisplayDiv(projectCount, displayDivId) {
   displayDiv.innerHTML =
   '<div id="pjt' + projectCount + '">' +
   '<h6 class="last-heading" id="displayProjectName' + projectCount + '">Fees Management System</h6>' +
-  '<span class="content-text">Tools used </span> | <span class="content-text" id="displayProjectTools' + projectCount + '"> Python, django, sql, excel </span>' +
+  '<span class="content-text"></span> | <span class="content-text" id="displayProjectTools' + projectCount + '"> Python, django, sql, excel </span>' +
   '<p class="content-text" id="displayProjectDes' + projectCount + '">Developed a streamlined and efficient fees processing website. User-friendly web-based Fees management System that automated entire fee processing workflow by integrating secure payment gateway. Students can crack their fees and pay accordingly through Razor pay gateway.</p>' +
   '</div>';
 
@@ -248,10 +248,7 @@ function updateProjectName2(projectCount) {
   document.getElementById('displayProjectDes' + projectCount).innerText = descriptionInputValue;
 
   // Store the updated values in localStorage
-  localStorage.setItem('projectName' + projectCount, projectNameInputValue);
-  localStorage.setItem('toolsUsed' + projectCount, toolsUsedInputValue);
-  localStorage.setItem('link' + projectCount, linkInputValue);
-  localStorage.setItem('description' + projectCount, descriptionInputValue);
+ 
 }
 
 

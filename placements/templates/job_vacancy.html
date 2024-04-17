@@ -141,139 +141,95 @@ input[type="text"] {
                   <div class="card">
                     <div class="card-body px-0 overflow-auto">
                       <div class="search-container">
-                        <h4 class="card-title pl-4">Job Vacancies</h4>
-                        <form class=""id="searchForm" >
-                        <input type="text" name="search_query" class="form-control" id="jobSearch" placeholder="Search..."aria-label="search" aria-describedby="search" value="{{ request.GET.search_query }}">
-                        </form>
+                       
                       </div>
                       <script>
                         document.addEventListener("DOMContentLoaded", function() {
-                            // Function to handle search functionality
-                            function performSearch() {
-                                const searchInput = document.querySelector('input[name="search_query"]');
-                                const searchText = searchInput.value.toLowerCase();
-                                const tableRows = document.querySelectorAll('#dataTable tbody tr');
+    // Function to handle search functionality
+    function performSearch() {
+        const searchInput = document.querySelector('input[name="search_query"]');
+        const searchText = searchInput.value.toLowerCase();
+        const jobCards = document.querySelectorAll('.job-card');
 
-                                tableRows.forEach(row => {
-                                    const rowData = row.textContent.toLowerCase();
-                                    if (rowData.includes(searchText)) {
-                                        row.style.display = ''; // Show the row if it contains the search text
-                                    } else {
-                                        row.style.display = 'none'; // Hide the row if it doesn't match the search text
-                                    }
-                                });
-                            }
+        jobCards.forEach(card => {
+            const cardData = card.textContent.toLowerCase();
+            if (cardData.includes(searchText)) {
+                card.style.display = ''; // Show the card if it contains the search text
+            } else {
+                card.style.display = 'none'; // Hide the card if it doesn't match the search text
+            }
+        });
+    }
 
-                            // Event listener for form submission
-                            const searchForm = document.getElementById('searchForm');
-                            searchForm.addEventListener('submit', function(event) {
-                                event.preventDefault(); // Prevent form submission
-                                performSearch(); // Call the search function
-                            });
+    // Event listener for form submission
+    const searchForm = document.getElementById('searchForm');
+    searchForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        performSearch(); // Call the search function
+    });
 
-                            // Optional: Event listener for real-time search as the user types
-                            const searchInput = document.querySelector('input[name="search_query"]');
-                            searchInput.addEventListener('input', performSearch);
-                        });
+    // Optional: Event listener for real-time search as the user types
+    const searchInput = document.querySelector('input[name="search_query"]');
+    searchInput.addEventListener('input', performSearch);
+});
                     </script>
 
-                      <div class="table-responsive">
-                        <table class="table" id="dataTable" >
-                          <thead class="bg-light">
-                            <tr>
-                              <th>Designation</th>
-                              <th>Department</th>
-                              <th>Location</th>
-                              <th>Work mode</th>
-                              <th>No. of Vacancy</th>
-                              <th>Mandatory Skills</th>
-                              <th>Experience</th>
-                              <th>Qualification</th>
-                              <th>Job Type</th>
-                              <th>Status</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {% for x in data %}
-                            <tr>
-                              <td>{{x.designation}}</td>
-                              <td>{{x.department}}</td>
-                              <td>{{x.location}}, {{x.state}}</td>
-                              <td>{{x.work_mode}}</td>
-                              <td>{{x.no_of_vacancy}}</td>
+<div class="row" id="jobCards">
+  {% for x in data %}
+  <div class="col-md-11 mb-11" style="margin: 40px;">
+      <div class="card">
+          <div class="card-body">
+              <h5 class="card-title">{{ x.designation }}</h5>
+              <p class="card-text"><strong>Department:</strong> {{ x.department }}</p>
+              <p class="card-text"><strong>Location:</strong> {{ x.location }}, {{ x.state }}</p>
+              <p class="card-text"><strong>Work mode:</strong> {{ x.work_mode }}</p>
+              <p class="card-text"><strong>No. of Vacancy:</strong> {{ x.no_of_vacancy }}</p>
+              <p class="card-text"><strong>Mandatory Skills:</strong><br>{{ x.mandatory_skills }}</p>
+              <p class="card-text"><strong>Experience:</strong> {{ x.experience }}</p>
+              <p class="card-text"><strong>Qualification:</strong><br>{{ x.qualification }}</p>
+              <p class="card-text"><strong>Job Type:</strong> {{ x.job_type }}</p>
+              <p class="card-text"><strong>Is Promoting:</strong> {{ x.is_promoting }}</p>
+              {% if x.is_promoting %}
+              <p class="card-text"><strong>Company Name :</strong> {{ x.promoting_company_name }}</p>
+              <a class="card-text" href="{{x.job_link}}">{{x.job_link}}</a> <br> <br>
+              {% endif %}
+              <button class="btn btn-danger approve-btn" data-job-id="{{ x.id }}">{{ x.status }}</button>
+          </div>
+      </div>
+  </div>
+  {% endfor %}
+</div>
 
-                              <td  class="break-words">{{x.mandatory_skills}}</td>
-                              <td>{{x.experience}}</td>
-                              <td  class="break-words">{{x.qualification}}</td>
-                              <td>{{x.job_type}}</td>
-                              <td>
-                                <button class="badge badge-inverse-danger approve-btn" id="statusToggleBtn_{{ x.id }}">{{ x.status }}</button>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const statusButtons = document.querySelectorAll('.approve-btn');
 
-                              </td>
-                              <td> </td>
-                            </tr>
+      statusButtons.forEach(button => {
+          button.addEventListener('click', function() {
+              const jobId = this.dataset.jobId;
+              toggleStatus(jobId);
+          });
+      });
 
-                            <script>
-                              document.addEventListener('DOMContentLoaded', function() {
-                                 const statusButtons = document.querySelectorAll('.approve-btn');
+      function toggleStatus(jobId) {
+          fetch(`/toggle_status/${jobId}/`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': '{{ csrf_token }}',
+              },
+              body: JSON.stringify({}),
+          })
+          .then(response => response.json())
+          .then(data => {
+              const button = document.querySelector(`.approve-btn[data-job-id="${jobId}"]`);
+              button.innerText = data.newStatus;
+          })
+          .catch(error => console.error('Error:', error));
+      }
+  });
+</script>
 
-                                 statusButtons.forEach(button => {
-                                    button.addEventListener('click', function() {
-                                       const jobId = this.id.split('_')[1]; // Extract the job ID from the button ID
-                                       toggleStatus(jobId);
-                                    });
-                                 });
-
-                                 function toggleStatus(jobId) {
-                                    // Implement an AJAX request to update the status in the backend
-                                    // You can use the Fetch API or jQuery.ajax for this purpose
-                                    // Example using Fetch API:
-
-                                    fetch(`/toggle_status/${jobId}/`, {
-                                       method: 'POST', // Use 'PUT' or 'PATCH' depending on your backend API
-                                       headers: {
-                                          'Content-Type': 'application/json',
-                                          'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token for security
-                                       },
-                                       // You can include additional data in the body if needed
-                                       body: JSON.stringify({}),
-                                    })
-                                       .then(response => response.json())
-                                       .then(data => {
-                                          // Update the button text with the new status
-                                          const button = document.getElementById(`statusToggleBtn_${jobId}`);
-                                          button.innerText = data.newStatus; // Assuming your backend sends the updated status
-                                       })
-                                       .catch(error => console.error('Error:', error));
-                                 }
-                              });
-                           </script>
-
-                            <script>
-                              document.addEventListener('DOMContentLoaded', function() {
-                                const tds = document.querySelectorAll('.break-words');
-
-                                tds.forEach(td => {
-                                  const words = td.textContent.split(' ');
-                                  const maxWordsPerLine = 5; // Change this number as needed
-
-                                  if (words.length > maxWordsPerLine) {
-                                    let formattedText = '';
-                                    for (let i = 0; i < words.length; i++) {
-                                      formattedText += words[i] + ' ';
-                                      if ((i + 1) % maxWordsPerLine === 0) {
-                                        formattedText += '<br><br>';
-                                      }
-                                    }
-                                    td.innerHTML = formattedText.trim(); // Remove trailing space
-                                  }
-                                });
-                              });
-                            </script>
-                            {% endfor %}
-                          </tbody>
-                        </table>
-                      </div>
 
                     </div>
                   </div>
