@@ -9,142 +9,51 @@
     <link rel="stylesheet" href="/static/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
     <link rel="stylesheet" href="/static/assets/vendors/css/vendor.bundle.base.css" />
     <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
     <link rel="stylesheet" href="/static/assets/css/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <link rel="shortcut icon" href="/images/favicon.png" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
-
-
     <style>
-        #calendar-container .container-fluid {
+      #statusMessage {
+      display: none;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      
+     
+     
+      
+  }
+  
+      .search-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
-    flex-direction: column;
-}
-
-#calendar-container .calendar {
-    font-family: Arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    max-width: 800px;
-    height: 400px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#calendar-container .calendar th,
-#calendar-container .calendar td {
-    padding: 10px;
-    text-align: center;
-}
-
-#calendar-container .calendar th {
-    background-color: #1E88E5;
-    color: white;
-    font-weight: bold;
-    border-bottom: 2px solid #ccc;
-    text-transform: uppercase;
-}
-
-#calendar-container .calendar td {
-    cursor: pointer;
-}
-
-#calendar-container .calendar td:hover {
-    background-color: #f0f0f0;
-}
-
-#calendar-container .calendar td.current-day {
-    background-color: #ffc107;
-    color: black;
-    width: 55px;
-    height: 10px;
-    border-radius: 100%;
-}
-
-#calendar-container .calendar td.sunday {
-    color: red;
-}
-
-#calendar-container .calendar td.other-month {
-    color: #ccc;
-}
-
-#calendar-container .month-year-container {
-    margin-top: 30px;
-    text-align: center;
-}
-
-#calendar-container .month-year-container select {
-    padding: 5px;
-    font-size: 16px;
-}
-#year-select,
-#month-select {
+  }
+  
+  .card-title {
+    margin-right: 20px; /* Adjust the spacing between the title and input field */
+  }
+  
+  input[type="text"] {
     padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #fff;
-    transition: border-color 0.3s ease;
-    
-}
-
-#year-select:focus,
-#month-select:focus {
-    outline: none;
-    border-color: dodgerblue;
-}
-
-.container1 {
-    display: flex;
-}
-
-.container1 select {
-    flex: 1;
-    margin-right: 10px; /* Adjust as needed */
-}
-
-
-.custom-select:focus {
-    outline: none;
-    border-color: dodgerblue;
-}
-
-/* Responsive adjustments */
-@media only screen and (max-width: 600px) {
-    #calendar-container .calendar {
-        max-width: 90%; /* Adjust width for smaller screens */
-        height: auto; /* Allow calendar height to adjust */
-    }
-
-    #calendar-container .month-year-container {
-        margin-top: 20px; /* Adjust margin top for better spacing */
-        text-align: center; /* Center align content */
-    }
-
-    #calendar-container .month-year-container select {
-        width: 48%; /* Adjust width for select boxes */
-        margin: 5px; /* Adjust margin */
-    }
-}
-
+    border: 1px solid #ccc;
+    margin-bottom: 14px;
+  }
+  
     </style>
   </head>
+ 
   <body>
     <div class="container-scroller">
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
-          <div class="d-flex align-items-center">
-    <img style="margin-right:0;" width="70px" height="80px" src="/static/assets/images/haegl_transparent.png" alt="logo"/>
-    <h3 class="mb-0">InterviewEdge</h3>
-  </div>
+          <div style="margin-top: 50px; margin-left: 67px;">
+            <img src="/static/assets/images/HAEGL_colour.png" height="50px" width="130px" alt="">
+           </div>
           <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="index.html"><img src="/static/assets/images/logo-mini.svg" alt="logo" /></a>
         </div>
         <br> <br>
@@ -161,25 +70,25 @@
 
           <li class="nav-item">
             <a class="nav-link" href="/job_vacancy">
-              <i class="mdi mdi-contacts menu-icon"></i>
+              <i class="mdi mdi-briefcase menu-icon"></i>
               <span class="menu-title">Jobs</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/internship_list">
-              <i class="mdi mdi-contacts menu-icon"></i>
+              <i class="mdi mdi-briefcase-search menu-icon"></i>
               <span class="menu-title">Internship</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/job_applications">
-              <i class="mdi mdi-contacts menu-icon"></i>
+              <i class="mdi mdi-file-document menu-icon"></i>
               <span class="menu-title">Applications</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/company_calendar">
-              <i class="mdi mdi-contacts menu-icon"></i>
+              <i class="mdi mdi-calendar menu-icon"></i>
               <span class="menu-title">Calendar</span>
             </a>
           </li>
@@ -211,18 +120,9 @@
               <i class="mdi mdi-menu"></i>
             </button>
             <ul class="navbar-nav">
-              <li class="nav-item nav-search border-0 ml-1 ml-md-3 ml-lg-5 d-none d-md-flex">
-                <form class="nav-link form-inline mt-2 mt-md-0">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" />
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <i class="mdi mdi-magnify"></i>
-                      </span>
-                    </div>
-                  </div>
-                </form>
-              </li>
+
+
+              
             </ul>
             <ul class="navbar-nav navbar-nav-right ml-lg-auto">
 
@@ -243,343 +143,306 @@
             </button>
           </div>
         </nav>
-
-
-
-        <div class="main-panel" style="display: flex;">
-          
-            <div class="page-header">
-              
-                <div id="calendar-container" style="flex: 1; margin-left: 30px; margin-right: 30px;">
-                    <div class="container-fluid">
-                        <div class="month-year-container" id="month-year-container" style="margin: 10px;"></div>
-                        <table class="calendar" id="calendar-table">
-                            <thead id="calendar-head"></thead>
-                            <tbody id="calendar-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="availability-section" style="flex: 2; margin-left: 30px;">
-                    <h2>Set Available Timings</h2>
-                    <p>Select dates on the calendar above to set your available timings:</p>
-                    <div id="selected-dates"></div>
-
-                    <script>
-                      // Function to fetch data from the server
-                      function fetchData() {
-                          fetch('get-available-timings/')
-                              .then(response => response.json())
-                              .then(data => {
-                                  // Call function to display data
-                                  displayData(data);
-                              })
-                              .catch(error => {
-                                  console.error('Error fetching data:', error);
-                              });
-                      }
-                  
-                      // Function to display fetched data
-                      function displayData(data) {
-                          const selectedDatesDiv = document.getElementById('selected-dates');
-                  
-                          // Clear any existing content
-                          selectedDatesDiv.innerHTML = '';
-                  
-                          // Loop through the data and create li elements
-                          data.forEach(item => {
-                              const li = document.createElement('li');
-                              li.textContent = `Date: ${item.date}, Start Time: ${item.start_time}, End Time: ${item.end_time}`;
-                              selectedDatesDiv.appendChild(li);
-                          });
-                      }
-                  
-                      // Call the function to fetch data when the page loads
-                      fetchData();
-                  </script>
-                </div>
+        <div class="main-panel">
+          <div class="content-wrapper pb-0">
+            <div class="page-header flex-wrap">
+              <h3 class="mb-0"> Hi, welcome back!
+              </h3>
+             
             </div>
-        </div>
-        
-        <!-- Availability Modal -->
-        <div class="modal fade" id="availabilityModal" tabindex="-1" role="dialog" aria-labelledby="availabilityModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="availabilityModalLabel">Set Available Timings</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Form -->
-                        <form id="availableTimingsForm">
-                            <div class="form-group">
-                                <label for="selectedDate">Date:</label>
-                                <input type="date" class="form-control" id="selectedDate" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="startTime">From:</label>
-                                <select class="form-control" id="startTime">
-                                    <!-- Options will be dynamically populated using JavaScript -->
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="endTime">To:</label>
-                                <select class="form-control" id="endTime">
-                                    <!-- Options will be dynamically populated using JavaScript -->
-                                </select>
-                            </div>
+            <div class="row">
+                <div class="col-xl-12 col-sm-6 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body px-0 overflow-auto">
+                      <div class="search-container">
+                        <h4 class="card-title pl-4">Job Applications</h4>
+                        <form class=""id="searchForm" >
+                        <input type="text" name="search_query" class="form-control" id="jobSearch" placeholder="Search..."aria-label="search" aria-describedby="search" value="{{ request.GET.search_query }}">
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="saveAvailableTimings()">Set Available Timings</button>
-                    </div>
-                </div>
-            </div>
+                        
+
+                      </div>
+                      {% if success %}
+                      <div class="alert alert-success" role="alert">
+                          Application status updated successfully!
+                      </div>
+                      {% endif %}
+                      <br>
+                      <script>
+                      document.addEventListener("DOMContentLoaded", function() {
+      // Function to handle search functionality
+      function performSearch() {
+          const searchInput = document.querySelector('input[name="search_query"]');
+          const searchText = searchInput.value.trim().toLowerCase();
+          const cards = document.querySelectorAll('.j-card');
+
+          cards.forEach(card => {
+              const cardText = card.textContent.toLowerCase();
+              if (cardText.includes(searchText)) {
+                  card.style.display = ''; // Show the card if it contains the search text
+              } else {
+                  card.style.display = 'none'; // Hide the card if it doesn't match the search text
+              }
+          });
+      }
+
+      // Event listener for form submission
+      const searchForm = document.getElementById('searchForm');
+      searchForm.addEventListener('submit', function(event) {
+          event.preventDefault(); // Prevent form submission
+          performSearch(); // Call the search function
+      });
+
+      // Optional: Event listener for real-time search as the user types
+      const searchInput = document.querySelector('input[name="search_query"]');
+      searchInput.addEventListener('input', performSearch);
+  });
+                    </script>
+<div class="container">
+  <div class="row">
+    {% for x in data %}
+    <div class="col-lg-6 col-md-6 mb-4">
+      <div class="card h-100 j-card">
+        <div class="card-header j-card">
+          <h5 class="card-title j-card">{{x.user_id.username}}</h5>
         </div>
-        
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script>
-            const monthYearContainer = document.getElementById('month-year-container');
-            const calendarHead = document.getElementById('calendar-head');
-            const calendarBody = document.getElementById('calendar-body');
-            const selectedDatesContainer = document.getElementById('selected-dates');
-            let selectedDates = {};
-        
-            // Function to generate calendar
-            function generateCalendar(month, year) {
-                calendarHead.innerHTML = '';
-                calendarBody.innerHTML = '';
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-                const firstDay = new Date(year, month, 1).getDay();
-        
-                // Set the days of the week header
-                const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                const daysRow = document.createElement('tr');
-                daysOfWeek.forEach(day => {
-                    const th = document.createElement('th');
-                    th.textContent = day;
-                    daysRow.appendChild(th);
-                });
-                calendarHead.appendChild(daysRow);
-        
-                // Fill in the calendar
-                let date = 1;
-                for (let i = 0; i < 6; i++) {
-                    const row = document.createElement('tr');
-                    for (let j = 0; j < 7; j++) {
-                        const cell = document.createElement('td');
-                        if (i === 0 && j < firstDay) {
-                            // Fill empty cells before the first day of the month
-                            cell.textContent = '';
-                            cell.classList.add('other-month');
-                        } else if (date > daysInMonth) {
-                            // Break if we have reached the end of the month
-                            break;
-                        } else {
-                            // Fill cells with dates
-                            cell.textContent = date;
-                            const currentDate = new Date(year, month, date);
-                            const dateString = currentDate.toISOString().split('T')[0]; // Store the date in ISO format as data attribute
-                            if (selectedDates[dateString]) {
-                                cell.classList.add('selected');
-                            }
-                            cell.dataset.date = dateString;
-                            cell.addEventListener('click', toggleAvailability);
-                            if (j === 0) {
-                                cell.classList.add('sunday');
-                            }
-                            date++;
-                        }
-                        row.appendChild(cell);
-                    }
-                    calendarBody.appendChild(row);
-                }
-            }
-        
-            // Function to toggle availability of dates
-            function toggleAvailability(event) {
-                const clickedDate = event.target.dataset.date;
-                // Open the modal
-                $('#availabilityModal').modal('show');
-                // Set the selected date in the form
-                document.getElementById('selectedDate').value = clickedDate;
-                // Populate options for start time and end time
-                populateTimeOptions();
-            }
-        
-            // Function to populate time options
-            function populateTimeOptions() {
-                const startTimeSelect = document.getElementById('startTime');
-                const endTimeSelect = document.getElementById('endTime');
-                startTimeSelect.innerHTML = '';
-                endTimeSelect.innerHTML = '';
-                for (let hour = 8; hour <= 22; hour++) {
-                    const time12HourFormat = hour > 12 ? `${hour - 12}:00 PM` : (hour === 12 ? '12:00 PM' : `${hour}:00 AM`);
-                    const value = `${hour < 10 ? '0' + hour : hour}:00`;
-                    startTimeSelect.innerHTML += `<option value="${value}">${time12HourFormat}</option>`;
-                    endTimeSelect.innerHTML += `<option value="${value}">${time12HourFormat}</option>`;
-                }
-            }
-        
-            // Function to save available timings
-            function saveAvailableTimings() {
-    const selectedDate = document.getElementById('selectedDate').value;
-    const startTime = document.getElementById('startTime').value;
-    const endTime = document.getElementById('endTime').value;
-    const selectedTiming = `${startTime} - ${endTime}`;
+        <div class="card-body j-card">
+          <p class="card-text j-card">Qualification: {{x.qualification}}</p>
+          <p class="card-text j-card">Skills: {{x.skills}}</p>
+          <p class="card-text j-card">Designation: {{x.job_id.designation}}</p>
+          <p class="card-text j-card">Department: {{x.job_id.department}}</p>
+          <p class="card-text j-card">Experience: {{x.job_id.experience}}</p>
+          <p class="card-text j-card">Contact info: {{x.user_id.email}} / {{x.user_id.phone_no}}</p>
+          <a target="_blank" href="/{{x.resume}}"><button class="btn btn-secondary" type="button" button >View Resume</button></a>
+        </div>
+        <div class="card-footer">
+          {% if x.status == "Pending" %}
+          <form method="POST" action="{% url 'update_application_status' %}" id="applicationForm">
+              {% csrf_token %}
+              <input type="hidden" name="application_id" value="{{ x.id }}">
+              <button class="btn btn-danger" type="submit" name="button" value="Select" id="selectButton">Select</button>
+          </form>
+          {% else %}
+          <div style="display: flex;">
+              <div style="flex: 1;">
+                  <button class="btn btn-success" type="button" name="button" value="Select" id="selectButton" disabled>Selected</button>
+              </div>
+              <div style="flex: 1;">
+                {% if not x.interview_scheduled %}
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" onclick="setDesignation('{{ x.job_id.designation }}', '{{ x.id }}', '{{ x.user_id_id }}')">
+                        Schedule
+                    </button>
+                {% else %}
+                    <button class="btn btn-success" type="button" disabled>Interview Scheduled</button>
+                {% endif %}
+            </div>
+          </div>
+      {% endif %}
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-    // Get CSRF token from cookie
-    const csrftoken = getCookie('csrftoken');
-
-    // Make AJAX POST request to Django endpoint
-    $.ajax({
-        url: '/save-available-timings/',
-        type: 'POST',
-        data: {
-            selectedDate: selectedDate,
-            startTime: startTime,
-            endTime: endTime
-        },
-        beforeSend: function(xhr, settings) {
-            // Set CSRF token in request headers
-            xhr.setRequestHeader('X-CSRFToken', csrftoken);
-        },
-        success: function(response) {
-            console.log('Data saved successfully:', response);
-            // Handle success response as needed
-        },
-        error: function(xhr, status, error) {
-            console.error('Error saving data:', error);
-            // Handle error response as needed
-        }
-    });
-}
-
-// Function to get CSRF token from cookie
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Check if cookie name matches csrfmiddlewaretoken
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-
-function updateSelectedDatesDisplay() {
-    // Assuming selectedDatesContainer is a global variable
-    const selectedDatesContainer = document.getElementById('selected-dates');
+      <script>
+        // Function to handle form submission via JavaScript
+        function submitForm(buttonValue) {
+            const form = document.getElementById('applicationForm');
+            const formData = new FormData(form);
     
-    // Clear the existing content of the container
-    selectedDatesContainer.innerHTML = '';
-
-    // Create a new unordered list element
-    const ul = document.createElement('ul');
-
-    // Fetch all available timings using AJAX
-    $.ajax({
-        url: '/get-available-timings/',
-        type: 'GET',
-        success: function(response) {
-
-            // Loop through the response data and create list items
-            response.forEach(timing => {
-                const li = document.createElement('li');
-                const date = timing.date; // Assuming 'date' is part of the response
-                li.textContent = `${new Date(date).toDateString()} - ${timing.start_time} - ${timing.end_time}`;
-                ul.appendChild(li);
-            });
-            // Append the unordered list to the selectedDatesContainer
-            selectedDatesContainer.appendChild(ul);
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching available timings:', error);
-            // Display an error message if fetching fails
-            selectedDatesContainer.textContent = 'Error fetching available timings.';
-        }
-    });
-}
-
-
-        
-            // Function to populate month and year select options
-            function populateMonthYearSelect() {
-                const currentDate = new Date();
-                const currentMonth = currentDate.getMonth();
-                const currentYear = currentDate.getFullYear();
-
-                const container1 = document.createElement('div');
-                container1.classList.add('container1');
-                // Create month select
-                const monthSelect = document.createElement('select');
-                monthSelect.id = 'month-select';
-                
-                const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-                months.forEach((month, index) => {
-                    const option = document.createElement('option');
-                    option.value = index;
-                    option.textContent = month;
-                    monthSelect.appendChild(option);
-                });
-                monthSelect.value = currentMonth; // Select current month by default
-        
-                // Create year select
-                const yearSelect = document.createElement('select');
-                yearSelect.id = 'year-select';
-
-                container1.appendChild(monthSelect);
-                container1.appendChild(yearSelect);
-                document.body.appendChild(container1);
-                for (let year = currentYear - 5; year <= currentYear + 50; year++) {
-                    const option = document.createElement('option');
-                    option.value = year;
-                    option.textContent = year;
-                    yearSelect.appendChild(option);
+            // Add the clicked button's value to the form data
+            formData.append('button', buttonValue);
+    
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest', // Add this header for Django to detect AJAX request
+                    'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
                 }
-                yearSelect.value = currentYear; // Select current year by default
-        
-                // Add event listener to update calendar when month or year is changed
-                monthSelect.addEventListener('change', updateCalendar);
-                yearSelect.addEventListener('change', updateCalendar);
-        
-                // Add elements to container
-                monthYearContainer.appendChild(document.createElement('br')); // Add line break for better spacing
-                monthYearContainer.appendChild(monthSelect);
-                monthYearContainer.appendChild(yearSelect);
-            }
-        
-            // Function to update calendar when month or year is changed
-            function updateCalendar() {
-                const selectedMonth = parseInt(document.getElementById('month-select').value);
-                const selectedYear = parseInt(document.getElementById('year-select').value);
-                generateCalendar(selectedMonth, selectedYear);
-            }
-        
-            // Initial call to populate month and year select options and generate calendar for the current month and year
-            populateMonthYearSelect();
-            const currentDate = new Date();
-            generateCalendar(currentDate.getMonth(), currentDate.getFullYear());
-        </script>
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display SweetAlert
+                if (data.status === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Application Updated!',
+                        text: data.message,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        // Reload the page after clicking "OK" in the SweetAlert
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: data.message,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                }
+    
+                // Update button text and disable it if status is success
+                if (data.status === 'success') {
+                    const selectButton = document.getElementById('selectButton');
+                    selectButton.textContent = 'Selected';
+                    selectButton.disabled = true;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    
+        // Event listener for form submission
+        document.getElementById('applicationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            submitForm('Select'); // Call the submitForm function with the button value
+        });
+    </script>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    <script>
+    function setDesignation(designation, applicationId, userId) {
+    // Your existing code to set the designation
+    console.log("user idddddddddddd",userId)
+    document.getElementById('designation').value = designation;
+
+    // Store applicationId and companyId in hidden inputs
+    document.getElementById('applicationId').value = applicationId;
+    document.getElementById('UserId').value = userId;
+}
+    </script>
+  </div>
+</div>
+
+
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+          </div>
+          <!-- updating status -->
+          
+        </div>
         <!-- main-panel ends -->
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+   <!-- schedule modal -->
+   
+   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Schedule Interview</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form id="scheduleForm" method="post" action="{% url 'schedule_interview' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="designation">Designation:</label>
+                <input type="text" name="designation" class="form-control" id="designation" placeholder="Enter designation">
+            </div>
+            <input type="hidden" id="applicationId" name="application_id">
+            <input type="hidden" id="UserId" name="user_id">
+
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" class="form-control" name="date" id="date">
+            </div>
+            <div id="availableTimings"></div>
+            <div class="form-group">
+                <label for="start_time">Start Time:</label>
+                <input type="time" class="form-control" name="start_time" id="start_time">
+            </div>
+            <div class="form-group">
+                <label for="end_time">End Time:</label>
+                <input type="time" class="form-control" name="end_time" id="end_time">
+            </div>
+            <div class="form-group">
+              <label>Mode of Interview:</label><br>
+              <div class="form-row">
+                  <div class="col-auto">
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="mode_of_interview" id="walkIn" name="mode_of_interview" value="Walk in">
+                          <label class="form-check-label" for="walkIn">Walk in</label>
+                      </div>
+                  </div>
+                  <div class="col-auto">
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" name="mode_of_interview" type="radio" name="mode_of_interview" id="online" value="Online">
+                          <label class="form-check-label" for="online">Online</label>
+                      </div>
+                  </div>
+              </div>
+          </div>
+            <button type="button" class="btn btn-success" id="submitSchedule">Submit</button>
+        </form>
+        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- form submission -->
+  <script>
+    document.getElementById("submitSchedule").addEventListener("click", function () {
+        // Get form data
+        const formData = new FormData(document.getElementById("scheduleForm"));
+        
+        // Fetch URL
+        fetch("{% url 'schedule_interview' %}", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                // Display success message
+                alert("Interview scheduled successfully!");
+                window.location.reload();
+                // You can customize the alert using SweetAlert or other libraries
+                // For SweetAlert:
+                // swal("Success!", "Interview scheduled successfully!", "success");
+            } else {
+                // Handle error
+                alert("Failed to schedule interview. Please try again.");
+                window.location.reload();
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred while scheduling the interview. Please try again later.");
+        });
+    });
+</script>
+
+
+
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="/static/assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="/static/assets/vendors/chart.js/Chart.min.js"></script>
     <script src="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <script src="/static/assets/vendors/flot/jquery.flot.js"></script>
@@ -588,7 +451,6 @@ function updateSelectedDatesDisplay() {
     <script src="/static/assets/vendors/flot/jquery.flot.fillbetween.js"></script>
     <script src="/static/assets/vendors/flot/jquery.flot.stack.js"></script>
     <script src="/static/assets/vendors/flot/jquery.flot.pie.js"></script>
-    
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="/static/assets/js/off-canvas.js"></script>

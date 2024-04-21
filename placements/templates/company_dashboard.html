@@ -9,6 +9,7 @@
 * License: You must have a valid license purchased in order to legally use the theme for your project.
 * Copyright ThemeSelection (https://themeselection.com)
 
+
 =========================================================
  -->
 <!-- beautify ignore:start -->
@@ -63,6 +64,178 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/static/company_assets/js/config.js"></script>
+    <style>
+       #calendar-container .container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    flex-direction: column;
+}
+
+.dot {
+                height: 8px;
+                width: 8px;
+                background-color: black;
+                border-radius: 50%;
+                display: inline-block;
+                margin-left: 2px; /* Adjust as needed */
+            }
+            .present-day {
+            background-color: #ffc107;
+            width: 9px;
+            height: 7px;
+            border-radius: 50%;
+            }
+
+#calendar-container .calendar {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    height: 400px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#calendar-container .calendar th,
+#calendar-container .calendar td {
+    margin: 50px;
+    padding: 10px;
+    text-align: center;
+}
+
+#calendar-container .calendar th {
+    background-color: #1E88E5;
+    color: white;
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
+    text-transform: uppercase;
+}
+
+#calendar-container .calendar td {
+    cursor: pointer;
+    height: 70px;
+}
+
+.scheduled {
+    background-color: #f6ebca; /* Example color for scheduled dates */
+    /* Add any other styles you want for scheduled dates */
+}
+
+#calendar-container .calendar td:hover {
+    background-color: #f0f0f0;
+}
+
+#calendar-container .calendar td.current-day {
+    background-color: #ffc107;
+    color: black;
+    width: 55px;
+    height: 10px;
+    border-radius: 100%;
+}
+
+#calendar-container .calendar td.sunday {
+    color: red;
+}
+
+#calendar-container .calendar td.other-month {
+    color: #ccc;
+}
+
+#calendar-container .month-year-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+#calendar-container .month-year-container select {
+    padding: 5px;
+    font-size: 16px;
+}
+#year-select,
+#month-select {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    
+}
+
+#year-select:focus,
+#month-select:focus {
+    outline: none;
+    border-color: dodgerblue;
+}
+
+.container1 {
+    display: flex;
+}
+
+.container1 select {
+    flex: 1;
+    margin-right: 10px; /* Adjust as needed */
+}
+
+
+.custom-select:focus {
+    outline: none;
+    border-color: dodgerblue;
+}
+/* CSS for making the page responsive */
+.availability-item {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            /* Add left padding */
+            padding-left: 30px;
+            margin-right: 50px;
+        }
+
+        /* Style for the date */
+        .date {
+            font-weight: 12px;
+            color: #343a40;
+            margin-bottom: 5px;
+            line-height: 35px;
+            
+        }
+
+        /* Style for start and end times */
+        .time {
+          
+            color: #6c757d;
+            display: block;
+        }
+/* Adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+  /* Navbar adjustments */
+  .navbar-brand.brand-logo-mini {
+    display: none; /* Hide mini logo on smaller screens */
+  }
+  
+  /* Adjust margin for calendar and availability sections */
+  #calendar-container,
+  #availability-section {
+    margin: 10px; /* Adjust margin for smaller screens */
+  }
+}
+
+/* Adjustments for extra small screens */
+@media screen and (max-width: 576px) {
+  /* Adjust margin for calendar and availability sections */
+  #calendar-container,
+  #availability-section {
+    margin: 5px; /* Further adjust margin for extra small screens */
+  }
+}
+
+    </style>
   </head>
 
   <body>
@@ -124,7 +297,16 @@
                 <div data-i18n="Support">Applications</div>
               </a>
             </li>
-           
+            <li class="menu-item">
+              <a
+                href="/company_calendar"
+               
+                class="menu-link"
+              >
+              <i class="menu-icon tf-icons bx bx-briefcase"></i>
+                <div data-i18n="Support">Calendar</div>
+              </a>
+            </li>
           </ul>
         </aside>
         <!-- / Menu -->
@@ -190,22 +372,15 @@
                       <div class="col-sm-7">
                         <div class="card-body">
                           <h5 class="card-title text-primary">Welcome back! </h5>
-                          <p class="mb-4">
-                            You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
-                            your profile.
-                          </p>
+                         
 
-                          <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
+                         
                         </div>
                       </div>
                      
                     </div>
                   </div>
                 </div>
-              
-                <!-- Total Revenue -->
-               
-                <!--/ Total Revenue -->
             
               </div>
             
@@ -218,12 +393,12 @@
         </div>
         <!-- / Layout page -->
       </div>
-
-      <!-- Overlay -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-    <!-- / Layout wrapper -->
-
  
 
     <!-- Core JS -->

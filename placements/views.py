@@ -579,6 +579,21 @@ def admin_logout(request):
     # Redirect to a specific page after logout (optional)
     return redirect('/admin_login')
 
+def approve_user(request):
+    if request.method == 'POST':
+        print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+        user_id = request.POST.get('user_id')
+        try:
+            user = NewUser.objects.get(id=user_id)
+            # Update status to True (approved)
+            user.status = True
+            user.save()
+            return JsonResponse({'status': 'success'})
+        except NewUser.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'User does not exist'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
 def company_logout(request):
     logout(request)
     # Redirect to a specific page after logout (optional)
@@ -718,17 +733,22 @@ def company_dashboard(request):
 def job_vacancy(request):
     if request.user.user_type != 'Company':
         return HttpResponseForbidden()
+    
     success_message = request.GET.get('success_message')
     i = request.user.id
-    first_name = request.user.first_name
     obj = NewUser.objects.get(id=i)
     today_date = date.today()
     search_query = request.GET.get('search_query', '')
+    designation_filter = request.GET.get('designation', '') 
+    print("kkkkkkkkkkkkkkkk",designation_filter) 
 
-    data = JobDetails.objects.filter(company_id_id=i,J_type='job')
+    # Fetch distinct designations from JobDetails
+    designations = JobDetails.objects.filter(company_id_id=i, J_type='job').values_list('designation', flat=True).distinct()
+
+    data = JobDetails.objects.filter(company_id_id=i, J_type='job')
 
     if search_query:
-        # Perform case-insensitive search for string fields
+        # Perform search query filtering
         data = data.filter(
             Q(designation__icontains=search_query) |
             Q(department__icontains=search_query) |
@@ -736,18 +756,25 @@ def job_vacancy(request):
             Q(mandatory_skills__icontains=search_query) |
             Q(optional_skills__icontains=search_query) |
             Q(qualification__icontains=search_query) |
-            Q(no_of_vacancy__icontains=search_query)
-        )
-
-        # Handle case-insensitive search for numeric fields by converting them to strings
-        data = data.filter(
+            Q(no_of_vacancy__icontains=search_query) |
             Q(experience__icontains=str(search_query)) |
             Q(salary__icontains=str(search_query))
         )
+    
+    if designation_filter and designation_filter != 'All':
+        # Filter jobs based on selected designation
+        data = data.filter(designation__icontains=designation_filter)
 
-    context = {'obj':obj,'today_date':today_date,'data':data,'success_message':success_message,'first_name':first_name}
+    context = {
+        'obj': obj,
+        'today_date': today_date,
+        'data': data,
+        'success_message': success_message,
+        'first_name': request.user.first_name,
+        'designations': ['All'] + list(designations)  # Add 'All' option to designations list
+    }
 
-    return render(request,'job_vacancy.html',context)
+    return render(request, 'job_vacancy.html', context)
 
 @login_required
 def internship_list(request):
@@ -755,15 +782,19 @@ def internship_list(request):
         return HttpResponseForbidden()
     success_message = request.GET.get('success_message')
     i = request.user.id
-    first_name = request.user.first_name
     obj = NewUser.objects.get(id=i)
     today_date = date.today()
     search_query = request.GET.get('search_query', '')
+    designation_filter = request.GET.get('designation', '') 
+    print("kkkkkkkkkkkkkkkk",designation_filter) 
 
-    data = JobDetails.objects.filter(company_id_id=i,J_type='internship')
+    # Fetch distinct designations from JobDetails
+    designations = JobDetails.objects.filter(company_id_id=i, J_type='internship').values_list('designation', flat=True).distinct()
+
+    data = JobDetails.objects.filter(company_id_id=i, J_type='internship')
 
     if search_query:
-        # Perform case-insensitive search for string fields
+        # Perform search query filtering
         data = data.filter(
             Q(designation__icontains=search_query) |
             Q(department__icontains=search_query) |
@@ -771,21 +802,29 @@ def internship_list(request):
             Q(mandatory_skills__icontains=search_query) |
             Q(optional_skills__icontains=search_query) |
             Q(qualification__icontains=search_query) |
-            Q(no_of_vacancy__icontains=search_query)
-        )
-
-        # Handle case-insensitive search for numeric fields by converting them to strings
-        data = data.filter(
+            Q(no_of_vacancy__icontains=search_query) |
             Q(experience__icontains=str(search_query)) |
             Q(salary__icontains=str(search_query))
         )
+    
+    if designation_filter and designation_filter != 'All':
+        # Filter jobs based on selected designation
+        data = data.filter(designation__icontains=designation_filter)
 
-    context = {'obj':obj,'today_date':today_date,'data':data,'success_message':success_message,'first_name':first_name}
+    context = {
+        'obj': obj,
+        'today_date': today_date,
+        'data': data,
+        'success_message': success_message,
+        'first_name': request.user.first_name,
+        'designations': ['All'] + list(designations)  # Add 'All' option to designations list
+    }
 
     return render(request,'internship_list.html',context)
 
 
 def toggle_status(request, job_id):
+    print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
     # Implement logic to toggle the status for the job with the given ID
     job = JobDetails.objects.get(id=job_id)
     job.status = 'closed' if job.status == 'open' else 'open'
@@ -794,6 +833,16 @@ def toggle_status(request, job_id):
     # Return the new status as JSON
     return JsonResponse({'newStatus': job.status})
 
+def delete_job(request, job_id):
+    if request.method == 'DELETE':
+        try:
+            job = JobDetails.objects.get(id=job_id)
+            job.delete()
+            return JsonResponse({'message': 'Job deleted successfully'}, status=200)
+        except Job.DoesNotExist:
+            return JsonResponse({'error': 'Job does not exist'}, status=404)
+    else:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 def add_job(request):
     i = request.user.id
@@ -813,6 +862,7 @@ def add_job(request):
         qualification = request.POST.get('qualification')
         salary = request.POST.get('package')
         status = request.POST.get('status')
+        job_type = request.POST.get('job_type')
         description = request.POST.get('job_description')
         state = request.POST.get('state')
         type = request.POST.get('type')
@@ -827,7 +877,7 @@ def add_job(request):
         no_of_vacancy=no_of_vacancy,mandatory_skills=mandatory_skills,optional_skills=optional_skills,
         qualification=qualification,experience=experience,
         salary=salary,job_description=description,J_type=type,
-        is_promoting=is_promoting,job_link=job_link,company_profile=company_profile,promoting_company_name=company_name)
+        is_promoting=is_promoting,job_link=job_link,company_profile=company_profile,promoting_company_name=company_name,job_type=job_type)
 
         print(obj)
         return redirect(reverse('job_vacancy') + '?success_message=1')
@@ -1924,6 +1974,8 @@ def application(request, job_id):
     return JsonResponse({'success': False})
 
 def new_c_db(request):
+   
+    
     return render(request,'new_c_db.html')
 
 def reg(request):
@@ -2072,42 +2124,33 @@ def saved_jobs(request):
     ,'department_open_counts':department_open_counts,'all_saved_jobs':all_saved_jobs,'combined_counts':combined_counts}
     return render(request,'saved_jobs.html',context)
 
-@login_required
 def job_applications(request):
     if request.user.user_type != 'Company':
         return HttpResponseForbidden()
-    today = date.today()
+    
     success = request.GET.get('success', False)
     i = request.user.id
     first_name = request.user.first_name
     obj = NewUser.objects.get(id=i)
     today_date = date.today()
-    search_query = request.GET.get('search_query', '')
 
-    data = AppliedJobs.objects.select_related('job_id', 'user_id').filter(job_id__company_id=i)
+    # Fetch all distinct designations associated with job applications
+    designations = AppliedJobs.objects.select_related('job_id').filter(job_id__company_id=i).values_list('job_id__designation', flat=True).distinct()
 
-    if search_query:
-        # Perform case-insensitive search for string fields
-        data = data.filter(
-            Q(job_id__designation__icontains=search_query) |
-            Q(job_id__department__icontains=search_query) |
-            Q(job_id__location__icontains=search_query) |
-            Q(job_id__mandatory_skills__icontains=search_query) |
-            Q(job_id__optional_skills__icontains=search_query) |
-            Q(qualification__icontains=search_query) |
-            Q(job_id__no_of_vacancy__icontains=search_query)
-        )
+    # Get the selected designation filter from the GET request
+    designation_filter = request.GET.get('designation', 'All')
 
-        # Handle case-insensitive search for numeric fields by converting them to strings
-        data = data.filter(
-            Q(job_id__experience__icontains=str(search_query)) |
-            Q(job_id__salary__icontains=str(search_query))
-        )
+    # Filter job applications based on the selected designation
+    if designation_filter != 'All':
+        data = AppliedJobs.objects.select_related('job_id', 'user_id').filter(job_id__company_id=i, job_id__designation=designation_filter)
+    else:
+        data = AppliedJobs.objects.select_related('job_id', 'user_id').filter(job_id__company_id=i)
+
+    # Check if interview is scheduled for each application
     for item in data:
-        # Check if interview is scheduled for each application
         item.interview_scheduled = ScheduleInterview.objects.filter(application_id=item.id).exists()
 
-    context = {'obj': obj, 'today': today, 'data': data, 'first_name': first_name, 'success': success}
+    context = {'obj': obj, 'data': data, 'first_name': first_name, 'success': success, 'designations': ['All'] + list(designations)}
 
     return render(request, 'job_applications.html', context)
 

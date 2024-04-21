@@ -1,464 +1,509 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
     <title>Haegl InterviewEdge</title>
-    <link rel="stylesheet" href="/static/assets/vendors/mdi/css/materialdesignicons.min.css" />
-    <link rel="stylesheet" href="/static/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
-    <link rel="stylesheet" href="/static/assets/vendors/css/vendor.bundle.base.css" />
-    <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.min.css" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
-    <link rel="stylesheet" href="/static/assets/css/style.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
-    <link rel="shortcut icon" href="/images/favicon.png" />
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="/static/company_assets/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="/static/company_assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/static/company_assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/static/company_assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="/static/company_assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <link rel="stylesheet" href="/static/company_assets/vendor/libs/apex-charts/apex-charts.css" />
+    
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="/static/company_assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="/static/company_assets/js/config.js"></script>
     <style>
-      #statusMessage {
-      display: none;
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 5px;
-      
-     
-     
-      
-  }
-  
-      .search-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .card-title {
-    margin-right: 20px; /* Adjust the spacing between the title and input field */
-  }
-  
-  input[type="text"] {
-    padding: 8px;
-    border-radius: 4px;
+      .job-filter-form {
+    margin-bottom: 20px;
+}
+
+/* Styles for the filter label */
+.filter-label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Styles for the filter select dropdown */
+.filter-select {
+    padding: 5px;
+    border-radius: 5px;
     border: 1px solid #ccc;
-    margin-bottom: 14px;
-  }
-  
+    margin-right: 10px;
+}
+
+
     </style>
   </head>
- 
+
   <body>
-    <div class="container-scroller">
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
-          <div style="margin-top: 50px; margin-left: 67px;">
-            <img src="/static/assets/images/HAEGL_colour.png" height="50px" width="130px" alt="">
-           </div>
-          <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="index.html"><img src="/static/assets/images/logo-mini.svg" alt="logo" /></a>
-        </div>
-        <br> <br>
-        <ul class="nav">
-          <li class="nav-item nav-profile">
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
 
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/company_dashboard">
-              <i class="mdi mdi-home menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          <div class="app-brand demo">
+            <a href="/company_dashboard" style="display: flex; margin-left: 20px; justify-content: center;">
+                 
+              <img width="160px" height="70px" src="/static/new_landing/img/HAEGL_colour.png" alt="">
+             </a>
 
-          <li class="nav-item">
-            <a class="nav-link" href="/job_vacancy">
-              <i class="mdi mdi-briefcase menu-icon"></i>
-              <span class="menu-title">Jobs</span>
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+              <i class="bx bx-chevron-left bx-sm align-middle"></i>
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/internship_list">
-              <i class="mdi mdi-briefcase-search menu-icon"></i>
-              <span class="menu-title">Internship</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/job_applications">
-              <i class="mdi mdi-file-document menu-icon"></i>
-              <span class="menu-title">Applications</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/company_calendar">
-              <i class="mdi mdi-calendar menu-icon"></i>
-              <span class="menu-title">Calendar</span>
-            </a>
-          </li>
-
-
-
-        </ul>
-      </nav>
-      <div class="container-fluid page-body-wrapper">
-        <div id="theme-settings" class="settings-panel">
-          <i class="settings-close mdi mdi-close"></i>
-          <p class="settings-heading">SIDEBAR SKINS</p>
-          <div class="sidebar-bg-options selected" id="sidebar-default-theme">
-            <div class="img-ss rounded-circle bg-light border mr-3"></div> Default
           </div>
-          <div class="sidebar-bg-options" id="sidebar-dark-theme">
-            <div class="img-ss rounded-circle bg-dark border mr-3"></div> Dark
-          </div>
-          <p class="settings-heading mt-2">HEADER SKINS</p>
-          <div class="color-tiles mx-0 px-4">
-            <div class="tiles light"></div>
-            <div class="tiles dark"></div>
-          </div>
-        </div>
-        <nav class="navbar col-lg-12 col-12 p-lg-0 fixed-top d-flex flex-row">
-          <div class="navbar-menu-wrapper d-flex align-items-stretch justify-content-between">
-            <a class="navbar-brand brand-logo-mini align-self-center d-lg-none" href="index.html"><img src="/static/assets/images/logo-mini.svg" alt="logo" /></a>
-            <button class="navbar-toggler navbar-toggler align-self-center mr-2" type="button" data-toggle="minimize">
-              <i class="mdi mdi-menu"></i>
-            </button>
-            <ul class="navbar-nav">
 
+          <div class="menu-inner-shadow"></div>
 
-              
-            </ul>
-            <ul class="navbar-nav navbar-nav-right ml-lg-auto">
+          <ul class="menu-inner py-1">
+            <!-- Dashboard -->
+            <li class="menu-item ">
+              <a href="/company_dashboard" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Dashboard</div>
+              </a>
+            </li>
+           
+            <li class="menu-item ">
+              <a
+                href="/job_vacancy"
+               
+                class="menu-link"
+              >
+              <i class="menu-icon tf-icons bx bx-briefcase"></i>
+                <div data-i18n="Support">Jobs</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a
+                href="/internship_list"
+               
+                class="menu-link"
+              >
+              <i class="menu-icon tf-icons bx bx-briefcase"></i>
+                <div data-i18n="Support">Internships</div>
+              </a>
+            </li>
+            <li class="menu-item active">
+              <a
+                href="/job_applications"
+               
+                class="menu-link"
+              >
+              <i class="menu-icon tf-icons bx bx-file"></i>
+                <div data-i18n="Support">Applications</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a
+                href="/company_calendar"
+               
+                class="menu-link"
+              >
+              <i class="menu-icon tf-icons bx bx-briefcase"></i>
+                <div data-i18n="Support">Calendar</div>
+              </a>
+            </li>
+           
+          </ul>
+        </aside>
+        <!-- / Menu -->
 
-              <li class="nav-item nav-profile dropdown border-0">
-                <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
-                  <img class="nav-profile-img mr-2" alt="" src="/static/assets/images/user.png" />
-                  <span class="profile-name">{{first_name}}</span>
-                </a>
-                <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
 
-                  <a class="dropdown-item" href="/company_logout">
-                    <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
-                </div>
-              </li>
-            </ul>
-            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-              <span class="mdi mdi-menu"></span>
-            </button>
-          </div>
-        </nav>
-        <div class="main-panel">
-          <div class="content-wrapper pb-0">
-            <div class="page-header flex-wrap">
-              <h3 class="mb-0"> Hi, welcome back!
-              </h3>
-             
+          <nav
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            id="layout-navbar"
+          >
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm"></i>
+              </a>
             </div>
-            <div class="row">
-                <div class="col-xl-12 col-sm-6 grid-margin stretch-card">
-                  <div class="card">
-                    <div class="card-body px-0 overflow-auto">
-                      <div class="search-container">
-                        <h4 class="card-title pl-4">Job Applications</h4>
-                        <form class=""id="searchForm" >
-                        <input type="text" name="search_query" class="form-control" id="jobSearch" placeholder="Search..."aria-label="search" aria-describedby="search" value="{{ request.GET.search_query }}">
-                        </form>
-                        
 
-                      </div>
-                      {% if success %}
-                      <div class="alert alert-success" role="alert">
-                          Application status updated successfully!
-                      </div>
-                      {% endif %}
-                      <br>
-                      <script>
-                      document.addEventListener("DOMContentLoaded", function() {
-      // Function to handle search functionality
-      function performSearch() {
-          const searchInput = document.querySelector('input[name="search_query"]');
-          const searchText = searchInput.value.trim().toLowerCase();
-          const cards = document.querySelectorAll('.j-card');
-
-          cards.forEach(card => {
-              const cardText = card.textContent.toLowerCase();
-              if (cardText.includes(searchText)) {
-                  card.style.display = ''; // Show the card if it contains the search text
-              } else {
-                  card.style.display = 'none'; // Hide the card if it doesn't match the search text
-              }
-          });
-      }
-
-      // Event listener for form submission
-      const searchForm = document.getElementById('searchForm');
-      searchForm.addEventListener('submit', function(event) {
-          event.preventDefault(); // Prevent form submission
-          performSearch(); // Call the search function
-      });
-
-      // Optional: Event listener for real-time search as the user types
-      const searchInput = document.querySelector('input[name="search_query"]');
-      searchInput.addEventListener('input', performSearch);
-  });
-                    </script>
-<div class="container">
-  <div class="row">
-    {% for x in data %}
-    <div class="col-lg-6 col-md-6 mb-4">
-      <div class="card h-100 j-card">
-        <div class="card-header j-card">
-          <h5 class="card-title j-card">{{x.user_id.username}}</h5>
-        </div>
-        <div class="card-body j-card">
-          <p class="card-text j-card">Qualification: {{x.qualification}}</p>
-          <p class="card-text j-card">Skills: {{x.skills}}</p>
-          <p class="card-text j-card">Designation: {{x.job_id.designation}}</p>
-          <p class="card-text j-card">Department: {{x.job_id.department}}</p>
-          <p class="card-text j-card">Experience: {{x.job_id.experience}}</p>
-          <p class="card-text j-card">Contact info: {{x.user_id.email}} / {{x.user_id.phone_no}}</p>
-          <a target="_blank" href="/{{x.resume}}"><button class="btn btn-secondary" type="button" button >View Resume</button></a>
-        </div>
-        <div class="card-footer">
-          {% if x.status == "Pending" %}
-          <form method="POST" action="{% url 'update_application_status' %}" id="applicationForm">
-              {% csrf_token %}
-              <input type="hidden" name="application_id" value="{{ x.id }}">
-              <button class="btn btn-danger" type="submit" name="button" value="Select" id="selectButton">Select</button>
-          </form>
-          {% else %}
-          <div style="display: flex;">
-              <div style="flex: 1;">
-                  <button class="btn btn-success" type="button" name="button" value="Select" id="selectButton" disabled>Selected</button>
+            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+              <!-- Search -->
+              <div class="navbar-nav align-items-center">
+                  <div class="nav-item d-flex align-items-center">
+                      <i class="bx bx-search fs-4 lh-0"></i>
+                      <input
+                          type="text"
+                          class="form-control border-0 shadow-none"
+                          placeholder="Search..."
+                          aria-label="Search..."
+                      />
+                  </div>
               </div>
-              <div style="flex: 1;">
-                {% if not x.interview_scheduled %}
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" onclick="setDesignation('{{ x.job_id.designation }}', '{{ x.id }}', '{{ x.user_id_id }}')">
+              <!-- /Search -->
+          
+              <ul class="navbar-nav flex-row align-items-center ms-auto">
+                  <!-- User -->
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="bx bx-user"></i>
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                         
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="/company_logout">Logout</a></li>
+                      </ul>
+                  </li>
+                  <!--/ User -->
+              </ul>
+          </div>
+          </nav>
+
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div style="display: flex; justify-content: space-between;">
+              
+            <div>
+              <form method="GET" action="{% url 'job_applications' %}" class="job-filter-form">
+                <label for="designation" class="filter-label">Filter by Designation:</label>
+                <select name="designation" id="ap_designation" class="filter-select">
+                    <option value="All">All</option>
+                    {% for designation in designations %}
+                        <option value="{{ designation }}">{{ designation }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
+          </div>
+        
+            </div>
+              <br>
+              <div class="row">
+                
+               <div class="row mb-5">
+                {% for x in data %}
+    <div class="col-md-6 mb-3">
+        <div class="card">
+          
+            <div class="card-body">
+                <h5 class="card-title">{{x.user_id.username}}</h5>
+                <p class="card-text">
+                  Qualification : {{x.qualification}}
+                </p>
+                <p class="card-text">
+                  Skills: {{x.skills}}
+                </p>
+                <p class="card-text">
+                  Designation: {{x.job_id.designation}}
+                </p>
+                <p class="card-text">
+                  Department: {{x.job_id.department}}
+                </p>
+                <p class="card-text">
+                  Experience: {{x.job_id.experience}}
+                </p>
+                <p class="card-text">
+                  Contact info: {{x.user_id.email}} / {{x.user_id.phone_no}}
+                </p>
+                <a target="_blank" href="/{{x.resume}}" class="btn btn-primary">View Resume</a> 
+                <hr>
+                {% if x.status == "Pending" %}
+                <form method="POST" action="{% url 'update_application_status' %}" id="applicationForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="application_id" value="{{ x.id }}">
+                    <button class="btn btn-danger" type="submit" name="button" value="Select" id="selectButton">Select</button>
+                </form>
+                {% else %}
+                <div style="display: flex;">
+                    <div style="flex: 1;">
+                        <button class="btn btn-success" type="button" name="button" value="Select" id="selectButton" disabled>Selected</button>
+                    </div>
+                    <div style="flex: 1;">
+                      {% if not x.interview_scheduled %}
+                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" onclick="setDesignation('{{ x.job_id.designation }}', '{{ x.id }}', '{{ x.user_id_id }}')">
                         Schedule
                     </button>
-                {% else %}
-                    <button class="btn btn-success" type="button" disabled>Interview Scheduled</button>
-                {% endif %}
-            </div>
-          </div>
-      {% endif %}
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-      <script>
-        // Function to handle form submission via JavaScript
-        function submitForm(buttonValue) {
-            const form = document.getElementById('applicationForm');
-            const formData = new FormData(form);
-    
-            // Add the clicked button's value to the form data
-            formData.append('button', buttonValue);
-    
-            fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest', // Add this header for Django to detect AJAX request
-                    'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Display SweetAlert
-                if (data.status === 'success') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Application Updated!',
-                        text: data.message,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        // Reload the page after clicking "OK" in the SweetAlert
-                        if (result.isConfirmed) {
-                            window.location.reload();
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: data.message,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK'
-                    });
-                }
-    
-                // Update button text and disable it if status is success
-                if (data.status === 'success') {
-                    const selectButton = document.getElementById('selectButton');
-                    selectButton.textContent = 'Selected';
-                    selectButton.disabled = true;
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    
-        // Event listener for form submission
-        document.getElementById('applicationForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
-            submitForm('Select'); // Call the submitForm function with the button value
-        });
-    </script>
+                    
+                      {% else %}
+                          <button class="btn btn-success" type="button" disabled>Interview Scheduled</button>
+                      {% endif %}
+                  </div>
+                </div>
+            {% endif %}
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+            <script>
+              // Function to handle form submission via JavaScript
+              function submitForm(buttonValue) {
+                  const form = document.getElementById('applicationForm');
+                  const formData = new FormData(form);
+          
+                  // Add the clicked button's value to the form data
+                  formData.append('button', buttonValue);
+          
+                  fetch(form.action, {
+                      method: 'POST',
+                      body: formData,
+                      headers: {
+                          'X-Requested-With': 'XMLHttpRequest', // Add this header for Django to detect AJAX request
+                          'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
+                      }
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                      // Display SweetAlert
+                      if (data.status === 'success') {
+                          Swal.fire({
+                              icon: 'success',
+                              title: 'Application Updated!',
+                              text: data.message,
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'OK'
+                          }).then((result) => {
+                              // Reload the page after clicking "OK" in the SweetAlert
+                              if (result.isConfirmed) {
+                                  window.location.reload();
+                              }
+                          });
+                      } else {
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Error!',
+                              text: data.message,
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'OK'
+                          });
+                      }
+          
+                      // Update button text and disable it if status is success
+                      if (data.status === 'success') {
+                          const selectButton = document.getElementById('selectButton');
+                          selectButton.textContent = 'Selected';
+                          selectButton.disabled = true;
+                      }
+                  })
+                  .catch(error => console.error('Error:', error));
+              }
+          
+              // Event listener for form submission
+              document.getElementById('applicationForm').addEventListener('submit', function(event) {
+                  event.preventDefault(); // Prevent default form submission
+                  submitForm('Select'); // Call the submitForm function with the button value
+              });
+          </script>
+            </div> 
         </div>
-      </div>
     </div>
     {% endfor %}
     <script>
-    function setDesignation(designation, applicationId, userId) {
-    // Your existing code to set the designation
-    console.log("user idddddddddddd",userId)
-    document.getElementById('designation').value = designation;
-
-    // Store applicationId and companyId in hidden inputs
-    document.getElementById('applicationId').value = applicationId;
-    document.getElementById('UserId').value = userId;
-}
-    </script>
-  </div>
+      // Define the setDesignation function
+      function setDesignation(designation, applicationId, userId) {
+          // Set the values of the fields in the modal form
+          console.log(designation,applicationId,userId)
+          document.getElementById('designation').value = designation;
+          
+          document.getElementById('applicationId').value = applicationId;
+          document.getElementById('UserId').value = userId;
+      }
+  </script>
 </div>
 
-
-
-                    </div>
-                  </div>
-                </div>
-
+            
               </div>
+            
+            </div>
+           
 
+            <div class="content-backdrop fade"></div>
           </div>
-          <!-- updating status -->
-          
+          <!-- Content wrapper -->
         </div>
-        <!-- main-panel ends -->
+        <!-- / Layout page -->
       </div>
-      <!-- page-body-wrapper ends -->
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-   <!-- schedule modal -->
-   
-   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Schedule Interview</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <div class="modal-body">
-          <form id="scheduleForm" method="post" action="{% url 'schedule_interview' %}">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="designation">Designation:</label>
-                <input type="text" name="designation" class="form-control" id="designation" placeholder="Enter designation">
-            </div>
-            <input type="hidden" id="applicationId" name="application_id">
-            <input type="hidden" id="UserId" name="user_id">
-
-            <div class="form-group">
-                <label for="date">Date:</label>
-                <input type="date" class="form-control" name="date" id="date">
-            </div>
-            <div id="availableTimings"></div>
-            <div class="form-group">
-                <label for="start_time">Start Time:</label>
-                <input type="time" class="form-control" name="start_time" id="start_time">
-            </div>
-            <div class="form-group">
-                <label for="end_time">End Time:</label>
-                <input type="time" class="form-control" name="end_time" id="end_time">
-            </div>
-            <div class="form-group">
-              <label>Mode of Interview:</label><br>
-              <div class="form-row">
-                  <div class="col-auto">
-                      <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="mode_of_interview" id="walkIn" name="mode_of_interview" value="Walk in">
-                          <label class="form-check-label" for="walkIn">Walk in</label>
-                      </div>
-                  </div>
-                  <div class="col-auto">
-                      <div class="form-check form-check-inline">
-                          <input class="form-check-input" name="mode_of_interview" type="radio" name="mode_of_interview" id="online" value="Online">
-                          <label class="form-check-label" for="online">Online</label>
-                      </div>
-                  </div>
-              </div>
-          </div>
-            <button type="button" class="btn btn-success" id="submitSchedule">Submit</button>
-        </form>
-        
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- form submission -->
-  <script>
-    document.getElementById("submitSchedule").addEventListener("click", function () {
-        // Get form data
-        const formData = new FormData(document.getElementById("scheduleForm"));
-        
-        // Fetch URL
-        fetch("{% url 'schedule_interview' %}", {
-            method: "POST",
-            body: formData,
-            headers: {
-                "X-CSRFToken": "{{ csrf_token }}",
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "success") {
-                // Display success message
-                alert("Interview scheduled successfully!");
-                window.location.reload();
-                // You can customize the alert using SweetAlert or other libraries
-                // For SweetAlert:
-                // swal("Success!", "Interview scheduled successfully!", "success");
-            } else {
-                // Handle error
-                alert("Failed to schedule interview. Please try again.");
-                window.location.reload();
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("An error occurred while scheduling the interview. Please try again later.");
-        });
-    });
-</script>
-
-
-
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="/static/assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<!-- Bootstrap JavaScript -->
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/static/assets/vendors/chart.js/Chart.min.js"></script>
-    <script src="/static/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-    <script src="/static/assets/vendors/flot/jquery.flot.js"></script>
-    <script src="/static/assets/vendors/flot/jquery.flot.resize.js"></script>
-    <script src="/static/assets/vendors/flot/jquery.flot.categories.js"></script>
-    <script src="/static/assets/vendors/flot/jquery.flot.fillbetween.js"></script>
-    <script src="/static/assets/vendors/flot/jquery.flot.stack.js"></script>
-    <script src="/static/assets/vendors/flot/jquery.flot.pie.js"></script>
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="/static/assets/js/off-canvas.js"></script>
-    <script src="/static/assets/js/hoverable-collapse.js"></script>
-    <script src="/static/assets/js/misc.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <script src="/static/assets/js/dashboard.js"></script>
-    <!-- End custom js for this page -->
+    <!-- / Layout wrapper -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Schedule Interview</h5>
+            
+          </div>
+  
+          <div class="modal-body">
+            <form id="scheduleForm" method="post" action="{% url 'schedule_interview' %}">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label for="designation">Designation:</label>
+                  <input type="text" name="designation" class="form-control" id="designation" placeholder="Enter designation">
+              </div>
+              <input type="hidden" id="applicationId" name="application_id">
+              <input type="hidden" id="UserId" name="user_id">
+  
+              <div class="form-group">
+                  <label for="date">Date:</label>
+                  <input type="date" class="form-control" name="date" id="date">
+              </div>
+              <div id="availableTimings"></div>
+              <div class="form-group">
+                  <label for="start_time">Start Time:</label>
+                  <input type="time" class="form-control" name="start_time" id="start_time">
+              </div>
+              <div class="form-group">
+                  <label for="end_time">End Time:</label>
+                  <input type="time" class="form-control" name="end_time" id="end_time">
+              </div>
+              <div class="form-group">
+                <label>Mode of Interview:</label><br>
+                <div class="form-row">
+                    <div class="col-auto">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="mode_of_interview" id="walkIn" name="mode_of_interview" value="Walk in">
+                            <label class="form-check-label" for="walkIn">Walk in</label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="mode_of_interview" type="radio" name="mode_of_interview" id="online" value="Online">
+                            <label class="form-check-label" for="online">Online</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              <button type="button" class="btn btn-secondary" id="submitSchedule">Schedule</button>
+          </form>
+          
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.getElementById("submitSchedule").addEventListener("click", function () {
+          // Get form data
+          const formData = new FormData(document.getElementById("scheduleForm"));
+          
+          // Fetch URL
+          fetch("{% url 'schedule_interview' %}", {
+              method: "POST",
+              body: formData,
+              headers: {
+                  "X-CSRFToken": "{{ csrf_token }}",
+              },
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.status === "success") {
+                  // Display success message
+                  alert("Interview scheduled successfully!");
+                  window.location.reload();
+                  // You can customize the alert using SweetAlert or other libraries
+                  // For SweetAlert:
+                  // swal("Success!", "Interview scheduled successfully!", "success");
+              } else {
+                  // Handle error
+                  alert("Failed to schedule interview. Please try again.");
+                  window.location.reload();
+              }
+          })
+          .catch(error => {
+              console.error("Error:", error);
+              alert("An error occurred while scheduling the interview. Please try again later.");
+          });
+      });
+  </script>
+  
+
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="/static/company_assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="/static/company_assets/vendor/libs/popper/popper.js"></script>
+    <script src="/static/company_assets/vendor/js/bootstrap.js"></script>
+    <script src="/static/company_assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="/static/company_assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="/static/company_assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="/static/company_assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="/static/company_assets/js/dashboards-analytics.js"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>
